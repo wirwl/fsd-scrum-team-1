@@ -2,6 +2,7 @@
   "extends": "stylelint-config-airbnb",
   "rules": {
     "string-quotes": "single",
-    "max-nesting-depth": 5
+    "max-nesting-depth": 5,
+    "order/order": []
   }
 }
