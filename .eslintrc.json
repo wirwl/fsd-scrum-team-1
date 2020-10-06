@@ -18,6 +18,7 @@
   },
   "plugins": ["@typescript-eslint", "promise"],
   "rules": {
+    "linebreak-style": "off",
     "jsx-quotes": ["error", "prefer-single"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
