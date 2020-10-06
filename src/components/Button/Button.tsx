@@ -13,7 +13,7 @@ const Button: React.FC<IButton> = (props) => {
   if (theme) classes.push(`button_theme_${theme}`);
 
   return (
-    <button type='button' className={classes.join(' ')}>{ text }</button>
+    <button type="button" className={classes.join(' ')}>{ text }</button>
   );
 };
 
