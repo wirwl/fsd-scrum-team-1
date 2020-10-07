@@ -17,7 +17,7 @@ const MainLayout: FC<IMainLayoutProps> = ({
 }) => (
   <>
     <Head>
-      <title>{title}</title>
+      <title>{`${title} | Toxin`}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <meta charSet="utf-8" />
