@@ -11,9 +11,7 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ id }) => (
   </PagesLayout>
 );
 
-const getServerSideProps: GetServerSideProps = async (
-  context,
-): Promise<{ props: IRoomDetailsProps }> => ({
+const getServerSideProps: GetServerSideProps = async (context) => ({
   props: { id: context.query.id },
 });
 
