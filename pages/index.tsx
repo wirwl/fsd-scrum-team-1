@@ -1,5 +1,4 @@
 import Button from '@components/Button/Button';
-import '@styles/index.scss';
 import React from 'react';
 
 const Home: React.FC = () => (
