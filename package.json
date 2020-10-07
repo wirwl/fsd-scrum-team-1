@@ -1,0 +1,66 @@
+{
+  "name": "scrum-team-1",
+  "version": "1.0.0",
+  "description": "Цель данного проекта: Изучить React, Redux, Mobx",
+  "scripts": {
+    "dev": "npx next dev",
+    "build": "npx next build",
+    "start": "npx next start",
+    "eslint": "npx eslint src pages --cache",
+    "eslint:fix": "npx eslint src pages --fix",
+    "stylelint": "npx stylelint '**/*.scss'",
+    "stylelint:fix": "npx stylelint '**/*.scss' --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/SergeyVN94/scrum-team-1.git"
+  },
+  "keywords": [
+    "react",
+    "next-js"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/SergeyVN94/scrum-team-1/issues"
+  },
+  "homepage": "https://gitlab.com/SergeyVN94/scrum-team-1#readme",
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "@types/react": "^16.9.50",
+    "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-typescript": "^11.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "stylelint": "^13.7.2",
+    "stylelint-config-airbnb": "0.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0",
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
+    "postcss": "^8.1.1",
+    "postcss-flexbugs-fixes": "^4.2.1",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.26.11",
+    "typescript": "^4.0.3",
+    "webpack": "^4.44.2"
+  },
+  "dependencies": {
+    "bem-cn": "^3.0.1",
+    "next": "^9.5.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
