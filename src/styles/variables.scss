@@ -10,8 +10,8 @@ $mainColorGradient: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
 $secondColorGradient: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
 
 $fontColor: #1f2041;
-$fontColorLight75: transparentize($fontColor, 0.25);
-$fontColorLight50: transparentize($fontColor, 0.5);
-$fontColorLight25: transparentize($fontColor, 0.75);
-$fontColorLight10: transparentize($fontColor, 0.9);
-$fontColorLight5: transparentize($fontColor, 0.95);
+$fontColorLight75: transparentize($fontColor, .25);
+$fontColorLight50: transparentize($fontColor, .5);
+$fontColorLight25: transparentize($fontColor, .75);
+$fontColorLight10: transparentize($fontColor, .9);
+$fontColorLight5: transparentize($fontColor, .95);
