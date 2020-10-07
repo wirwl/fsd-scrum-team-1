@@ -1,12 +1,14 @@
-import Button from '@components/Button/Button';
-import '@styles/index.scss';
 import React from 'react';
 
-const Home: React.FC = () => (
-  <React.StrictMode>
+import '@styles/index.scss';
+import Button from '@components/Button/Button';
+import MainLayout from '../src/layouts/MainLayout';
+
+const Main: React.FC = () => (
+  <MainLayout>
     <h1 className="m">Hello, World!</h1>
     <Button text="click me" theme="success" />
-  </React.StrictMode>
+  </MainLayout>
 );
 
-export default Home;
+export default Main;
