@@ -1,16 +1,22 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { NextPageContext } from 'next';
 
 import PagesLayout from 'src/layouts/PagesLayout';
 
-const RoomDetails: React.FC = () => {
-  const router = useRouter();
+type IRoomDetailsProps = { id: string | string[] | undefined };
 
-  return (
-    <PagesLayout title="Room Details">
-      <h1>{`Room #${router.query.id} Details Page`}</h1>
-    </PagesLayout>
-  );
-};
+const RoomDetails: React.FC<IRoomDetailsProps> = ({ id }) => (
+  <PagesLayout title="Room Details">
+    <h1>{`Room #${id} Details Page`}</h1>
+  </PagesLayout>
+);
+
+const getServerSideProps = async (
+  context: NextPageContext,
+): Promise<{ props: IRoomDetailsProps }> => ({
+  props: { id: context.query.id },
+});
+
+export { getServerSideProps };
 
 export default RoomDetails;
