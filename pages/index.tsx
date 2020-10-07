@@ -1,5 +1,4 @@
 import Button from '@components/Button/Button';
-import Calendar from '@components/Calendar/Calendar';
 import '@styles/index.scss';
 import React from 'react';
 
