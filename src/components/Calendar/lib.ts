@@ -1,10 +1,5 @@
 import { BemItem, Block } from 'bem-cn';
 
-type RangeDays = {
-  start: Date | null;
-  end: Date | null;
-};
-
 const getDaysInMonth = (date: Date): number => (
   new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
 );
@@ -105,7 +100,7 @@ const updateRange = (params: {
   day: Date;
   start: Date | null;
   end: Date | null;
-  selectMode: 'start' | 'end' | 'auto';
+  selectMode: CalendarMode;
 }): RangeDays => {
   const {
     day,
@@ -128,18 +123,16 @@ const updateRange = (params: {
   if (targetDateInMilliseconds <= currentDate.getTime()) return newRange;
 
   if (selectMode === 'start' || selectMode === 'end') {
-    const isTargetDateCanBeSetToStart = !endIsNull
-    && targetDateInMilliseconds < (end as Date).getTime();
-    const isTargetDateCanBeSetToEnd = !startIsNull
-    && targetDateInMilliseconds > (start as Date).getTime();
-    const inNeedResetRangeEnd = !isTargetDateCanBeSetToStart && !endIsNull;
-
     if (selectMode === 'start') {
       newRange.start = targetDate;
+      const inNeedResetRangeEnd = !endIsNull && (targetDate.getTime() >= (end as Date).getTime());
       if (inNeedResetRangeEnd) newRange.end = null;
+    } else {
+      const isTargetDateCanBeSetToEnd = !startIsNull
+      && (targetDateInMilliseconds > (start as Date).getTime());
+      if (startIsNull || isTargetDateCanBeSetToEnd) newRange.end = targetDate;
     }
 
-    if (startIsNull || isTargetDateCanBeSetToEnd) newRange.end = targetDate;
     return newRange;
   }
 

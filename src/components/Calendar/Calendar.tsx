@@ -4,13 +4,8 @@ import { block } from 'bem-cn';
 import createDaysList, { getDayClasses, updateRange } from './lib';
 import './calendar.scss';
 
-type RangeDays = {
-  start: Date | null;
-  end: Date | null;
-};
-
 interface ICalendarProps {
-  selectRangeDay?: 'start' | 'end' | 'auto';
+  selectRangeDay?: CalendarMode;
   weekdayNames?: string[];
   monthNames?: string[];
   buttonClear?: string;
@@ -51,20 +46,28 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
   });
   const [range, setRange] = useState<RangeDays>(() => ({ start: null, end: null }));
   const b = block('calendar');
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
 
-  const handleButtonChangeMonthClick = (ev: React.MouseEvent<HTMLButtonElement>): void => {
-    const isNextMonth = ev.currentTarget.dataset.action === 'next-month';
-
+  const changeMonth = (isNextMonth = false): void => {
     setDrawnDate((prevDate) => {
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+
+      const isCanSwitchBack = prevDate.getFullYear() > currentDate.getFullYear()
+      || (prevDate.getFullYear() === currentDate.getFullYear()
+      && prevDate.getMonth() > currentDate.getMonth());
+
       const tmpDate = new Date(prevDate);
       tmpDate.setMonth(
         prevDate.getMonth() + (isNextMonth ? 1 : -1),
       );
 
-      return tmpDate;
+      return !isCanSwitchBack && !isNextMonth ? prevDate : tmpDate;
     });
+  };
+
+  const handleButtonChangeMonthClick = (ev: React.MouseEvent<HTMLButtonElement>): void => {
+    const isNextMonth = ev.currentTarget.dataset.action === 'next-month';
+    changeMonth(isNextMonth);
   };
 
   const handleControlButtonClick = (ev: React.MouseEvent<HTMLButtonElement>): boolean => {
@@ -84,7 +87,14 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     return true;
   };
 
-  const addDayInRange = (targetDay: Date): boolean => {
+  const handleDayClick = (targetDay: Date): boolean => {
+    const isAnotherMonth = targetDay.getMonth() !== drawnDate.getMonth();
+
+    if (isAnotherMonth) {
+      const isNextMonth = targetDay.getDate() < 8;
+      changeMonth(isNextMonth);
+    }
+
     setRange((prevRange) => updateRange({
       day: targetDay,
       selectMode: selectRangeDay,
@@ -103,9 +113,9 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
         ...range,
       })}
       key={day.getTime()}
-      onClick={() => addDayInRange(day)}
+      onClick={() => handleDayClick(day)}
       role="button"
-      onKeyUp={() => addDayInRange(day)}
+      onKeyUp={() => handleDayClick(day)}
       tabIndex={0}
     >
       <p className={b('day-inner')}>
