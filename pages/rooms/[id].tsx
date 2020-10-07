@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextPageContext } from 'next';
+import { GetServerSideProps } from 'next';
 
 import PagesLayout from 'src/layouts/PagesLayout';
 
@@ -11,8 +11,8 @@ const RoomDetails: React.FC<IRoomDetailsProps> = ({ id }) => (
   </PagesLayout>
 );
 
-const getServerSideProps = async (
-  context: NextPageContext,
+const getServerSideProps: GetServerSideProps = async (
+  context,
 ): Promise<{ props: IRoomDetailsProps }> => ({
   props: { id: context.query.id },
 });
