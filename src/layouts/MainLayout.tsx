@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, StrictMode } from 'react';
 import Head from 'next/head';
 
 type IMainLayoutProps = {
@@ -7,7 +7,7 @@ type IMainLayoutProps = {
   [key in 'header' | 'children' | 'footer']?: React.ReactNode;
 };
 
-const MainLayout: React.FC<IMainLayoutProps> = ({
+const MainLayout: FC<IMainLayoutProps> = ({
   title = 'Main Page',
   description = 'Tutorial project for learning React, Redux, NextJs',
   keywords = 'toxin,components,hotel,react,redux',
@@ -22,11 +22,11 @@ const MainLayout: React.FC<IMainLayoutProps> = ({
       <meta name="keywords" content={keywords} />
       <meta charSet="utf-8" />
     </Head>
-    <React.StrictMode>
+    <StrictMode>
       {header && <header>{header}</header>}
       {children && <main>{children}</main>}
       {footer && <footer>{footer}</footer>}
-    </React.StrictMode>
+    </StrictMode>
   </>
 );
 

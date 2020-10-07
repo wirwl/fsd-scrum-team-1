@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import MainLayout from './MainLayout';
 
@@ -7,7 +7,7 @@ interface IPagesLayoutProps {
   children?: React.ReactNode;
 }
 
-const PagesLayout: React.FC<IPagesLayoutProps> = ({ title, children }) => (
+const PagesLayout: FC<IPagesLayoutProps> = ({ title, children }) => (
   <MainLayout title={title}>{children}</MainLayout>
 
   // Также нужно тут будет добавить хэдер и футер, когда они будут готовы

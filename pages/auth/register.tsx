@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 
 import PagesLayout from 'src/layouts/PagesLayout';
 
-const Register: React.FC = () => (
+const Register: FC = () => (
   <PagesLayout title="Register">
     <h1>Register Page</h1>
   </PagesLayout>

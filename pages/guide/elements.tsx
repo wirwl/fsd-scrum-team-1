@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 
 import MainLayout from 'src/layouts/MainLayout';
 
-const Elements: React.FC = () => (
+const Elements: FC = () => (
   <MainLayout title="Elements">
     <h1>Elements Page</h1>
   </MainLayout>
