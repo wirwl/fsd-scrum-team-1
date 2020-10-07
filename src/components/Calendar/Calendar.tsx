@@ -15,6 +15,9 @@ interface ICalendarProps {
   monthNames?: string[];
   buttonClear?: string;
   buttonApply?: string;
+  onRangeUpdate?: (range: RangeDays) => void;
+  onApply?: (range: RangeDays) => void;
+  onClear?: () => void;
 }
 
 const Calendar: React.FC<ICalendarProps> = (props) => {
@@ -37,6 +40,8 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     buttonClear = 'очистить',
     buttonApply = 'применить',
     selectRangeDay = 'auto',
+    onApply = null,
+    onClear = null,
   } = props;
 
   const [drawnDate, setDrawnDate] = useState(() => {
@@ -60,6 +65,23 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
 
       return tmpDate;
     });
+  };
+
+  const handleControlButtonClick = (ev: React.MouseEvent<HTMLButtonElement>): boolean => {
+    const { currentTarget } = ev;
+
+    if (currentTarget.dataset.action === 'clear') {
+      setRange({ start: null, end: null });
+      onClear && onClear();
+      return true;
+    }
+
+    if (currentTarget.dataset.action === 'apply') {
+      onApply && onApply(range);
+      return true;
+    }
+
+    return true;
   };
 
   const addDayInRange = (targetDay: Date): boolean => {
@@ -122,10 +144,20 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       </div>
       <div className={b('days-container')}>{daysElements}</div>
       <div className={b('control-buttons')}>
-        <button className={b('clear-button')} type="button">
+        <button
+          className={b('clear-button')}
+          data-action="clear"
+          type="button"
+          onClick={handleControlButtonClick}
+        >
           {buttonClear}
         </button>
-        <button className={b('apply-button')} type="button">
+        <button
+          className={b('apply-button')}
+          data-action="apply"
+          type="button"
+          onClick={handleControlButtonClick}
+        >
           {buttonApply}
         </button>
       </div>
