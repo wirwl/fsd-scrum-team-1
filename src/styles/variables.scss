@@ -1,17 +1,17 @@
-$mainFont: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
-$headerFont: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+$main-font: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+$header-font: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
 
-$bgColor: #fff;
+$bg-color: #fff;
 
-$mainColor:  #bc9cff;
-$secondColor:  #6fcf97;
+$main-color:  #bc9cff;
+$second-color:  #6fcf97;
 
-$mainColorGradient: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
-$secondColorGradient: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
+$main-color-gradient: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+$second-color-gradient: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
 
-$fontColor: #1f2041;
-$fontColorLight75: transparentize($fontColor, .25);
-$fontColorLight50: transparentize($fontColor, .5);
-$fontColorLight25: transparentize($fontColor, .75);
-$fontColorLight10: transparentize($fontColor, .9);
-$fontColorLight5: transparentize($fontColor, .95);
+$font-color: #1f2041;
+$font-color-light75: transparentize($font-color, .25);
+$font-color-light50: transparentize($font-color, .5);
+$font-color-light25: transparentize($font-color, .75);
+$font-color-light10: transparentize($font-color, .9);
+$font-color-light5: transparentize($font-color, .95);
