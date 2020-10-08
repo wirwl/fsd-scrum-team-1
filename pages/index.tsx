@@ -8,8 +8,8 @@ const Main: FC = () => (
     <h1 className="m">Hello, World!</h1>
     <Button />
     <Button theme="white" />
-    <Button theme="textual" type="link" href="/auth" />
-    <Button type="link" href="/auth" />
+    <Button theme="textual" href="/auth" />
+    <Button href="/auth" />
   </MainLayout>
 );
 

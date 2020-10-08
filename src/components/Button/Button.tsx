@@ -6,7 +6,7 @@ type IButtonProps = Partial<{
   theme: 'default' | 'white' | 'textual';
   size: 'fluid';
   caption: string,
-  type: 'button' | 'submit' | 'link',
+  type: 'button' | 'submit',
   href: string,
   withArrow: boolean,
 }>;
@@ -34,10 +34,8 @@ const Button: React.FC<IButtonProps> = ({
     </span>
   );
 
-  const isButton = type === 'button' || type === 'submit';
-
   return (
-    isButton
+    !href
       ? <button type={type === 'button' ? 'button' : 'submit'} className={b(modifiers)}>{buttonInner}</button>
       : <a href={href} className={b(modifiers)}>{buttonInner}</a>
   );
