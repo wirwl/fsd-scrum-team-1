@@ -21,7 +21,7 @@
     -webkit-text-fill-color: transparent;
 
     &:hover {
-      background: linear-gradient(180deg, #bc9cff7f 0%, #8ba4f97f 100%);
+      background: $main-color-gradient-half-opacity;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
