@@ -17,8 +17,8 @@ const SocialButtons: React.FC<ISocialButtons> = (props) => {
 
   return (
     <ul className={b()}>
-      {items.map((item, index) => (
-        <li className={b('item')} key={index}>
+      {items.map((item) => (
+        <li className={b('item')} key={item.text}>
           <a className={b('button')} href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
         </li>
       ))}
