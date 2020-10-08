@@ -1,12 +1,14 @@
+@import '@styles/variables';
+
 .calendar {
   width: 100%;
   max-width: 320px;
   box-sizing: border-box;
   padding: 20px 20px;
   background: #ffffff;
-  border: .0714rem solid  rgba(31, 32, 65, .25);
+  border: .0714rem solid $font-color-light25;
   box-sizing: border-box;
-  box-shadow: 0rem 10px 20px rgba(31, 32, 65, .05);
+  box-shadow: 0rem 10px 20px $font-color-light5;
   border-radius: .2857rem;
 
   &__date-navigation {
@@ -29,7 +31,7 @@
 
   &__drawn-date {
     margin: 0;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: $header-font;
   }
 
   &__weekday-names {
@@ -46,12 +48,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Montserrat;
+    font-family: $main-font;
     font-style: normal;
     font-weight: bold;
     font-size: .75rem;
     line-height: .9375rem;
-    color: rgb(188, 156, 255);
+    color: $main-color;
     font-weight: bold;
   }
 
@@ -84,7 +86,7 @@
           height: 100%;
           position: absolute;
           display: block;
-          background: linear-gradient(180deg, #BC9CFF 0%, #8BA4F9 100%);
+          background: $main-color-gradient;
           opacity: .25;
         }
       }
@@ -111,12 +113,12 @@
         cursor: default;
         
         .calendar__day-number {
-          color: rgba(31, 32, 65, .25);
+          color: $font-color-light25;
         }
       }
 
       &_another-month .calendar__day-number {
-        color: rgba(31, 32, 65, .25);
+        color: $font-color-light25;
       }
   
       &_range-day-middle {
@@ -132,17 +134,17 @@
           height: 100%;
           position: absolute;
           display: block;
-          background: linear-gradient(180deg, #BC9CFF 0%, #8BA4F9 100%);
+          background: $main-color-gradient;
           opacity: .25;
         }
       }
   
       &_range-day {
-        background: linear-gradient(180deg, #BC9CFF 0%, #8BA4F9 100%);
+        background: $main-color-gradient;
       }
   
       &_today {
-        background: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
+        background: $second-color-gradient;
         cursor: default;
       }
 
@@ -169,11 +171,11 @@
   &__day-number {
     display: block;
     text-align: center;
-    font-family: Montserrat, Arial, sans-serif;
+    font-family: $main-font;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
-    color: rgba(31, 32, 65, .5);
+    color: $font-color-light50;
     text-align: center;
   }
 
