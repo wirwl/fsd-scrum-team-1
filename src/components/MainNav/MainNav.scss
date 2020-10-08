@@ -1,0 +1,33 @@
+@import '@styles/variables';
+
+.main-nav {
+  display: flex;
+  justify-content: flex-end;
+
+  list-style-type: none;
+
+  font-family: $main-font;
+  font-size: 14px;
+
+  &__item:not(:first-child) {
+    margin-left: 10px;
+  }
+
+  &__item-link {
+    text-decoration: none;
+
+    color: $font-color-light50;
+
+    outline: none;
+  }
+
+  &__item_selected &__item-link {
+    color: $font-color-light75;
+
+    font-weight: 700;
+  }
+
+  &__item-link:hover {
+    color: $font-color-light75;
+  }
+}
