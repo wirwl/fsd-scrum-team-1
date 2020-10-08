@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import MainLayout from 'src/layouts/MainLayout';
+import MainLayout from '@layouts/MainLayout';
 
 const Guide: FC = () => (
   <MainLayout title="Guide">

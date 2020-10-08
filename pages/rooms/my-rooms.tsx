@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import PagesLayout from 'src/layouts/PagesLayout';
+import PagesLayout from '@layouts/PagesLayout';
 
 const MyRooms: FC = () => (
   <PagesLayout title="My Rooms">
