@@ -1,0 +1,21 @@
+@import './fonts.scss';
+
+@import './variables.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $bg-color;
+  color: $font-color-light75;
+
+  font-family: $main-font;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
