@@ -20,11 +20,16 @@
 
   &__change-month {
     width: 24px;
-    height: 24px;
+    cursor: pointer;
+
+    &_hidden {
+      visibility: hidden;
+    }
   }
 
   &__drawn-date {
-    font-family: Montserrat, Arial, sans-serif;
+    margin: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
   }
 
   &__weekday-names {
@@ -34,14 +39,19 @@
   }
 
   &__weekday-name {
-    height: 2.8571rem;
+    margin: 0;
+    padding: 12.5px 0;
     width: 100%;
     max-width: 2.8571rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .75rem;
+    line-height: .9375rem;
     color: rgb(188, 156, 255);
-    font-size: 12px;
     font-weight: bold;
   }
 
@@ -163,7 +173,7 @@
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
-    color: rgb(111, 207, 151);
+    color: rgba(31, 32, 65, .5);
     text-align: center;
   }
 
@@ -172,5 +182,9 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+  }
+
+  &__clear-button_hidden {
+    visibility: hidden;
   }
 }

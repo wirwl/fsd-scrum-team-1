@@ -46,16 +46,15 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
   });
   const [range, setRange] = useState<RangeDays>(() => ({ start: null, end: null }));
   const b = block('calendar');
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+  const isCanSwitchBack = drawnDate.getFullYear() > currentDate.getFullYear()
+  || (drawnDate.getFullYear() === currentDate.getFullYear()
+  && drawnDate.getMonth() > currentDate.getMonth());
+  const rangeIsEmpty = range.start === null && range.end === null;
 
   const changeMonth = (isNextMonth = false): void => {
     setDrawnDate((prevDate) => {
-      const currentDate = new Date();
-      currentDate.setHours(0, 0, 0, 0);
-
-      const isCanSwitchBack = prevDate.getFullYear() > currentDate.getFullYear()
-      || (prevDate.getFullYear() === currentDate.getFullYear()
-      && prevDate.getMonth() > currentDate.getMonth());
-
       const tmpDate = new Date(prevDate);
       tmpDate.setMonth(
         prevDate.getMonth() + (isNextMonth ? 1 : -1),
@@ -131,7 +130,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       <div className={b('date-navigation')}>
         <button
           type="button"
-          className={b('change-month')}
+          className={b('change-month', { hidden: !isCanSwitchBack })}
           data-action="previous-month"
           onClick={handleButtonChangeMonthClick}
         >
@@ -155,7 +154,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       <div className={b('days-container')}>{daysElements}</div>
       <div className={b('control-buttons')}>
         <button
-          className={b('clear-button')}
+          className={b('clear-button', { hidden: rangeIsEmpty })}
           data-action="clear"
           type="button"
           onClick={handleControlButtonClick}
