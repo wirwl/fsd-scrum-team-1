@@ -1,6 +1,5 @@
 import { FC } from 'react';
 
-import '@styles/index.scss';
 import MainLayout from 'src/layouts/MainLayout';
 import Calendar from '@components/Calendar/Calendar';
 
