@@ -30,7 +30,7 @@ const Button: React.FC<IButtonProps> = ({
   const buttonInner = (
     <span className={b('inner-wrapper')}>
       <span className={b('caption')}>{caption}</span>
-      {/* {withArrow && <span className={`${b('arrow')} material-icons`}>arrow_forward</span>} */}
+      {withArrow && <span className={`${b('arrow')} material-icons`}>arrow_forward</span>}
     </span>
   );
 
