@@ -1,3 +1,5 @@
+@import '@styles/variables.scss';
+
 .social-buttons {
   display: flex;
   font-family: "awesome-5-brands-regular-400";
@@ -13,7 +15,7 @@
 
   &__button {
     text-decoration: none;
-    background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+    background: $main-color-gradient;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

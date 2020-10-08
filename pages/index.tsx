@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 
 import Button from '@components/Button/Button';
 import SocialButtons from '@components/social-buttons/social-buttons';
-import '@styles/index.scss';
-
 import MainLayout from '../src/layouts/MainLayout';
 
 const Main: FC = () => (
