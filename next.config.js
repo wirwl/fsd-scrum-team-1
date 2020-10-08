@@ -1,3 +1,4 @@
+const withCSS = require('@zeit/next-css');
 const withSass = require('@zeit/next-sass');
 
 let config = {
@@ -12,6 +13,6 @@ let config = {
   },
 };
 
-config = withSass(config);
+config = withCSS(withSass(config));
 
 module.exports = config;
