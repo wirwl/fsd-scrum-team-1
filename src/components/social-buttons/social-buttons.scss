@@ -21,10 +21,7 @@
     -webkit-text-fill-color: transparent;
 
     &:hover {
-      background: $main-color-gradient-half-opacity;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+        opacity: .7;
     }
   }
 }
