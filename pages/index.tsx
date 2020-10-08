@@ -1,6 +1,5 @@
 import { FC } from 'react';
 
-import '@styles/index.scss';
 import Button from '@components/Button/Button';
 import MainLayout from '../src/layouts/MainLayout';
 
