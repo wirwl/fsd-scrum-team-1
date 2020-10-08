@@ -1,0 +1,17 @@
+$main-font: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+$header-font: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+
+$bg-color: #fff;
+
+$main-color:  #bc9cff;
+$second-color:  #6fcf97;
+
+$main-color-gradient: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+$second-color-gradient: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
+
+$font-color: #1f2041;
+$font-color-light75: transparentize($font-color, .25);
+$font-color-light50: transparentize($font-color, .5);
+$font-color-light25: transparentize($font-color, .75);
+$font-color-light10: transparentize($font-color, .9);
+$font-color-light5: transparentize($font-color, .95);
