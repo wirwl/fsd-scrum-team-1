@@ -12,27 +12,26 @@ const menuSVG = (require('./img/menu.svg')).default as string;
 
 import "./MainNav.scss";
 
-const items: IMenuItem[] = [
-  { type: IItemType.LINK, label: 'О нас', href: '/' },
-  { type: IItemType.SUBMENU, label: 'Услуги', submenu: [
-    { type: IItemType.LINK, label: 'Бронирование', href: '/about1' },
-    { type: IItemType.LINK, label: 'Уведомления о скидках', href: '/about2' },
-    { type: IItemType.LINK, label: 'Доставка багажа', href: '/about3' },
-    { type: IItemType.LINK, label: 'Ловля карасей в бассейне', href: '/about4' },
-  ] },
-  { type: IItemType.LINK, label: 'Вакансии', href: '/vacancy' },
-  { type: IItemType.LINK, label: 'Новости', href: '/news' },
-  { type: IItemType.SUBMENU, label: 'Соглашения', submenu: [
-    { type: IItemType.LINK, label: 'Бронирование', href: '/about11' },
-    { type: IItemType.LINK, label: 'Уведомления о скидках', href: '/about22' },
-    { type: IItemType.LINK, label: 'Доставка багажа', href: '/about33' },
-    { type: IItemType.LINK, label: 'Ловля карасей в бассейне', href: '/about44' },
-  ]}
-];
+type INavMenuProps = {
+  items: IMenuItem[];
+}
 
 const b = block('main-nav');
 
-const MainNav = () => {
+/**
+ * This component implements MainNav
+ * It receive one prop `items` with type IMenuItem[]
+ * Example items:
+ *   const items: IMenuItem[] = [
+ *    { type: IItemType.LINK, label: 'О нас', href: '/' },
+ *    { type: IItemType.SUBMENU, label: 'Услуги', submenu: [
+ *      { type: IItemType.LINK, label: 'Бронирование', href: '/about1' },
+ *      { type: IItemType.LINK, label: 'Уведомления о скидках', href: '/about2' },
+ *    ] },
+ *    { type: IItemType.LINK, label: 'Вакансии', href: '/vacancy' },
+ *   ]
+ */
+const MainNav: FC<INavMenuProps> = ({ items }) => {
   const [isMenuHidden, toggleMenu] = useState<boolean>(false);
   const router = useRouter();
 
@@ -45,7 +44,7 @@ const MainNav = () => {
           className={b('toggle-btn-icon').toString()}
           svg={isMenuHidden ? menuSVG : closeSVG} />
       </button>
-      { 
+      {
         items.map(
           (item) => <NavItem
             key={item.label}
@@ -61,3 +60,11 @@ const MainNav = () => {
 }
 
 export default MainNav;
+
+export {
+  IItemType,
+}
+
+export type {
+  IMenuItem,
+}
