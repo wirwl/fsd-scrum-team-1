@@ -140,27 +140,13 @@ const updateRange = (params: {
   const rangeIsFull = !startIsNull && !endIsNull;
 
   if (rangeIsEmpty || rangeIsFull) return { start: targetDate, end: null };
-
-  if (!startIsNull) {
-    if ((start as Date).getTime() < targetDateInMilliseconds) {
-      newRange.end = targetDate;
-    } else {
-      newRange.end = newRange.start;
-      newRange.start = targetDate;
-    }
-
-    return newRange;
-  }
-
-  if (!endIsNull) {
-    if ((newRange.end as Date).getTime() > targetDateInMilliseconds) {
+  if (targetDateInMilliseconds !== (start as Date).getTime()) {
+    if (targetDateInMilliseconds < (start as Date).getTime()) {
+      newRange.end = start;
       newRange.start = targetDate;
     } else {
-      newRange.start = newRange.end;
       newRange.end = targetDate;
     }
-
-    return newRange;
   }
 
   return newRange;
