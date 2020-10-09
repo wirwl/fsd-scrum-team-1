@@ -1,34 +1,15 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-
-import Link from 'next/link';
+import type { IMenuItem } from './components/NavItem/NavItem';
 import { block } from 'bem-cn';
+
+import NavItem, { IItemType } from './components/NavItem/NavItem';
 import SVGInline from 'react-svg-inline';
 
-const expandMoreSVG = (require('./img/expand-more-down.svg')).default as string;
 const closeSVG = (require('./img/close.svg')).default as string;
 const menuSVG = (require('./img/menu.svg')).default as string;
 
 import "./MainNav.scss";
-
-enum IItemType {
-  LINK,
-  SUBMENU
-}
-
-type IMenuLink = {
-  type: IItemType.LINK;
-  label: string;
-  href: string;
-}
-
-type IMenuSubmenu = {
-  type: IItemType.SUBMENU;
-  label: string;
-  submenu: IMenuLink[];
-}
-
-type IMenuItem = IMenuLink | IMenuSubmenu;
 
 const selectedHref = '/about';
 
@@ -51,53 +32,6 @@ const items: IMenuItem[] = [
 ];
 
 const b = block('main-nav');
-const bItemSelected = b('item', { selected: true });
-
-type INavItemProps = {
-  item: IMenuItem;
-  isSelected: boolean;
-}
-
-const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
-  const _isSelected = item.type === IItemType.LINK && isSelected;
-
-  const content = item.type === IItemType.LINK
-    ? (
-        <Link href={item.href}>
-          <a tabIndex={0} className={b('item-link')}>
-            {item.label}
-          </a>
-        </Link>
-    )
-    : (
-      <div tabIndex={0} className={b('item-link')}>
-        {item.label}
-        {
-          <SVGInline
-            className={b('item-icon').toString()}
-            svg={expandMoreSVG}
-          />
-        }
-        {
-          <ul className={b('submenu')}>
-            { item.submenu.map((item) => 
-              <li className={b('submenu-item')} key={item.href}>
-                <Link href={item.href}>
-                  <a tabIndex={0} className={b('item-link')}>{item.label}</a>
-                </Link>
-              </li>
-            )}
-          </ul>
-        }
-      </div>
-    );
-
-  return (
-    <li className={ _isSelected ? bItemSelected : b('item') }>
-        { content }
-    </li>
-  );
-}
 
 const MainNav = () => {
   const [isMenuHidden, toggleMenu] = useState<boolean>(false);
