@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { block } from 'bem-cn';
 
+import Button from '@components/Button/Button';
 import createDaysList, { getDayClasses, updateRange } from './lib';
 import './calendar.scss';
 
@@ -153,22 +154,22 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       </div>
       <div className={b('days-container')}>{daysElements}</div>
       <div className={b('control-buttons')}>
-        <button
-          className={b('clear-button', { hidden: rangeIsEmpty })}
-          data-action="clear"
-          type="button"
-          onClick={handleControlButtonClick}
-        >
-          {buttonClear}
-        </button>
-        <button
-          className={b('apply-button')}
-          data-action="apply"
-          type="button"
-          onClick={handleControlButtonClick}
-        >
-          {buttonApply}
-        </button>
+        <div className={b('clear-button', { hidden: rangeIsEmpty })}>
+          <Button
+            data-action="clear"
+            theme="textual"
+            caption={buttonClear}
+            onClick={handleControlButtonClick}
+          />
+        </div>
+        <div className={b('apply-button', { hidden: rangeIsEmpty })}>
+          <Button
+            data-action="apply"
+            theme="textual"
+            caption={buttonApply}
+            onClick={handleControlButtonClick}
+          />
+        </div>
       </div>
     </div>
   );
