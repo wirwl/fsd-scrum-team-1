@@ -19,8 +19,8 @@
     "strict": true,
     "target": "esnext",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"]
+      "@": ["src/"],
+      "@/*": ["src/*"]
     }
   },
   "exclude": ["node_modules"],

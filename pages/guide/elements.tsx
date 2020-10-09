@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import MainLayout from '@layouts/MainLayout';
+import MainLayout from '@/layouts/MainLayout';
 
 const Elements: FC = () => (
   <MainLayout title="Elements">
