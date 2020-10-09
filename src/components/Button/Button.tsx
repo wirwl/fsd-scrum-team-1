@@ -1,37 +1,52 @@
+import { block } from 'bem-cn';
+import { SyntheticEvent } from 'react';
+
 import './button.scss';
 
-import { useDispatch } from 'react-redux';
-import { bookRoom, IOrder } from '../../redux/booking';
+type IButtonProps = Partial<{
+  theme: 'default' | 'white' | 'textual';
+  size: 'fluid';
+  caption: string,
+  type: 'button' | 'submit',
+  href: string,
+  withArrow: boolean,
+  handleClick: (event: SyntheticEvent) => void;
+}>;
 
-interface IButton {
-  text?: string;
-  theme?: 'success';
-}
-
-const Button: React.FC<IButton> = (props) => {
-  const { text = '', theme } = props;
-
-  const classes = ['button'];
-
-  if (theme) classes.push(`button_theme_${theme}`);
-
-  const getRandomInt = (min: number, max: number): number => {
-    const range = Math.floor(max) - Math.ceil(min) + 1;
-    return Math.floor(Math.random() * range + Math.ceil(min));
+const Button: React.FC<IButtonProps> = ({
+  theme = 'default',
+  size,
+  caption = 'click me',
+  type = 'button',
+  href,
+  withArrow,
+  handleClick,
+}) => {
+  const modifiers = {
+    theme,
+    size,
+    'with-arrow': withArrow,
   };
 
-  const dispatch = useDispatch();
+  const b = block('button');
 
-  const handleClick = ():void => {
-    const order: IOrder = {
-      id: getRandomInt(1, 10000000),
-      price: getRandomInt(1, 5999),
-    };
-    dispatch(bookRoom(order));
-  };
+  const buttonInner = (
+    <span className={b('inner-wrapper')}>
+      <span className={b('caption')}>{caption}</span>
+      {withArrow && <span className={`${b('arrow')} material-icons`}>arrow_forward</span>}
+    </span>
+  );
 
   return (
-    <button type="button" className={classes.join(' ')} onClick={handleClick}>{ text }</button>
+    !href ? (
+      <button
+        type={type === 'button' ? 'button' : 'submit'}
+        onClick={handleClick}
+        className={b(modifiers)}
+      >
+        {buttonInner}
+      </button>
+    ) : <a href={href} className={b(modifiers)}>{buttonInner}</a>
   );
 };
 
