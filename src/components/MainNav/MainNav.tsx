@@ -50,8 +50,8 @@ const items: IMenuItem[] = [
   ]}
 ];
 
-const mainNav = block('main-nav');
-const mainNavItemSelected = mainNav('item', { selected: true });
+const b = block('main-nav');
+const bItemSelected = b('item', { selected: true });
 
 type INavItemProps = {
   item: IMenuItem;
@@ -64,26 +64,26 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
   const content = item.type === IItemType.LINK
     ? (
         <Link href={item.href}>
-          <a tabIndex={0} className={mainNav('item-link')}>
+          <a tabIndex={0} className={b('item-link')}>
             {item.label}
           </a>
         </Link>
     )
     : (
-      <div tabIndex={0} className={mainNav('item-link')}>
+      <div tabIndex={0} className={b('item-link')}>
         {item.label}
         {
           <SVGInline
-            className={mainNav('item-icon').toString()}
+            className={b('item-icon').toString()}
             svg={expandMoreSVG}
           />
         }
         {
-          <ul className={mainNav('submenu')}>
+          <ul className={b('submenu')}>
             { item.submenu.map((item) => 
-              <li className={mainNav('submenu-item')} key={item.href}>
+              <li className={b('submenu-item')} key={item.href}>
                 <Link href={item.href}>
-                  <a tabIndex={0} className={mainNav('item-link')}>{item.label}</a>
+                  <a tabIndex={0} className={b('item-link')}>{item.label}</a>
                 </Link>
               </li>
             )}
@@ -93,7 +93,7 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
     );
 
   return (
-    <li className={ _isSelected ? mainNavItemSelected : mainNav('item') }>
+    <li className={ _isSelected ? bItemSelected : b('item') }>
         { content }
     </li>
   );
@@ -103,12 +103,12 @@ const MainNav = () => {
   const [isMenuHidden, toggleMenu] = useState<boolean>(false);
 
   return (
-    <nav className={mainNav({ hidden: isMenuHidden })}>
+    <nav className={b({ hidden: isMenuHidden })}>
       <button
-        className={mainNav('toggle-btn')}
+        className={b('toggle-btn')}
         onClick={() => toggleMenu(!isMenuHidden)}>
         <SVGInline
-          className={mainNav('toggle-btn-icon').toString()}
+          className={b('toggle-btn-icon').toString()}
           svg={isMenuHidden ? menuSVG : closeSVG} />
       </button>
       { 
