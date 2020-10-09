@@ -1,4 +1,5 @@
 import { block } from 'bem-cn';
+import { SyntheticEvent } from 'react';
 
 import './button.scss';
 
@@ -9,6 +10,7 @@ type IButtonProps = Partial<{
   type: 'button' | 'submit',
   href: string,
   withArrow: boolean,
+  handleClick: (event: SyntheticEvent) => void;
 }>;
 
 const Button: React.FC<IButtonProps> = ({
@@ -18,6 +20,7 @@ const Button: React.FC<IButtonProps> = ({
   type = 'button',
   href,
   withArrow,
+  handleClick,
 }) => {
   const modifiers = {
     theme,
@@ -35,9 +38,15 @@ const Button: React.FC<IButtonProps> = ({
   );
 
   return (
-    !href
-      ? <button type={type === 'button' ? 'button' : 'submit'} className={b(modifiers)}>{buttonInner}</button>
-      : <a href={href} className={b(modifiers)}>{buttonInner}</a>
+    !href ? (
+      <button
+        type={type === 'button' ? 'button' : 'submit'}
+        onClick={handleClick}
+        className={b(modifiers)}
+      >
+        {buttonInner}
+      </button>
+    ) : <a href={href} className={b(modifiers)}>{buttonInner}</a>
   );
 };
 
