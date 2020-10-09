@@ -24,6 +24,8 @@ const regexpEmail = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+
 
 const validateAsEmail = (value: string): boolean => regexpEmail.test(value);
 
+const b = block('text-field');
+
 const Input: React.FC<IInputProps> = (props) => {
   const {
     type = 'text',
@@ -43,7 +45,6 @@ const Input: React.FC<IInputProps> = (props) => {
     isCorrectValue: true,
   });
 
-  const b = block('text-field');
   const bemMods: { [index: string]: string | boolean } = {
     'validate-with-error': Boolean(validate && !state.isCorrectValue),
     'with-arrow': withArrow,
