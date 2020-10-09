@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import type { IMenuItem } from './components/NavItem/NavItem';
 import { block } from 'bem-cn';
 
+import type { IMenuItem } from './components/NavItem/NavItem';
 import NavItem, { IItemType } from './components/NavItem/NavItem';
 import SVGInline from 'react-svg-inline';
 
@@ -38,6 +38,7 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
 
   return (
     <nav className={b({ hidden: isMenuHidden })}>
+
       <button
         className={b('toggle-btn')}
         onClick={() => toggleMenu(!isMenuHidden)}>
@@ -45,6 +46,7 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
           className={b('toggle-btn-icon').toString()}
           svg={isMenuHidden ? menuSVG : closeSVG} />
       </button>
+
       {
         items.map(
           (item) => <NavItem
@@ -56,6 +58,7 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
             } />
         )
       }
+
     </nav>
   )
 }

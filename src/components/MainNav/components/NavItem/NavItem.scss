@@ -5,7 +5,7 @@
   &:not(:nth-child(2)) {
     margin-left: 20px;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 420px) {
       margin-left: 0;
     }
   }
@@ -57,7 +57,7 @@
 
     transition: opacity .1s ease-in-out;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 420px) {
       position: relative;
 
       background-color: $font-color-light5;

@@ -19,8 +19,7 @@ $mobile-menu-max-height: 300px;
 
   transition: max-height .2s ease-in;
 
-  // @media (max-width: 420px) {
-  @media (max-width: 1000px) {
+  @media (max-width: 420px) {
     display: block;
     width: 100%;
 
@@ -47,7 +46,7 @@ $mobile-menu-max-height: 300px;
 
     outline: none;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 420px) {
       display: block;
     }
   }
