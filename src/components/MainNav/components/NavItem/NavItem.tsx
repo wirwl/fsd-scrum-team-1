@@ -35,8 +35,6 @@ type INavItemProps = {
 }
 
 const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
-  const _isSelected = item.type === IItemType.LINK && isSelected;
-
   const content = item.type === IItemType.LINK
     ? (
         <Link href={item.href}>
@@ -69,7 +67,7 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
     );
 
   return (
-    <li className={ _isSelected ? bItemSelected : b() }>
+    <li className={ isSelected ? bItemSelected : b() }>
         { content }
     </li>
   );

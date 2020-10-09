@@ -30,7 +30,7 @@
     border-radius: 3px;
   }
 
-  &__selected &__link {
+  &_selected &__link {
     color: $font-color-light75;
 
     font-weight: 700;

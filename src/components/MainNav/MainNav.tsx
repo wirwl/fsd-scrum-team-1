@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import type { IMenuItem } from './components/NavItem/NavItem';
 import { block } from 'bem-cn';
+import { useRouter } from 'next/router';
 
 import NavItem, { IItemType } from './components/NavItem/NavItem';
 import SVGInline from 'react-svg-inline';
@@ -11,10 +12,8 @@ const menuSVG = (require('./img/menu.svg')).default as string;
 
 import "./MainNav.scss";
 
-const selectedHref = '/about';
-
 const items: IMenuItem[] = [
-  { type: IItemType.LINK, label: 'О нас', href: '/about' },
+  { type: IItemType.LINK, label: 'О нас', href: '/' },
   { type: IItemType.SUBMENU, label: 'Услуги', submenu: [
     { type: IItemType.LINK, label: 'Бронирование', href: '/about1' },
     { type: IItemType.LINK, label: 'Уведомления о скидках', href: '/about2' },
@@ -35,6 +34,7 @@ const b = block('main-nav');
 
 const MainNav = () => {
   const [isMenuHidden, toggleMenu] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
     <nav className={b({ hidden: isMenuHidden })}>
@@ -50,7 +50,10 @@ const MainNav = () => {
           (item) => <NavItem
             key={item.label}
             item={item}
-            isSelected={item.type === IItemType.LINK && selectedHref === item.href} />
+            isSelected={
+              item.type === IItemType.LINK
+              && router.pathname === item.href
+            } />
         )
       }
     </nav>
