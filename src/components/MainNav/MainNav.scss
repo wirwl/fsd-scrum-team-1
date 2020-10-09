@@ -3,22 +3,87 @@
 .main-nav {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  overflow: hidden;
 
   list-style-type: none;
 
   font-family: $main-font;
   font-size: 14px;
 
+  max-height: 500px;
+
+  transition: max-height .2s ease-in;
+
+  // @media (max-width: 420px) {
+  @media (max-width: 1000px) {
+    display: block;
+    width: 100%;
+
+    text-align: center;
+  }
+
+  &__toggle-btn {
+    display: none;
+    box-sizing: content-box;
+    width: 20px;
+    height: 20px;
+
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background-color: $bg-color;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    outline: none;
+
+    @media (max-width: 1000px) {
+      display: block;
+    }
+  }
+
+  &__toggle-btn-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__toggle-btn:focus {
+    border: 1px solid $main-color;
+  }
+
   &__item:not(:first-child) {
     margin-left: 20px;
+
+    @media (max-width: 1000px) {
+      margin-left: 0;
+    }
   }
 
   &__item-link {
-    text-decoration: none;
+    border: 1px solid transparent;
 
     color: $font-color-light50;
-
     outline: none;
+
+    text-decoration: none;
+
+    cursor: pointer;
+  }
+
+  &__item-link:hover {
+    color: $font-color-light75;
+  }
+
+  &__item-link:focus {
+    border: 1px solid $main-color;
+    border-radius: 3px;
   }
 
   &__item_selected &__item-link {
@@ -34,7 +99,8 @@
     opacity: .5;
   }
 
-  &__item-link:hover {
-    color: $font-color-light75;
+  &_hidden {
+    max-height: 22px;
+    overflow: hidden;
   }
 }
