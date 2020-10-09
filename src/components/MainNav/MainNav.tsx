@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import type { IMenuItem } from './components/NavItem/NavItem';
 import { block } from 'bem-cn';
-import { useRouter } from 'next/router';
 
 import NavItem, { IItemType } from './components/NavItem/NavItem';
 import SVGInline from 'react-svg-inline';
@@ -14,26 +13,28 @@ import "./MainNav.scss";
 
 type INavMenuProps = {
   items: IMenuItem[];
+  currHref: string;
 }
 
 const b = block('main-nav');
 
 /**
  * This component implements MainNav
- * It receive one prop `items` with type IMenuItem[]
- * Example items:
- *   const items: IMenuItem[] = [
- *    { type: IItemType.LINK, label: 'О нас', href: '/' },
- *    { type: IItemType.SUBMENU, label: 'Услуги', submenu: [
- *      { type: IItemType.LINK, label: 'Бронирование', href: '/about1' },
- *      { type: IItemType.LINK, label: 'Уведомления о скидках', href: '/about2' },
- *    ] },
- *    { type: IItemType.LINK, label: 'Вакансии', href: '/vacancy' },
- *   ]
+ * It receive 2 props
+ * - items: IMenuItem[]
+ *   Example items:
+ *     const items: IMenuItem[] = [
+ *      { type: IItemType.LINK, label: 'О нас', href: '/' },
+ *      { type: IItemType.SUBMENU, label: 'Услуги', submenu: [
+ *        { type: IItemType.LINK, label: 'Бронирование', href: '/about1' },
+ *        { type: IItemType.LINK, label: 'Уведомления о скидках', href: '/about2' },
+ *      ] },
+ *      { type: IItemType.LINK, label: 'Вакансии', href: '/vacancy' },
+ *     ]
+ * - currHref: string
  */
-const MainNav: FC<INavMenuProps> = ({ items }) => {
+const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
   const [isMenuHidden, toggleMenu] = useState<boolean>(false);
-  const router = useRouter();
 
   return (
     <nav className={b({ hidden: isMenuHidden })}>
@@ -51,7 +52,7 @@ const MainNav: FC<INavMenuProps> = ({ items }) => {
             item={item}
             isSelected={
               item.type === IItemType.LINK
-              && router.pathname === item.href
+              && currHref === item.href
             } />
         )
       }
