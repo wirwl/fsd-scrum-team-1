@@ -1,9 +1,7 @@
 import './button.scss';
 
-import { connect } from 'react-redux';
-import bookRoom from '../../redux/actions/booking';
-import { IOrder } from '../../redux/types/booking';
-import { RootState } from '../../redux/reducers';
+import { useDispatch } from 'react-redux';
+import { bookRoom, IOrder } from '../../redux/booking';
 
 interface IButton {
   text?: string;
@@ -22,12 +20,14 @@ const Button: React.FC<IButton> = (props) => {
     return Math.floor(Math.random() * range + Math.ceil(min));
   };
 
+  const dispatch = useDispatch();
+
   const handleClick = ():void => {
     const order: IOrder = {
       id: getRandomInt(1, 10000000),
       price: getRandomInt(1, 5999),
     };
-    props.bookRoom(order);
+    dispatch(bookRoom(order));
   };
 
   return (
@@ -35,9 +35,4 @@ const Button: React.FC<IButton> = (props) => {
   );
 };
 
-const mapStateToProps = (state: RootState): RootState => ({ booking: state.booking });
-
-export default connect(
-  mapStateToProps,
-  { bookRoom },
-)(Button);
+export default Button;
