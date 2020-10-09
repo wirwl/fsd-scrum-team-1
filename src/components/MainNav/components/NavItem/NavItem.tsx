@@ -7,19 +7,19 @@ import "./NavItem.scss";
 
 const expandMoreSVG = (require('./img/expand-more-down.svg')).default as string;
 
-enum IItemType {
+enum ItemType {
   LINK,
   SUBMENU
 }
 
 type IMenuLink = {
-  type: IItemType.LINK;
+  type: ItemType.LINK;
   label: string;
   href: string;
 }
 
 type IMenuSubmenu = {
-  type: IItemType.SUBMENU;
+  type: ItemType.SUBMENU;
   label: string;
   submenu: IMenuLink[];
 }
@@ -35,7 +35,7 @@ type INavItemProps = {
 }
 
 const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
-  const content = item.type === IItemType.LINK
+  const content = item.type === ItemType.LINK
     ? (
         <Link href={item.href}>
           <a tabIndex={0} className={b('link')}>
@@ -46,12 +46,14 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
     : (
       <div tabIndex={0} className={b('link')}>
         {item.label}
+
         {
           <SVGInline
             className={b('icon').toString()}
             svg={expandMoreSVG}
           />
         }
+
         {
           <ul className={b('submenu')}>
             { item.submenu.map((item) => 
@@ -68,7 +70,7 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
 
   return (
     <li className={ isSelected ? bItemSelected : b() }>
-        { content }
+      { content }
     </li>
   );
 }
@@ -76,7 +78,7 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
 export default NavItem;
 
 export {
-  IItemType,
+  ItemType,
 }
 
 export type {

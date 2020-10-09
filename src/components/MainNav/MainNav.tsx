@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { block } from 'bem-cn';
 
 import type { IMenuItem } from './components/NavItem/NavItem';
-import NavItem, { IItemType } from './components/NavItem/NavItem';
+import NavItem, { ItemType } from './components/NavItem/NavItem';
 import SVGInline from 'react-svg-inline';
 
 const closeSVG = (require('./img/close.svg')).default as string;
@@ -53,7 +53,7 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
             key={item.label}
             item={item}
             isSelected={
-              item.type === IItemType.LINK
+              item.type === ItemType.LINK
               && currHref === item.href
             } />
         )
@@ -66,7 +66,7 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
 export default MainNav;
 
 export {
-  IItemType,
+  ItemType,
 }
 
 export type {
