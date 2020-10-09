@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
-import Button from '@components/Button/Button';
-import SocialButtons from '@components/social-buttons/SocialButtons';
-import MainLayout from '../src/layouts/MainLayout';
+import Button from '@/components/Button/Button';
+import SocialButtons from '@/components/social-buttons/SocialButtons';
+import MainLayout from '@/layouts/MainLayout';
 
-// TODO: Create alias like '@redux/store' if possible
-import { bookRoom } from '../src/redux/booking';
+import { bookRoom } from '@/redux/booking';
 
 const Main: FC = () => {
   const dispatch = useDispatch();
