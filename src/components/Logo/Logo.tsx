@@ -1,4 +1,5 @@
 import { block } from 'bem-cn';
+import Link from 'next/link';
 
 import './logo.scss';
 
@@ -14,14 +15,16 @@ const Logo: React.FC<ILogo> = (props) => {
   const { href = '/', alt = 'Toxin', title = 'Toxin' } = props;
 
   return (
-    <a className={b()} href = {href}>
-      <img
-        className = {b('image')}
-        src = "/images/logo.svg"
-        alt = {alt}
-        title = {title}
-      />
-    </a>
+    <Link href = {href}>
+      <a className={b()}>
+        <img
+          className = {b('image')}
+          src = "/images/logo.svg"
+          alt = {alt}
+          title = {title}
+        />
+      </a>
+    </Link>
   );
 };
 
