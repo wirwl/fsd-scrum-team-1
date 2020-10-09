@@ -15,6 +15,7 @@ const Main: FC = () => (
       <Button />
       <Button theme="white" />
       <Button theme="textual" href="/auth" />
+      <Button withArrow size="fluid" />
       <Button href="/auth" />
       <SocialButtons items={[{ text: 'twitter', link: 'https://twitter.com' }, { text: 'facebook-square', link: 'https://facebook.com' }, { text: 'instagram', link: 'https://instagram.com' }]} />
     </MainLayout>
