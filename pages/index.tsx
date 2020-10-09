@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
-import { Provider } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Button from '@components/Button/Button';
 import SocialButtons from '@components/social-buttons/SocialButtons';
 import MainLayout from '../src/layouts/MainLayout';
 
 // TODO: Create alias like '@redux/store' if possible
-import store from '../src/redux/store';
+import { bookRoom } from '../src/redux/booking';
 
-const Main: FC = () => (
-  <Provider store={store}>
+const Main: FC = () => {
+  const dispatch = useDispatch();
+  return (
     <MainLayout>
       <h1 className="m">Hello, World!</h1>
       <Button />
@@ -17,9 +18,14 @@ const Main: FC = () => (
       <Button theme="textual" href="/auth" />
       <Button withArrow size="fluid" />
       <Button href="/auth" />
-      <SocialButtons items={[{ text: 'twitter', link: 'https://twitter.com' }, { text: 'facebook-square', link: 'https://facebook.com' }, { text: 'instagram', link: 'https://instagram.com' }]} />
+      <Button caption="Add Order To Store" handleClick={() => dispatch(bookRoom({ id: 1, price: 10 }))} />
+      <SocialButtons items={[{ text: 'twitter', link: 'https://twitter.com' }, {
+        text: 'facebook-square',
+        link: 'https://facebook.com',
+      }, { text: 'instagram', link: 'https://instagram.com' }]}
+      />
     </MainLayout>
-  </Provider>
-);
+  );
+};
 
 export default Main;

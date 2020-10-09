@@ -4,7 +4,14 @@ import { FC } from 'react';
 import 'normalize.css/normalize.css';
 
 import '@styles/root.scss';
+import { Provider } from 'react-redux';
 
-const App: FC<AppProps> = ({ Component, pageProps }) => <Component {...pageProps} />;
+import store from '../src/redux/store';
+
+const App: FC<AppProps> = ({ Component, pageProps }) => (
+  <Provider store={store}>
+    <Component {...pageProps} />
+  </Provider>
+);
 
 export default App;
