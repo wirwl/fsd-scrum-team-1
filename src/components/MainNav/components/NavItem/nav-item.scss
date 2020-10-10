@@ -4,7 +4,7 @@
   position: relative;
 
   &:not(:nth-child(2)) {
-    margin-left: 20px;
+    margin-left: 1.25rem;
 
     @media (max-width: 420px) {
       margin-left: 0;
@@ -12,7 +12,7 @@
   }
 
   &__link {
-    border: 1px solid transparent;
+    border: .0625rem solid transparent;
 
     color: $font-color-light50;
     outline: none;
@@ -27,8 +27,8 @@
   }
 
   &__link:focus {
-    border: 1px solid $main-color;
-    border-radius: 3px;
+    border: .0625rem solid $main-color;
+    border-radius: .1875rem;
   }
 
   &_selected &__link {
@@ -38,7 +38,7 @@
   }
 
   &__icon {
-    margin-left: 5px;
+    margin-left: .3125rem;
     margin-right: 0;
 
     opacity: .5;
@@ -46,15 +46,15 @@
 
   &__submenu {
     display: block;
-    width: 250px;
-    max-width: 250px;
+    width: 15.625rem;
+    max-width: 15.625rem;
 
     visibility: hidden;
     opacity: 0;
     height: 0;
 
     position: absolute;
-    margin-top: 1px;
+    margin-top: .0625rem;
 
     list-style-type: none;
 
@@ -74,7 +74,7 @@
   }
 
   &__submenu-item:not(:last-child) {
-    padding-bottom: 5px;
+    padding-bottom: .3125rem;
   }
 
   &__link:focus > &__submenu,
@@ -84,8 +84,8 @@
     opacity: 1;
 
     padding-left: 0;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-right: .625rem;
+    padding-top: .625rem;
+    padding-bottom: .625rem;
   }
 }
