@@ -1,6 +1,13 @@
 {
   "extends": "stylelint-config-airbnb",
   "rules": {
+    "at-rule-empty-line-before": [
+      "always", 
+      {
+       "except": ["blockless-after-same-name-blockless", "first-nested"],
+       "ignore": ["after-comment"]
+      }
+    ],
     "string-quotes": "single",
     "max-nesting-depth": 5,
     "order/order": []
