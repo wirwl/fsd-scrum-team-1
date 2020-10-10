@@ -2,19 +2,18 @@ import InputMask from 'react-input-mask';
 import { block } from 'bem-cn';
 import { useState } from 'react';
 
-import './text-field.scss';
+import './input.scss';
 
 type CustomValidateFunction = (currentValue: string | number) => boolean;
 
 interface IInputProps {
-  type?: string;
+  type?: 'text' | 'number';
   value?: string | number;
   placeholder?: string;
   withArrow?: boolean;
   mask?: string;
   name?: string;
   head?: string;
-  maskChar?: string;
   validate?: 'email' | CustomValidateFunction;
   validationErrorMessage?: string;
 }
@@ -24,7 +23,7 @@ const regexpEmail = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+
 
 const validateAsEmail = (value: string): boolean => regexpEmail.test(value);
 
-const b = block('text-field');
+const b = block('input');
 
 const Input: React.FC<IInputProps> = (props) => {
   const {
@@ -33,7 +32,6 @@ const Input: React.FC<IInputProps> = (props) => {
     mask = '',
     placeholder = '',
     validationErrorMessage = 'Некорректное значение!',
-    maskChar = '',
     withArrow = false,
     validate,
     name,
@@ -81,7 +79,7 @@ const Input: React.FC<IInputProps> = (props) => {
           value={state.value}
           onChange={handleInputChange}
           mask={mask}
-          maskChar={maskChar}
+          maskChar=""
           name={name}
         />
         { arrowItem }

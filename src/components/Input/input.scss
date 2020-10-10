@@ -1,6 +1,6 @@
 @import '@styles/variables.scss';
 
-.text-field {
+.input {
   box-sizing: border-box;
   display: block;
   width: 100%;
@@ -11,11 +11,11 @@
 
   &_with-arrow {
 
-    .text-field__input {
+    .input__input {
       padding-right: 44px;
     }
 
-    .text-field__arrow {
+    .input__arrow {
       display: block;
     }
   }
@@ -25,8 +25,8 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: .8571rem;
-    line-height: 1.0714rem;
+    font-size: 12px;
+    line-height: 15px;
     text-transform: uppercase;
     color: $font-color;
   }
@@ -47,8 +47,8 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: normal;
-    font-size: 1rem;
-    line-height: 1.7143rem;
+    font-size: 14px;
+    line-height: 24px;
     color: $font-color-light75;
     overflow: hidden;
 
@@ -79,8 +79,8 @@
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: normal;
-    font-size: 1.7143rem;
-    line-height: 1.7143rem;
+    font-size: 24px;
+    line-height: 24px;
     background: $main-color-gradient;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -93,8 +93,8 @@
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: .8571rem;
-    line-height: 1rem;
+    font-size: 10px;
+    line-height: 14px;
     text-transform: uppercase;
     color: rgba(202, 40, 40, .75);
     display: none;
