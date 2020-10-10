@@ -58,10 +58,12 @@
     "webpack": "^4.44.2"
   },
   "dependencies": {
+    "@types/react-input-mask": "^2.0.5",
     "bem-cn": "^3.0.1",
     "next": "^9.5.3",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-input-mask": "^2.0.4"
   }
 }
