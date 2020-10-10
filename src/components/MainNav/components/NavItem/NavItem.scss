@@ -1,6 +1,7 @@
 @import '@styles/variables';
 
 .main-nav-item {
+  position: relative;
 
   &:not(:nth-child(2)) {
     margin-left: 20px;
@@ -44,12 +45,16 @@
   }
 
   &__submenu {
+    display: block;
+    width: 250px;
+    max-width: 250px;
+
     visibility: hidden;
     opacity: 0;
     height: 0;
 
     position: absolute;
-    margin: 0;
+    margin-top: 1px;
 
     list-style-type: none;
 
@@ -58,7 +63,11 @@
     transition: opacity .1s ease-in-out;
 
     @media (max-width: 420px) {
+      width: 100%;
+      max-width: 100%;
       position: relative;
+
+      margin: 0;
 
       background-color: $font-color-light5;
     }
