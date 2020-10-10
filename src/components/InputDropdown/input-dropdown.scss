@@ -1,0 +1,146 @@
+@import '@styles/variables.scss';
+@import '@styles/mixins';
+
+.input-dropdown {
+  $blockClass: &;
+  position: relative;
+  font-size: .875rem;
+  color: $font-color-light75;
+  user-select: none;
+
+  &__text-input {
+    @include reset-outline;
+    font: .875rem/2.625rem Montserrat, Helvetica, sans-serif;
+    color: $font-color-light75;
+    width: 100%;
+    padding: 0 2.375rem 0 .875rem;
+    border: .0625rem solid $font-color-light25;
+    border-radius: .25rem;
+  }
+
+  &__toggle-button {
+    @include reset-button;
+    @include reset-outline(text-shadow);
+    color: $font-color-light50;
+    position: absolute;
+    padding-top: .0625rem;
+    top: 0;
+    right: 0;
+    padding-right: .6875rem;
+    height: 100%;
+  }
+
+  $zIndex: 9;
+
+  &__list {
+    position: absolute;
+    left: 0;
+    margin: 0;
+    display: none;
+    width: 100%;
+    padding: .3125rem .375rem 0 .875rem;
+    border: 1px solid $font-color-light50;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    box-shadow: 0 .625rem 1.25rem $font-color-light5;
+    background-color: white;
+    z-index: $zIndex;
+  }
+
+  &__list-item {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .4375rem;
+  }
+
+  &__counter-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 5.75rem;
+  }
+
+  &__item-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__item-name,
+  &__counter {
+    text-transform: uppercase;
+    font-size: .75rem;
+    font-weight: bold;
+  }
+
+  &__counter-button {
+    @include reset-button;
+    @include reset-outline;
+    $diam: 1.875rem;
+    display: inline-block;
+    font-size: 1rem;
+    color: $font-color-light50;
+    text-align: center;
+    width: $diam;
+    height: $diam;
+    border-radius: 50%;
+    cursor: pointer;
+    border: .0625rem solid $font-color-light25;
+
+    &_disabled {
+      cursor: default;
+      pointer-events: none;
+      opacity: .5;
+    }
+  }
+
+  &__footer-buttons {
+    display: flex;
+    line-height: 2.5rem;
+    justify-content: space-between;
+  }
+
+  &__clear-button {
+
+    &_hidden {
+      visibility: hidden;
+    }
+  }
+
+  &_type {
+
+    &_date {
+      #{$blockClass}__text-input {
+
+        &::placeholder {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  &_expanded {
+    #{$blockClass}__text-input {
+      border: 1px solid $font-color-light50;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    #{$blockClass}__toggle-button {
+      color: $font-color-light75;
+    }
+
+    #{$blockClass}__list {
+      display: block;
+      border-top: none;
+    }
+  }
+
+  &_with-z-index-priority {
+    #{$blockClass}__list {
+      z-index: $zIndex + 1;
+    }
+  }
+}
