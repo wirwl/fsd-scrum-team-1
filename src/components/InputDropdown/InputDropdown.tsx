@@ -3,9 +3,9 @@ import { block } from 'bem-cn';
 import './input-dropdown.scss';
 
 interface IPlurals {
-  few: string,
   one: string,
   two: string,
+  few: string,
 }
 
 interface IDropListItem {
@@ -41,9 +41,9 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   name,
   placeholder = 'Выберите удобства',
   dropList = [
-    { label: 'Спальни', count: 2, plurals: { few: 'спален', one: 'спальня', two: 'спальни' } },
-    { label: 'Кровати', count: 2, plurals: { few: 'кроватей', one: 'кровать', two: 'кровати' } },
-    { label: 'Ванные комнаты', count: 0, plurals: { few: 'ванных комнат', one: 'ванная комната', two: 'ванные комнаты' } },
+    { label: 'Спальни', count: 2, plurals: { one: 'спальня', two: 'спальни', few: 'спален' } },
+    { label: 'Кровати', count: 2, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
+    { label: 'Ванные комнаты', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' } },
   ],
   isExpanded = false,
   reducer = reduceCountsAndPlurals,
