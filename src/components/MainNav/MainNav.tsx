@@ -8,8 +8,8 @@ import NavItem, { ItemType } from './components/NavItem/NavItem';
 
 import './main-nav.scss';
 
-const closeSVG = (require('./img/close.svg')).default as string;
-const menuSVG = (require('./img/menu.svg')).default as string;
+import closeSVG from './img/close.svg';
+import menuSVG from './img/menu.svg';
 
 type INavMenuProps = {
   items: IMenuItem[];
@@ -42,10 +42,12 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
       <button
         type="button"
         className={b('toggle-btn')}
-        onClick={() => toggleMenu(!isMenuHidden)}>
+        onClick={() => toggleMenu(!isMenuHidden)}
+      >
         <SVGInline
           className={b('toggle-btn-icon').toString()}
-          svg={isMenuHidden ? menuSVG : closeSVG} />
+          svg={isMenuHidden ? menuSVG : closeSVG}
+        />
       </button>
 
       {

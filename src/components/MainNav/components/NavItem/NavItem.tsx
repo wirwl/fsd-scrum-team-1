@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import './nav-item.scss';
 
-const expandMoreSVG = (require('./img/expand-more-down.svg')).default as string;
+import expandMoreSVG from './img/expand-more-down.svg';
 
 enum ItemType {
   LINK,
