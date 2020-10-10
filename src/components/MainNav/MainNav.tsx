@@ -1,20 +1,20 @@
 import type { FC } from 'react';
 import { useState } from 'react';
 import { block } from 'bem-cn';
+import SVGInline from 'react-svg-inline';
 
 import type { IMenuItem } from './components/NavItem/NavItem';
 import NavItem, { ItemType } from './components/NavItem/NavItem';
-import SVGInline from 'react-svg-inline';
+
+import './main-nav.scss';
 
 const closeSVG = (require('./img/close.svg')).default as string;
 const menuSVG = (require('./img/menu.svg')).default as string;
 
-import "./MainNav.scss";
-
 type INavMenuProps = {
   items: IMenuItem[];
   currHref: string;
-}
+};
 
 const b = block('main-nav');
 
@@ -40,6 +40,7 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
     <nav className={b({ hidden: isMenuHidden })}>
 
       <button
+        type="button"
         className={b('toggle-btn')}
         onClick={() => toggleMenu(!isMenuHidden)}>
         <SVGInline
@@ -49,26 +50,29 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
 
       {
         items.map(
-          (item) => <NavItem
-            key={item.label}
-            item={item}
-            isSelected={
-              item.type === ItemType.LINK
-              && currHref === item.href
-            } />
+          (item) => (
+            <NavItem
+              key={item.label}
+              item={item}
+              isSelected={
+                item.type === ItemType.LINK
+                && currHref === item.href
+              }
+            />
+          ),
         )
       }
 
     </nav>
-  )
-}
+  );
+};
 
 export default MainNav;
 
 export {
   ItemType,
-}
+};
 
 export type {
   IMenuItem,
-}
+};
