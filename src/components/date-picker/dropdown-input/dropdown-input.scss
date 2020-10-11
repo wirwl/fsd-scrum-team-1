@@ -1,0 +1,59 @@
+@import '@styles/variables.scss';
+@import '@styles/mixins.scss';
+
+.dropdown-input {
+  width: 100%;
+  
+  &_expanded &__input {
+    border-color: $font-color-light50;
+  }
+
+  &__title {
+    margin: 0 0 4px;
+    font-family: $main-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    text-transform: uppercase;
+    color: $font-color;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__input {
+    box-sizing: border-box;
+    padding: 9px 44px 9px 14px;
+    width: 100%;
+    outline: 0;
+    background: $bg-color;
+    border: 1px solid $font-color-light25;
+    border-radius: 4px;
+    font-family: $main-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    color: $font-color-light75;
+    cursor: pointer;
+  }
+
+  &__expand-button {
+    @include reset-button;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 44px;
+    outline: 0;
+    font-family: Material Icons;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    color: $font-color-light50;
+  }
+}
