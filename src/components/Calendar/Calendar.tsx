@@ -65,26 +65,9 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     });
   };
 
-  const handleButtonChangeMonthClick = (ev: React.MouseEvent<HTMLButtonElement>): void => {
-    const isNextMonth = ev.currentTarget.dataset.action === 'next-month';
-    changeMonth(isNextMonth);
-  };
-
-  const handleControlButtonClick = (ev: React.MouseEvent<HTMLButtonElement>): boolean => {
-    const { currentTarget } = ev;
-
-    if (currentTarget.dataset.action === 'clear') {
-      setRange({ start: null, end: null });
-      onClear && onClear();
-      return true;
-    }
-
-    if (currentTarget.dataset.action === 'apply') {
-      onApply && onApply(range);
-      return true;
-    }
-
-    return true;
+  const handleClearButtonClick = (): void => {
+    setRange({ start: null, end: null });
+    onClear && onClear();
   };
 
   const handleDayClick = (targetDay: Date): boolean => {
@@ -133,7 +116,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
           type="button"
           className={b('change-month', { hidden: !isCanSwitchBack })}
           data-action="previous-month"
-          onClick={handleButtonChangeMonthClick}
+          onClick={() => changeMonth()}
         >
           arrow_back
         </button>
@@ -144,7 +127,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
           type="button"
           className={b('change-month')}
           data-action="next-month"
-          onClick={handleButtonChangeMonthClick}
+          onClick={() => changeMonth(true)}
         >
           arrow_forward
         </button>
@@ -156,18 +139,16 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       <div className={b('control-buttons')}>
         <div className={b('clear-button', { hidden: rangeIsEmpty })}>
           <Button
-            data-action="clear"
             theme="textual"
             caption={buttonClear}
-            onClick={handleControlButtonClick}
+            handleClick={handleClearButtonClick}
           />
         </div>
-        <div className={b('apply-button', { hidden: rangeIsEmpty })}>
+        <div className={b('apply-button')}>
           <Button
-            data-action="apply"
             theme="textual"
             caption={buttonApply}
-            onClick={handleControlButtonClick}
+            handleClick={(): boolean => Boolean(onApply && onApply(range))}
           />
         </div>
       </div>
