@@ -1,0 +1,221 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+.footer {
+  $blockClass: &;
+
+  min-height: inherit;
+  background: white;
+  box-shadow: 0 .625rem 1.25rem $font-color-light5;
+
+  &__inner-wrapper {
+    @include inner-wrapper;
+
+    display: grid;
+  }
+
+  &__main-area {
+    border-bottom: .0625rem solid $font-color-light5;
+
+    @media (max-width: 767px) {
+      border-bottom: 0;
+    }
+
+    #{$blockClass}__inner-wrapper {
+      padding: 6.25rem 0 4.875rem 0;
+      height: 100%;
+      grid-template-columns: 1fr 2.45fr 1fr;
+      grid-template-areas: 'about nav subscribe';
+      grid-row-gap: 5rem;
+
+      @media (max-width: 991px) {
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 1rem;
+        grid-template-areas: 'about subscribe' 'nav nav';
+      }
+
+      @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+        grid-template-areas: 'about' 'subscribe' 'nav';
+        padding: 3rem 0 0 0;
+        grid-row-gap: 3rem;
+      }
+    }
+  }
+
+  &__about-us {
+    grid-area: about;
+
+    @media (max-width: 767px) {
+      text-align: center;
+    }
+  }
+
+  &__description {
+    @include primary-text;
+
+    margin: .875rem 0;
+  }
+
+  &__navigation {
+    grid-area: nav;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: .3125rem 8% 0 6%;
+  }
+
+  &__navigation-section {
+
+    &:nth-child(2) {
+      padding-right: 2.25rem;
+
+      @media (max-width: 1199px) {
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 767px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__navigation-section-title {
+    @include h3;
+  }
+
+  &__navigation-section-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.125rem 0;
+  }
+
+  &__navigation-section-item {
+    margin-bottom: .875rem;
+  }
+
+  &__navigation-section-link {
+    @include primary-text;
+    @include reset-outline(text-shadow);
+
+    color: $font-color-light50;
+    text-decoration: none;
+
+    &:hover {
+      color: $font-color;
+    }
+  }
+
+  &__subscription-form {
+    grid-area: subscribe;
+    padding: .3125rem 0 0 .0625rem;
+
+    @media (max-width: 767px) {
+      text-align: center;
+    }
+  }
+
+  &__subscription-form-title {
+    @include h3;
+  }
+
+  &__subscription-form-description {
+    @include primary-text;
+    margin: 1.125rem 0 1.4375rem 0;
+  }
+
+  &__copyright-area {
+    #{$blockClass}__inner-wrapper {
+      min-height: 4.375rem;
+      grid-template-columns: 3fr 1fr;
+      grid-template-areas: 'copyright social';
+      align-items: center;
+
+      @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+        grid-template-areas: 'copyright' 'social';
+      }
+    }
+  }
+
+  &__copyright {
+    @include primary-text;
+
+    grid-area: copyright;
+
+    @media (max-width: 767px) {
+      text-align: center;
+    }
+  }
+
+  &__social-links {
+    margin: auto;
+    padding-top: .25rem;
+  }
+
+  @mixin footer-theme-mobile {
+    padding: 7.5rem 0 6.75rem 0;
+    max-width: 768px;
+    margin: 0 auto;
+
+    #{$blockClass}__main-area {
+      border-bottom: 0;
+
+      #{$blockClass}__inner-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas: 'about';
+        padding: 0;
+      }
+    }
+
+    #{$blockClass}__about-us {
+      text-align: center;
+      padding: 0 25%;
+
+      @media (max-width: 767px) {
+        padding: 0;
+      }
+    }
+
+    #{$blockClass}__copyright-area {
+      #{$blockClass}__inner-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas: 'copyright' 'social';
+      }
+    }
+
+    #{$blockClass}__social-list {
+      justify-self: center;
+      padding: .5625rem 0;
+    }
+
+    #{$blockClass}__copyright {
+      text-align: center;
+      padding: .8125rem 0;
+    }
+
+    #{$blockClass}__navigation,
+    #{$blockClass}__subscription-form,
+    #{$blockClass}__description {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    @include footer-theme-mobile;
+  }
+
+  &_theme {
+
+    &_mobile {
+      @include footer-theme-mobile;
+    }
+  }
+
+  @media (max-width: 893px) {
+
+    &_hidden {
+      display: none;
+    }
+  }
+}

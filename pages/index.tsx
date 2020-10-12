@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import Button from '@components/button/Button';
 import SocialButtons from '@components/social-buttons/SocialButtons';
+import Footer from '@components/footer/Footer';
 import MainLayout from '../src/layouts/MainLayout';
 
 const Main: FC = () => (
@@ -13,6 +14,7 @@ const Main: FC = () => (
     <Button withArrow size="fluid" />
     <Button href="/auth" />
     <SocialButtons items={[{ text: 'twitter', link: 'https://twitter.com' }, { text: 'facebook-square', link: 'https://facebook.com' }, { text: 'instagram', link: 'https://instagram.com' }]} />
+    <Footer />
   </MainLayout>
 );
 
