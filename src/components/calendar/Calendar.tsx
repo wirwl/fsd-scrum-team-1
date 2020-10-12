@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { block } from 'bem-cn';
 
 import Button from '@components/Button/Button';
@@ -45,6 +45,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     currentDate.setHours(0, 0, 0, 0);
     return currentDate;
   });
+  const [daysList, setDaysList] = useState(() => createDaysList(drawnDate));
   const [range, setRange] = useState<RangeDays>(() => ({ start: null, end: null }));
   const b = block('calendar');
   const currentDate = new Date();
@@ -53,6 +54,8 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
   || (drawnDate.getFullYear() === currentDate.getFullYear()
   && drawnDate.getMonth() > currentDate.getMonth());
   const rangeIsEmpty = range.start === null && range.end === null;
+
+  useEffect(() => setDaysList(createDaysList(drawnDate)), [drawnDate]);
 
   const changeMonth = (isNextMonth = false): void => {
     setDrawnDate((prevDate) => {
@@ -87,7 +90,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     return true;
   };
 
-  const daysElements = createDaysList(drawnDate).map((day) => (
+  const daysElements = daysList.map((day) => (
     <div
       className={getDayClasses({
         b,
