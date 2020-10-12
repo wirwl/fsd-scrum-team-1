@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { block } from 'bem-cn';
 
 import Button from '@components/Button/Button';
@@ -45,17 +45,17 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     currentDate.setHours(0, 0, 0, 0);
     return currentDate;
   });
-  const [daysList, setDaysList] = useState(() => createDaysList(drawnDate));
+  const daysList = useMemo(() => createDaysList(drawnDate), [drawnDate]);
   const [range, setRange] = useState<RangeDays>(() => ({ start: null, end: null }));
+
   const b = block('calendar');
+
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
   const isCanSwitchBack = drawnDate.getFullYear() > currentDate.getFullYear()
   || (drawnDate.getFullYear() === currentDate.getFullYear()
   && drawnDate.getMonth() > currentDate.getMonth());
   const rangeIsEmpty = range.start === null && range.end === null;
-
-  useEffect(() => setDaysList(createDaysList(drawnDate)), [drawnDate]);
 
   const changeMonth = (isNextMonth = false): void => {
     setDrawnDate((prevDate) => {
