@@ -14,13 +14,9 @@ interface IDatePickerProps {
 }
 
 interface IState {
-  withTwoInputs: boolean;
   expandedDatePicker: boolean;
   expandedDropdownStart: boolean;
   expandedDropdownEnd: boolean;
-  dropdownValue: string;
-  dropdownStartValue: string;
-  dropdownEndValue: string;
   rangeStart: Date | null;
   rangeEnd: Date | null;
   calendarSelectMode: 'start' | 'end' | 'auto';
@@ -50,16 +46,12 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
   } = props;
 
   const [state, setState] = useState<IState>({
-    withTwoInputs,
     expandedDatePicker: false,
     expandedDropdownStart: false,
     expandedDropdownEnd: false,
     rangeStart: null,
     rangeEnd: null,
     calendarSelectMode: 'auto',
-    dropdownValue: `${placeholder} - ${placeholder}`,
-    dropdownStartValue: placeholder,
-    dropdownEndValue: placeholder,
   });
 
   const handleDropdownInputClick = (name: string): boolean => {
@@ -99,37 +91,31 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     return true;
   };
 
-  const handleCalendarClear = (): void => {
-    setState((prev) => ({
-      ...prev,
-      rangeEnd: null,
-      rangeStart: null,
-      expandedDatePicker: false,
-      expandedDropdownEnd: false,
-      expandedDropdownStart: false,
-      dropdownValue: `${placeholder} - ${placeholder}`,
-      dropdownStartValue: placeholder,
-      dropdownEndValue: placeholder,
-    }));
-  };
+  const handleCalendarClear = (): void => setState((prev) => ({
+    ...prev,
+    rangeEnd: null,
+    rangeStart: null,
+    expandedDatePicker: false,
+    expandedDropdownEnd: false,
+    expandedDropdownStart: false,
+  }));
 
-  const handleCalendarApply = (range: RangeDays): void => {
-    const dropdownValue = [
-      range.start ? dateToString(range.start) : placeholder,
-      range.end ? dateToString(range.end) : placeholder,
-    ].join(' - ');
+  const handleCalendarApply = (range: RangeDays): void => setState((prev) => ({
+    ...prev,
+    rangeStart: range.start,
+    rangeEnd: range.end,
+    expandedDatePicker: false,
+    expandedDropdownEnd: false,
+    expandedDropdownStart: false,
+  }));
 
-    setState((prev) => ({
-      ...prev,
-      ...range,
-      dropdownValue,
-      expandedDatePicker: false,
-      expandedDropdownEnd: false,
-      expandedDropdownStart: false,
-      dropdownStartValue: range.start ? dateToString(range.start) : placeholder,
-      dropdownEndValue: range.end ? dateToString(range.end) : placeholder,
-    }));
-  };
+  const dropdownValue = [
+    state.rangeStart ? dateToString(state.rangeStart) : placeholder,
+    state.rangeEnd ? dateToString(state.rangeEnd) : placeholder,
+  ].join(' - ');
+
+  const dropdownStartValue = state.rangeStart ? dateToString(state.rangeStart) : placeholder;
+  const dropdownEndValue = state.rangeEnd ? dateToString(state.rangeEnd) : placeholder;
 
   const dropdowns = withTwoInputs
     ? (
@@ -139,7 +125,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
             title={startTitle}
             onClick={handleDropdownInputClick}
             expanded={state.expandedDropdownStart}
-            value={state.dropdownStartValue}
+            value={dropdownStartValue}
             name={DROPDOWNS_NAMES.RANGE_START}
           />
         </div>
@@ -148,7 +134,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
             title={endTitle}
             onClick={handleDropdownInputClick}
             expanded={state.expandedDropdownEnd}
-            value={state.dropdownEndValue}
+            value={dropdownEndValue}
             name={DROPDOWNS_NAMES.RANGE_END}
           />
         </div>
@@ -159,7 +145,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
           title={title}
           onClick={handleDropdownInputClick}
           expanded={state.expandedDatePicker}
-          value={state.dropdownValue}
+          value={dropdownValue}
           name={DROPDOWNS_NAMES.FULL_RANGE}
         />
       </div>
