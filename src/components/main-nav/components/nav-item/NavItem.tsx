@@ -38,7 +38,7 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
   const content = item.type === ItemType.LINK
     ? (
       <Link href={item.href}>
-        <span role="link" className={b('link')}>
+        <span tabIndex={0} role="link" className={b('link')}>
           {item.label}
         </span>
       </Link>
@@ -56,7 +56,7 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
           {item.submenu.map((_item) => (
             <li className={b('submenu-item')} key={_item.href}>
               <Link href={_item.href}>
-                <span role="link" className={b('link')}>{_item.label}</span>
+                <span tabIndex={0} role="link" className={b('link')}>{_item.label}</span>
               </Link>
             </li>
           ))}
