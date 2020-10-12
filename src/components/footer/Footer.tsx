@@ -52,7 +52,7 @@ const Footer: FC<IFooterProps> = ({
   const urlMock = 'mock-address/change-me';
   const { twitterUrl, facebookUrl, instagramUrl } = socialLinks;
 
-  const navigationList = navBlocks.map(({ title: blockTitle, links: blockLinks }: INavBlock) => (
+  const navigationList = navBlocks.map(({ title: blockTitle, links: blockLinks }) => (
     <section key={blockTitle} className={b('navigation-section')}>
       <header className={b('section-header')}>
         <p className={b('navigation-section-title')}>{blockTitle}</p>
