@@ -38,13 +38,14 @@ const Input: React.FC<IInputProps> = (props) => {
     head,
   } = props;
 
-  const [state, setState] = useState({
-    value: initValue,
-    isCorrectValue: true,
-  });
+  const [value, setValue] = useState(initValue);
+
+  let isCorrectValue = typeof validate === 'function' ? validate(value) : true;
+  if (validate === 'email') isCorrectValue = validateAsEmail(value.toString());
+  if (value.toString().length === 0) isCorrectValue = true;
 
   const bemMods: { [index: string]: string | boolean } = {
-    'validate-with-error': Boolean(validate && !state.isCorrectValue),
+    'validate-with-error': Boolean(validate && !isCorrectValue),
     'with-arrow': withArrow,
   };
 
@@ -58,16 +59,6 @@ const Input: React.FC<IInputProps> = (props) => {
   if (validate === 'email') errorMessage = 'Некорректный адрес почты.';
   else if (validate) errorMessage = validationErrorMessage;
 
-  const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
-    const { value } = ev.currentTarget;
-
-    let isCorrectValue = typeof validate === 'function' ? validate(value) : true;
-    if (validate === 'email') isCorrectValue = validateAsEmail(value);
-    if (value.length === 0) isCorrectValue = true;
-
-    setState({ isCorrectValue, value });
-  };
-
   return (
     <div className={b(bemMods)}>
       {headItem}
@@ -76,8 +67,8 @@ const Input: React.FC<IInputProps> = (props) => {
           className={b('input')}
           placeholder={placeholder}
           type={type}
-          value={state.value}
-          onChange={handleInputChange}
+          value={value}
+          onChange={(ev) => setValue(ev.currentTarget.value)}
           mask={mask}
           maskChar=""
           name={name}
