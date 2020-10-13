@@ -10,15 +10,12 @@ interface IInputProps {
   type?: 'text' | 'number';
   value?: string | number;
   placeholder?: string;
-  icon?: 'arrow' | 'expand';
-  readOnly?: boolean;
-  selected?: boolean;
+  withArrow?: boolean;
   mask?: string;
   name?: string;
   head?: string;
   validate?: 'email' | CustomValidateFunction;
   validationErrorMessage?: string;
-  onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void | boolean;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -35,10 +32,7 @@ const Input: React.FC<IInputProps> = (props) => {
     mask = '',
     placeholder = '',
     validationErrorMessage = 'Некорректное значение!',
-    selected,
-    readOnly,
-    onClick,
-    icon,
+    withArrow,
     validate,
     name,
     head,
@@ -52,13 +46,12 @@ const Input: React.FC<IInputProps> = (props) => {
 
   const bemMods: { [index: string]: string | boolean | undefined } = {
     'validate-with-error': Boolean(validate && !isCorrectValue),
-    'with-icon': Boolean(icon),
-    selected,
+    'with-arrow': Boolean(withArrow),
   };
 
-  let iconItem = null;
-  if (icon === 'arrow') iconItem = <button type="submit" className={b('icon', { arrow: true })}>arrow_forward</button>;
-  if (icon === 'expand') iconItem = <button type="button" className={b('icon', { expand: true })}>expand_more</button>;
+  const expandButton = withArrow
+    ? <button type="button" className={b('arrow')}>arrow_forward</button>
+    : null;
 
   const headItem = head ? <h3 className={b('head')}>{head}</h3> : null;
 
@@ -79,10 +72,8 @@ const Input: React.FC<IInputProps> = (props) => {
           mask={mask}
           maskChar=""
           name={name}
-          readOnly={readOnly}
-          onClick={onClick}
         />
-        { iconItem }
+        { expandButton }
       </div>
       <p className={b('row-with-error')}>{errorMessage}</p>
     </div>

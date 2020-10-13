@@ -9,17 +9,13 @@
     display: block;
   }
 
-  &_selected &__input {
-    border-color: $font-color-light50;
-  }
-
-  &_with-icon {
+  &_with-arrow {
 
     .input__input {
       padding-right: 44px;
     }
 
-    .input__icon {
+    .input__arrow {
       display: block;
     }
   }
@@ -71,7 +67,7 @@
     }
   }
 
-  &__icon {
+  &__arrow {
     position: absolute;
     right: 0;
     top: 0;
@@ -85,19 +81,11 @@
     font-weight: normal;
     font-size: 24px;
     line-height: 24px;
+    background: $main-color-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     cursor: pointer;
-    display: none;
-
-    &_expand {
-      color: $font-color-light50;
-      pointer-events: none;
-    }
-
-    &_arrow {
-      background: $main-color-gradient;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }    
+    display: none;   
   }
 
   &__row-with-error {
