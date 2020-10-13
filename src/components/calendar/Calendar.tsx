@@ -91,36 +91,34 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
   };
 
   const weekdayNamesElements = weekdayNames.map((name) => (
-    <li
-      key={name}
-      className={b('day', { theme: 'weekday-name', 'not-clickable': true })}
-      tabIndex={-1}
-    >
-      <p className={b('day-inner')}>
-        <span className={b('day-label')}>{name}</span>
-      </p>
+    <li key={name} className={b('day-wrapper')}>
+      <div className={b('day', { theme: 'weekday-name', 'not-clickable': true })}>
+        <p className={b('day-inner')}>
+          <span className={b('day-label')}>{name}</span>
+        </p>
+      </div>
     </li>
   ));
 
   const daysElements = daysList.map((day) => (
-    <li
-      className={getDayClasses({
-        b,
-        day,
-        drawnDate,
-        ...range,
-      })}
-      key={day.getTime()}
-      onClick={() => handleDayClick(day)}
-      role="button"
-      onKeyUp={() => handleDayClick(day)}
-      tabIndex={-1}
-    >
-      <p className={b('day-inner')}>
-        <span className={b('day-label')}>
-          {day.getDate()}
-        </span>
-      </p>
+    <li className={b('day-wrapper')} key={day.getTime()}>
+      <button
+        className={getDayClasses({
+          b,
+          day,
+          drawnDate,
+          ...range,
+        })}
+        type="button"
+        onClick={() => handleDayClick(day)}
+        tabIndex={-1}
+      >
+        <p className={b('day-inner')}>
+          <span className={b('day-label')}>
+            {day.getDate()}
+          </span>
+        </p>
+      </button>
     </li>
   ));
 

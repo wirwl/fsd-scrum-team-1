@@ -52,10 +52,17 @@
     list-style: none;
   }
 
-  &__day {
+  &__day-wrapper {
     width: 14.285714286%;
     display: inline-block;
+  }
+
+  &__day {
+    padding: 0;
+    width: 100%;
     outline: 0;
+    border: 0;
+    background: transparent;
     cursor: pointer;
 
     &_not-clickable {
