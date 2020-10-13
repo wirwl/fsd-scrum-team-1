@@ -1,0 +1,14 @@
+.header-auth {
+
+  &__actions {
+    display: flex;
+  }
+
+  &__action:first-child {
+    margin-right: 1.25rem;
+  }
+
+  &__user-name {
+    font-size: .875rem;
+  }
+}
