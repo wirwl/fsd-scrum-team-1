@@ -27,17 +27,7 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
       </span>
     )
     : (
-      <div className={b('actions')}>
-        <div className={b('action')}>
-          <Link href="/auth/sign-in">
-            <Button
-              href="/auth/sign-in"
-              theme="white"
-              caption="Вход"
-            />
-          </Link>
-        </div>
-
+      <>
         <div className={b('action')}>
           <Link href="/auth/register">
             <Button
@@ -47,7 +37,17 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
             />
           </Link>
         </div>
-      </div>
+
+        <div className={b('action')}>
+          <Link href="/auth/sign-in">
+            <Button
+              href="/auth/sign-in"
+              theme="white"
+              caption="Вход"
+            />
+          </Link>
+        </div>
+      </>
     );
 
   return (
