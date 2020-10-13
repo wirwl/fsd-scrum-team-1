@@ -4,7 +4,7 @@ import { block } from 'bem-cn';
 import SVGInline from 'react-svg-inline';
 
 import type { IMenuItem } from './components/nav-item/NavItem';
-import NavItem, { ItemType } from './components/nav-item/NavItem';
+import NavItem from './components/nav-item/NavItem';
 
 import './main-nav.scss';
 
@@ -17,6 +17,7 @@ type INavMenuProps = {
 };
 
 const b = block('main-nav');
+const isHrefSelected = (item: IMenuItem, currHref: string): boolean => ('href' in item && currHref === item.href);
 
 /**
  * This component implements MainNav
@@ -24,12 +25,12 @@ const b = block('main-nav');
  * - items: IMenuItem[]
  *   Example items:
  *     const items: IMenuItem[] = [
- *      { type: IItemType.LINK, label: 'О нас', href: '/' },
- *      { type: IItemType.SUBMENU, label: 'Услуги', submenu: [
- *        { type: IItemType.LINK, label: 'Бронирование', href: '/about1' },
- *        { type: IItemType.LINK, label: 'Уведомления о скидках', href: '/about2' },
+ *      { label: 'О нас', href: '/' },
+ *      { label: 'Услуги', submenu: [
+ *        { label: 'Бронирование', href: '/about1' },
+ *        { label: 'Уведомления о скидках', href: '/about2' },
  *      ] },
- *      { type: IItemType.LINK, label: 'Вакансии', href: '/vacancy' },
+ *      { label: 'Вакансии', href: '/vacancy' },
  *     ]
  * - currHref: string
  */
@@ -56,10 +57,7 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
             <NavItem
               key={item.label}
               item={item}
-              isSelected={
-                item.type === ItemType.LINK
-                && currHref === item.href
-              }
+              isSelected={isHrefSelected(item, currHref)}
             />
           ),
         )
@@ -70,10 +68,6 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
 };
 
 export default MainNav;
-
-export {
-  ItemType,
-};
 
 export type {
   IMenuItem,

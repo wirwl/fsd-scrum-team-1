@@ -7,19 +7,12 @@ import './nav-item.scss';
 
 import expandMoreSVG from './img/expand-more-down.svg';
 
-enum ItemType {
-  LINK,
-  SUBMENU
-}
-
 type IMenuLink = {
-  type: ItemType.LINK;
   label: string;
   href: string;
 };
 
 type IMenuSubmenu = {
-  type: ItemType.SUBMENU;
   label: string;
   submenu: IMenuLink[];
 };
@@ -35,7 +28,7 @@ type INavItemProps = {
 };
 
 const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
-  const content = item.type === ItemType.LINK
+  const content = ('href' in item)
     ? (
       <Link href={item.href}>
         <span tabIndex={0} role="link" className={b('link')}>
@@ -73,10 +66,6 @@ const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
 };
 
 export default NavItem;
-
-export {
-  ItemType,
-};
 
 export type {
   IMenuSubmenu,
