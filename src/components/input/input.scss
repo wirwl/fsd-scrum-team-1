@@ -9,13 +9,17 @@
     display: block;
   }
 
-  &_with-arrow {
+  &_selected &__input {
+    border-color: $font-color-light50;
+  }
+
+  &_with-icon {
 
     .input__input {
       padding-right: 44px;
     }
 
-    .input__arrow {
+    .input__icon {
       display: block;
     }
   }
@@ -67,7 +71,7 @@
     }
   }
 
-  &__arrow {
+  &__icon {
     position: absolute;
     right: 0;
     top: 0;
@@ -81,11 +85,18 @@
     font-weight: normal;
     font-size: 24px;
     line-height: 24px;
-    background: $main-color-gradient;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     cursor: pointer;
     display: none;
+
+    &_expand {
+      color: $font-color-light50;
+    }
+
+    &_arrow {
+      background: $main-color-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }    
   }
 
   &__row-with-error {

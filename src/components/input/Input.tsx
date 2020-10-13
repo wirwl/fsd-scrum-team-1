@@ -10,7 +10,9 @@ interface IInputProps {
   type?: 'text' | 'number';
   value?: string | number;
   placeholder?: string;
-  withArrow?: boolean;
+  icon?: 'arrow' | 'expand';
+  readonly?: boolean;
+  selected?: boolean;
   mask?: string;
   name?: string;
   head?: string;
@@ -32,7 +34,9 @@ const Input: React.FC<IInputProps> = (props) => {
     mask = '',
     placeholder = '',
     validationErrorMessage = 'Некорректное значение!',
-    withArrow = false,
+    selected,
+    readonly,
+    icon,
     validate,
     name,
     head,
@@ -44,14 +48,15 @@ const Input: React.FC<IInputProps> = (props) => {
   if (validate === 'email') isCorrectValue = validateAsEmail(value.toString());
   if (value.toString().length === 0) isCorrectValue = true;
 
-  const bemMods: { [index: string]: string | boolean } = {
+  const bemMods: { [index: string]: string | boolean | undefined } = {
     'validate-with-error': Boolean(validate && !isCorrectValue),
-    'with-arrow': withArrow,
+    'with-icon': Boolean(icon),
+    selected,
   };
 
-  const arrowItem = withArrow
-    ? <button type="submit" className={b('arrow')}>arrow_forward</button>
-    : null;
+  let iconItem = null;
+  if (icon === 'arrow') iconItem = <button type="submit" className={b('icon', { arrow: true })}>arrow_forward</button>;
+  if (icon === 'expand') iconItem = <button type="button" className={b('icon', { expand: true })}>expand_more</button>;
 
   const headItem = head ? <h3 className={b('head')}>{head}</h3> : null;
 
@@ -72,8 +77,9 @@ const Input: React.FC<IInputProps> = (props) => {
           mask={mask}
           maskChar=""
           name={name}
+          readOnly={readonly}
         />
-        { arrowItem }
+        { iconItem }
       </div>
       <p className={b('row-with-error')}>{errorMessage}</p>
     </div>
