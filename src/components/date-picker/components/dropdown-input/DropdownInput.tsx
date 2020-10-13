@@ -37,13 +37,7 @@ const DropdownInput: React.FC<IDropdownProps> = (props) => {
           name={name}
           readOnly
         />
-        <button
-          type="button"
-          className={b('expand-button')}
-          onClick={handleClick}
-        >
-          expand_more
-        </button>
+        <button type="button" className={b('expand-button')}>expand_more</button>
       </div>
     </div>
   );

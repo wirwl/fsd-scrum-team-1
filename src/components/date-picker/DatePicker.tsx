@@ -2,7 +2,7 @@ import { block } from 'bem-cn';
 import { useState } from 'react';
 
 import Calendar from '@components/calendar/Calendar';
-import DropdownInput from './dropdown-input/DropdownInput';
+import DropdownInput from './components/dropdown-input/DropdownInput';
 import './date-picker.scss';
 
 interface IDatePickerProps {
