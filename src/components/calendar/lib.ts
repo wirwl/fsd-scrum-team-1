@@ -64,36 +64,37 @@ const getDayClasses = (params: {
     b,
   } = params;
 
-  const bemMods: { [index: string]: string } = {};
+  const bemMods: { [index: string]: string | boolean } = { 'not-clickable': false };
 
   if (day.getMonth() !== drawnDate.getMonth()) bemMods.theme = 'another-month';
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   if (today.getTime() === day.getTime()) bemMods.theme = 'today';
+  if (day.getTime() <= today.getTime()) bemMods['not-clickable'] = true;
 
   const startIsNull = start === null;
   const endIsNull = end === null;
   const rangeIsFull = !startIsNull && !endIsNull;
 
   if (!startIsNull && (start as Date).getTime() === day.getTime()) {
-    bemMods.theme = 'range-day';
-    if (rangeIsFull) bemMods['range-day'] = 'start';
+    bemMods.theme = 'part-of-range';
+    if (rangeIsFull) bemMods['inrange-position'] = 'start';
   }
 
   if (!endIsNull && (end as Date).getTime() === day.getTime()) {
-    bemMods.theme = 'range-day';
-    if (rangeIsFull) bemMods['range-day'] = 'end';
+    bemMods.theme = 'part-of-range';
+    if (rangeIsFull) bemMods['inrange-position'] = 'end';
   }
 
   if (rangeIsFull) {
     const isDayMiddleRange = day.getTime() > (start as Date).getTime()
     && day.getTime() < (end as Date).getTime();
 
-    if (isDayMiddleRange) bemMods.theme = 'range-day-middle';
+    if (isDayMiddleRange) bemMods.theme = 'mid-range';
   }
 
-  return b('day-week', bemMods);
+  return b('day', bemMods);
 };
 
 const updateRange = (params: {

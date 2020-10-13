@@ -90,8 +90,20 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     return true;
   };
 
+  const weekdayNamesElements = weekdayNames.map((name) => (
+    <li
+      key={name}
+      className={b('day', { theme: 'weekday-name', 'not-clickable': true })}
+      tabIndex={-1}
+    >
+      <p className={b('day-inner')}>
+        <span className={b('day-label')}>{name}</span>
+      </p>
+    </li>
+  ));
+
   const daysElements = daysList.map((day) => (
-    <div
+    <li
       className={getDayClasses({
         b,
         day,
@@ -102,14 +114,14 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       onClick={() => handleDayClick(day)}
       role="button"
       onKeyUp={() => handleDayClick(day)}
-      tabIndex={0}
+      tabIndex={-1}
     >
       <p className={b('day-inner')}>
-        <span className={b('day-number')}>
+        <span className={b('day-label')}>
           {day.getDate()}
         </span>
       </p>
-    </div>
+    </li>
   ));
 
   return (
@@ -135,10 +147,8 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
           arrow_forward
         </button>
       </div>
-      <div className={b('weekday-names')}>
-        { weekdayNames.map((name) => (<p className={b('weekday-name')} key={name}>{name}</p>)) }
-      </div>
-      <div className={b('days-container')}>{daysElements}</div>
+      <ul className={b('weekday-names')}>{weekdayNamesElements}</ul>
+      <ul className={b('days-container')}>{daysElements}</ul>
       <div className={b('control-buttons')}>
         <div className={b('clear-button', { hidden: rangeIsEmpty })}>
           <Button
