@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import './input.scss';
 
-type CustomValidateFunction = (currentValue: string | number) => boolean;
+type CustomValidateFunction = (currentValue: string | number) => string | null;
 
 interface IInputProps {
   type?: 'text' | 'number';
@@ -15,7 +15,8 @@ interface IInputProps {
   name?: string;
   head?: string;
   validate?: 'email' | CustomValidateFunction;
-  validationErrorMessage?: string;
+  emailValidationErrorMessage?: string;
+  onChange?: (value: string, isValidValue: boolean) => void;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -31,21 +32,29 @@ const Input: React.FC<IInputProps> = (props) => {
     value: initValue = '',
     mask = '',
     placeholder = '',
-    validationErrorMessage = 'Некорректное значение!',
+    emailValidationErrorMessage = 'Некорректный адрес почты.',
     withArrow,
     validate,
     name,
     head,
+    onChange,
   } = props;
 
   const [value, setValue] = useState(initValue);
 
-  let isCorrectValue = typeof validate === 'function' ? validate(value) : true;
-  if (validate === 'email') isCorrectValue = validateAsEmail(value.toString());
-  if (value.toString().length === 0) isCorrectValue = true;
+  let errorValidate = typeof validate === 'function' ? validate(value) : null;
+  if (
+    validate === 'email' && !validateAsEmail(value.toString())
+  ) errorValidate = emailValidationErrorMessage;
+
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value: currentValue } = ev.currentTarget;
+    setValue(currentValue);
+    onChange && onChange(currentValue, Boolean(errorValidate));
+  };
 
   const bemMods: { [index: string]: string | boolean | undefined } = {
-    'validate-with-error': Boolean(validate && !isCorrectValue),
+    'validate-with-error': Boolean(validate && errorValidate),
     'with-arrow': Boolean(withArrow),
   };
 
@@ -54,10 +63,6 @@ const Input: React.FC<IInputProps> = (props) => {
     : null;
 
   const headItem = head ? <h3 className={b('head')}>{head}</h3> : null;
-
-  let errorMessage = '';
-  if (validate === 'email') errorMessage = 'Некорректный адрес почты.';
-  else if (validate) errorMessage = validationErrorMessage;
 
   return (
     <div className={b(bemMods)}>
@@ -68,14 +73,14 @@ const Input: React.FC<IInputProps> = (props) => {
           placeholder={placeholder}
           type={type}
           value={value}
-          onChange={(ev) => setValue(ev.currentTarget.value)}
+          onChange={handleChange}
           mask={mask}
           maskChar=""
           name={name}
         />
         { expandButton }
       </div>
-      <p className={b('row-with-error')}>{errorMessage}</p>
+      <p className={b('row-with-error')}>{errorValidate}</p>
     </div>
   );
 };
