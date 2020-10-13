@@ -90,6 +90,7 @@
 
     &_expand {
       color: $font-color-light50;
+      pointer-events: none;
     }
 
     &_arrow {

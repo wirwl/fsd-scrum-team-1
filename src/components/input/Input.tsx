@@ -11,13 +11,14 @@ interface IInputProps {
   value?: string | number;
   placeholder?: string;
   icon?: 'arrow' | 'expand';
-  readonly?: boolean;
+  readOnly?: boolean;
   selected?: boolean;
   mask?: string;
   name?: string;
   head?: string;
   validate?: 'email' | CustomValidateFunction;
   validationErrorMessage?: string;
+  onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void | boolean;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -35,7 +36,8 @@ const Input: React.FC<IInputProps> = (props) => {
     placeholder = '',
     validationErrorMessage = 'Некорректное значение!',
     selected,
-    readonly,
+    readOnly,
+    onClick,
     icon,
     validate,
     name,
@@ -77,7 +79,8 @@ const Input: React.FC<IInputProps> = (props) => {
           mask={mask}
           maskChar=""
           name={name}
-          readOnly={readonly}
+          readOnly={readOnly}
+          onClick={onClick}
         />
         { iconItem }
       </div>
