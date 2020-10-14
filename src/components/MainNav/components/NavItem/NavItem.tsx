@@ -3,7 +3,7 @@ import SVGInline from 'react-svg-inline';
 import { block } from 'bem-cn';
 import Link from 'next/link';
 
-import './nav-item.scss';
+import './NavItem.scss';
 
 import expandMoreSVG from './img/expand-more-down.svg';
 

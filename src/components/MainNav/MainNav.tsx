@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { block } from 'bem-cn';
 import SVGInline from 'react-svg-inline';
 
-import type { IMenuItem } from './components/nav-item/NavItem';
-import NavItem from './components/nav-item/NavItem';
+import type { IMenuItem } from './components/NavItem/NavItem';
+import NavItem from './components/NavItem/NavItem';
 
-import './main-nav.scss';
+import './MainNav.scss';
 
 import closeSVG from './img/close.svg';
 import menuSVG from './img/menu.svg';
