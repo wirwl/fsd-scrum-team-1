@@ -1,5 +1,5 @@
 import { block } from 'bem-cn';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Calendar from '@components/calendar/Calendar';
 import DropdownInput from './components/dropdown-input/DropdownInput';
@@ -109,6 +109,32 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     expandedDropdownStart: false,
   }));
 
+  const handleDocumentClick = useCallback((ev: MouseEvent): void => {
+    const path = ev.composedPath() as Element[];
+
+    const targetIsDataPicker = path.some((element): boolean => {
+      if (!element.classList) return false;
+      return element.classList.contains('data-picker');
+    });
+
+    if (!targetIsDataPicker) {
+      setState((prev) => ({
+        ...prev,
+        expandedDatePicker: false,
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (state.expandedDatePicker) document.addEventListener('click', handleDocumentClick);
+    else document.removeEventListener('click', handleDocumentClick);
+  }, [state.expandedDatePicker]);
+
+  const bemMods = {
+    expanded: state.expandedDatePicker,
+    'with-two-inputs': withTwoInputs,
+  };
+
   const dropdownValue = [
     state.rangeStart ? dateToString(state.rangeStart) : placeholder,
     state.rangeEnd ? dateToString(state.rangeEnd) : placeholder,
@@ -152,7 +178,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     );
 
   return (
-    <div className={b({ expanded: state.expandedDatePicker, 'with-two-inputs': withTwoInputs })}>
+    <div className={b(bemMods)}>
       <div className={b('head')}>
         {dropdowns}
       </div>
