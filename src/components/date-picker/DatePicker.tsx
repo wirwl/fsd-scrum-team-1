@@ -121,6 +121,8 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
       setState((prev) => ({
         ...prev,
         expandedDatePicker: false,
+        expandedDropdownStart: false,
+        expandedDropdownEnd: false,
       }));
     }
   }, []);
