@@ -2,9 +2,9 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import { block } from 'bem-cn';
 
-import Button from '@components/button/Button';
+import Button from '@components/Button/Button';
 
-import './header-auth.scss';
+import './HeaderAuth.scss';
 
 type IUser = {
   name: string
@@ -30,21 +30,23 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
       <>
         <div className={b('action')}>
           <Link href="/auth/register">
-            <Button
-              href="/auth/register"
-              theme="default"
-              caption="Зарегистрироваться"
-            />
+            <a className={b('link')} href="/auth/register">
+              <Button
+                theme="default"
+                caption="Зарегистрироваться"
+              />
+            </a>
           </Link>
         </div>
 
         <div className={b('action')}>
           <Link href="/auth/sign-in">
-            <Button
-              href="/auth/sign-in"
-              theme="white"
-              caption="Вход"
-            />
+            <a className={b('link')} href="/auth/sign-in">
+              <Button
+                theme="white"
+                caption="Вход"
+              />
+            </a>
           </Link>
         </div>
       </>
