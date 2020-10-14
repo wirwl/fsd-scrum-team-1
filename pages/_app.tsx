@@ -5,7 +5,7 @@ import 'normalize.css/normalize.css';
 
 import '@styles/root.scss';
 
-// eslint-disable-next-line
+// eslint-disable-next-line react/jsx-props-no-spreading
 const App: FC<AppProps> = ({ Component, pageProps }) => <Component {...pageProps} />;
 
 export default App;
