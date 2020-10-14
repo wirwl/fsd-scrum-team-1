@@ -6,10 +6,12 @@
     "dev": "npx next dev",
     "build": "npx next build",
     "start": "npx next start",
+    "check": "npm run eslint && npm run stylelint && npm run check-types",
+    "check-types": "tsc",
     "eslint": "npx eslint src pages --cache",
     "eslint:fix": "npx eslint src pages --fix",
-    "stylelint": "npx stylelint '**/*.scss'",
-    "stylelint:fix": "npx stylelint '**/*.scss' --fix"
+    "stylelint": "npx stylelint src/**/*.scss",
+    "stylelint:fix": "npx stylelint src/**/*.scss --fix"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.3",
     "eslint-plugin-react-hooks": "^4.1.2",
+    "husky": "^4.3.0",
     "postcss": "^8.1.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
@@ -63,5 +66,10 @@
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run check"
+    }
   }
 }
