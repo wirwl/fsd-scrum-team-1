@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
 
-import './banner-and-signature.scss';
+import './BannerAndSignature.scss';
 
 const b = block('banner-and-signature');
 
