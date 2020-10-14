@@ -15,13 +15,13 @@ const Logo: React.FC<ILogo> = (props) => {
   const { href = '/', alt = 'Toxin', title = 'Toxin' } = props;
 
   return (
-    <Link href = {href}>
-      <a className={b()}>
+    <Link href={href}>
+      <a href={href} className={b()}>
         <img
-          className = {b('image')}
-          src = "/images/logo.svg"
-          alt = {alt}
-          title = {title}
+          className={b('image')}
+          src="/images/logo.svg"
+          alt={alt}
+          title={title}
         />
       </a>
     </Link>
@@ -29,4 +29,3 @@ const Logo: React.FC<ILogo> = (props) => {
 };
 
 export default Logo;
-
