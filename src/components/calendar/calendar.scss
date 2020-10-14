@@ -21,8 +21,18 @@
   }
 
   &__change-month {
-    font-family: 'Material Icons';
+    padding: 0;
+    outline: 0;
+    border: 0;
     width: 24px;
+    display: block;
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    color: $main-color;
+    background: transparent;
     cursor: pointer;
 
     &_hidden {
@@ -35,127 +45,98 @@
     font-family: $header-font;
   }
 
-  &__weekday-names {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  &__weekday-name {
-    margin: 0;
-    padding: 12.5px 0;
-    width: 100%;
-    max-width: 2.8571rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: $main-font;
-    font-style: normal;
-    font-weight: bold;
-    font-size: .75rem;
-    line-height: .9375rem;
-    color: $main-color;
-    font-weight: bold;
-  }
-
+  &__weekday-names,
   &__days-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  &__day-week {
+  &__day-wrapper {
     width: 14.285714286%;
     display: inline-block;
-    border-radius: 50%;
-    outline: none;
+  }
+
+  &__day {
+    padding: 0;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    background: transparent;
     cursor: pointer;
 
-    &_range-day {
+    &_not-clickable {
+      cursor: default;
+    }
 
-      &_end,
-      &_start {
-        position: relative;
-        z-index: 1;
-        
-        &::after {
-          content: '';
-          top: 0;
-          z-index: -1;
-          width: 50%;
-          height: 100%;
-          position: absolute;
-          display: block;
-          background: $main-color-gradient;
-          opacity: .25;
-        }
-      }
+    &_theme_weekday-name .calendar__day-label {
+      color: $main-color;
+      font-weight: bold;
+    }
 
-      &_end {
+    &_theme_another-month .calendar__day-label {
+      color: $font-color-light25;
+    }
 
-        &::after {
-          left: 0;
-        }
-      }
+    &_theme_today,
+    &_theme_part-of-range {
+      border-radius: 50%;
 
-      &_start {
+      .calendar__day-label {
+        font-weight: bold;
         color: #fff;
-
-        &::after {
-          right: 0;
-        }
       }
     }
 
-    &_theme {
+    &_theme_today {
+      background: $second-color-gradient;
+    }
 
-      &_not-clickable {
-        cursor: default;
-        
-        .calendar__day-number {
-          color: $font-color-light25;
-        }
-      }
+    &_theme_part-of-range {
+      background: $main-color-gradient;
+      position: relative;
+      z-index: 1;
+    }
 
-      &_another-month .calendar__day-number {
-        color: $font-color-light25;
-      }
-  
-      &_range-day-middle {
-        position: relative;
-        z-index: 2;
-  
-        &::after {
-          content: '';
-          left: 0;
-          top: 0;
-          z-index: 1;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          display: block;
-          background: $main-color-gradient;
-          opacity: .25;
-        }
-      }
-  
-      &_range-day {
+    &_theme_mid-range {
+      position: relative;
+      z-index: 2;
+
+      &::after {
+        content: '';
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: block;
         background: $main-color-gradient;
+        opacity: .25;
       }
-  
-      &_today {
-        background: $second-color-gradient;
-        cursor: default;
+    }
+
+    &_inrange-position {
+
+      &_start::after,
+      &_end::after {
+        content: '';
+        top: 0;
+        z-index: -1;
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        display: block;
+        background: $main-color-gradient;
+        opacity: .25;
       }
 
-      &_range-day,
-      &_today {
+      &_start::after {
+        right: 0;
+      }
 
-        .calendar__day-number {
-          font-weight: bold;
-          color: #fff;
-        }
+      &_end::after {
+        left: 0;
       }
     }
   }
@@ -169,15 +150,20 @@
     justify-content: center;
   }
 
-  &__day-number {
+  &__day-label {
     display: block;
     text-align: center;
     font-family: $main-font;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
+    font-size: .75rem;
+    line-height: .9375rem;
     color: $font-color-light50;
     text-align: center;
+  }
+
+  &__days-container {
+    margin-bottom: 20px;
   }
 
   &__control-buttons {

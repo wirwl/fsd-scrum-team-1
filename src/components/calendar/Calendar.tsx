@@ -90,26 +90,36 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     return true;
   };
 
+  const weekdayNamesElements = weekdayNames.map((name) => (
+    <li key={name} className={b('day-wrapper')}>
+      <div className={b('day', { theme: 'weekday-name', 'not-clickable': true })}>
+        <p className={b('day-inner')}>
+          <span className={b('day-label')}>{name}</span>
+        </p>
+      </div>
+    </li>
+  ));
+
   const daysElements = daysList.map((day) => (
-    <div
-      className={getDayClasses({
-        b,
-        day,
-        drawnDate,
-        ...range,
-      })}
-      key={day.getTime()}
-      onClick={() => handleDayClick(day)}
-      role="button"
-      onKeyUp={() => handleDayClick(day)}
-      tabIndex={0}
-    >
-      <p className={b('day-inner')}>
-        <span className={b('day-number')}>
-          {day.getDate()}
-        </span>
-      </p>
-    </div>
+    <li className={b('day-wrapper')} key={day.getTime()}>
+      <button
+        className={getDayClasses({
+          b,
+          day,
+          drawnDate,
+          ...range,
+        })}
+        type="button"
+        onClick={() => handleDayClick(day)}
+        tabIndex={-1}
+      >
+        <p className={b('day-inner')}>
+          <span className={b('day-label')}>
+            {day.getDate()}
+          </span>
+        </p>
+      </button>
+    </li>
   ));
 
   return (
@@ -135,10 +145,8 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
           arrow_forward
         </button>
       </div>
-      <div className={b('weekday-names')}>
-        { weekdayNames.map((name) => (<p className={b('weekday-name')} key={name}>{name}</p>)) }
-      </div>
-      <div className={b('days-container')}>{daysElements}</div>
+      <ul className={b('weekday-names')}>{weekdayNamesElements}</ul>
+      <ul className={b('days-container')}>{daysElements}</ul>
       <div className={b('control-buttons')}>
         <div className={b('clear-button', { hidden: rangeIsEmpty })}>
           <Button
