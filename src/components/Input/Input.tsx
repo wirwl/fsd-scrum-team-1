@@ -7,7 +7,7 @@ import './input.scss';
 type CustomValidateFunction = (currentValue: string | number) => string | null;
 
 interface IInputProps {
-  type?: 'text' | 'number';
+  type?: 'text' | 'number' | 'email' | 'password';
   value?: string | number;
   placeholder?: string;
   withArrow?: boolean;
