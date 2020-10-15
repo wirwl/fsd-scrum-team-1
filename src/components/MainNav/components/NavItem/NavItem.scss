@@ -3,10 +3,19 @@
 .main-nav-item {
   position: relative;
 
+  @media (max-width: 970px) {
+
+    &__link_with-right-position:focus &__submenu,
+    &:hover &__link_with-right-position &__submenu {
+      left: unset;
+      right: 0;
+    }
+  }
+
   &:not(:nth-child(2)) {
     margin-left: 1.25rem;
 
-    @media (max-width: 420px) {
+    @media (max-width: 970px) {
       margin-left: 0;
     }
   }
@@ -45,16 +54,18 @@
   }
 
   &__submenu {
-    display: block;
-    width: 15.625rem;
-    max-width: 15.625rem;
+    display: none;
+    width: 12.5rem;
+    max-width: 12.5rem;
 
-    visibility: hidden;
     opacity: 0;
     height: 0;
 
     position: absolute;
+    left: -10px;
+
     margin-top: .0625rem;
+    padding-left: 10px;
 
     list-style-type: none;
 
@@ -66,6 +77,7 @@
       width: 100%;
       max-width: 100%;
       position: relative;
+      left: unset;
 
       margin: 0;
 
@@ -79,11 +91,10 @@
 
   &__link:focus > &__submenu,
   &:hover &__submenu {
+    display: block;
     height: auto;
-    visibility: visible;
     opacity: 1;
 
-    padding-left: 0;
     padding-right: .625rem;
     padding-top: .625rem;
     padding-bottom: .625rem;

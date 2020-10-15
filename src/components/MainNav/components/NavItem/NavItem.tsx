@@ -25,19 +25,30 @@ const bItemSelected = b({ selected: true });
 type INavItemProps = {
   item: IMenuItem;
   isSelected: boolean;
+  isRightHalfItem: boolean;
 };
 
-const NavItem: FC<INavItemProps> = ({ item, isSelected }) => {
+const NavItem: FC<INavItemProps> = ({ item, isSelected, isRightHalfItem }) => {
+  console.log(b({ 'with-right-position': isRightHalfItem }).toString());
+
   const content = ('href' in item)
     ? (
       <Link href={item.href}>
-        <span tabIndex={0} role="link" className={b('link')}>
+        <span
+          tabIndex={0}
+          role="link"
+          className={b('link')}
+        >
           {item.label}
         </span>
       </Link>
     )
     : (
-      <div role="link" tabIndex={0} className={b('link')}>
+      <div
+        role="link"
+        tabIndex={0}
+        className={b('link', { 'with-right-position': isRightHalfItem })}
+      >
         {item.label}
 
         <SVGInline

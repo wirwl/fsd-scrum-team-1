@@ -40,7 +40,9 @@ const Header: FC = () => {
   return (
     <header className={b()}>
       <div className={b('center')}>
-        <Logo />
+        <div className={b('logo')}>
+          <Logo />
+        </div>
 
         <div className={b('nav')}>
           <MainNav items={navItems} currHref={router.pathname} />

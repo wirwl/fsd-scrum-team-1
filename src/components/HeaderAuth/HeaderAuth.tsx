@@ -29,22 +29,22 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
     : (
       <>
         <div className={b('action')}>
-          <Link href="/auth/register">
-            <a className={b('link')} href="/auth/register">
+          <Link href="/auth/sign-in">
+            <a className={b('link')} href="/auth/sign-in">
               <Button
-                theme="default"
-                caption="Зарегистрироваться"
+                theme="white"
+                caption="Вход"
               />
             </a>
           </Link>
         </div>
 
         <div className={b('action')}>
-          <Link href="/auth/sign-in">
-            <a className={b('link')} href="/auth/sign-in">
+          <Link href="/auth/register">
+            <a className={b('link')} href="/auth/register">
               <Button
-                theme="white"
-                caption="Вход"
+                theme="default"
+                caption="Зарегистрироваться"
               />
             </a>
           </Link>

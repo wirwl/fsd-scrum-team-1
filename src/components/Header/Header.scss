@@ -16,13 +16,41 @@
 
     margin-left: auto;
     margin-right: auto;
+
+    @media (max-width: 970px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__nav {
     margin-left: auto;
+
+    @media (max-width: 970px) {
+      order: 3;
+      width: 100%;
+      margin-right: 20px;
+      margin-left: 20px;
+      margin-top: 15px;
+    }
   }
 
   &__auth-block {
     margin-left: 20px;
+    margin-right: 20px;
+
+    @media (max-width: 450px) {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__logo {
+    margin-left: 20px;
+
+    @media (max-width: 450px) {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 20px;
+    }
   }
 }
