@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import MainLayout from 'src/layouts/MainLayout';
-import Input from '@components/input/Input';
+import Input from '@components/Input/Input';
 
 const Components: FC = () => (
   <MainLayout title="Components">
