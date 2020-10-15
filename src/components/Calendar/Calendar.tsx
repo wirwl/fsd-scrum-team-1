@@ -3,7 +3,7 @@ import { block } from 'bem-cn';
 
 import Button from '@components/Button/Button';
 import createDaysList, { getDayClasses, updateRange } from './lib';
-import './calendar.scss';
+import './Calendar.scss';
 
 interface ICalendarProps {
   selectRangeDay?: CalendarMode;

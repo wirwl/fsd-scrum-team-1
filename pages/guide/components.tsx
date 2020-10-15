@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import MainLayout from 'src/layouts/MainLayout';
-import Calendar from '@components/calendar/Calendar';
+import Calendar from '@components/Calendar/Calendar';
 
 const Components: FC = () => (
   <MainLayout title="Components">
