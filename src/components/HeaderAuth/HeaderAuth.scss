@@ -1,3 +1,5 @@
+@import '@styles/variables';
+
 .header-auth {
   display: flex;
   align-items: center;
@@ -32,6 +34,16 @@
     display: block;
 
     font-size: .875rem;
+
+    border-left: .0625rem solid $font-color-light10;
+    padding-left: 1.25rem;
+
+    @media (max-width: 970px) {
+      border: 0;
+      padding-left: unset;
+
+      text-align: center;
+    }
   }
 
   &__link {

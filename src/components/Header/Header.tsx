@@ -49,7 +49,7 @@ const Header: FC = () => {
         </div>
 
         <div className={b('auth-block')}>
-          <HeaderAuth user={null} />
+          <HeaderAuth user={{ name: 'Aпполинария', lastName: 'Муравьева-Ржевская' }} />
         </div>
       </div>
     </header>
