@@ -1,0 +1,91 @@
+@import '@styles/variables';
+
+.main-nav-item {
+  position: relative;
+
+  &:not(:nth-child(2)) {
+    margin-left: 1.25rem;
+
+    @media (max-width: 420px) {
+      margin-left: 0;
+    }
+  }
+
+  &__link {
+    border: .0625rem solid transparent;
+
+    color: $font-color-light50;
+    outline: none;
+
+    text-decoration: none;
+
+    cursor: pointer;
+  }
+
+  &__link:hover {
+    color: $font-color-light75;
+  }
+
+  &__link:focus {
+    border: .0625rem solid $main-color;
+    border-radius: .1875rem;
+  }
+
+  &_selected &__link {
+    color: $font-color-light75;
+
+    font-weight: 700;
+  }
+
+  &__icon {
+    margin-left: .3125rem;
+    margin-right: 0;
+
+    opacity: .5;
+  }
+
+  &__submenu {
+    display: block;
+    width: 15.625rem;
+    max-width: 15.625rem;
+
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+
+    position: absolute;
+    margin-top: .0625rem;
+
+    list-style-type: none;
+
+    background-color: $bg-color;
+
+    transition: opacity .1s ease-in-out;
+
+    @media (max-width: 420px) {
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+
+      margin: 0;
+
+      background-color: $font-color-light5;
+    }
+  }
+
+  &__submenu-item:not(:last-child) {
+    padding-bottom: .3125rem;
+  }
+
+  &__link:focus > &__submenu,
+  &:hover &__submenu {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+
+    padding-left: 0;
+    padding-right: .625rem;
+    padding-top: .625rem;
+    padding-bottom: .625rem;
+  }
+}

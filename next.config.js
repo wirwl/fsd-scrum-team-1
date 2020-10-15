@@ -9,6 +9,13 @@ let config = {
       '@assets': `${__dirname}/src/assets`,
     };
 
+    config.module.rules.push(
+      {
+        test: /\.svg$/,
+        use: 'raw-loader'
+      }
+    );
+
     return config;
   },
 };
