@@ -29,8 +29,6 @@ type INavItemProps = {
 };
 
 const NavItem: FC<INavItemProps> = ({ item, isSelected, isRightHalfItem }) => {
-  console.log(b({ 'with-right-position': isRightHalfItem }).toString());
-
   const content = ('href' in item)
     ? (
       <Link href={item.href}>
