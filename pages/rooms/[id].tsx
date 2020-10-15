@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { GetServerSideProps } from 'next';
 
-import MainLayout from 'src/layouts/MainLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 type IRoomDetailsProps = { id: string | string[] | undefined };
 
