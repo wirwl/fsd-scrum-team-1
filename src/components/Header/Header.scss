@@ -1,10 +1,10 @@
 @import '@styles/variables';
 
 .header {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: .625rem;
+  padding-bottom: .625rem;
 
-  box-shadow: 0 10px 20px $font-color-light5;
+  box-shadow: 0 .625rem 1.25rem $font-color-light5;
 
   &__center {
     display: flex;
@@ -28,29 +28,29 @@
     @media (max-width: 970px) {
       order: 3;
       width: 100%;
-      margin-right: 20px;
-      margin-left: 20px;
-      margin-top: 15px;
+      margin-right: 1.25rem;
+      margin-left: 1.25rem;
+      margin-top: .9375rem;
     }
   }
 
   &__auth-block {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
 
     @media (max-width: 450px) {
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: .625rem;
     }
   }
 
   &__logo {
-    margin-left: 20px;
+    margin-left: 1.25rem;
 
     @media (max-width: 450px) {
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: 20px;
+      margin-bottom: 1.25rem;
     }
   }
 }
