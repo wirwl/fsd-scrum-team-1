@@ -1,20 +1,22 @@
 import { FC, StrictMode } from 'react';
 import Head from 'next/head';
+import { block } from 'bem-cn';
 
 import Header from '@components/Header/Header';
 
+import './MainLayout.scss';
+
 type IMainLayoutProps = {
   [key in 'title' | 'description' | 'keywords']?: string;
-} & {
-  [key in 'header' | 'children' | 'footer']?: React.ReactNode;
 };
+
+const b = block('main-layout');
 
 const MainLayout: FC<IMainLayoutProps> = ({
   title = 'Main Page',
   description = 'Tutorial project for learning React, Redux, NextJs',
   keywords = 'toxin,components,hotel,react,redux',
   children,
-  footer,
 }) => (
   <>
     <Head>
@@ -24,9 +26,15 @@ const MainLayout: FC<IMainLayoutProps> = ({
       <meta charSet="utf-8" />
     </Head>
     <StrictMode>
-      <Header />
-      {children && <main>{children}</main>}
-      {footer && <footer>{footer}</footer>}
+      <div className={b()}>
+        <Header />
+
+        {children && <main>{children}</main>}
+
+        <footer className={b('footer')}>
+          TODO: insert footer here!
+        </footer>
+      </div>
     </StrictMode>
   </>
 );
