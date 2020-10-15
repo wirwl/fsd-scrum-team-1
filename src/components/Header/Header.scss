@@ -1,0 +1,28 @@
+@import '@styles/variables';
+
+.header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  box-shadow: 0 10px 20px $font-color-light5;
+
+  &__center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    max-width: $max-content-width;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__nav {
+    margin-left: auto;
+  }
+
+  &__auth-block {
+    margin-left: 20px;
+  }
+}

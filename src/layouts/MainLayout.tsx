@@ -1,6 +1,8 @@
 import { FC, StrictMode } from 'react';
 import Head from 'next/head';
 
+import Header from '@components/Header/Header';
+
 type IMainLayoutProps = {
   [key in 'title' | 'description' | 'keywords']?: string;
 } & {
@@ -11,7 +13,6 @@ const MainLayout: FC<IMainLayoutProps> = ({
   title = 'Main Page',
   description = 'Tutorial project for learning React, Redux, NextJs',
   keywords = 'toxin,components,hotel,react,redux',
-  header,
   children,
   footer,
 }) => (
@@ -23,7 +24,7 @@ const MainLayout: FC<IMainLayoutProps> = ({
       <meta charSet="utf-8" />
     </Head>
     <StrictMode>
-      {header && <header>{header}</header>}
+      <Header />
       {children && <main>{children}</main>}
       {footer && <footer>{footer}</footer>}
     </StrictMode>
