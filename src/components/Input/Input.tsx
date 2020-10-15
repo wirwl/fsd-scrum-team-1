@@ -2,7 +2,7 @@ import InputMask from 'react-input-mask';
 import { block } from 'bem-cn';
 import { useState } from 'react';
 
-import './input.scss';
+import './Input.scss';
 
 type CustomValidateFunction = (currentValue: string | number) => string | null;
 
@@ -44,7 +44,9 @@ const Input: React.FC<IInputProps> = (props) => {
 
   let errorValidate = typeof validate === 'function' ? validate(value) : null;
   if (
-    validate === 'email' && !validateAsEmail(value.toString())
+    validate === 'email'
+    && value.toString().length
+    && !validateAsEmail(value.toString())
   ) errorValidate = emailValidationErrorMessage;
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
