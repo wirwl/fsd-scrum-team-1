@@ -2,8 +2,8 @@ import { block } from 'bem-cn';
 import { useCallback, useEffect, useState } from 'react';
 
 import Calendar from '@components/calendar/Calendar';
-import DropdownInput from './components/dropdown-input/DropdownInput';
-import './date-picker.scss';
+import DropdownInput from './components/DropdownInput/DropdownInput';
+import './DatePicker.scss';
 
 interface IDatePickerProps {
   withTwoInputs?: boolean;

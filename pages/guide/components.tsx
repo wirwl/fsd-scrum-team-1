@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import MainLayout from 'src/layouts/MainLayout';
-import DataPicker from '@components/date-picker/DatePicker';
+import DataPicker from '@components/DatePicker/DatePicker';
 
 const Components: FC = () => (
   <MainLayout title="Components">

@@ -1,6 +1,6 @@
 import { block } from 'bem-cn';
 
-import './dropdown-input.scss';
+import './DropdownInput.scss';
 
 interface IDropdownProps {
   title?: string;
