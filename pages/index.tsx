@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import Button from '@components/button/Button';
+import Button from '@components/Button/Button';
 import SocialButtons from '@components/social-buttons/SocialButtons';
 import MainLayout from '../src/layouts/MainLayout';
 
