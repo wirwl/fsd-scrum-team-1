@@ -29,11 +29,13 @@ const MainLayout: FC<IMainLayoutProps> = ({
       <body className={b()}>
         <Header />
 
-        {children && <main>{children}</main>}
+        <main className={b('main')}>
+          {children}
+        </main>
 
-        <footer className={b('footer')}>
+        <div className={b('footer')}>
           TODO: insert footer here!
-        </footer>
+        </div>
       </body>
     </StrictMode>
   </>
