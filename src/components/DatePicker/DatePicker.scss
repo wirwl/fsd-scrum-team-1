@@ -6,8 +6,8 @@
   }
 
   &_with-two-inputs &__dropdown {
-    max-width: calc(50% - 10px);
-    min-width: 150px;
+    max-width: calc(50% - .625rem);
+    min-width: 9.375rem;
   }
 
   &__head {
@@ -28,7 +28,7 @@
 
   &__calendar {
     position: absolute;
-    top: 5px;
+    top: .3125rem;
     left: 0;
     z-index: 9999;
     display: none;
