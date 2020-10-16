@@ -4,9 +4,10 @@ import BannerAndSignature from '@components/BannerAndSignature/BannerAndSignatur
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const PAGE_SIGNATURE = 'Лучшие номера для вашей работы, отдыха и просто вдохновения';
+const TITLE = 'Toxin';
 
 const Main: FC = () => (
-  <MainLayout title="Toxin">
+  <MainLayout title={TITLE}>
     <BannerAndSignature signature={PAGE_SIGNATURE}>
       awesome form
     </BannerAndSignature>
