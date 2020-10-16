@@ -26,7 +26,7 @@ const MainLayout: FC<IMainLayoutProps> = ({
       <meta charSet="utf-8" />
     </Head>
     <StrictMode>
-      <div className={b()}>
+      <body className={b()}>
         <Header />
 
         {children && <main>{children}</main>}
@@ -34,7 +34,7 @@ const MainLayout: FC<IMainLayoutProps> = ({
         <footer className={b('footer')}>
           TODO: insert footer here!
         </footer>
-      </div>
+      </body>
     </StrictMode>
   </>
 );
