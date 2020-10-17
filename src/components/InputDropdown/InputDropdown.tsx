@@ -31,11 +31,10 @@ const formatCount = (count: number, plurals: IPlurals): string => {
   ];
 };
 
-const reduceCountsAndPlurals = (items: IDropListItem[]): string => {
-  return items.map((item) => (item.count > 0
+const reduceCountsAndPlurals = (items: IDropListItem[]): string => items.map((item) => (
+  item.count > 0
     ? `${item.count} ${formatCount(item.count, item.plurals)}`
     : '')).filter(Boolean).join(', ');
-};
 
 const InputDropdown: FC<IInputDropdownProps> = ({
   name,
@@ -103,6 +102,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
         placeholder={placeholder}
         className={bem('text-input')}
         readOnly
+        onClick={() => setIsExpandedState(!isExpandedState)}
         value={valueState || ''}
       />
       <button
@@ -110,7 +110,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
         type="button"
         onClick={() => setIsExpandedState(!isExpandedState)}
       >
-        keyboard_arrow_down
+        {isExpandedState ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
       </button>
       <ul className={bem('list')}>
         {dropElements}

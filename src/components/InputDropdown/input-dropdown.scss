@@ -9,18 +9,24 @@
   user-select: none;
 
   &__text-input {
-    @include reset-outline;
     font: .875rem/2.625rem Montserrat, Helvetica, sans-serif;
     color: $font-color-light75;
     width: 100%;
     padding: 0 2.375rem 0 .875rem;
     border: .0625rem solid $font-color-light25;
     border-radius: .25rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      border: 1px solid $font-color-light50;
+    }
   }
 
   &__toggle-button {
     @include reset-button;
-    @include reset-outline(text-shadow);
     color: $font-color-light50;
     position: absolute;
     padding-top: .0625rem;
@@ -28,6 +34,15 @@
     right: 0;
     padding-right: .6875rem;
     height: 100%;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      color: $font-color-light75;
+    }
+
   }
 
   $zIndex: 9;
@@ -73,11 +88,11 @@
     text-transform: uppercase;
     font-size: .75rem;
     font-weight: bold;
+    color: $font-color;
   }
 
   &__counter-button {
     @include reset-button;
-    @include reset-outline;
     $diam: 1.875rem;
     display: inline-block;
     font-size: 1rem;
@@ -94,6 +109,11 @@
       pointer-events: none;
       opacity: .5;
     }
+
+    &:focus {
+      outline: none;
+    }
+
   }
 
   &__footer-buttons {
