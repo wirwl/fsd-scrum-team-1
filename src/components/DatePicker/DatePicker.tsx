@@ -5,14 +5,6 @@ import Calendar from '@components/calendar/Calendar';
 import DropdownInput from './components/DropdownInput/DropdownInput';
 import './DatePicker.scss';
 
-interface IDatePickerProps {
-  withTwoInputs?: boolean;
-  placeholder?: string;
-  title?: string;
-  startTitle?: string;
-  endTitle?: string;
-}
-
 interface IState {
   expandedDatePicker: boolean;
   expandedDropdownStart: boolean;
