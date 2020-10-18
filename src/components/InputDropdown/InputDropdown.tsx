@@ -1,6 +1,8 @@
-import { FC, useState, useEffect } from 'react';
+import {
+  FC, useState, useEffect, useCallback,
+} from 'react';
 import { block } from 'bem-cn';
-import './input-dropdown.scss';
+import './InputDropdown.scss';
 
 interface IPlurals {
   one: string,
@@ -19,6 +21,7 @@ interface IInputDropdownProps {
   placeholder?: string,
   dropList?: IDropListItem[],
   isExpanded?: boolean,
+  buttons?: boolean,
   reducer?: (items: IDropListItem[]) => string;
 }
 
@@ -34,7 +37,11 @@ const formatCount = (count: number, plurals: IPlurals): string => {
 const reduceCountsAndPlurals = (items: IDropListItem[]): string => items.map((item) => (
   item.count > 0
     ? `${item.count} ${formatCount(item.count, item.plurals)}`
-    : '')).filter(Boolean).join(', ');
+    : ''
+)).filter(Boolean).join(', ');
+
+const bemClass = 'input-dropdown';
+const bem = block(bemClass);
 
 const InputDropdown: FC<IInputDropdownProps> = ({
   name,
@@ -45,15 +52,40 @@ const InputDropdown: FC<IInputDropdownProps> = ({
     { label: 'Ванные комнаты', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' } },
   ],
   isExpanded = false,
+  buttons = false,
   reducer = reduceCountsAndPlurals,
 }) => {
   const [dropListState, setDropListState] = useState<IDropListItem[]>(dropList);
   const [isExpandedState, setIsExpandedState] = useState<boolean>(isExpanded);
-  const [valueState, setValueState] = useState<string>();
+  const [valueState, setValueState] = useState<string>(reducer(dropListState));
+
+  const applyChange = ():void => {
+    setValueState(reducer(dropListState));
+    setIsExpandedState(false);
+  };
+
+  const clearInput = ():void => {
+    console.log('clear');
+  }
+
+  const handleDocumentClick = useCallback((ev: MouseEvent): void => {
+    const path = ev.composedPath() as Element[];
+
+    const targetIsInputDropdown = path.some((element): boolean => {
+      if (!element.classList) return false;
+      return element.classList.contains(bemClass);
+    });
+
+    if (!targetIsInputDropdown) {
+      setValueState(reducer(dropListState));
+      setIsExpandedState(false);
+    }
+  }, []);
 
   useEffect(() => {
-    setValueState(reducer(dropListState));
-  });
+    if (isExpandedState) document.addEventListener('click', handleDocumentClick);
+    else document.removeEventListener('click', handleDocumentClick);
+  }, [isExpandedState]);
 
   const changeDropItemCount = (index: number, type: 'dec'|'inc'):void => {
     const items = [...dropListState];
@@ -64,13 +96,12 @@ const InputDropdown: FC<IInputDropdownProps> = ({
     setDropListState([...items]);
   };
 
-  const bem = block('input-dropdown');
   const modifiers = {
     expanded: isExpandedState,
   };
 
   const dropElements = dropListState.map((item, index) => (
-    <li key={item.label} className={bem('list-item')}>
+    <div key={item.label} className={bem('list-item')}>
       <div className={bem('item-name')}>{item.label}</div>
       <div className={bem('counter-buttons')}>
         <button
@@ -92,7 +123,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
           +
         </button>
       </div>
-    </li>
+    </div>
   ));
 
   return (
@@ -112,9 +143,35 @@ const InputDropdown: FC<IInputDropdownProps> = ({
       >
         {isExpandedState ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
       </button>
-      <ul className={bem('list')}>
-        {dropElements}
-      </ul>
+      <div className={bem('menu')}>
+        <div className={bem('list')}>
+          {dropElements}
+        </div>
+        {
+          buttons ? (
+            <div className={bem('footer-buttons')}>
+              <div
+                className={bem('clear-button')}
+                onClick={() => clearInput()}
+                onKeyDown={() => clearInput()}
+                role="button"
+                tabIndex={0}
+              >
+                Очистить
+              </div>
+              <div
+                className={bem('apply-button')}
+                onClick={() => applyChange()}
+                onKeyDown={() => applyChange()}
+                role="button"
+                tabIndex={0}
+              >
+                Применить
+              </div>
+            </div>
+          ) : null
+        }
+      </div>
     </div>
   );
 };

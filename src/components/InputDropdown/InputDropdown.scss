@@ -1,6 +1,8 @@
 @import '@styles/variables.scss';
 @import '@styles/mixins';
 
+$zIndex: 9;
+
 .input-dropdown {
   $blockClass: &;
   position: relative;
@@ -45,21 +47,20 @@
 
   }
 
-  $zIndex: 9;
-
-  &__list {
+  &__menu {
     position: absolute;
-    left: 0;
-    margin: 0;
     display: none;
     width: 100%;
-    padding: .3125rem .375rem 0 .875rem;
     border: 1px solid $font-color-light50;
     border-bottom-right-radius: .25rem;
     border-bottom-left-radius: .25rem;
+    padding: .3125rem .375rem 0 .875rem;
     box-shadow: 0 .625rem 1.25rem $font-color-light5;
     background-color: white;
     z-index: $zIndex;
+  }
+
+  &__list {
   }
 
   &__list-item {
@@ -120,13 +121,25 @@
     display: flex;
     line-height: 2.5rem;
     justify-content: space-between;
+    color: $main-color;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    line-height: 0.9375rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
   }
 
   &__clear-button {
+    cursor: pointer;
 
     &_hidden {
       visibility: hidden;
     }
+  }
+
+  &__apply-button {
+    cursor: pointer;
   }
 
   &_type {
@@ -152,7 +165,7 @@
       color: $font-color-light75;
     }
 
-    #{$blockClass}__list {
+    #{$blockClass}__menu {
       display: block;
       border-top: none;
     }
