@@ -58,6 +58,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   const [dropListState, setDropListState] = useState<IDropListItem[]>(dropList);
   const [isExpandedState, setIsExpandedState] = useState<boolean>(isExpanded);
   const [valueState, setValueState] = useState<string>(reducer(dropListState));
+  const [isHiddenBtnState, setIsHiddenBtnState] = useState<boolean>();
 
   const applyChange = ():void => {
     setValueState(reducer(dropListState));
@@ -65,8 +66,14 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   };
 
   const clearInput = ():void => {
-    console.log('clear');
-  }
+    const items = [...dropListState];
+    items.forEach((_, index) => {
+      const item = items[index];
+      item.count = 0;
+    });
+    setDropListState([...items]);
+    setValueState(reducer([...items]));
+  };
 
   const handleDocumentClick = useCallback((ev: MouseEvent): void => {
     const path = ev.composedPath() as Element[];
@@ -86,6 +93,15 @@ const InputDropdown: FC<IInputDropdownProps> = ({
     if (isExpandedState) document.addEventListener('click', handleDocumentClick);
     else document.removeEventListener('click', handleDocumentClick);
   }, [isExpandedState]);
+
+  useEffect(() => {
+    const items = [...dropListState];
+    const arr = items.map((_, index) => {
+      const item = items[index];
+      return item.count === 0;
+    });
+    arr.indexOf(false) === -1 ? setIsHiddenBtnState(true) : setIsHiddenBtnState(false);
+  });
 
   const changeDropItemCount = (index: number, type: 'dec'|'inc'):void => {
     const items = [...dropListState];
@@ -151,7 +167,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
           buttons ? (
             <div className={bem('footer-buttons')}>
               <div
-                className={bem('clear-button')}
+                className={bem('clear-button', { hidden: isHiddenBtnState })}
                 onClick={() => clearInput()}
                 onKeyDown={() => clearInput()}
                 role="button"

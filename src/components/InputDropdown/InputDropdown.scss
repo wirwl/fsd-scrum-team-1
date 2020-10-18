@@ -60,9 +60,6 @@ $zIndex: 9;
     z-index: $zIndex;
   }
 
-  &__list {
-  }
-
   &__list-item {
     display: flex;
     flex-flow: row nowrap;
