@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 
-import Button from '@components/Button/Button';
-import SocialButtons from '@components/social-buttons/SocialButtons';
-import MainLayout from '../src/layouts/MainLayout';
+import '@styles/index.scss';
+import Button from '@/components/Button/Button';
+import MainLayout from '@/layouts/MainLayout';
+import SocialButtons from '@/components/social-buttons/SocialButtons';
 
 const Main: FC = () => (
   <MainLayout>

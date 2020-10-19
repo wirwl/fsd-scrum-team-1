@@ -9,28 +9,24 @@
     display: block;
   }
 
-  &_selected &__input {
-    border-color: $font-color-light50;
-  }
-
-  &_with-icon {
+  &_with-arrow {
 
     .input__input {
-      padding-right: 44px;
+      padding-right: 2.75rem;
     }
 
-    .input__icon {
+    .input__arrow {
       display: block;
     }
   }
 
   &__head {
-    margin: 0 0 5px;
+    margin: 0 0 .3125rem;
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 12px;
-    line-height: 15px;
+    font-size: .75rem;
+    line-height: .9375rem;
     text-transform: uppercase;
     color: $font-color;
   }
@@ -42,17 +38,17 @@
   }
 
   &__input {
-    padding: 9px 14px;
+    padding: .5625rem .875rem;
     width: 100%;
-    border: 1px solid $font-color-light25;
-    border-radius: 4px;
+    border: .0625rem solid $font-color-light25;
+    border-radius: .25rem;
     outline: 0;
     box-sizing: border-box;
     font-family: Montserrat;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: .875rem;
+    line-height: 1.5rem;
     color: $font-color-light75;
     overflow: hidden;
 
@@ -71,41 +67,34 @@
     }
   }
 
-  &__icon {
+  &__arrow {
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     border: 0;
     outline: 0;
-    width: 44px;
+    width: 2.75rem;
     background: transparent;
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
-    line-height: 24px;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    background: $main-color-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     cursor: pointer;
-    display: none;
-
-    &_expand {
-      color: $font-color-light50;
-    }
-
-    &_arrow {
-      background: $main-color-gradient;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }    
+    display: none;   
   }
 
   &__row-with-error {
-    margin: 3px 0 0 0;
+    margin: .1875rem 0 0 0;
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 10px;
-    line-height: 14px;
+    font-size: .625rem;
+    line-height: .875rem;
     text-transform: uppercase;
     color: rgba(202, 40, 40, .75);
     display: none;

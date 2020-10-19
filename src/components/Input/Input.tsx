@@ -2,22 +2,21 @@ import InputMask from 'react-input-mask';
 import { block } from 'bem-cn';
 import { useState } from 'react';
 
-import './input.scss';
+import './Input.scss';
 
-type CustomValidateFunction = (currentValue: string | number) => boolean;
+type CustomValidateFunction = (currentValue: string | number) => string | null;
 
 interface IInputProps {
-  type?: 'text' | 'number';
+  type?: 'text' | 'number' | 'email' | 'password';
   value?: string | number;
   placeholder?: string;
-  icon?: 'arrow' | 'expand';
-  readonly?: boolean;
-  selected?: boolean;
+  withArrow?: boolean;
   mask?: string;
   name?: string;
   head?: string;
   validate?: 'email' | CustomValidateFunction;
-  validationErrorMessage?: string;
+  emailValidationErrorMessage?: string;
+  onChange?: (value: string, isValidValue: boolean) => void;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -33,36 +32,39 @@ const Input: React.FC<IInputProps> = (props) => {
     value: initValue = '',
     mask = '',
     placeholder = '',
-    validationErrorMessage = 'Некорректное значение!',
-    selected,
-    readonly,
-    icon,
+    emailValidationErrorMessage = 'Некорректный адрес почты.',
+    withArrow,
     validate,
     name,
     head,
+    onChange,
   } = props;
 
   const [value, setValue] = useState(initValue);
 
-  let isCorrectValue = typeof validate === 'function' ? validate(value) : true;
-  if (validate === 'email') isCorrectValue = validateAsEmail(value.toString());
-  if (value.toString().length === 0) isCorrectValue = true;
+  let errorValidate = typeof validate === 'function' ? validate(value) : null;
+  if (
+    validate === 'email'
+    && value.toString().length
+    && !validateAsEmail(value.toString())
+  ) errorValidate = emailValidationErrorMessage;
 
-  const bemMods: { [index: string]: string | boolean | undefined } = {
-    'validate-with-error': Boolean(validate && !isCorrectValue),
-    'with-icon': Boolean(icon),
-    selected,
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value: currentValue } = ev.currentTarget;
+    setValue(currentValue);
+    onChange && onChange(currentValue, Boolean(errorValidate));
   };
 
-  let iconItem = null;
-  if (icon === 'arrow') iconItem = <button type="submit" className={b('icon', { arrow: true })}>arrow_forward</button>;
-  if (icon === 'expand') iconItem = <button type="button" className={b('icon', { expand: true })}>expand_more</button>;
+  const bemMods: { [index: string]: string | boolean | undefined } = {
+    'validate-with-error': Boolean(validate && errorValidate),
+    'with-arrow': Boolean(withArrow),
+  };
+
+  const expandButton = withArrow
+    ? <button type="button" className={b('arrow')}>arrow_forward</button>
+    : null;
 
   const headItem = head ? <h3 className={b('head')}>{head}</h3> : null;
-
-  let errorMessage = '';
-  if (validate === 'email') errorMessage = 'Некорректный адрес почты.';
-  else if (validate) errorMessage = validationErrorMessage;
 
   return (
     <div className={b(bemMods)}>
@@ -73,15 +75,14 @@ const Input: React.FC<IInputProps> = (props) => {
           placeholder={placeholder}
           type={type}
           value={value}
-          onChange={(ev) => setValue(ev.currentTarget.value)}
+          onChange={handleChange}
           mask={mask}
           maskChar=""
           name={name}
-          readOnly={readonly}
         />
-        { iconItem }
+        { expandButton }
       </div>
-      <p className={b('row-with-error')}>{errorMessage}</p>
+      <p className={b('row-with-error')}>{errorValidate}</p>
     </div>
   );
 };
