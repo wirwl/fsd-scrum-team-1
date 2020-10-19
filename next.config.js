@@ -1,3 +1,4 @@
+const withCSS = require('@zeit/next-css');
 const withSass = require('@zeit/next-sass');
 
 let config = {
@@ -8,10 +9,17 @@ let config = {
       '@assets': `${__dirname}/src/assets`,
     };
 
+    config.module.rules.push(
+      {
+        test: /\.svg$/,
+        use: 'raw-loader'
+      }
+    );
+
     return config;
   },
 };
 
-config = withSass(config);
+config = withCSS(withSass(config));
 
 module.exports = config;

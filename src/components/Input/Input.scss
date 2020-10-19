@@ -1,0 +1,102 @@
+@import '@styles/variables.scss';
+
+.input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+
+  &_validate-with-error &__row-with-error {
+    display: block;
+  }
+
+  &_with-arrow {
+
+    .input__input {
+      padding-right: 2.75rem;
+    }
+
+    .input__arrow {
+      display: block;
+    }
+  }
+
+  &__head {
+    margin: 0 0 .3125rem;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .75rem;
+    line-height: .9375rem;
+    text-transform: uppercase;
+    color: $font-color;
+  }
+  
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__input {
+    padding: .5625rem .875rem;
+    width: 100%;
+    border: .0625rem solid $font-color-light25;
+    border-radius: .25rem;
+    outline: 0;
+    box-sizing: border-box;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: .875rem;
+    line-height: 1.5rem;
+    color: $font-color-light75;
+    overflow: hidden;
+
+    &:read-only {
+      cursor: pointer;
+    }
+
+    &::placeholder {
+      opacity: 1;
+      color: $font-color-light25;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: $font-color-light50;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 0;
+    outline: 0;
+    width: 2.75rem;
+    background: transparent;
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    background: $main-color-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    display: none;   
+  }
+
+  &__row-with-error {
+    margin: .1875rem 0 0 0;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .625rem;
+    line-height: .875rem;
+    text-transform: uppercase;
+    color: rgba(202, 40, 40, .75);
+    display: none;
+  }
+}
