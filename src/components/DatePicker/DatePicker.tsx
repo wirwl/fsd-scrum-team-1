@@ -35,6 +35,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     placeholder = 'ДД.ММ.ГГГГ',
     startTitle = 'прибытие',
     endTitle = 'выезд',
+    onChange,
   } = props;
 
   const [state, setState] = useState<IState>({
@@ -83,23 +84,31 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     return true;
   };
 
-  const handleCalendarClear = (): void => setState((prev) => ({
-    ...prev,
-    rangeEnd: null,
-    rangeStart: null,
-    expandedDatePicker: false,
-    expandedDropdownEnd: false,
-    expandedDropdownStart: false,
-  }));
+  const handleCalendarClear = (): void => {
+    setState((prev) => ({
+      ...prev,
+      rangeEnd: null,
+      rangeStart: null,
+      expandedDatePicker: false,
+      expandedDropdownEnd: false,
+      expandedDropdownStart: false,
+    }));
 
-  const handleCalendarApply = (range: RangeDays): void => setState((prev) => ({
-    ...prev,
-    rangeStart: range.start,
-    rangeEnd: range.end,
-    expandedDatePicker: false,
-    expandedDropdownEnd: false,
-    expandedDropdownStart: false,
-  }));
+    onChange && onChange({ start: null, end: null });
+  };
+
+  const handleCalendarApply = (range: RangeDays): void => {
+    setState((prev) => ({
+      ...prev,
+      rangeStart: range.start,
+      rangeEnd: range.end,
+      expandedDatePicker: false,
+      expandedDropdownEnd: false,
+      expandedDropdownStart: false,
+    }));
+
+    onChange && onChange(range);
+  };
 
   const handleDocumentClick = useCallback((ev: MouseEvent): void => {
     const path = ev.composedPath() as Element[];

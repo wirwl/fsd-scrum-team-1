@@ -4,4 +4,5 @@ interface IDatePickerProps {
   title?: string;
   startTitle?: string;
   endTitle?: string;
+  onChange?: (range: RangeDays) => void;
 }
