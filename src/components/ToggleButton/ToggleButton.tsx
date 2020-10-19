@@ -8,19 +8,19 @@ const b = block('toggle-button');
 
 type IToggleButtonProps = {
   label: string;
-  initialValue?: boolean;
+  checked?: boolean;
   onChange: (newValue: boolean) => void;
 };
 
 const ToggleButton: FC<IToggleButtonProps> = ({
-  initialValue,
+  checked,
   onChange,
   label,
 }) => {
-  const [checked, setChecked] = useState<boolean>(initialValue || false);
+  const [isChecked, setChecked] = useState<boolean>(checked || false);
 
   const handleCheckboxToggle = (): void => {
-    const newValue = !checked;
+    const newValue = !isChecked;
     setChecked(newValue);
     onChange(newValue);
   };
@@ -29,7 +29,7 @@ const ToggleButton: FC<IToggleButtonProps> = ({
     <label className={b()}>
       <input
         type="checkbox"
-        checked={checked}
+        checked={isChecked}
         onChange={handleCheckboxToggle}
         className={b('input')}
       />
