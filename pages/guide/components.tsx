@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import MainLayout from 'src/layouts/MainLayout';
-import Input from '@components/Input/Input';
-import Calendar from '@components/Calendar/Calendar';
+import MainLayout from '@/layouts/MainLayout';
+import Input from '@/components/Input/Input';
+import Calendar from '@/components/Calendar/Calendar';
 
 const Components: FC = () => (
   <MainLayout title="Components">
