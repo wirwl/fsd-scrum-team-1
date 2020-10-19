@@ -10,12 +10,14 @@ type IToggleButtonProps = {
   label: string;
   checked?: boolean;
   onChange: (newValue: boolean) => void;
+  name: string;
 };
 
 const ToggleButton: FC<IToggleButtonProps> = ({
   checked,
   onChange,
   label,
+  name,
 }) => {
   const [isChecked, setChecked] = useState<boolean>(checked || false);
 
@@ -32,6 +34,7 @@ const ToggleButton: FC<IToggleButtonProps> = ({
         checked={isChecked}
         onChange={handleCheckboxToggle}
         className={b('input')}
+        name={name}
       />
 
       <div className={b('toggle')}>
