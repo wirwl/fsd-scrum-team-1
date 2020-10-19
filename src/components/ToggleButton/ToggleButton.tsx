@@ -7,7 +7,6 @@ import './ToggleButton.scss';
 const b = block('toggle-button');
 
 type IToggleButtonProps = {
-  id: string;
   label: string;
   initialValue?: boolean;
   onChange: (newValue: boolean) => void;
@@ -16,7 +15,6 @@ type IToggleButtonProps = {
 const ToggleButton: FC<IToggleButtonProps> = ({
   initialValue,
   onChange,
-  id,
   label,
 }) => {
   const [checked, setChecked] = useState<boolean>(initialValue || false);
@@ -28,9 +26,8 @@ const ToggleButton: FC<IToggleButtonProps> = ({
   };
 
   return (
-    <label htmlFor={id} className={b()}>
+    <label className={b()}>
       <input
-        id={id}
         type="checkbox"
         checked={checked}
         onChange={handleCheckboxToggle}
