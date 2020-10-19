@@ -15,19 +15,19 @@
     position: relative;
     display: flex;
     align-items: center;
-    width: 40px;
-    height: 20px;
+    width: 2.5rem;
+    height: 1.25rem;
 
-    border: 1px solid $font-color-light25;
-    border-radius: 10px;
-    margin-right: 10px;
+    border: .0625rem solid $font-color-light25;
+    border-radius: .625rem;
+    margin-right: .625rem;
   }
 
   &__toggle-inner {
     position: relative;
-    left: 4px;
-    width: 12px;
-    height: 12px;
+    left: .25rem;
+    width: .75rem;
+    height: .75rem;
 
     border-radius: inherit;
 
@@ -38,16 +38,16 @@
 
   &__input:focus + &__toggle {
     outline: auto;
-    outline-width: 1px;
+    outline-width: .0625rem;
     outline-color: $main-color;
   }
 
   &__input:checked + &__toggle {
-    border: 1px solid $main-color;
+    border: .0625rem solid $main-color;
   }
 
   &__input:checked + &__toggle > &__toggle-inner {
-    left: 22px;
+    left: 1.375rem;
 
     background: $main-color-gradient;
   }
