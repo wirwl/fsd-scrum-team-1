@@ -9,7 +9,7 @@ const b = block('toggle-button');
 type IToggleButtonProps = {
   label: string;
   checked?: boolean;
-  onChange: (newValue: boolean) => void;
+  onChange?: (newValue: boolean) => void;
   name: string;
 };
 
@@ -24,7 +24,7 @@ const ToggleButton: FC<IToggleButtonProps> = ({
   const handleCheckboxToggle = (): void => {
     const newValue = !isChecked;
     setChecked(newValue);
-    onChange(newValue);
+    onChange && onChange(newValue);
   };
 
   return (
