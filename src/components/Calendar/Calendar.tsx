@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { block } from 'bem-cn';
 
-import Button from '@components/Button/Button';
+import Button from '@/components/Button/Button';
 import createDaysList, { getDayClasses, updateRange } from './lib';
 import './Calendar.scss';
 
