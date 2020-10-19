@@ -1,0 +1,58 @@
+@import '@styles/variables.scss';
+
+.toggle-button {
+  display: flex;
+
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &__toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 20px;
+
+    border: 1px solid $font-color-light25;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+
+  &__toggle-inner {
+    position: relative;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+
+    border-radius: inherit;
+
+    background: $font-color-light25;
+
+    transition: left .1s ease-in-out;
+  }
+
+  &__input:focus + &__toggle {
+    outline: auto;
+    outline-width: 1px;
+    outline-color: $main-color;
+  }
+
+  &__input:checked + &__toggle {
+    border: 1px solid $main-color;
+  }
+
+  &__input:checked + &__toggle > &__toggle-inner {
+    left: 22px;
+
+    background: $main-color-gradient;
+  }
+
+  &__label {
+    user-select: none;
+  }
+}
