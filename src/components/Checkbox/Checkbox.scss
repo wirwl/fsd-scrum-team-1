@@ -1,0 +1,68 @@
+@import '@styles/variables.scss';
+
+$root: '.checkbox';
+
+#{$root} {
+  
+  &_rich #{$root}__label {
+    font-weight: bold;
+    color: $font-color-light75;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    cursor: pointer;
+  }
+
+  &__input {
+    display: none;
+
+    &:checked + #{$root}__new-input {
+      border-color: $main-color;
+    }
+
+    &:checked + #{$root}__new-input > #{$root}__check-mark {
+      visibility: visible;
+    }
+  }
+
+  &__new-input {
+    width: 1.25rem;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    border: .0625rem solid $font-color-light25;
+    border-radius: .25rem;
+    background: $bg-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__check-mark {
+    visibility: hidden;
+  }
+
+  &__label {
+    margin-left: .625rem;
+    padding-top: .0625rem;
+    font-family: $main-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: .875rem;
+    line-height: 1.125rem;
+    color: $font-color-light50;
+  }
+
+  &__description {
+    margin: .3125rem 0 0 1.875rem;
+    font-family: $main-font;
+    font-style: normal;
+    font-weight: normal;
+    font-size: .75rem;
+    line-height: .875rem;
+    color: $font-color-light50;
+  }
+}
