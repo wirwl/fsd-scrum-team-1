@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import { block } from 'bem-cn';
 
-import Button from '@/components/Button/Button';
+import Button from 'src/components/Button/Button';
 
 import './HeaderAuth.scss';
 

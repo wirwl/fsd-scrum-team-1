@@ -2,7 +2,7 @@ import { FC, StrictMode } from 'react';
 import Head from 'next/head';
 import { block } from 'bem-cn';
 
-import Header from '@components/Header/Header';
+import Header from 'src/components/Header/Header';
 
 import './MainLayout.scss';
 

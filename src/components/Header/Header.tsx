@@ -4,9 +4,9 @@ import { block } from 'bem-cn';
 
 import './Header.scss';
 
-import Logo from '@components/Logo/Logo';
-import MainNav, { IMenuItem } from '@components/MainNav/MainNav';
-import HeaderAuth from '@components/HeaderAuth/HeaderAuth';
+import Logo from 'src/components/Logo/Logo';
+import MainNav, { IMenuItem } from 'src/components/MainNav/MainNav';
+import HeaderAuth from 'src/components/HeaderAuth/HeaderAuth';
 
 const navItems: IMenuItem[] = [
   { label: 'О нас', href: '/' },
