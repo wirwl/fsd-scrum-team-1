@@ -1,0 +1,36 @@
+.data-picker {
+  width: 100%;
+
+  &_expanded &__calendar {
+    display: block;
+  }
+
+  &_with-two-inputs &__dropdown {
+    max-width: calc(50% - .625rem);
+    min-width: 9.375rem;
+  }
+
+  &__head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &__dropdown {
+    width: 100%;
+  }
+
+  &__container {
+    width: 100%;
+    position: relative;
+  }
+
+  &__calendar {
+    position: absolute;
+    top: .3125rem;
+    left: 0;
+    z-index: 9999;
+    display: none;
+  }
+}

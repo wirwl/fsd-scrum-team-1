@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import BannerAndSignature from '@components/BannerAndSignature/BannerAndSignature';
+import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const PAGE_SIGNATURE = 'Лучшие номера для вашей работы, отдыха и просто вдохновения';

@@ -1,6 +1,6 @@
 import { block } from 'bem-cn';
 
-import NavMenu, { IMenu } from '@components/FooterNav/components/NavMenu/NavMenu';
+import NavMenu, { IMenu } from '@/components/FooterNav/components/NavMenu/NavMenu';
 
 import './FooterNav.scss';
 
