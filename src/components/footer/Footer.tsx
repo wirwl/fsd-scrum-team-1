@@ -8,48 +8,58 @@ import SocialButtons from '@components/social-buttons/SocialButtons';
 
 import './footer.scss';
 
-type ILink = { name: string; href?: string; };
-
-type IFooterProps = Partial<{
+type ILink = { name: string; href: string; };
+type INavBlock = {
   title: string;
-  navBlocks: {
-    title: string;
-    links: ILink[];
-  }[];
-  subscription: {
-    title: string;
-    description: string;
-    url?: string;
-  },
-  copyright: string;
-  socialLinks: Partial<Record<'twitterUrl' | 'facebookUrl' | 'instagramUrl', string>>;
-}>;
+  links: ILink[];
+};
 
-const Footer: FC<IFooterProps> = ({
-  title = 'Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»',
-  navBlocks = [
-    {
-      title: 'Навигация',
-      links: [{ name: 'О нас' }, { name: 'Новости' }, { name: 'Служба поддержки' }, { name: 'Услуги' }],
-    },
-    {
-      title: 'О нас',
-      links: [{ name: 'О сервисе' }, { name: 'Наша команда' }, { name: 'Вакансии' }, { name: 'Инвесторы' }],
-    },
-    {
-      title: 'Служба поддержки',
-      links: [{ name: 'Соглашения' }, { name: 'Сообщества' }, { name: 'Связь с нами' }],
-    },
-  ],
-  subscription = {
-    title: 'Подписка',
-    description: 'Получайте специальные предложения и новости сервиса',
+const title = 'Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»';
+
+const navBlocks: INavBlock[] = [
+  {
+    title: 'Навигация',
+    links: [
+      { name: 'О нас', href: '/404' },
+      { name: 'Новости', href: '/404' },
+      { name: 'Служба поддержки', href: '/404' },
+      { name: 'Услуги', href: '/404' },
+    ],
   },
-  copyright = 'Copyright © 2018 Toxin отель. Все права зачищены.',
-  socialLinks = {},
-}) => {
+  {
+    title: 'О нас',
+    links: [
+      { name: 'О сервисе', href: '/404' },
+      { name: 'Наша команда', href: '/404' },
+      { name: 'Вакансии', href: '/404' },
+      { name: 'Инвесторы', href: '/404' },
+    ],
+  },
+  {
+    title: 'Служба поддержки',
+    links: [
+      { name: 'Соглашения', href: '/404' },
+      { name: 'Сообщества', href: '/404' },
+      { name: 'Связь с нами', href: '/404' },
+    ],
+  },
+];
+
+const subscription = {
+  title: 'Подписка',
+  description: 'Получайте специальные предложения и новости сервиса',
+  url: '/subscription-api',
+};
+
+const copyright = 'Copyright © 2018 Toxin отель. Все права зачищены.';
+const socialLinks = {
+  twitterUrl: 'twitter.com',
+  facebookUrl: 'facebook.com',
+  instagramUrl: 'instagram.com',
+};
+
+const Footer: FC = () => {
   const b = block('footer');
-  const urlMock = 'mock-address/change-me';
   const { twitterUrl, facebookUrl, instagramUrl } = socialLinks;
 
   const navigationList = navBlocks.map(({ title: blockTitle, links: blockLinks }) => (
@@ -57,20 +67,17 @@ const Footer: FC<IFooterProps> = ({
       <header className={b('section-header')}>
         <p className={b('navigation-section-title')}>{blockTitle}</p>
       </header>
+
       <ul className={b('navigation-section-list')}>
         {
-            blockLinks.map(({ name, href }) => {
-              const validHref = href || urlMock;
-
-              return (
-                <li key={name} className={b('navigation-section-item')}>
-                  <Link href={validHref}>
-                    <a href={validHref} className={b('navigation-section-link')}>{name}</a>
-                  </Link>
-                </li>
-              );
-            })
-          }
+          blockLinks.map(({ name, href }) => (
+            <li key={name} className={b('navigation-section-item')}>
+              <Link href={href}>
+                <a href={href} className={b('navigation-section-link')}>{name}</a>
+              </Link>
+            </li>
+          ))
+        }
       </ul>
     </section>
   ));
@@ -87,11 +94,19 @@ const Footer: FC<IFooterProps> = ({
 
           <nav className={b('navigation')}>{navigationList}</nav>
 
-          <form className={b('subscription-form')} method="post" action={subscription.url || urlMock}>
+          <form
+            className={b('subscription-form')}
+            method="post"
+            action={subscription.url}
+          >
             <header className={b('section-header')}>
-              <p className={b('subscription-form-title')}>{subscription.title}</p>
+              <p className={b('subscription-form-title')}>
+                {subscription.title}
+              </p>
             </header>
+
             <p className={b('subscription-form-description')}>{subscription.description}</p>
+
             <div className={b('footer__text-input')}>
               <Input type="email" placeholder="Email" withArrow />
             </div>
@@ -102,14 +117,15 @@ const Footer: FC<IFooterProps> = ({
       <div className={b('copyright-area')}>
         <div className={b('inner-wrapper')}>
           <p className={b('copyright')}>{copyright}</p>
-          <ul className={b('social-links')}>
+
+          <div className={b('social-links')}>
             <SocialButtons
               items={[
-                { text: 'twitter', link: twitterUrl || urlMock },
-                { text: 'facebook-square', link: facebookUrl || urlMock },
-                { text: 'instagram', link: instagramUrl || urlMock }]}
+                { text: 'twitter', link: twitterUrl },
+                { text: 'facebook-square', link: facebookUrl },
+                { text: 'instagram', link: instagramUrl }]}
             />
-          </ul>
+          </div>
         </div>
       </div>
     </footer>
