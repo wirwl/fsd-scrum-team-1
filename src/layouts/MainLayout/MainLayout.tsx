@@ -2,7 +2,8 @@ import { FC, StrictMode } from 'react';
 import Head from 'next/head';
 import { block } from 'bem-cn';
 
-import Header from 'src/components/Header/Header';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
 
 import './MainLayout.scss';
 
@@ -34,7 +35,7 @@ const MainLayout: FC<IMainLayoutProps> = ({
         </main>
 
         <div className={b('footer')}>
-          TODO: insert footer here!
+          <Footer />
         </div>
       </body>
     </StrictMode>

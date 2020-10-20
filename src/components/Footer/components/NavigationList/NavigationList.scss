@@ -1,0 +1,43 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+.navigation-list {
+
+  &:nth-child(2) {
+    padding-right: 2.25rem;
+
+    @media (max-width: 1199px) {
+      padding: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    @include h3;
+  }
+
+  &__list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.125rem 0;
+  }
+
+  &__item {
+    margin-bottom: .875rem;
+  }
+
+  &__link {
+    @include primary-text;
+    @include reset-outline(text-shadow);
+
+    color: $font-color-light50;
+    text-decoration: none;
+
+    &:hover {
+      color: $font-color;
+    }
+  }
+}
