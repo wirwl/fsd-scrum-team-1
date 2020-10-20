@@ -2,11 +2,11 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 import Link from 'next/link';
 
-import Logo from '@components/Logo/Logo';
-import Input from '@components/TextField/TextField';
-import SocialButtons from '@components/social-buttons/SocialButtons';
+import Logo from '@/components/Logo/Logo';
+import Input from '@/components/Input/Input';
+import SocialButtons from '@/components/social-buttons/SocialButtons';
 
-import './footer.scss';
+import './Footer.scss';
 
 type ILink = { name: string; href: string; };
 type INavBlock = {
