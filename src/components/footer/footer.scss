@@ -54,7 +54,7 @@
   &__description {
     @include primary-text;
 
-    margin: .875rem 0;
+    margin-top: .625rem;
   }
 
   &__navigation {
@@ -150,12 +150,13 @@
 
   &__social-links {
     margin: auto;
+    margin-right: 0;
     padding-top: .25rem;
   }
 
   @mixin footer-theme-mobile {
     padding: 7.5rem 0 6.75rem 0;
-    max-width: 768px;
+    max-width: 48rem;
     margin: 0 auto;
 
     #{$blockClass}__main-area {
