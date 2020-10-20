@@ -16,9 +16,10 @@ $zIndex: 9;
     line-height: 2.625rem;
     color: $font-color-light75;
     width: 100%;
-    padding: 0 2.375rem 0 .875rem;
+    padding: 0 5.625rem 0 .875rem;
     border: .0625rem solid $font-color-light25;
     border-radius: .25rem;
+    text-overflow: ellipsis;
 
     &:focus {
       outline: none;
