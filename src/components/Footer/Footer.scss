@@ -65,47 +65,6 @@
     padding: .3125rem 8% 0 6%;
   }
 
-  &__navigation-section {
-
-    &:nth-child(2) {
-      padding-right: 2.25rem;
-
-      @media (max-width: 1199px) {
-        padding: 0;
-      }
-    }
-
-    @media (max-width: 767px) {
-      margin-bottom: 2rem;
-    }
-  }
-
-  &__navigation-section-title {
-    @include h3;
-  }
-
-  &__navigation-section-list {
-    list-style: none;
-    padding-left: 0;
-    margin: 1.125rem 0;
-  }
-
-  &__navigation-section-item {
-    margin-bottom: .875rem;
-  }
-
-  &__navigation-section-link {
-    @include primary-text;
-    @include reset-outline(text-shadow);
-
-    color: $font-color-light50;
-    text-decoration: none;
-
-    &:hover {
-      color: $font-color;
-    }
-  }
-
   &__subscription-form {
     grid-area: subscribe;
     padding: .3125rem 0 0 .0625rem;

@@ -1,20 +1,20 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
-import Link from 'next/link';
 
 import Logo from '@/components/Logo/Logo';
 import Input from '@/components/Input/Input';
 import SocialButtons from '@/components/social-buttons/SocialButtons';
 
+import NavigationList, { ILink } from './components/NavigationList/NavigationList';
+
 import './Footer.scss';
 
-type ILink = { name: string; href: string; };
 type INavBlock = {
   title: string;
   links: ILink[];
 };
 
-const title = 'Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»';
+const description = 'Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»';
 
 const navBlocks: INavBlock[] = [
   {
@@ -61,25 +61,9 @@ const socialLinks = [
 const b = block('footer');
 
 const Footer: FC = () => {
-  const navigationList = navBlocks.map(({ title: blockTitle, links: blockLinks }) => (
-    <section key={blockTitle} className={b('navigation-section')}>
-      <header className={b('section-header')}>
-        <p className={b('navigation-section-title')}>{blockTitle}</p>
-      </header>
-
-      <ul className={b('navigation-section-list')}>
-        {
-          blockLinks.map(({ name, href }) => (
-            <li key={name} className={b('navigation-section-item')}>
-              <Link href={href}>
-                <a href={href} className={b('navigation-section-link')}>{name}</a>
-              </Link>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-  ));
+  const navigationList = navBlocks.map(
+    ({ title, links }) => <NavigationList key={title} title={title} links={links} />,
+  );
 
   return (
     <footer className={b()}>
@@ -88,10 +72,12 @@ const Footer: FC = () => {
 
           <div className={b('about-us')}>
             <div className={b('logo')}><Logo /></div>
-            <p className={b('description')}>{title}</p>
+            <p className={b('description')}>{description}</p>
           </div>
 
-          <nav className={b('navigation')}>{navigationList}</nav>
+          <nav className={b('navigation')}>
+            {navigationList}
+          </nav>
 
           <form
             className={b('subscription-form')}
@@ -113,6 +99,7 @@ const Footer: FC = () => {
 
         </div>
       </div>
+
       <div className={b('copyright-area')}>
         <div className={b('inner-wrapper')}>
           <p className={b('copyright')}>{copyright}</p>
