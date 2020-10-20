@@ -11,7 +11,9 @@ $zIndex: 9;
   user-select: none;
 
   &__text-input {
-    font: .875rem/2.625rem Montserrat, Helvetica, sans-serif;
+    font-family: $main-font;
+    font-size: .875rem;
+    line-height: 2.625rem;
     color: $font-color-light75;
     width: 100%;
     padding: 0 2.375rem 0 .875rem;
