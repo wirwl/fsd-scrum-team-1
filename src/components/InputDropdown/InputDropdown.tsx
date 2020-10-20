@@ -109,7 +109,9 @@ const InputDropdown: FC<IInputDropdownProps> = ({
 
   useEffect(() => {
     if (isExpandedState) document.addEventListener('click', handleDocumentClick);
-    else document.removeEventListener('click', handleDocumentClick);
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
   }, [isExpandedState]);
 
   useEffect(() => {
