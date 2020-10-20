@@ -51,7 +51,7 @@ const subscription = {
   url: '/subscription-api',
 };
 
-const copyright = 'Copyright © 2018 Toxin отель. Все права зачищены.';
+const copyright = 'Copyright © 2018 Toxin отель. Все права защищены.';
 const socialLinks = {
   twitterUrl: 'twitter.com',
   facebookUrl: 'facebook.com',
