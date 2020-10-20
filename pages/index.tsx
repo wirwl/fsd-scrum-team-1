@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import Button from '@/components/Button/Button';
 import MainLayout from '@/layouts/MainLayout';
 import SocialButtons from '@/components/social-buttons/SocialButtons';
-import Footer from '@components/footer/Footer';
+import Footer from '@/components/Footer/Footer';
 
 const Main: FC = () => (
   <MainLayout>
