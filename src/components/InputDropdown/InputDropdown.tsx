@@ -2,6 +2,8 @@ import {
   FC, useState, useEffect, useCallback,
 } from 'react';
 import { block } from 'bem-cn';
+
+import Button from '@/components/Button/Button';
 import './InputDropdown.scss';
 
 interface IPlurals {
@@ -198,28 +200,26 @@ const InputDropdown: FC<IInputDropdownProps> = ({
           {dropElements}
         </div>
         {
-          buttons ? (
+          buttons && (
             <div className={bem('footer-buttons')}>
-              <div
-                className={bem('clear-button', { hidden: isHiddenBtnState })}
-                onClick={() => clearInput()}
-                onKeyDown={() => clearInput()}
-                role="button"
-                tabIndex={0}
-              >
-                Очистить
+              <div className={bem('clear-button')}>
+                { !isHiddenBtnState && (
+                  <Button
+                    theme="textual"
+                    caption="Очистить"
+                    handleClick={clearInput}
+                  />
+                )}
               </div>
-              <div
-                className={bem('apply-button')}
-                onClick={() => setIsExpandedState(!isExpandedState)}
-                onKeyDown={() => setIsExpandedState(!isExpandedState)}
-                role="button"
-                tabIndex={0}
-              >
-                Применить
+              <div className={bem('apply-button')}>
+                <Button
+                  theme="textual"
+                  caption="Применить"
+                  handleClick={() => setIsExpandedState(!isExpandedState)}
+                />
               </div>
             </div>
-          ) : null
+          )
         }
       </div>
     </div>

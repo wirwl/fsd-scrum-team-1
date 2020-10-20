@@ -120,25 +120,6 @@ $zIndex: 9;
     display: flex;
     line-height: 2.5rem;
     justify-content: space-between;
-    color: $main-color;
-    font-weight: bold;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    line-height: 0.9375rem;
-    margin-top: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-
-  &__clear-button {
-    cursor: pointer;
-
-    &_hidden {
-      visibility: hidden;
-    }
-  }
-
-  &__apply-button {
-    cursor: pointer;
   }
 
   &_type {
