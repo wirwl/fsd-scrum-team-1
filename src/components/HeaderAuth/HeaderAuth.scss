@@ -1,0 +1,25 @@
+.header-auth {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+
+  height: 100%;
+
+  &__actions {
+    display: flex;
+  }
+
+  &__action:first-child {
+    margin-left: 1.25rem;
+  }
+
+  &__user-name {
+    display: block;
+
+    font-size: .875rem;
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+}

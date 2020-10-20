@@ -1,5 +1,5 @@
 import { block } from 'bem-cn';
-import { SyntheticEvent } from 'react';
+import { MouseEvent } from 'react';
 
 import './button.scss';
 
@@ -10,7 +10,7 @@ type IButtonProps = Partial<{
   type: 'button' | 'submit',
   href: string,
   withArrow: boolean,
-  handleClick: (event: SyntheticEvent) => void;
+  handleClick: (event: MouseEvent<HTMLButtonElement>) => void | boolean;
 }>;
 
 const Button: React.FC<IButtonProps> = ({
