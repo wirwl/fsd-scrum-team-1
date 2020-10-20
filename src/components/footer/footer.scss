@@ -152,6 +152,10 @@
     margin: auto;
     margin-right: 0;
     padding-top: .25rem;
+
+    @media (max-width: 767px) {
+      margin: auto;
+    }
   }
 
   @mixin footer-theme-mobile {
