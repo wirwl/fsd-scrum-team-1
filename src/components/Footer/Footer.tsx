@@ -52,15 +52,14 @@ const subscription = {
 };
 
 const copyright = 'Copyright © 2018 Toxin отель. Все права защищены.';
-const socialLinks = {
-  twitterUrl: 'twitter.com',
-  facebookUrl: 'facebook.com',
-  instagramUrl: 'instagram.com',
-};
+const socialLinks = [
+  { text: 'twitter', link: 'twitter.com' },
+  { text: 'facebook-square', link: 'facebook.com' },
+  { text: 'instagram', link: 'instagram.com' },
+];
 
 const Footer: FC = () => {
   const b = block('footer');
-  const { twitterUrl, facebookUrl, instagramUrl } = socialLinks;
 
   const navigationList = navBlocks.map(({ title: blockTitle, links: blockLinks }) => (
     <section key={blockTitle} className={b('navigation-section')}>
@@ -119,12 +118,7 @@ const Footer: FC = () => {
           <p className={b('copyright')}>{copyright}</p>
 
           <div className={b('social-links')}>
-            <SocialButtons
-              items={[
-                { text: 'twitter', link: twitterUrl },
-                { text: 'facebook-square', link: facebookUrl },
-                { text: 'instagram', link: instagramUrl }]}
-            />
+            <SocialButtons items={socialLinks} />
           </div>
         </div>
       </div>
