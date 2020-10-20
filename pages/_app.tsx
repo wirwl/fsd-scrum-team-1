@@ -4,14 +4,8 @@ import { FC } from 'react';
 import 'normalize.css/normalize.css';
 
 import '@styles/root.scss';
-import { Provider } from 'react-redux';
 
-import store from '../src/redux/store';
-
-const App: FC<AppProps> = ({ Component, pageProps }) => (
-  <Provider store={store}>
-    <Component {...pageProps} />
-  </Provider>
-);
+// eslint-disable-next-line react/jsx-props-no-spreading
+const App: FC<AppProps> = ({ Component, pageProps }) => <Component {...pageProps} />;
 
 export default App;
