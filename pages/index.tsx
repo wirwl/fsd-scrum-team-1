@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-import '@styles/index.scss';
 import Button from '@/components/Button/Button';
 import MainLayout from '@/layouts/MainLayout';
 import SocialButtons from '@/components/social-buttons/SocialButtons';
+import RateButton from '@/components/RateButton/RateButton';
 
 const Main: FC = () => (
   <MainLayout>
@@ -14,6 +14,7 @@ const Main: FC = () => (
     <Button withArrow size="fluid" />
     <Button href="/auth" />
     <SocialButtons items={[{ text: 'twitter', link: 'https://twitter.com' }, { text: 'facebook-square', link: 'https://facebook.com' }, { text: 'instagram', link: 'https://instagram.com' }]} />
+    <RateButton id="rb1" selectedCount={4} />
   </MainLayout>
 );
 
