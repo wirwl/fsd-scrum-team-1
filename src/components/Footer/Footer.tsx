@@ -58,9 +58,9 @@ const socialLinks = [
   { text: 'instagram', link: 'instagram.com' },
 ];
 
-const Footer: FC = () => {
-  const b = block('footer');
+const b = block('footer');
 
+const Footer: FC = () => {
   const navigationList = navBlocks.map(({ title: blockTitle, links: blockLinks }) => (
     <section key={blockTitle} className={b('navigation-section')}>
       <header className={b('section-header')}>
