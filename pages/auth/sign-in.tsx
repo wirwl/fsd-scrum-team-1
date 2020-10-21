@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import PagesLayout from '@/layouts/PagesLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const SignIn: FC = () => (
-  <PagesLayout title="Sign In">
+  <MainLayout title="Sign In">
     <h1>Sign In Page</h1>
-  </PagesLayout>
+  </MainLayout>
 );
 
 export default SignIn;

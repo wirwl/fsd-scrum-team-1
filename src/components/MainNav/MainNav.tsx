@@ -53,11 +53,12 @@ const MainNav: FC<INavMenuProps> = ({ items, currHref }) => {
 
       {
         items.map(
-          (item) => (
+          (item, index) => (
             <NavItem
               key={item.label}
               item={item}
               isSelected={isHrefSelected(item, currHref)}
+              isRightHalfItem={index > items.length / 2}
             />
           ),
         )

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import DataPicker from '@/components/DatePicker/DatePicker';
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 

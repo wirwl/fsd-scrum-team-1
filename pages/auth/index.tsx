@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import PagesLayout from '@/layouts/PagesLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const Auth: FC = () => (
-  <PagesLayout title="Auth">
+  <MainLayout title="Auth">
     <h1>Auth Page</h1>
-  </PagesLayout>
+  </MainLayout>
 );
 
 export default Auth;
