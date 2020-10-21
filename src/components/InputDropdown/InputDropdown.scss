@@ -1,0 +1,160 @@
+@import '@styles/variables.scss';
+@import '@styles/mixins';
+
+$zIndex: 9;
+
+.input-dropdown {
+  $blockClass: &;
+  position: relative;
+  font-size: .875rem;
+  color: $font-color-light75;
+  user-select: none;
+
+  &__text-input {
+    font-family: $main-font;
+    font-size: .875rem;
+    line-height: 2.625rem;
+    color: $font-color-light75;
+    width: 100%;
+    padding: 0 5.625rem 0 .875rem;
+    border: .0625rem solid $font-color-light25;
+    border-radius: .25rem;
+    text-overflow: ellipsis;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      border: 1px solid $font-color-light50;
+    }
+  }
+
+  &__toggle-button {
+    @include reset-button;
+    color: $font-color-light50;
+    position: absolute;
+    padding-top: .0625rem;
+    top: 0;
+    right: 0;
+    padding-right: .6875rem;
+    height: 100%;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      color: $font-color-light75;
+    }
+
+  }
+
+  &__menu {
+    position: absolute;
+    display: none;
+    width: 100%;
+    border: 1px solid $font-color-light50;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    padding: .3125rem .375rem 0 .875rem;
+    box-shadow: 0 .625rem 1.25rem $font-color-light5;
+    background-color: white;
+    z-index: $zIndex;
+  }
+
+  &__list-item {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .4375rem;
+  }
+
+  &__counter-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 5.75rem;
+  }
+
+  &__item-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__item-name,
+  &__counter {
+    text-transform: uppercase;
+    font-size: .75rem;
+    font-weight: bold;
+    color: $font-color;
+  }
+
+  &__counter-button {
+    @include reset-button;
+    $diam: 1.875rem;
+    display: inline-block;
+    font-size: 1rem;
+    color: $font-color-light50;
+    text-align: center;
+    width: $diam;
+    height: $diam;
+    border-radius: 50%;
+    cursor: pointer;
+    border: .0625rem solid $font-color-light25;
+
+    &_disabled {
+      cursor: default;
+      pointer-events: none;
+      opacity: .5;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+  }
+
+  &__footer-buttons {
+    display: flex;
+    line-height: 2.5rem;
+    justify-content: space-between;
+  }
+
+  &_type {
+
+    &_date {
+      #{$blockClass}__text-input {
+
+        &::placeholder {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  &_expanded {
+    #{$blockClass}__text-input {
+      border: 1px solid $font-color-light50;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    #{$blockClass}__toggle-button {
+      color: $font-color-light75;
+    }
+
+    #{$blockClass}__menu {
+      display: block;
+      border-top: 0;
+    }
+  }
+
+  &_with-z-index-priority {
+    #{$blockClass}__list {
+      z-index: $zIndex + 1;
+    }
+  }
+}
