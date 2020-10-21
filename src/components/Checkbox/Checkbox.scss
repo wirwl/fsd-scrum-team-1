@@ -18,7 +18,9 @@ $root: '.checkbox';
   }
 
   &__input {
-    display: none;
+    position: absolute;
+    width: 0;
+    height: 0;
 
     &:checked + #{$root}__new-input {
       border-color: $main-color;
@@ -26,6 +28,11 @@ $root: '.checkbox';
 
     &:checked + #{$root}__new-input > #{$root}__check-mark {
       visibility: visible;
+    }
+
+    &:focus + #{$root}__new-input {
+      border-color: $main-color;
+      box-shadow: 0 0 7px $font-color-light75;
     }
   }
 
