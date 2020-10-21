@@ -35,7 +35,7 @@ const Checkbox: React.FC<ICheckboxProps> = (props) => {
           onChange={handleChange}
         />
         <span className={b('new-input')}>
-          <SVGInline className={b('check-mark')} svg={CheckMark} />
+          <SVGInline className={b('check-mark').toString()} svg={CheckMark} />
         </span>
         <span className={b('label')}>{label}</span>
       </label>
