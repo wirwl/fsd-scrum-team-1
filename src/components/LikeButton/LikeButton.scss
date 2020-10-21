@@ -1,0 +1,70 @@
+@import "@styles/mixins.scss";
+
+.like-button {
+  display: flex;
+  line-height: 12px;
+
+  &__input {
+    @include visually-hidden;
+  }
+
+  &__count {
+    font-size: 10px;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid $font-color-light25;
+    border-radius: 10px;
+    color: $font-color-light25;
+    padding: 3px 5px 3px;
+    min-width: 40px;
+    cursor: pointer;
+
+    &::before {
+      font-family: "Material Icons";
+      content: "favorite_border";
+      margin-right: 5px;
+    }
+  }
+
+  &__input:checked + .like-button__border {
+    border: none;
+    position: relative;
+    background: transparent;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      font-family: "Material Icons";
+      content: " ";
+      position: absolute;
+      border-radius: 10px;
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -2;
+      background: $main-color;
+    }
+
+    &::after {
+      top: 1px;
+      bottom: 1px;
+      left: 1px;
+      right: 1px;
+      background-color: white;
+      z-index: -1;
+    }
+
+    .like-button__count {
+      color: $main-color;
+
+      &::before {
+        content: "favorite";
+      }
+    }
+  }
+}
