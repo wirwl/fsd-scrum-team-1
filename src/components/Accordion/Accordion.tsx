@@ -11,7 +11,7 @@ const createCheckboxesInfo = (checkboxList: ICheckboxProps[]): IAccordionCheckbo
 
   checkboxList.forEach(({ name, checked }) => {
     if (name) {
-      initialState[name] = !!checked;
+      initialState[name] = checked !== undefined && checked;
     } else {
       throw new Error('checkbox must be named');
     }
