@@ -74,7 +74,7 @@ const Accordion: FC<IAccordionProps> = (props) => {
   return (
     <div className={b({ opened: isOpened })}>
       <div className={b('header')}>
-        <p className={b('label')}>{title}</p>
+        <h3 className={b('label')}>{title}</h3>
         <button
           className={b('button')}
           type="button"
