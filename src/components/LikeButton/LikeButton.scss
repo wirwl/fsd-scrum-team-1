@@ -2,7 +2,7 @@
 
 .like-button {
   display: flex;
-  line-height: 12px;
+  line-height: 0.75rem;
   cursor: pointer;
 
   &__input {
@@ -10,7 +10,7 @@
   }
 
   &__count {
-    font-size: 10px;
+    font-size: 0.625rem;
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
@@ -19,7 +19,7 @@
     color: $font-color-light25;
     padding: 3px 5px 3px;
     min-width: 40px;
-    pointer-events: none;
+    user-select: none;
 
     &::before {
       font-family: "Material Icons";
