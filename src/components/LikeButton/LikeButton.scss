@@ -3,6 +3,7 @@
 .like-button {
   display: flex;
   line-height: 12px;
+  cursor: pointer;
 
   &__input {
     @include visually-hidden;
@@ -18,7 +19,7 @@
     color: $font-color-light25;
     padding: 3px 5px 3px;
     min-width: 40px;
-    cursor: pointer;
+    pointer-events: none;
 
     &::before {
       font-family: "Material Icons";
