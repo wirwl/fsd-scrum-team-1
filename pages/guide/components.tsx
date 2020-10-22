@@ -5,6 +5,25 @@ import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
+import Accordion from '@/components/Accordion/Accordion';
+
+const checkboxes = [
+  {
+    label: 'Завтрак',
+    name: 'breakfast',
+    checked: true,
+  },
+  {
+    label: 'Письменный стол',
+    name: 'desk',
+    checked: true,
+  },
+  {
+    label: 'Стул для кормления',
+    name: 'feeding_chair',
+    checked: false,
+  },
+];
 
 const Components: FC = () => (
   <MainLayout title="Components">
@@ -18,6 +37,7 @@ const Components: FC = () => (
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
+    <Accordion checkboxList={checkboxes} isOpened />
   </MainLayout>
 );
 

@@ -1,0 +1,74 @@
+@import '@styles/mixins.scss';
+
+$root: '.accordion';
+
+#{$root} {
+
+  &_opened {
+    #{$root}__list {
+      max-height: 1000px;
+    }
+
+    #{$root}__button {
+      transform: rotate(-180deg);
+      top: -15px;
+    }
+
+    #{$root}__header {
+      margin-bottom: 18px;
+    }
+
+
+  }
+  &__header {
+    position: relative;
+    transition: margin 0.3s;
+  }
+  &__label {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: bold;
+    color: $font-color;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__button {
+    @include reset-button();
+    outline: none;
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    right: 0;
+    top: -13px;
+    transition: transform 0.3s;
+
+    &:focus {
+      #{$root}__arrow {
+        color: $font-color;
+      }
+    }
+  }
+
+  &__arrow {
+    font-family: 'Material Icons';
+    font-size: 24px;
+    line-height: 24px;
+    color: $font-color-light50;
+    transition: color 0.3s;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+  }
+
+  &__item {
+    margin-bottom: 10px;
+  }
+}
