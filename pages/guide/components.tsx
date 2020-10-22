@@ -23,6 +23,11 @@ const checkboxes = [
     name: 'feeding_chair',
     checked: false,
   },
+  {
+    label: 'Кроватка',
+    name: 'cot',
+    checked: true,
+  },
 ];
 
 const Components: FC = () => (
@@ -38,6 +43,7 @@ const Components: FC = () => (
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
     <Accordion checkboxList={checkboxes} isOpened />
+    <Accordion checkboxList={checkboxes} />
   </MainLayout>
 );
 
