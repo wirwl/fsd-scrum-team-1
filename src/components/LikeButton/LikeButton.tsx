@@ -1,15 +1,12 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable @typescript-eslint/no-extra-non-null-assertion */
 import './LikeButton.scss';
 import block from 'bem-cn';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 const b = block('like-button');
 
 interface ILikeButton {
-  isChecked?: boolean;
-  count?: number;
+  isChecked: boolean;
+  count: number;
 }
 
 const LikeButton: React.FC<ILikeButton> = (props) => {
@@ -17,27 +14,22 @@ const LikeButton: React.FC<ILikeButton> = (props) => {
     isChecked = false,
     count = 0,
   } = props;
-
-  const [state, setState] = useState({ isChecked: isChecked, count: count } as ILikeButton);
+  const [state, setState] = useState<ILikeButton>({ isChecked, count });
 
   const onLikeButtonClick = (): void => {
-    const prevState = usePrevious(state);
-    const newValue = prevState?.isChecked ? prevState.count - 1 : prevState.count + 1;
-    setState((state) => { count: newValue, isChecked: !state.isChecked });
+    setState((prev) => {
+      const newValue = prev?.isChecked ? prev.count - 1 : prev.count + 1;
+      return {
+        isChecked: !prev.isChecked,
+        count: newValue,
+      };
+    });
   };
 
-  function usePrevious(value): undefined {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-  }
-
   return (
-    <label className={b()} onClick={onLikeButtonClick}>
-      <input className={b('input')} type="checkbox" defaultChecked={state.isChecked} />
-      <div className={b('border')}>
+    <label className={b()}>
+      <input className={b('input')} type="checkbox" />
+      <div className={b('border')} onClick={onLikeButtonClick} aria-hidden="true">
         <div className={b('count')}>{state.count}</div>
       </div>
     </label>

@@ -18,7 +18,7 @@ const Main: FC = () => (
     <SocialButtons items={[{ text: 'twitter', link: 'https://twitter.com' }, { text: 'facebook-square', link: 'https://facebook.com' }, { text: 'instagram', link: 'https://instagram.com' }]} />
     <BulletsList textList={['Нельзя с питомцами', 'Без вечеринок и мероприятий', 'Время прибытия — после 13:00, а выезд до 12:00']} />
     <RateButton id="rb1" selectedCount={4} />
-    <LikeButton />
+    <LikeButton isChecked={false} count={0} />
   </MainLayout>
 );
 
