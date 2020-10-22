@@ -6,5 +6,6 @@ interface IAccordionProps {
   title?: string;
   checkboxList?: ICheckboxProps[];
   isOpened?: boolean,
-  onChange?: (chekboxes: ICheckboxes) => void;
+  onChange?: (chekboxes: IAccordionCheckboxInfo) => void;
+  onInit?: (chekboxes: IAccordionCheckboxInfo) => void;
 }
