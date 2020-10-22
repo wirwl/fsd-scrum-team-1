@@ -1,4 +1,4 @@
-import React, { useState, useReducer, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { block } from 'bem-cn';
 import Checkbox from '@/components/Checkbox/Checkbox';
 
@@ -6,16 +6,39 @@ import './Accordion.scss';
 
 const b = block('accordion');
 
+const createCheckboxesInfo = (checkboxList: ICheckboxProps[]): IAccordionCheckboxInfo => {
+  const initialState = {} as IAccordionCheckboxInfo;
+
+  checkboxList.forEach(({ name, checked }) => {
+    if (name) {
+      initialState[name] = !!checked;
+    } else {
+      throw new Error('checkbox must be named');
+    }
+  });
+
+  return initialState;
+};
+
 const Accordion: FC<IAccordionProps> = (props) => {
   const {
     title = 'Expandable checkbox list',
     checkboxList = [],
     isOpened: initOpened = false,
     onChange,
+    onInit,
   } = props;
 
   const [isOpened, setOpened] = useState(initOpened);
-  const [checkboxesState, setCheckboxesList] = useState<IAccordionCheckboxInfo>({});
+
+  const [checkboxesInfo, setCheckboxesInfo] = useState(() => {
+    const initialState = createCheckboxesInfo(checkboxList);
+    return initialState;
+  });
+
+  useEffect(() => {
+    onInit && onInit(checkboxesInfo);
+  }, []);
 
   return (
     <div className={b({ opened: isOpened })}>
@@ -31,7 +54,12 @@ const Accordion: FC<IAccordionProps> = (props) => {
       </div>
       <ul className={b('list')}>
         {checkboxList.map((checkbox) => {
-          const { label, checked, description, name } = checkbox;
+          const {
+            label,
+            checked,
+            description,
+            name,
+          } = checkbox;
           return (
             <li key={`${label}_${name}`} className={b('item')}>
               <Checkbox
@@ -40,7 +68,16 @@ const Accordion: FC<IAccordionProps> = (props) => {
                 name={name}
                 checked={checked}
                 onChange={(isChecked) => {
-                  console.log(`${name} with checked state: ${isChecked}`);
+                  if (name) {
+                    const newCheckboxState = {
+                      [name]: isChecked,
+                    };
+                    setCheckboxesInfo((prevState) => ({
+                      ...prevState,
+                      ...newCheckboxState,
+                    }));
+                    onChange && onChange({ ...checkboxesInfo, ...newCheckboxState });
+                  }
                 }}
               />
             </li>
