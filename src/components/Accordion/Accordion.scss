@@ -25,6 +25,10 @@ $root: '.accordion';
     transition: margin .3s;
   }
 
+  &__label {
+    margin: 0;
+  }
+
   &__label-button {
     @include reset-button();
     font-size: .75rem;
