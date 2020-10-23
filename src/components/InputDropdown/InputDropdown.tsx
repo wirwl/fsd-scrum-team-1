@@ -133,10 +133,6 @@ const InputDropdown: FC<IInputDropdownProps> = ({
     allCountersEmpty ? setIsHiddenBtn(true) : setIsHiddenBtn(false);
   });
 
-  const handleChange = (): void => {
-    onChange && onChange(dropListState);
-  };
-
   const clearInput = ():void => {
     const items = [...dropListState];
     items.forEach((_, index) => {
@@ -154,6 +150,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
 
     isDec ? (item.count -= 1) : (item.count += 1);
     setDropListState([...items]);
+    onChange && onChange(dropListState);
   };
 
   const modifiers = {
@@ -197,7 +194,6 @@ const InputDropdown: FC<IInputDropdownProps> = ({
           setIsExpandedState((prev) => !prev);
         }}
         value={valueState || ''}
-        onChange={handleChange}
       />
       <button
         className={`${bem('toggle-button')} material-icons`}
