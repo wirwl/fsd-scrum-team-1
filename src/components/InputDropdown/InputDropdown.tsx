@@ -27,7 +27,7 @@ interface IInputDropdownProps {
   defaultLabel?: boolean | IPlurals,
   buttons?: boolean,
   reducer?: (items: IDropListItem[]) => string;
-  onChange?: (newDropList: IDropListItem[]) => void | undefined;
+  onChange?: (newDropList: IDropListItem[]) => void;
 }
 
 const formatCount = (count: number, plurals: IPlurals): string => {
@@ -197,7 +197,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
           setIsExpandedState((prev) => !prev);
         }}
         value={valueState || ''}
-        onChange={handleChange()}
+        onChange={handleChange}
       />
       <button
         className={`${bem('toggle-button')} material-icons`}
