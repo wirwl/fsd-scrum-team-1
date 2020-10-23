@@ -10,7 +10,7 @@ type IRoomAccessibility = {
 };
 
 type IRoomExtraConvinience = {
-  brackfast: boolean;
+  breakfast: boolean;
   desk: boolean;
   feedingChair: boolean;
   smallBad: boolean;
