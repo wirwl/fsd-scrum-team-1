@@ -1,26 +1,38 @@
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import block from 'bem-cn';
 
 import './Pagination.scss';
 
 interface IPaginationProps {
-  itemCount: number,
-  limit: number,
+  totalItemCount: number,
+  limitPerPage: number,
+  onChange?: (pageNumber: number) => void,
 }
 
 type PageData = { selected: number };
 
-const Pagination: React.FC<IPaginationProps> = ({ itemCount, limit }) => {
-  const pageCount = Math.ceil(itemCount / limit);
-  const totalCount = itemCount > 100 ? '100+' : itemCount.toString();
+const b = block('pagination');
 
-  const [currentRange, setCurrentRange] = useState([1, limit]);
+const Pagination: React.FC<IPaginationProps> = ({
+  totalItemCount,
+  limitPerPage,
+  onChange,
+}) => {
+  const pageCount = Math.ceil(totalItemCount / limitPerPage);
+  const countRepresentation = totalItemCount > 100 ? '100+' : totalItemCount.toString();
+
+  const [currentRange, setCurrentRange] = useState([1, limitPerPage]);
 
   const handlePageClick = ({ selected }: PageData): void => {
-    const fromItemCount = selected * limit + 1;
-    const toItemCount = fromItemCount + limit - 1;
+    onChange && onChange(selected + 1);
 
-    setCurrentRange([fromItemCount, toItemCount]);
+    const fromItemCount = selected * limitPerPage + 1;
+    const toItemCount = fromItemCount + limitPerPage - 1;
+
+    toItemCount < totalItemCount
+      ? setCurrentRange([fromItemCount, toItemCount])
+      : setCurrentRange([fromItemCount, totalItemCount]);
   };
 
   return (
@@ -33,22 +45,22 @@ const Pagination: React.FC<IPaginationProps> = ({ itemCount, limit }) => {
         marginPagesDisplayed={1}
         pageRangeDisplayed={2}
         onPageChange={handlePageClick}
-        containerClassName="pagination__wrapper"
-        pageClassName="pagination__cell"
-        breakClassName="pagination__cell"
-        activeClassName="pagination__cell pagination__cell_active"
-        nextClassName="pagination__cell pagination__cell_with-arrow"
-        previousClassName="pagination__cell pagination__cell_with-arrow"
-        pageLinkClassName="pagination__link"
-        breakLinkClassName="pagination__link"
-        activeLinkClassName="pagination__link pagination__link_active"
-        previousLinkClassName="pagination__link pagination__link_with-arrow"
-        nextLinkClassName="pagination__link pagination__link_with-arrow"
-        disabledClassName="pagination__cell_disabled"
+        containerClassName={b('wrapper')}
+        pageClassName={b('cell')}
+        breakClassName={b('cell')}
+        activeClassName={b('cell', { active: true })}
+        nextClassName={b('cell', { 'with-arrow': true })}
+        previousClassName={b('cell', { 'with-arrow': true })}
+        pageLinkClassName={b('link')}
+        breakLinkClassName={b('link')}
+        activeLinkClassName={b('link', { active: true })}
+        previousLinkClassName={b('link', { 'with-arrow': true })}
+        nextLinkClassName={b('link', { 'with-arrow': true })}
+        disabledClassName={b('cell', { disabled: true })}
       />
       <span className="pagination__text">
         {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-        {currentRange[0]}–{currentRange[1]} из {totalCount} вариантов аренды
+        {currentRange[0]}–{currentRange[1]} из {countRepresentation} вариантов аренды
       </span>
     </div>
   );

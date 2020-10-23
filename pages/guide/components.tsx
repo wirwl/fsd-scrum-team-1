@@ -19,7 +19,7 @@ const Components: FC = () => (
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
-    <Pagination itemCount={175} limit={12} />
+    <Pagination totalItemCount={175} limitPerPage={12} />
   </MainLayout>
 );
 
