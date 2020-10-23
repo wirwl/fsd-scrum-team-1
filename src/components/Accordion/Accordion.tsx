@@ -6,6 +6,18 @@ import './Accordion.scss';
 
 const b = block('accordion');
 
+interface IAccordionCheckboxInfo {
+  [key: string]: boolean;
+}
+
+interface IAccordionProps {
+  title?: string;
+  checkboxList?: ICheckboxProps[];
+  isOpened?: boolean,
+  onChange?: (chekboxes: IAccordionCheckboxInfo) => void;
+  onInit?: (chekboxes: IAccordionCheckboxInfo) => void;
+}
+
 const createCheckboxesInfo = (checkboxList: ICheckboxProps[]): IAccordionCheckboxInfo => {
   const initialState = {} as IAccordionCheckboxInfo;
 
