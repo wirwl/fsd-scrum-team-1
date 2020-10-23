@@ -5,10 +5,26 @@ import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
+import RoomCard from '@/components/RoomCard/RoomCard';
 
 const Components: FC = () => (
   <MainLayout title="Components">
     <h1>Components Page</h1>
+    <RoomCard
+      images={[
+        { src: 'http://placeimg.com/320/220/tech' },
+        { src: 'http://placeimg.com/320/220/tech' },
+        { src: 'http://placeimg.com/320/220/tech' },
+        { src: 'http://placeimg.com/320/220/tech' },
+      ]}
+      roomNumber={888}
+      price={9990}
+      stars={5}
+      numberOfReviews={145}
+      hrefToReviews=""
+      hrefToRoomInfo=""
+      isLuxury
+    />
     <DataPicker />
     <DataPicker withTwoInputs />
     <Input head="text field" placeholder="Email" />

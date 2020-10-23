@@ -1,0 +1,211 @@
+@import '@styles/variables.scss';
+
+$root: '.room-card';
+
+#{$root} {
+  width: 16.875rem;
+  background: $bg-color;
+  box-shadow: 0 .625rem 1.25rem $font-color-light5;
+  border-radius: .25rem;
+  overflow: hidden;
+
+  &__image-slider {
+    position: relative;
+    width: 100%;
+    height: 9.4375rem;
+
+    &:hover {
+      #{$root}__button {
+        width: 2.625rem;
+      }
+
+      #{$root}__button-text {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__image-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__image-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $font-color-light5;
+    opacity: 0;
+
+    &_selected {
+      opacity: 1;
+      transition: opacity .2s ease-out;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
+
+  &__circles {
+    z-index: 900;
+    position: absolute;
+    right: .9375rem;
+    bottom: .9375rem;
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__circle-wrapper {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: .2344rem;
+    }
+  }
+
+  &__circle {
+    vertical-align: bottom;
+    padding: 0;
+    width: .4688rem;
+    height: .4688rem;
+    border-radius: 50%;
+    border: .0625rem solid $bg-color;
+    outline: none;
+    background: transparent;
+    filter: drop-shadow(0 .3125rem .3125rem rgba(31, 32, 65, .3));
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: .2344rem;
+    }
+
+    &_selected {
+      background: $bg-color;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    z-index: 800;
+    padding: 0;
+    width: 0;
+    height: 100%;
+    outline: 0;
+    border: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, 0) 99.99%, rgba(255, 255, 255, 0) 100%);
+    overflow: hidden;
+    cursor: pointer;
+
+    transition: width .1s ease-in-out;
+    
+    &:last-child {
+      transform: matrix(-1, 0, 0, 1, 0, 0);
+      right: 0;
+    }
+  }
+
+  &__button-text {
+    max-width: 100%;
+    display: block;
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    color: $bg-color;
+    opacity: 0;
+    transform: rotate(90deg);
+    transition: opacity .1s ease-in-out;
+  }
+
+  &__body {
+    padding: 1.25rem;
+    background: $bg-color;
+  }
+
+  &__row {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+
+    &:first-child {
+      padding-bottom: .425rem;
+      border-bottom: .0625rem solid rgba(31, 32, 65, .1);
+    }
+
+    &:last-child {
+      padding-top: .5rem;
+      align-items: center;
+    }
+  }
+
+  &__link-to-room-info {
+    font-family: $header-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    color: $font-color;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__room-number {
+    font-size: 1.1875rem;
+    line-height: 1.5rem;
+  }
+
+  &__luxury {
+    font-family: $main-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .75rem;
+    line-height: .9375rem;
+    text-transform: uppercase;
+    color: $main-color;
+  }
+
+  &__price,
+  &__reviews {
+    font-family: $main-font;
+    font-style: normal;
+    font-weight: normal;
+    color: $font-color-light50;
+  }
+
+  &__price-number,
+  &__reviews-number {
+    font-weight: bold;
+  }
+
+  &__price {
+    font-size: .6875rem;
+  }
+
+  &__price-number {
+    font-size: .875rem;
+  }
+
+  &__reviews {
+    margin: 0;
+    font-size: .875rem;
+    line-height: 1.125rem;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
