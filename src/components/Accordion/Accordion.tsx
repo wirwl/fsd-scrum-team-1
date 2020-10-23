@@ -53,16 +53,14 @@ const Accordion: FC<IAccordionProps> = (props) => {
   }, []);
 
   const handleChange = (name: string, isChecked: boolean): void => {
-    if (name) {
-      const newCheckboxState = {
-        [name]: isChecked,
-      };
-      setCheckboxesInfo((prevState) => ({
-        ...prevState,
-        ...newCheckboxState,
-      }));
-      onChange && onChange({ ...checkboxesInfo, ...newCheckboxState });
-    }
+    const newCheckboxState = {
+      [name]: isChecked,
+    };
+    setCheckboxesInfo((prevState) => ({
+      ...prevState,
+      ...newCheckboxState,
+    }));
+    onChange && onChange({ ...checkboxesInfo, ...newCheckboxState });
   };
 
   const checkboxes = checkboxList.map((checkbox) => {
