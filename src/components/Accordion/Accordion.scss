@@ -11,7 +11,7 @@ $root: '.accordion';
 
     #{$root}__button {
       transform: rotate(-180deg);
-      top: -.938rem;
+      top: -.1rem;
     }
 
     #{$root}__header {
@@ -31,23 +31,23 @@ $root: '.accordion';
 
   &__label-button {
     @include reset-button();
-    font-size: .75rem;
+    @include h3();
+    padding: 0;
     line-height: .938rem;
-    font-weight: bold;
-    color: $font-color;
     text-transform: uppercase;
     margin-top: 0;
     margin-bottom: 0;
+    text-align: left;
+    padding-right: 3rem;
   }
 
   &__button {
     @include reset-button();
     outline: none;
     width: 2.75rem;
-    height: 2.75rem;
     position: absolute;
     right: 0;
-    top: -.813rem;
+    top: .1rem;
     transition: transform .3s;
 
     &:focus {
