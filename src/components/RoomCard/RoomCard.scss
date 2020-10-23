@@ -155,6 +155,7 @@ $root: '.room-card';
     font-size: .875rem;
     line-height: 1.0625rem;
     color: $font-color;
+    text-decoration: none;
     cursor: pointer;
 
     &:hover {
@@ -177,8 +178,20 @@ $root: '.room-card';
     color: $main-color;
   }
 
+  &__link-to-room-info,
+  &__link-to-reviews {
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
   &__price,
-  &__reviews {
+  &__link-to-reviews {
     font-family: $main-font;
     font-style: normal;
     font-weight: normal;
@@ -198,14 +211,9 @@ $root: '.room-card';
     font-size: .875rem;
   }
 
-  &__reviews {
+  &__link-to-reviews {
     margin: 0;
     font-size: .875rem;
     line-height: 1.125rem;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }

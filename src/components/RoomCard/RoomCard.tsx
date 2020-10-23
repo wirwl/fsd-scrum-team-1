@@ -97,11 +97,11 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
       <div className={b('body')}>
         <p className={b('row')}>
           <Link href={hrefToRoomInfo}>
-            <span className={b('link-to-room-info')}>
+            <a className={b('link-to-room-info')} href={hrefToRoomInfo}>
               №&nbsp;
               <span className={b('room-number')}>{roomNumber}</span>
               {isLuxury && <span className={b('luxury')}>&nbsp;люкс</span>}
-            </span>
+            </a>
           </Link>
           <span className={b('price')}>
             <span className={b('price-number')}>{`${splitNumber(price)}₽`}</span>
@@ -111,10 +111,10 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
         <div className={b('row')}>
           <RateButtons selectedCount={stars} id="change-me" />
           <Link href={hrefToReviews}>
-            <p className={b('reviews')}>
+            <a className={b('link-to-reviews')} href={hrefToReviews}>
               <span className={b('reviews-number')}>{numberOfReviews}</span>
               &nbsp;Отзывов
-            </p>
+            </a>
           </Link>
         </div>
       </div>
