@@ -152,18 +152,29 @@ $root: '.room-card';
     font-family: $header-font;
     font-style: normal;
     font-weight: bold;
-    font-size: .875rem;
-    line-height: 1.0625rem;
-    color: $font-color;
     text-decoration: none;
     cursor: pointer;
 
     &:hover {
       text-decoration: underline;
+
+      #{$root}__room-number-wrapper {
+        text-decoration: underline;
+      }
     }
   }
 
+  &__room-number-wrapper {
+    margin: 0;
+    vertical-align: baseline;
+    display: inline-block;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    color: $font-color;
+  }
+
   &__room-number {
+    vertical-align: baseline;
     font-size: 1.1875rem;
     line-height: 1.5rem;
   }

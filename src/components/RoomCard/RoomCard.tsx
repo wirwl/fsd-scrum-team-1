@@ -102,8 +102,10 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
         <p className={b('row')}>
           <Link href={hrefToRoomInfo}>
             <a className={b('link-to-room-info')} href={hrefToRoomInfo}>
-              №&nbsp;
-              <span className={b('room-number')}>{roomNumber}</span>
+              <h2 className={b('room-number-wrapper')}>
+                №&nbsp;
+                <span className={b('room-number')}>{roomNumber}</span>
+              </h2>
               {isLuxury && <span className={b('luxury')}>&nbsp;люкс</span>}
             </a>
           </Link>
