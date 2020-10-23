@@ -1,43 +1,58 @@
-@import "@styles/mixins.scss";
+@import '@styles/mixins.scss';
 
 .like-button {
-  display: flex;
-  line-height: 0.75rem;
-  cursor: pointer;
+  display: inline-block;
+  line-height: .75rem;
+  cursor: pointer;  
+  padding: 0;
+  position: relative;
 
-  &__input {
-    @include visually-hidden;
+  @include reset-button;  
+
+  &:focus {
+    outline: 0;
   }
-
+        
   &__count {
-    font-size: 0.625rem;
+    font-size: .625rem;
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
-    border: 1px solid $font-color-light25;
-    border-radius: 10px;
     color: $font-color-light25;
     padding: 3px 5px 3px;
     min-width: 40px;
     user-select: none;
+    border: 1px solid $font-color-light25;
+    border-radius: 10px;
 
     &::before {
-      font-family: "Material Icons";
-      content: "favorite_border";
+      font-family: 'Material Icons';
+      content: 'favorite_border';
       margin-right: 5px;
     }
   }
 
-  &__input:checked + .like-button__border {
-    border: none;
-    position: relative;
-    background: transparent;
+  &:not(.like-button_checked):focus,
+  &:not(.like-button_checked):hover {    
+
+    .like-button__count {
+      border: 1px solid $font-color-light50;
+      border-radius: 10px;
+      color: $font-color-light50;
+
+      &::before {
+        color: $font-color-light50;
+      }
+    }
+  }
+
+  &_checked {            
     z-index: 1;
 
     &::before,
     &::after {
-      font-family: "Material Icons";
-      content: " ";
+      font-family: 'Material Icons';
+      content: ' ';
       position: absolute;
       border-radius: 10px;
     }
@@ -48,7 +63,7 @@
       bottom: 0;
       right: 0;
       z-index: -2;
-      background: $main-color;
+      background: $main-color-gradient;
     }
 
     &::after {
@@ -64,7 +79,7 @@
       color: $main-color;
 
       &::before {
-        content: "favorite";
+        content: 'favorite';
       }
     }
   }
