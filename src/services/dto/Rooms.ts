@@ -61,9 +61,8 @@ type IRoom = {
   comments: IRoomComment[]
 };
 
-export default IRoom;
-
 export type {
+  IRoom,
   IRoomRooles,
   IRoomAccessibility,
   IRoomExtraConvinience,

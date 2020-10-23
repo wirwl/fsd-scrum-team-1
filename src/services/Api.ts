@@ -2,7 +2,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import firebaseConfig from '../../config/firebase.json';
+import firebaseConfig from 'config/firebase.json';
+import type { IRoom } from 'src/services/dto/Rooms';
 
 class Api {
   auth: firebase.auth.Auth;
@@ -22,7 +23,13 @@ class Api {
     this.rooms = this.firestore.collection('rooms');
   }
 
-  // TODO: implements api methods
+  // for example
+  async fetchRoom(): Promise<IRoom | null> {
+    const doc = await this.rooms.doc('zovYorvhRDY6WZXJ0PD6').get();
+    const room: IRoom | undefined = doc?.data() as IRoom;
+
+    return room;
+  }
 }
 
 export default Api;
