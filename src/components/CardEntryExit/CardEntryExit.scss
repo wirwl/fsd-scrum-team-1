@@ -1,0 +1,45 @@
+@import '@styles/variables.scss';
+
+.card-entry-exit {
+  padding: 2.5rem 1.875rem 1.875rem;
+  width: 100%;
+  max-width: 23.75rem;
+  background-color: $bg-color;
+  border: .0625rem solid rgba(0, 0, 0, .12);
+  box-sizing: border-box;
+  box-shadow: 0 0 1.5625rem rgba(0, 0, 0, .2);
+  border-radius: .25rem;
+
+  &__title {
+    margin: 0 0 1.25rem;
+    font-family: $header-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    color: $font-color;
+  }
+
+  &__form {
+    width: 100%;
+  }
+
+  &__date-picker {
+    margin-bottom: 1.25rem;
+  }
+
+  &__dropdown-with-guests {
+    margin-bottom: 1.875rem;
+  }
+
+  &__dropdown-title {
+    margin-bottom: .3125rem;
+    font-family: $main-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .75rem;
+    line-height: .9375rem;
+    text-transform: uppercase;
+    color: $font-color;
+  }
+}

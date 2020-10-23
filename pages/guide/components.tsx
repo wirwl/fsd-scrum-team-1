@@ -5,6 +5,7 @@ import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
+import CardEntryExit from '@/components/CardEntryExit/CardEntryExit';
 
 const Components: FC = () => (
   <MainLayout title="Components">
@@ -18,6 +19,7 @@ const Components: FC = () => (
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
+    <CardEntryExit />
   </MainLayout>
 );
 
