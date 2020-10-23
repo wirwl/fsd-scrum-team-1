@@ -23,19 +23,6 @@ interface IRoomCardProps {
 
 const b = block('room-card');
 
-const convertPriceToStringWithSpaces = (value: number): string => (
-  String(value)
-    .split('')
-    .reverse()
-    .map((char, index) => {
-      const charNumber = index + 1;
-      const isPositionMultipleOf3 = charNumber % 3 === 0;
-      return isPositionMultipleOf3 ? ` ${char}` : char;
-    })
-    .reverse()
-    .join('')
-);
-
 const RoomCard: React.FC<IRoomCardProps> = (props) => {
   const {
     images,
@@ -111,7 +98,7 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
           </Link>
           <span className={b('price')}>
             <span className={b('price-number')}>
-              {`${convertPriceToStringWithSpaces(price)}₽`}
+              {`${(price).toLocaleString()}₽`}
             </span>
             &nbsp;в&nbsp;сутки
           </span>
