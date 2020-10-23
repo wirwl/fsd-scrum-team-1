@@ -1,43 +1,25 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import * as admin from 'firebase-admin';
 
 import firebaseConfig from '../../config/firebase.json';
 
-const isClientAndNotInit = (
-  apps: firebase.app.App[],
-): boolean => process.browser && apps.length === 0;
-
 class Api {
-  auth: firebase.auth.Auth | admin.auth.Auth;
+  auth: firebase.auth.Auth;
 
-  firestore: firebase.firestore.Firestore | admin.firestore.Firestore;
+  firestore: firebase.firestore.Firestore;
+
+  rooms: firebase.firestore.CollectionReference;
 
   constructor() {
-    if (isClientAndNotInit(firebase.apps)) {
+    if (firebase.apps.length === 0) {
       firebase.initializeApp(firebaseConfig);
     }
 
-    if (process.browser) {
-      this.firestore = firebase.firestore();
-      this.auth = firebase.auth();
-      // this.auth.signInWithEmailAndPassword('mglkn@yandex.ru', '123456');
-      return;
-    }
+    this.firestore = firebase.firestore();
+    this.auth = firebase.auth();
 
-    // server only
-    if (admin.apps.length === 0) {
-      admin.initializeApp({
-        credential: admin.credential.cert(
-          require('../../config/fsd-toxin-firebase-adminsdk-dafjv-bfab20e08e.json'), // eslint-disable-line
-        ),
-        databaseURL: 'https://fsd-toxin.firebaseio.com',
-      });
-    }
-
-    this.firestore = admin.firestore();
-    this.auth = admin.auth();
+    this.rooms = this.firestore.collection('rooms');
   }
 
   // TODO: implements api methods
