@@ -53,7 +53,13 @@ const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
           />
         </div>
         <div>
-          <Button caption="подобрать номер" theme="default" withArrow size="fluid" />
+          <Button
+            type="submit"
+            caption="подобрать номер"
+            theme="default"
+            withArrow
+            size="fluid"
+          />
         </div>
       </form>
     </div>
