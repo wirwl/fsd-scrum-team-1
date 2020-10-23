@@ -21,12 +21,13 @@ interface IDropListItem {
 
 interface IInputDropdownProps {
   name: string,
-  placeholder?: string,
+  placeholder: string,
   dropList?: IDropListItem[],
   isExpanded?: boolean,
   defaultLabel?: boolean | IPlurals,
   buttons?: boolean,
   reducer?: (items: IDropListItem[]) => string;
+  onChange?: (newDropList: IDropListItem[]) => void | undefined;
 }
 
 const formatCount = (count: number, plurals: IPlurals): string => {
@@ -50,16 +51,20 @@ const reduceDefaultPlurals = (
   placeholder: string,
 ): string => {
   let specialText = '';
-  let sum = 0;
-  let special = 0;
+  let otherText = '';
+  let otherCount = 0;
+  let specialCount = 0;
   items.forEach((item) => {
-    item.count && (sum += item.count);
+    if (item.count && (!item.special)) {
+      otherCount += item.count;
+      otherText = `${otherCount} ${formatCount(otherCount, defaultLabel)}`;
+    }
     if (item.special && item.count) {
-      special += item.count;
-      specialText = `, ${special} ${formatCount(item.count, item.plurals)}`;
+      specialCount += item.count;
+      specialText = `, ${specialCount} ${formatCount(item.count, item.plurals)}`;
     }
   });
-  const text = sum ? (`${sum} ${formatCount(sum, defaultLabel)}${specialText}`) : (`${placeholder}`);
+  const text = otherCount ? (`${otherText} ${specialText}`) : (`${placeholder}`);
   return text;
 };
 
@@ -68,7 +73,7 @@ const bem = block(bemClass);
 
 const InputDropdown: FC<IInputDropdownProps> = ({
   name,
-  placeholder = 'Выберите удобства',
+  placeholder,
   dropList = [
     { label: 'Спальни', count: 2, plurals: { one: 'спальня', two: 'спальни', few: 'спален' } },
     { label: 'Кровати', count: 2, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
@@ -78,11 +83,12 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   isExpanded = false,
   buttons = false,
   reducer = reduceCountsAndPlurals,
+  onChange,
 }) => {
   const [dropListState, setDropListState] = useState<IDropListItem[]>(dropList);
   const [isExpandedState, setIsExpandedState] = useState<boolean>(isExpanded);
   const [valueState, setValueState] = useState<string>('');
-  const [isHiddenBtnState, setIsHiddenBtnState] = useState<boolean>(false);
+  const [isHiddenBtn, setIsHiddenBtn] = useState<boolean>(false);
 
   const handleDocumentClick = useCallback((event: MouseEvent): void => {
     const path = event.composedPath() as Element[];
@@ -124,8 +130,12 @@ const InputDropdown: FC<IInputDropdownProps> = ({
     });
     const allCountersEmpty = arr.indexOf(false) === -1;
 
-    allCountersEmpty ? setIsHiddenBtnState(true) : setIsHiddenBtnState(false);
+    allCountersEmpty ? setIsHiddenBtn(true) : setIsHiddenBtn(false);
   });
+
+  const handleChange = (): void => {
+    onChange && onChange(dropListState);
+  };
 
   const clearInput = ():void => {
     const items = [...dropListState];
@@ -187,6 +197,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
           setIsExpandedState((prev) => !prev);
         }}
         value={valueState || ''}
+        onChange={handleChange()}
       />
       <button
         className={`${bem('toggle-button')} material-icons`}
@@ -205,7 +216,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
           buttons && (
             <div className={bem('footer-buttons')}>
               <div className={bem('clear-button')}>
-                { !isHiddenBtnState && (
+                { !isHiddenBtn && (
                   <Button
                     theme="textual"
                     caption="Очистить"
