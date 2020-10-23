@@ -37,6 +37,8 @@ type IRoomComment = {
   author: IRoomCommentAuthor;
 };
 
+type IRoomInformation = 'comfort' | 'convinience' | 'cozy';
+
 type IRoom = {
   roomNumber: number;
   bed: number;
@@ -56,7 +58,7 @@ type IRoom = {
   discount: number;
 
   rate: number;
-  roomInformation: 'comfort' | 'convinience' | 'cozy';
+  roomInformation: IRoomInformation[];
   impressions: IRoomImpressions,
   comments: IRoomComment[]
 };
