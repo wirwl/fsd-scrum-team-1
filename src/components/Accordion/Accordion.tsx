@@ -40,6 +40,19 @@ const Accordion: FC<IAccordionProps> = (props) => {
     onInit && onInit(checkboxesInfo);
   }, []);
 
+  const handleChange = (name: string, isChecked: boolean): void => {
+    if (name) {
+      const newCheckboxState = {
+        [name]: isChecked,
+      };
+      setCheckboxesInfo((prevState) => ({
+        ...prevState,
+        ...newCheckboxState,
+      }));
+      onChange && onChange({ ...checkboxesInfo, ...newCheckboxState });
+    }
+  };
+
   const checkboxes = checkboxList.map((checkbox) => {
     const {
       label,
@@ -54,31 +67,26 @@ const Accordion: FC<IAccordionProps> = (props) => {
           description={description}
           name={name}
           checked={checked}
-          onChange={(isChecked) => {
-            if (name) {
-              const newCheckboxState = {
-                [name]: isChecked,
-              };
-              setCheckboxesInfo((prevState) => ({
-                ...prevState,
-                ...newCheckboxState,
-              }));
-              onChange && onChange({ ...checkboxesInfo, ...newCheckboxState });
-            }
-          }}
+          onChange={(isChecked) => (name ? handleChange(name, isChecked) : null)}
         />
       </li>
     );
   });
 
+  const toggleAccordion = (): void => setOpened(!isOpened);
+
   return (
     <div className={b({ opened: isOpened })}>
       <div className={b('header')}>
-        <h3 className={b('label')}>{title}</h3>
+        <h3 className={b('label')}>
+          <button type="button" className={b('label-button')} onClick={toggleAccordion}>
+            {title}
+          </button>
+        </h3>
         <button
           className={b('button')}
           type="button"
-          onClick={() => setOpened(!isOpened)}
+          onClick={toggleAccordion}
         >
           <span className={b('arrow')}>expand_more</span>
         </button>
