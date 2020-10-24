@@ -1,0 +1,73 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
+$root: '.slider';
+
+#{$root} {
+  width: 266px;
+
+  &_range {
+    #{$root}__bar-1 {
+      background: $second-color-gradient;
+    }
+    #{$root}__bar-0 {
+      background: none;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__label {
+    @include h3();
+  }
+
+  &__price-range {
+    margin: 0;
+    font-size: .75rem;
+    line-height: .9375rem;
+    color: $font-color-light50;
+  }
+
+  &__min {
+    display: inline-block;
+    margin-right: 3px;
+  }
+
+  &__max {
+    display: inline-block;
+  }
+
+  &__container {
+    width: 100%;
+    margin-top: 19px;
+    height: 6px;
+    position: relative;
+  }
+
+  &__bar {
+    height: 6px;
+    border: 1px solid $font-color-light25;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  &__button {
+    @include reset-button();
+    padding: 0;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: $second-color-gradient;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    top: calc(50% - 8px);
+  }
+
+  &__bar-0 {
+    background: $second-color-gradient;
+  }
+}
