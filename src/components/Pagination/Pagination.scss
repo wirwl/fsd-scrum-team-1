@@ -43,6 +43,9 @@ $size: 2.5rem;
     font-size: .75rem;
     outline: none;
     user-select: none;
+    width: 100%;
+    text-align: center;
+    line-height: $size;
 
     &:focus {
       outline: 1px dotted $font-color-light25;
