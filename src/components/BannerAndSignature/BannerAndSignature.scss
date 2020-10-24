@@ -1,0 +1,37 @@
+@import '@styles/variables.scss';
+
+.banner-and-signature {
+  display: block;
+
+  height: 51.875rem;
+
+  margin-right: auto;
+  margin-left: auto;
+
+  background-image: url('/images/landing-banner.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__center {
+    position: relative;
+
+    max-width: $max-content-width;
+    height: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__signature {
+    display: block;
+    position: absolute;
+
+    right: 1.25rem;
+    bottom: .375rem;
+
+    max-width: 18.75rem;
+
+    font-size: .875rem;
+    text-align: right;
+  }
+}

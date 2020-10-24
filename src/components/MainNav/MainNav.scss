@@ -1,0 +1,72 @@
+@import '@styles/variables';
+
+// this is max-height value for mobile version nav
+// change it if mobile menu not fit with this size
+$mobile-menu-max-height: 18.75rem;
+
+.main-nav {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+
+  list-style-type: none;
+
+  font-family: $main-font;
+  font-size: .875rem;
+
+  max-height: $mobile-menu-max-height;
+
+  transition: max-height .1s ease-in;
+
+  @media (max-width: 970px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 420px) {
+    display: block;
+    width: 100%;
+
+    text-align: center;
+  }
+
+  &__toggle-btn {
+    display: none;
+    box-sizing: content-box;
+    width: 1.25rem;
+    height: 1.25rem;
+
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: .0625rem solid transparent;
+    border-radius: .1875rem;
+    background-color: $bg-color;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    outline: none;
+
+    @media (max-width: 420px) {
+      display: block;
+    }
+  }
+
+  &__toggle-btn-icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &__toggle-btn:focus {
+    border: .0625rem solid $main-color;
+  }
+
+  &_hidden {
+    max-height: 1.375rem;
+    overflow: hidden;
+  }
+}

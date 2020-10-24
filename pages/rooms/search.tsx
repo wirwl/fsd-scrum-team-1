@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import PagesLayout from 'src/layouts/PagesLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const Search: FC = () => (
-  <PagesLayout title="Search">
+  <MainLayout title="Search">
     <h1>Search Room Page</h1>
-  </PagesLayout>
+  </MainLayout>
 );
 
 export default Search;
