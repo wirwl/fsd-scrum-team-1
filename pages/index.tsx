@@ -1,4 +1,3 @@
-import LikeButton from '@/components/LikeButton/LikeButton';
 import { FC } from 'react';
 
 import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
@@ -10,7 +9,6 @@ const TITLE = 'Toxin';
 
 const Main: FC = () => (
   <MainLayout title={TITLE}>
-    <LikeButton />
     <BannerAndSignature signature={PAGE_SIGNATURE}>
       awesome form
     </BannerAndSignature>
