@@ -24,6 +24,16 @@ const isCheckedChoicesInvalid = (
   ({ checked }) => checked !== undefined && checked,
 ).length > 1;
 
+/**
+ * RadioButton component
+ * @param {String} name input name
+ * @param {Array} choices array of choice {
+ *    value: string;
+ *    label: string;
+ *    checked?: boolean;
+ * }
+ * @param {Function} onChange callback (value: string) => void
+ */
 const RadioButton: FC<IRadioButtonProps> = ({
   name,
   choices,
