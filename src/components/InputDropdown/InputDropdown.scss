@@ -20,6 +20,7 @@ $zIndex: 9;
     border: .0625rem solid $font-color-light25;
     border-radius: .25rem;
     text-overflow: ellipsis;
+    cursor: pointer;
 
     &:focus {
       outline: none;
