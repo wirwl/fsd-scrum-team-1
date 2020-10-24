@@ -7,6 +7,7 @@ import './Pagination.scss';
 interface IPaginationProps {
   totalItemCount: number,
   limitPerPage: number,
+  initialPage?: number,
   onChange?: (pageNumber: number) => void,
 }
 
@@ -17,6 +18,7 @@ const b = block('pagination');
 const Pagination: React.FC<IPaginationProps> = ({
   totalItemCount,
   limitPerPage,
+  initialPage = 1,
   onChange,
 }) => {
   const pageCount = Math.ceil(totalItemCount / limitPerPage);
@@ -38,6 +40,7 @@ const Pagination: React.FC<IPaginationProps> = ({
   return (
     <div className="pagination">
       <ReactPaginate
+        initialPage={initialPage - 1}
         previousLabel="arrow_back"
         nextLabel="arrow_forward"
         breakLabel="..."
