@@ -18,7 +18,7 @@ interface IRoomCardProps {
   numberOfReviews: number;
   hrefToRoomInfo: string;
   hrefToReviews: string;
-  isLuxury?: boolean;
+  isLuxury: boolean;
 }
 
 const b = block('room-card');
@@ -33,7 +33,7 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
       stars,
       hrefToRoomInfo,
       hrefToReviews,
-      isLuxury = false,
+      isLuxury,
     },
   } = props;
 
