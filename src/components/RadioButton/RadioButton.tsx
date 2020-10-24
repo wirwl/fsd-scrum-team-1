@@ -9,6 +9,7 @@ const b = block('radio-button');
 type IChoice = {
   value: string;
   label: string;
+  checked?: boolean;
 };
 
 type IRadioButtonProps = {
@@ -17,8 +18,18 @@ type IRadioButtonProps = {
   onChange: (value: string) => void;
 };
 
+const isCheckedChoicesInvalid = (
+  choices: IChoice[],
+): boolean => choices.filter(
+  ({ checked }) => checked !== undefined && checked,
+).length > 1;
+
 const RadioButton: FC<IRadioButtonProps> = ({ name, choices, onChange }) => {
-  const buttons = choices.map(({ value, label }) => (
+  if (isCheckedChoicesInvalid(choices)) {
+    throw new Error('RadioButton error. Invalid choices: checked choice should only one');
+  }
+
+  const buttons = choices.map(({ value, label, checked }) => (
     <label
       key={`${label}_${value}`}
       className={b('choice')}
@@ -28,6 +39,7 @@ const RadioButton: FC<IRadioButtonProps> = ({ name, choices, onChange }) => {
         type="radio"
         name={name}
         value={value}
+        defaultChecked={checked}
       />
 
       <div className={b('custom-radio')}>
