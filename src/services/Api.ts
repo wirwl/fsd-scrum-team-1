@@ -25,7 +25,7 @@ class Api {
 
   // for example
   async fetchRoom(): Promise<IRoom | null> {
-    const doc = await this.rooms.doc('zovYorvhRDY6WZXJ0PD6').get();
+    const doc = await this.rooms.doc('0criuLmN4lA853vCHRb2').get();
     const room: IRoom | undefined = doc?.data() as IRoom;
 
     return room;
