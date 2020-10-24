@@ -42,6 +42,7 @@ $size: 2.5rem;
     color: $font-color-light50;
     font-size: .75rem;
     outline: none;
+    user-select: none;
 
     &:focus {
       outline: 1px dotted $font-color-light25;
