@@ -130,7 +130,6 @@ $root: '.room-card';
   }
 
   &__row {
-    margin: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -215,6 +214,7 @@ $root: '.room-card';
   }
 
   &__price {
+    margin: 0;
     font-size: .6875rem;
   }
 

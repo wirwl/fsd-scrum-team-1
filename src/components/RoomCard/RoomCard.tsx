@@ -88,7 +88,7 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
         </button>
       </div>
       <div className={b('body')}>
-        <p className={b('row')}>
+        <div className={b('row')}>
           <Link href={hrefToRoomInfo}>
             <a className={b('link-to-room-info')} href={hrefToRoomInfo}>
               <h2 className={b('room-number-wrapper')}>
@@ -98,13 +98,13 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
               {isLuxury && <span className={b('luxury')}>&nbsp;люкс</span>}
             </a>
           </Link>
-          <span className={b('price')}>
+          <p className={b('price')}>
             <span className={b('price-number')}>
               {`${(price).toLocaleString()}₽`}
             </span>
             &nbsp;в&nbsp;сутки
-          </span>
-        </p>
+          </p>
+        </div>
         <div className={b('row')}>
           <RateButtons selectedCount={stars} id="change-me" />
           <Link href={hrefToReviews}>
