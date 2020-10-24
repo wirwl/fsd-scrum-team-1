@@ -43,6 +43,10 @@ $size: 2.5rem;
     font-size: .75rem;
     outline: none;
 
+    &:focus {
+      outline: 1px dotted $font-color-light25;
+    }
+
     &_active {
       color: #fff;
       font-weight: bold;
