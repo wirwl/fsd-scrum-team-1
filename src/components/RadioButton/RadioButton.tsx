@@ -24,7 +24,11 @@ const isCheckedChoicesInvalid = (
   ({ checked }) => checked !== undefined && checked,
 ).length > 1;
 
-const RadioButton: FC<IRadioButtonProps> = ({ name, choices, onChange }) => {
+const RadioButton: FC<IRadioButtonProps> = ({
+  name,
+  choices,
+  onChange,
+}) => {
   if (isCheckedChoicesInvalid(choices)) {
     throw new Error('RadioButton error. Invalid choices: checked choice should only one');
   }
