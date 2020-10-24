@@ -3,7 +3,8 @@
 $root: '.room-card';
 
 #{$root} {
-  width: 16.875rem;
+  width: 100%;
+  min-width: 16.875rem;
   background: $bg-color;
   box-shadow: 0 .625rem 1.25rem $font-color-light5;
   border-radius: .25rem;
@@ -12,7 +13,7 @@ $root: '.room-card';
   &__image-slider {
     position: relative;
     width: 100%;
-    height: 9.4375rem;
+    height: auto;
 
     &:hover {
       #{$root}__button {
@@ -34,11 +35,10 @@ $root: '.room-card';
   &__image-wrapper {
     position: absolute;
     width: 100%;
-    height: 100%;
-    background: $font-color-light5;
     opacity: 0;
 
     &_selected {
+      position: relative;
       opacity: 1;
       transition: opacity .2s ease-out;
     }
@@ -48,6 +48,7 @@ $root: '.room-card';
     width: 100%;
     height: auto;
     max-height: 100%;
+    display: block;
   }
 
   &__circles {
@@ -92,6 +93,7 @@ $root: '.room-card';
 
   &__button {
     position: absolute;
+    top: 0;
     z-index: 800;
     padding: 0;
     width: 0;
