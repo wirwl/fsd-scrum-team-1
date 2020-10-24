@@ -54,12 +54,16 @@ const reduceDefaultPlurals = (
   let otherText = '';
   let otherCount = 0;
   let specialCount = 0;
+
   items.forEach((item) => {
-    if (item.count && (!item.special)) {
+    const isAddedOther = item.count && (!item.special);
+    const isAddedSpecial = item.special && item.count;
+
+    if (isAddedOther) {
       otherCount += item.count;
       otherText = `${otherCount} ${formatCount(otherCount, defaultLabel)}`;
     }
-    if (item.special && item.count) {
+    if (isAddedSpecial) {
       specialCount += item.count;
       specialText = `, ${specialCount} ${formatCount(item.count, item.plurals)}`;
     }
