@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import PagesLayout from '@/layouts/PagesLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const RestorePassword: FC = () => (
-  <PagesLayout title="Restore Password">
+  <MainLayout title="Restore Password">
     <h1>Restore Password Page</h1>
-  </PagesLayout>
+  </MainLayout>
 );
 
 export default RestorePassword;

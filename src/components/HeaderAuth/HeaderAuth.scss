@@ -1,22 +1,49 @@
+@import '@styles/variables';
+
 .header-auth {
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
 
   height: 100%;
 
-  &__actions {
-    display: flex;
+  @media (max-width: 450px) {
+    justify-content: center;
+    align-items: center;
   }
 
-  &__action:first-child {
+  @media (max-width: 350px) {
+    flex-direction: column;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__action:last-child {
     margin-left: 1.25rem;
+
+    @media (max-width: 350px) {
+      margin-left: unset;
+      margin-top: .625rem;
+    }
   }
 
   &__user-name {
     display: block;
 
     font-size: .875rem;
+
+    border-left: .0625rem solid $font-color-light10;
+    padding-left: 1.25rem;
+
+    @media (max-width: 970px) {
+      border: 0;
+      padding-left: unset;
+
+      text-align: center;
+    }
   }
 
   &__link {

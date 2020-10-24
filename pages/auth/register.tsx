@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import PagesLayout from '@/layouts/PagesLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const Register: FC = () => (
-  <PagesLayout title="Register">
+  <MainLayout title="Register">
     <h1>Register Page</h1>
-  </PagesLayout>
+  </MainLayout>
 );
 
 export default Register;

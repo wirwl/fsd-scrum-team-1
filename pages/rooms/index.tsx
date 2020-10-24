@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import PagesLayout from '@/layouts/PagesLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const Rooms: FC = () => (
-  <PagesLayout title="Rooms">
+  <MainLayout title="Rooms">
     <h1>Rooms Page</h1>
-  </PagesLayout>
+  </MainLayout>
 );
 
 export default Rooms;

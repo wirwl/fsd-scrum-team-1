@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
+<<<<<<< HEAD
 import Button from '@/components/Button/Button';
 import MainLayout from '@/layouts/MainLayout';
 import SocialButtons from '@/components/social-buttons/SocialButtons';
@@ -19,6 +20,19 @@ const Main: FC = () => (
     <BulletsList textList={['Нельзя с питомцами', 'Без вечеринок и мероприятий', 'Время прибытия — после 13:00, а выезд до 12:00']} />
     <RateButton id="rb1" selectedCount={4} />
     <LikeButton isChecked={false} count={0} />
+=======
+import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
+
+const PAGE_SIGNATURE = 'Лучшие номера для вашей работы, отдыха и просто вдохновения';
+const TITLE = 'Toxin';
+
+const Main: FC = () => (
+  <MainLayout title={TITLE}>
+    <BannerAndSignature signature={PAGE_SIGNATURE}>
+      awesome form
+    </BannerAndSignature>
+>>>>>>> ba6f6c6489cc109594da6a6037fb4a826fedb881
   </MainLayout>
 );
 

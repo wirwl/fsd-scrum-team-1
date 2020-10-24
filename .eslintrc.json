@@ -41,6 +41,12 @@
       { "allowExpressions": true }
     ],
     "@typescript-eslint/no-unused-expressions": "off",
+<<<<<<< HEAD
     "jsx-a11y/label-has-associated-control": 0
+=======
+    "jsx-a11y/label-has-associated-control": [ "error", {
+      "labelComponents": []
+    }]
+>>>>>>> ba6f6c6489cc109594da6a6037fb4a826fedb881
   }
 }
