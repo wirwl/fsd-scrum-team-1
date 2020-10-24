@@ -6,6 +6,7 @@ import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
 import Accordion from '@/components/Accordion/Accordion';
+import Slider from '@/components/Slider/Slider';
 
 const checkboxes = [
   {
@@ -44,6 +45,7 @@ const Components: FC = () => (
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
+    <Slider max={16000} currentValues={[5000, 10000]} />
   </MainLayout>
 );
 
