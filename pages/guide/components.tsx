@@ -11,19 +11,21 @@ const Components: FC = () => (
   <MainLayout title="Components">
     <h1>Components Page</h1>
     <RoomCard
-      images={[
-        { src: 'http://placeimg.com/320/220/tech' },
-        { src: 'http://placeimg.com/320/220/tech' },
-        { src: 'http://placeimg.com/320/220/tech' },
-        { src: 'http://placeimg.com/320/220/tech' },
-      ]}
-      roomNumber={888}
-      price={9990}
-      stars={5}
-      numberOfReviews={145}
-      hrefToReviews=""
-      hrefToRoomInfo=""
-      isLuxury
+      info={{
+        images: [
+          { src: 'http://placeimg.com/320/220/tech' },
+          { src: 'http://placeimg.com/320/220/nature' },
+          { src: 'http://placeimg.com/320/220/animals' },
+          { src: 'http://placeimg.com/320/220/sepia' },
+        ],
+        roomNumber: 888,
+        price: 9990,
+        stars: 5,
+        numberOfReviews: 145,
+        hrefToReviews: '',
+        hrefToRoomInfo: '',
+        isLuxury: true,
+      }}
     />
     <DataPicker />
     <DataPicker withTwoInputs />

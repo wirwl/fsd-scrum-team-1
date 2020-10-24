@@ -23,16 +23,18 @@ interface IRoomCardProps {
 
 const b = block('room-card');
 
-const RoomCard: React.FC<IRoomCardProps> = (props) => {
+const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
   const {
-    images,
-    numberOfReviews,
-    price,
-    roomNumber,
-    stars,
-    hrefToRoomInfo,
-    hrefToReviews,
-    isLuxury = false,
+    info: {
+      images,
+      numberOfReviews,
+      price,
+      roomNumber,
+      stars,
+      hrefToRoomInfo,
+      hrefToReviews,
+      isLuxury = false,
+    },
   } = props;
 
   const [imageIndex, setImageIndex] = useState(0);
