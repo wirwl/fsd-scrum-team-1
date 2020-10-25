@@ -6,6 +6,7 @@ import './Slider.scss';
 
 type SliderValues = [number, number] | [number];
 type ReactSliderValues = number[] | number | null | undefined;
+type MinMax = { min: number; max: number };
 
 interface ISliderProps {
   title?: string;
@@ -17,6 +18,23 @@ interface ISliderProps {
 }
 
 const b = block('slider');
+
+const validateMinMax = ({ min, max }: MinMax): MinMax => {
+  let validMin = min;
+  let validMax = max;
+
+  if (validMin > validMax) {
+    validMax = min;
+    validMin = max;
+  }
+
+  if (validMax < validMin) {
+    validMin = max;
+    validMax = min;
+  }
+
+  return { min: validMin, max: validMax };
+};
 
 const validateCurrentValues = (
   values: SliderValues,
@@ -38,11 +56,14 @@ const Slider: FC<ISliderProps> = (props) => {
   const {
     title = 'Range slider',
     currentValues = [0, 100],
-    min = 0,
-    max = 100,
-    step = 1,
+    min: initialMin = 0,
+    max: initialMax = 100,
+    step: initialStep = 1,
     onChange,
   } = props;
+
+  const step = Math.abs(initialStep);
+  const { min, max } = validateMinMax({ min: initialMin, max: initialMax });
 
   const [values, setValues] = useState(() => validateCurrentValues(currentValues, min, max));
   const [minValue, maxValue] = values;
@@ -74,9 +95,9 @@ const Slider: FC<ISliderProps> = (props) => {
         </p>
       </div>
       <ReactSlider
-        className={b('container')}
-        thumbClassName={b('button')}
-        trackClassName={b('bar')}
+        className={b('container').toString()}
+        thumbClassName={b('button').toString()}
+        trackClassName={b('bar').toString()}
         defaultValue={values}
         min={min}
         max={max}
