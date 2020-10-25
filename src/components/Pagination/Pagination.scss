@@ -48,7 +48,7 @@ $size: 2.5rem;
     line-height: $size;
 
     &:focus {
-      outline: 1px dotted $font-color-light25;
+      outline: .0625rem dotted $font-color-light25;
     }
 
     &_active {
