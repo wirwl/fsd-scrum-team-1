@@ -6,8 +6,6 @@
 
   $block: &;
 
-  font-size: .875rem;
-
   &__choice {
     display: flex;
     align-items: center;
@@ -44,7 +42,7 @@
   &__label {
     color: $font-color-light50;
 
-    text-transform: capitalize;
+    font-size: .875rem;
   }
 
   &__custom-radio {
@@ -54,7 +52,7 @@
     width: 1.25rem;
     height: 1.25rem;
 
-    border: .0625rem solid $font-color-light50;
+    border: .0625rem solid $font-color-light25;
     background: white;
     border-radius: .625rem;
     margin-right: .625rem;

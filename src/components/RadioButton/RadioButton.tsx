@@ -60,7 +60,7 @@ const RadioButton: FC<IRadioButtonProps> = ({
         <div className={b('custom-radio-inner')} />
       </div>
 
-      <span>{label}</span>
+      <span className={b('label')}>{label}</span>
     </label>
   ));
 
