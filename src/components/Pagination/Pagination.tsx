@@ -62,8 +62,7 @@ const Pagination: React.FC<IPaginationProps> = ({
         disabledClassName={b('cell', { disabled: true })}
       />
       <span className="pagination__text">
-        {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-        {currentRange[0]}–{currentRange[1]} из {countRepresentation} вариантов аренды
+        {`${currentRange[0]}–${currentRange[1]} из ${countRepresentation} вариантов аренды`}
       </span>
     </div>
   );
