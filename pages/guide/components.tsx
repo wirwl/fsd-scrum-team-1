@@ -5,7 +5,7 @@ import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
-import CardEntryExit from '@/components/CardEntryExit/CardEntryExit';
+import FormLanding from '@/components/FormLanding/FormLanding';
 import Accordion from '@/components/Accordion/Accordion';
 
 const checkboxes = [
@@ -43,7 +43,7 @@ const Components: FC = () => (
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
-    <CardEntryExit />
+    <FormLanding />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
   </MainLayout>

@@ -4,13 +4,13 @@ import { block } from 'bem-cn';
 import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown from '@/components/InputDropdown/InputDropdown';
-import './CardEntryExit.scss';
+import './FormLanding.scss';
 
 interface ICardEntryExitProps {
   onSubmit?: (range: RangeDays) => void;
 }
 
-const b = block('card-entry-exit');
+const b = block('form-landing');
 
 const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
   const { onSubmit } = props;
