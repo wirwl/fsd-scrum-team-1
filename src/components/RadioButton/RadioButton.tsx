@@ -1,4 +1,4 @@
-import type { FC, SyntheticEvent } from 'react';
+import type { FC, ChangeEvent } from 'react';
 
 import { block } from 'bem-cn';
 
@@ -64,10 +64,9 @@ const RadioButton: FC<IRadioButtonProps> = ({
     </label>
   ));
 
-  const handleRadioButtonChange = (e: SyntheticEvent): void => {
-    const target = e.target as HTMLInputElement;
-    onChange(target.value);
-  };
+  const handleRadioButtonChange = (
+    e: ChangeEvent<HTMLInputElement>,
+  ): void => onChange(e.target.value);
 
   return (
     <div onChange={handleRadioButtonChange} className={b()}>
