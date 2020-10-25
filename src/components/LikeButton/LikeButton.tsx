@@ -6,17 +6,18 @@ const b = block('like-button');
 
 interface ILikeButton {
   liked?: boolean;
+  count?: number
   onClick?: (liked: boolean) => void;
 }
 
 const LikeButton: FC<ILikeButton> = (props) => {
   const {
     liked: isChecked = false,
+    count = 0,
     onClick,
   } = props;
 
   const [liked, setLiked] = useState(isChecked);
-  const [count] = useState(0);
 
   const handleLikeButtonClick = (): void => {
     const newValue = !liked;
