@@ -1,34 +1,33 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import './RateButton.scss';
 import block from 'bem-cn';
 
 const b = block('rate-button');
 
 interface IRateButton {
-  id: string,
-  totalCount?: number,
-  selectedCount: number
+  maxRate?: number,
+  rate: number
 }
 
-const RateButtons: React.FC<IRateButton> = (props) => {
+const RateButton: React.FC<IRateButton> = (props) => {
   const {
-    id,
-    totalCount = 5,
-    selectedCount,
+    maxRate: totalCount = 5,
+    rate: selectedCount,
   } = props;
 
-  const content = [];
-  const total = totalCount + 1;
-  for (let n = 1; n < total; n += 1) {
-    content.push(<input key={`input ${id}${n}`} className={b('input')} id={id + (total - n)} type="radio" name={id} defaultChecked={selectedCount === total - n} />);
-    content.push(<label key={`label ${id}${n}`} className={b('label')} htmlFor={id + (total - n)} />);
+  const stars = [];
+  for (let i = 1; i <= totalCount; i += 1) {
+    stars.push(
+      <div className={b('star')}>
+        {i <= selectedCount ? 'star' : 'star_border'}
+      </div>,
+    );
   }
 
   return (
     <div className={b()}>
-      {content}
+      {stars}
     </div>
   );
 };
 
-export default RateButtons;
+export default RateButton;
