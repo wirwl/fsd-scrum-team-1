@@ -4,7 +4,7 @@
 $root: '.slider';
 
 #{$root} {
-  width: 266px;
+  width: 100%;
 
   &_range {
     #{$root}__bar-1 {
@@ -32,26 +32,26 @@ $root: '.slider';
     color: $font-color-light50;
   }
 
-  &__min {
-    display: inline-block;
-    margin-right: 3px;
-  }
-
+  &__min,
   &__max {
     display: inline-block;
   }
 
+  &__min {
+    margin-right: .188rem;
+  }
+
   &__container {
     width: 100%;
-    margin-top: 19px;
-    height: 6px;
+    margin-top: 1.188rem;
+    height: .375rem;
     position: relative;
   }
 
   &__bar {
-    height: 6px;
-    border: 1px solid $font-color-light25;
-    border-radius: 3px;
+    height: .375rem;
+    border: .063rem solid $font-color-light25;
+    border-radius: .188rem;
     cursor: pointer;
   }
 
@@ -59,12 +59,13 @@ $root: '.slider';
     @include reset-button();
     padding: 0;
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     background: $second-color-gradient;
-    border: 2px solid #ffffff;
-    border-radius: 10px;
-    top: calc(50% - 8px);
+    border: .125rem solid #ffffff;
+    border-radius: .625rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   &__bar-0 {
