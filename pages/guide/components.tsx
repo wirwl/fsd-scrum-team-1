@@ -5,7 +5,6 @@ import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
-import Pagination from '@/components/Pagination/Pagination';
 import Accordion from '@/components/Accordion/Accordion';
 
 const checkboxes = [
@@ -43,7 +42,6 @@ const Components: FC = () => (
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
-    <Pagination totalItemCount={175} limitPerPage={12} />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
   </MainLayout>

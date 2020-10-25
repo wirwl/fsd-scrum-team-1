@@ -1,45 +1,16 @@
-@import '../../styles/variables.scss';
+@import '@styles/variables.scss';
 
 .rate-button {
   display: inline-flex;
-  flex-direction: row-reverse;
   font-family: 'Material Icons';
-  font-size: 24px;
+  font-size: 1.5rem;
 
-  &__input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    border: 0;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0, 0, 0, 0);
-    overflow: hidden;
-  }
-
-  &__label {
-    cursor: pointer;
-    color: $main-color;
-  }
-
-  &__label:after {
-    content: 'star_border';
-  }
-
-  &__input:checked ~ .rate-button__label:after {
-    content: 'star';
-  }
-
-  &:hover .rate-button__label:after {
-    content: 'star_border';
-  }
-
-  .rate-button__label:hover:after,
-  &__label:hover ~ .rate-button__label:after {
-    content: 'star';
-  }
-
-  &_disabled {
-    pointer-events: none;
-  }
+  &__star {    
+    color: #bc9cff;
+    background-color: #bc9cff;
+    background-image: $main-color-gradient;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;    
+  }  
 }

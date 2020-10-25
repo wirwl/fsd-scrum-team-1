@@ -57,15 +57,15 @@
 
     &_white {
       color: $main-color;
-      background: rgba(188, 156, 255, 1);
+      background: $main-color;
 
       &:hover {
         opacity: 1;
-        background: rgba(188, 156, 255, .5);
+        background: transparentize($color: $main-color, $amount: .5);
       }
 
       &:active {
-        background: rgba(188, 156, 255, 1);
+        background: $main-color;
       }
 
       #{$blockClass}__inner-wrapper {
