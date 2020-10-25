@@ -15,7 +15,8 @@ const LikeButton: FC<ILikeButton> = (props) => {
     onClick,
   } = props;
 
-  const [liked, setLiked] = useState<boolean>(isChecked);
+  const [liked, setLiked] = useState(isChecked);
+  const [count] = useState(0);
 
   const handleLikeButtonClick = (): void => {
     const newValue = !liked;
@@ -25,7 +26,7 @@ const LikeButton: FC<ILikeButton> = (props) => {
 
   return (
     <button type="button" className={b({ checked: liked })} onClick={handleLikeButtonClick}>
-      <div className={b('count')}>0</div>
+      <div className={b('count')}>{count}</div>
     </button>
   );
 };
