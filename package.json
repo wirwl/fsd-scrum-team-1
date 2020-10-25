@@ -72,8 +72,8 @@
     "next": "^9.5.3",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
-    "react-input-mask": "^2.0.4",
     "react-dom": "^16.13.1",
+    "react-input-mask": "^2.0.4",
     "react-svg-inline": "^2.1.1"
   },
   "husky": {
