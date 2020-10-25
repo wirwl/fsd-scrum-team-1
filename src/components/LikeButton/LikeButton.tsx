@@ -1,4 +1,3 @@
-/* eslint-disable */
 import './LikeButton.scss';
 import block from 'bem-cn';
 import { FC, useState } from 'react';
@@ -6,43 +5,28 @@ import { FC, useState } from 'react';
 const b = block('like-button');
 
 interface ILikeButton {
-  isChecked?: boolean;
-  count?: number;
-  onChange?: (values: ILikeButton) => void;
+  liked?: boolean;
+  onClick?: (liked: boolean) => void;
 }
 
 const LikeButton: FC<ILikeButton> = (props) => {
   const {
-    isChecked = false,
-    count = 0,
-    onChange
+    liked: isChecked = false,
+    onClick,
   } = props;
 
-  const [state, setState] = useState<ILikeButton>({ isChecked, count });
+  const [liked, setLiked] = useState<boolean>(isChecked);
 
   const handleLikeButtonClick = (): void => {
-    setState((prev) => {
-      const {
-        isChecked: isCheckedPrev = false,
-        count: countPrev = 0
-      } = prev;
-
-      const newValue = isCheckedPrev ? countPrev - 1 : countPrev + 1;
-      const result = {
-        isChecked: !isCheckedPrev,
-        count: newValue,
-      };
-
-      onChange && onChange(result);
-
-      return result;
-    });
+    const newValue = !liked;
+    setLiked(newValue);
+    onClick && onClick(newValue);
   };
 
   return (
-    <button className={b({ checked: state.isChecked })} onClick={handleLikeButtonClick} >
-      <div className={b('count')}>{state.count}</div>
-    </button >
+    <button type="button" className={b({ checked: liked })} onClick={handleLikeButtonClick}>
+      <div className={b('count')}>0</div>
+    </button>
   );
 };
 

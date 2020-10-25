@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
-import '../src/components/LikeButton/LikeButton';
 
 const PAGE_SIGNATURE = 'Лучшие номера для вашей работы, отдыха и просто вдохновения';
 const TITLE = 'Toxin';
