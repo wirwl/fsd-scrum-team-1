@@ -4,14 +4,14 @@ import block from 'bem-cn';
 const b = block('rate-button');
 
 interface IRateButton {
-  totalCount?: number,
-  selectedCount: number
+  maxRate?: number,
+  rate: number
 }
 
 const RateButton: React.FC<IRateButton> = (props) => {
   const {
-    totalCount = 5,
-    selectedCount,
+    maxRate: totalCount = 5,
+    rate: selectedCount,
   } = props;
 
   const stars = [];
