@@ -20,18 +20,8 @@ interface ISliderProps {
 const b = block('slider');
 
 const validateMinMax = ({ min, max }: MinMax): MinMax => {
-  let validMin = min;
-  let validMax = max;
-
-  if (validMin > validMax) {
-    validMax = min;
-    validMin = max;
-  }
-
-  if (validMax < validMin) {
-    validMin = max;
-    validMax = min;
-  }
+  const validMin = min < max ? min : max;
+  const validMax = max > min ? max : min;
 
   return { min: validMin, max: validMax };
 };
