@@ -70,16 +70,22 @@ const Slider: FC<ISliderProps> = (props) => {
     }
   };
 
+  const normalizeLocalString = (num: number): string => (
+    process.browser
+      ? num.toLocaleString()
+      : num.toLocaleString().replace(',', ' ')
+  );
+
   return (
     <div className={b({ range: isRange })}>
       <div className={b('header')}>
         <h3 className={b('label')}>{title}</h3>
         <p className={b('price-range')}>
-          <span className={b('min')}>{`${minValue.toLocaleString('ru')}₽`}</span>
+          <span className={b('min')}>{`${normalizeLocalString(minValue)}₽`}</span>
           {typeof maxValue === 'number' && (
             <span className={b('max')}>
               -&nbsp;
-              {`${maxValue.toLocaleString('ru')}₽`}
+              {`${normalizeLocalString(maxValue)}₽`}
             </span>
           )}
         </p>
