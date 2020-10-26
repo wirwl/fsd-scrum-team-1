@@ -1,0 +1,70 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+$size: 2.5rem;
+
+.pagination {
+  min-width: 17rem;
+
+  &__wrapper {
+    display: flex;
+    padding: 0 0 .5rem;
+    margin: 0;
+  }
+
+  &__cell {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: $size;
+    height: $size;
+    border-radius: 50%;
+
+    &_active {
+      background: $main-color-gradient;
+      min-width: $size;
+    }
+
+    &_disabled {
+      display: none;
+    }
+
+    &_with-arrow {
+      background: $second-color-gradient;
+      min-width: $size;
+    }
+  }
+
+  &__link {
+    cursor: pointer;
+    color: $font-color-light50;
+    font-size: .75rem;
+    outline: none;
+    user-select: none;
+    width: 100%;
+    text-align: center;
+    line-height: $size;
+
+    &:focus {
+      outline: .0625rem dotted $font-color-light25;
+    }
+
+    &_active {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    &_with-arrow {
+      font-family: 'Material Icons';
+      color: #fff;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__text {
+    @include primary-text;
+    padding-left: .3125rem;
+  }
+}
