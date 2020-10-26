@@ -36,6 +36,7 @@ $root: '.room-card';
     position: absolute;
     width: 100%;
     opacity: 0;
+    top: 0;
 
     &_selected {
       position: relative;
