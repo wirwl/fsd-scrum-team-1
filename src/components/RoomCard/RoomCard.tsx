@@ -106,7 +106,7 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
           </p>
         </div>
         <div className={b('row')}>
-          <RateButtons selectedCount={stars} id="change-me" />
+          <RateButtons rate={stars} />
           <Link href={hrefToReviews}>
             <a className={b('link-to-reviews')} href={hrefToReviews}>
               <span className={b('reviews-number')}>{numberOfReviews}</span>
