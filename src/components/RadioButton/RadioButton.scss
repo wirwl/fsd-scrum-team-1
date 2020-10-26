@@ -1,0 +1,69 @@
+@import '@styles/variables.scss';
+
+.radio-button {
+  display: flex;
+  flex-wrap: wrap;
+
+  $block: &;
+
+  &__choice {
+    display: flex;
+    align-items: center;
+
+    margin-right: 1.25rem;
+
+    cursor: pointer;
+  }
+
+  &__input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    &:focus + #{$block}__custom-radio {
+      outline: auto;
+      outline-width: .0625rem;
+      outline-color: $main-color;
+    }
+
+    &:checked + #{$block}__custom-radio #{$block}__custom-radio-inner {
+      display: block;
+    }
+
+    &:checked + #{$block}__custom-radio {
+      border: .0625rem solid $main-color;
+    }
+
+    &:checked + #{$block}__custom-radio + #{$block}__label {
+      color: $font-color-light75;
+    }
+  }
+
+  &__label {
+    color: $font-color-light50;
+
+    font-size: .875rem;
+  }
+
+  &__custom-radio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+
+    border: .0625rem solid $font-color-light25;
+    background: white;
+    border-radius: .625rem;
+    margin-right: .625rem;
+  }
+
+  &__custom-radio-inner {
+    display: none;
+    width: .75rem;
+    height: .75rem;
+
+    background: $main-color-gradient;
+    border-radius: inherit;
+  }
+}
