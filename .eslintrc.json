@@ -16,12 +16,23 @@
     "project": "tsconfig.json",
     "tsconfigRootDir": "."
   },
-  "plugins": ["@typescript-eslint", "promise"],
+  "plugins": [
+    "@typescript-eslint",
+    "promise"
+  ],
   "rules": {
     "linebreak-style": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
     "no-underscore-dangle": "off",
     "id-length": "off",
     "no-new": "off",
@@ -29,7 +40,9 @@
       "error",
       {
         "selector": "interface",
-        "format": ["PascalCase"],
+        "format": [
+          "PascalCase"
+        ],
         "custom": {
           "regex": "^I[A-Z]",
           "match": true
@@ -38,11 +51,16 @@
     ],
     "@typescript-eslint/explicit-function-return-type": [
       "error",
-      { "allowExpressions": true }
+      {
+        "allowExpressions": true
+      }
     ],
     "@typescript-eslint/no-unused-expressions": "off",
-    "jsx-a11y/label-has-associated-control": [ "error", {
-      "labelComponents": []
-    }]
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": []
+      }
+    ]
   }
 }
