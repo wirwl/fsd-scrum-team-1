@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import { GetServerSideProps } from 'next';
 
-import PagesLayout from '@/layouts/PagesLayout';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 type IRoomDetailsProps = { id: string | string[] | undefined };
 
 const RoomDetails: FC<IRoomDetailsProps> = ({ id }) => (
-  <PagesLayout title="Room Details">
+  <MainLayout title="Room Details">
     <h1>{`Room #${id} Details Page`}</h1>
-  </PagesLayout>
+  </MainLayout>
 );
 
 const getServerSideProps: GetServerSideProps = async (context) => ({

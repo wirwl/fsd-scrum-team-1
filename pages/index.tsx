@@ -1,30 +1,17 @@
-import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC } from 'react';
 
-import Button from '@/components/Button/Button';
-import SocialButtons from '@/components/social-buttons/SocialButtons';
-import MainLayout from '@/layouts/MainLayout';
+import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
+import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
-import { bookRoom } from '@/redux/booking';
+const PAGE_SIGNATURE = 'Лучшие номера для вашей работы, отдыха и просто вдохновения';
+const TITLE = 'Toxin';
 
-const Main: FC = () => {
-  const dispatch = useDispatch();
-  return (
-    <MainLayout>
-      <h1 className="m">Hello, World!</h1>
-      <Button />
-      <Button theme="white" />
-      <Button theme="textual" href="/auth" />
-      <Button withArrow size="fluid" />
-      <Button href="/auth" />
-      <Button caption="Add Order To Store" handleClick={() => dispatch(bookRoom({ id: 1, price: 10 }))} />
-      <SocialButtons items={[{ text: 'twitter', link: 'https://twitter.com' }, {
-        text: 'facebook-square',
-        link: 'https://facebook.com',
-      }, { text: 'instagram', link: 'https://instagram.com' }]}
-      />
-    </MainLayout>
-  );
-};
+const Main: FC = () => (
+  <MainLayout title={TITLE}>
+    <BannerAndSignature signature={PAGE_SIGNATURE}>
+      awesome form
+    </BannerAndSignature>
+  </MainLayout>
+);
 
 export default Main;

@@ -1,0 +1,16 @@
+@import '@styles/variables.scss';
+
+.rate-button {
+  display: inline-flex;
+  font-family: 'Material Icons';
+  font-size: 1.5rem;
+
+  &__star {    
+    color: #bc9cff;
+    background-color: #bc9cff;
+    background-image: $main-color-gradient;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;    
+  }  
+}
