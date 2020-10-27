@@ -43,6 +43,14 @@ $root: '.slider';
     margin-right: .188rem;
   }
 
+  &__sublabel {
+    color: $font-color-light50;
+    font-size: .75rem;
+    line-height: .875rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+  }
+
   &__container {
     width: 100%;
     margin-top: 1.188rem;

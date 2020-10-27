@@ -10,6 +10,7 @@ type IMinMax = { min: number; max: number };
 
 interface ISliderProps {
   title?: string;
+  description?: string;
   currentValues?: ISliderValues;
   min?: number;
   max?: number;
@@ -45,6 +46,7 @@ const normalizeCurrentValues = (
 const Slider: FC<ISliderProps> = (props) => {
   const {
     title = 'Range slider',
+    description,
     currentValues = [0, 16000],
     min: initialMin = 0,
     max: initialMax = 16000,
@@ -100,6 +102,7 @@ const Slider: FC<ISliderProps> = (props) => {
         step={step}
         onChange={handleChange}
       />
+      {description && <p className={b('sublabel')}>{description}</p>}
     </div>
   );
 };
