@@ -1,22 +1,23 @@
 import { SagaIterator } from 'redux-saga';
 import { takeLatest, put } from 'redux-saga/effects';
 
-import { FETCH_ROOMS } from 'src/redux/room/roomTypes';
+import Api from 'src/services/Api';
+import { FETCH_ROOMS, FETCH_ROOMS_FETCHING } from 'src/redux/room/roomTypes';
+import { fetchRoomsSuccess, fetchRoomsFail } from 'src/redux/room/roomActions';
 
-const wait = (s: number): Promise<void> => new Promise((resolve) => setTimeout(() => resolve(), s));
-
-// eslint-disable-next-line
-function* fetchCurrentUser(): SagaIterator | null {
-  // eslint-disable-next-line
-  console.log('fetch room saga');
-  yield wait(1000);
-  yield put({
-    type: 'FETCH_ROOMS_SUCCESS',
-  });
+function* fetchRooms(api: Api): SagaIterator | null {
+  yield put({ type: FETCH_ROOMS_FETCHING });
+  try {
+    const rooms = yield api.fetchRoom();
+    yield put(fetchRoomsSuccess(rooms));
+  } catch (error) {
+    yield put(fetchRoomsFail(error.message));
+  }
 }
 
 function* watchRoomSaga(): SagaIterator {
-  yield takeLatest(FETCH_ROOMS, fetchCurrentUser);
+  const api = new Api();
+  yield takeLatest(FETCH_ROOMS, fetchRooms, api);
 }
 
 export default watchRoomSaga;
