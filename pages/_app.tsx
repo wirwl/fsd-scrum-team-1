@@ -1,11 +1,12 @@
 import type { AppProps } from 'next/app';
-import { FC } from 'react';
+import { NextPage } from 'next';
+import wrapper from 'src/redux/store';
 
 import 'normalize.css/normalize.css';
-
 import '@styles/root.scss';
 
-// eslint-disable-next-line react/jsx-props-no-spreading
-const App: FC<AppProps> = ({ Component, pageProps }) => <Component {...pageProps} />;
+const App: NextPage<AppProps> = (
+  { Component, pageProps }: AppProps,
+) => <Component {...pageProps} />; // eslint-disable-line
 
-export default App;
+export default wrapper.withRedux(App);
