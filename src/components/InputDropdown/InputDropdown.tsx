@@ -240,3 +240,5 @@ const InputDropdown: FC<IInputDropdownProps> = ({
 };
 
 export default InputDropdown;
+
+export type { IInputDropdownProps, IDropListItem, IPlurals };
