@@ -17,7 +17,7 @@ interface IState {
 enum DROPDOWNS_NAMES {
   FULL_RANGE = 'full-range',
   RANGE_START = 'range-start',
-  RANGE_END = 'range-end'
+  RANGE_END = 'range-end',
 }
 
 const b = block('data-picker');
