@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { FC } from 'react';
 
 import DataPicker from '@/components/DatePicker/DatePicker';
@@ -44,7 +45,7 @@ const Components: FC = () => (
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
-    <FormLanding />
+    <FormLanding onSubmit={console.log} />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
     <Pagination totalItemCount={175} limitPerPage={12} />

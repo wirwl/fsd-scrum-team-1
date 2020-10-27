@@ -3,22 +3,35 @@ import { block } from 'bem-cn';
 
 import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
-import InputDropdown from '@/components/InputDropdown/InputDropdown';
+import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import './FormLanding.scss';
 
 interface ICardEntryExitProps {
-  onSubmit?: (range: RangeDays) => void;
+  onSubmit: (range: RangeDays, dropdownItems: IDropListItem[]) => void;
 }
 
 const b = block('form-landing');
+
+const dropdownItemsGuests: IDropListItem[] = [
+  { label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
+  { label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
+  {
+    label: 'Младенцы',
+    count: 0,
+    plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
+    special: true,
+  },
+];
 
 const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
   const { onSubmit } = props;
 
   const [dateRange, setDateRange] = useState<RangeDays>({ start: null, end: null });
+  const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(dropdownItemsGuests);
 
-  const handleSubmit = (): void => {
-    onSubmit && onSubmit(dateRange);
+  const handleSubmit = (ev: React.FormEvent): void => {
+    ev.preventDefault();
+    onSubmit && onSubmit(dateRange, dropdownItems);
   };
 
   return (
@@ -38,18 +51,10 @@ const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
           <InputDropdown
             name="guests"
             placeholder="Сколько гостей"
-            dropList={[
-              { label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
-              { label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
-              {
-                label: 'Младенцы',
-                count: 0,
-                plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
-                special: true,
-              },
-            ]}
+            dropList={dropdownItemsGuests}
             defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
             buttons
+            onChange={setDropdownItems}
           />
         </div>
         <div>
