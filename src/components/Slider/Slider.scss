@@ -9,8 +9,10 @@ $root: '.slider';
   &_range {
     #{$root}__bar-1 {
       background: $second-color-gradient;
+      border: 0;
     }
     #{$root}__bar-0 {
+      border: .063rem solid $font-color-light25;
       background: none;
     }
   }
@@ -70,5 +72,6 @@ $root: '.slider';
 
   &__bar-0 {
     background: $second-color-gradient;
+    border: 0;
   }
 }

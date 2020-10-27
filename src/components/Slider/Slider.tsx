@@ -20,10 +20,10 @@ interface ISliderProps {
 const b = block('slider');
 
 const normalizeMinMax = ({ min, max }: IMinMax): IMinMax => {
-  const validMin = min < max ? min : max;
-  const validMax = max > min ? max : min;
+  const correctMin = Math.min(min, max);
+  const correctMax = Math.max(min, max);
 
-  return { min: validMin, max: validMax };
+  return { min: correctMin, max: correctMax };
 };
 
 const normalizeCurrentValues = (
@@ -45,9 +45,9 @@ const normalizeCurrentValues = (
 const Slider: FC<ISliderProps> = (props) => {
   const {
     title = 'Range slider',
-    currentValues = [0, 100],
+    currentValues = [0, 16000],
     min: initialMin = 0,
-    max: initialMax = 100,
+    max: initialMax = 16000,
     step: initialStep = 1,
     onChange,
   } = props;

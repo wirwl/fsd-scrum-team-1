@@ -45,7 +45,7 @@ const Components: FC = () => (
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
-    <Slider max={16000} currentValues={[5000, 10000]} onChange={() => {}} />
+    <Slider currentValues={[5000, 10000]} onChange={() => {}} />
   </MainLayout>
 );
 
