@@ -41,6 +41,7 @@
     "@types/react-input-mask": "^2.0.5",
     "@types/react-slider": "^1.0.0",
     "@types/react-svg-inline": "^2.1.1",
+    "@types/react-paginate": "^6.2.1",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
     "@zeit/next-css": "^1.0.1",
@@ -76,7 +77,8 @@
     "react-dom": "^16.13.1",
     "react-input-mask": "^2.0.4",
     "react-slider": "^1.0.11",
-    "react-svg-inline": "^2.1.1"
+    "react-svg-inline": "^2.1.1",
+    "react-paginate": "^6.5.0"
   },
   "husky": {
     "hooks": {
