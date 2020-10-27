@@ -7,6 +7,7 @@ import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
 import FormLanding from '@/components/FormLanding/FormLanding';
 import Accordion from '@/components/Accordion/Accordion';
+import Pagination from '@/components/Pagination/Pagination';
 
 const checkboxes = [
   {
@@ -46,6 +47,7 @@ const Components: FC = () => (
     <FormLanding />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
+    <Pagination totalItemCount={175} limitPerPage={12} />
   </MainLayout>
 );
 
