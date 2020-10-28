@@ -1,0 +1,91 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
+$root: '.slider';
+
+#{$root} {
+  width: 100%;
+
+  &_range {
+    #{$root}__bar-1 {
+      background: $second-color-gradient;
+      border: 0;
+    }
+    #{$root}__bar-0 {
+      border: .063rem solid $font-color-light25;
+      background: none;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__label {
+    @include h3();
+  }
+
+  &__price-range {
+    margin: 0;
+    font-size: .75rem;
+    line-height: .9375rem;
+    color: $font-color-light50;
+  }
+
+  &__min,
+  &__max {
+    display: inline-block;
+  }
+
+  &__min {
+    margin-right: .188rem;
+  }
+
+  &__sublabel {
+    color: $font-color-light50;
+    font-size: .75rem;
+    line-height: .875rem;
+    margin-top: .875rem;
+    margin-bottom: 0;
+  }
+
+  &__container {
+    width: 100%;
+    margin-top: 1.188rem;
+    height: .375rem;
+    position: relative;
+  }
+
+  &__bar {
+    height: .375rem;
+    border: .063rem solid $font-color-light25;
+    border-radius: .188rem;
+    cursor: pointer;
+  }
+
+  &__button {
+    @include reset-button();
+    padding: 0;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background: $second-color-gradient;
+    border: .125rem solid #ffffff;
+    border-radius: .625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: box-shadow .1s;
+
+    &:focus {
+      box-shadow: 0 0 .625rem $font-color;
+      outline: 0;
+    }
+  }
+
+  &__bar-0 {
+    background: $second-color-gradient;
+    border: 0;
+  }
+}
