@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { FC } from 'react';
 
 import DataPicker from '@/components/DatePicker/DatePicker';
@@ -5,6 +6,7 @@ import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
+import FormLanding from '@/components/FormLanding/FormLanding';
 import Accordion from '@/components/Accordion/Accordion';
 import RoomCard from '@/components/RoomCard/RoomCard';
 import Slider from '@/components/Slider/Slider';
@@ -62,6 +64,7 @@ const Components: FC = () => (
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
     <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
+    <FormLanding onSubmit={console.log} />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
     <Slider currentValues={[5000, 10000]} onChange={() => {}} />
