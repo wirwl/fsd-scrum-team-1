@@ -28,10 +28,33 @@ const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
 
   const [dateRange, setDateRange] = useState<RangeDays>({ start: null, end: null });
   const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(dropdownItemsGuests);
+  const [validateErrorMessage, setValidateErrorMessage] = useState('');
 
-  const handleSubmit = (ev: React.FormEvent): void => {
+  const handleSubmit = (ev: React.FormEvent): boolean => {
     ev.preventDefault();
+
+    if (dateRange.start === null) {
+      setValidateErrorMessage('Необходимо указать дату прибытия!');
+      return false;
+    }
+
+    if (dateRange.end === null) {
+      setValidateErrorMessage('Необходимо указать дату отъезда!');
+      return false;
+    }
+
+    const guests = dropdownItems.reduce<number>((prevValue, { count }) => (
+      count + prevValue
+    ), 0);
+
+    if (guests === 0) {
+      setValidateErrorMessage('Необходимо указать количество гостей!');
+      return false;
+    }
+
     onSubmit && onSubmit(dateRange, dropdownItems);
+
+    return true;
   };
 
   return (
@@ -44,7 +67,10 @@ const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
         onSubmit={handleSubmit}
       >
         <div className={b('date-picker')}>
-          <DatePicker onChange={setDateRange} withTwoInputs />
+          <DatePicker
+            onChange={(range) => { setDateRange(range); setValidateErrorMessage(''); }}
+            withTwoInputs
+          />
         </div>
         <div className={b('dropdown-with-guests')}>
           <p className={b('dropdown-title')}>Гости</p>
@@ -54,9 +80,10 @@ const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
             dropList={dropdownItemsGuests}
             defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
             buttons
-            onChange={setDropdownItems}
+            onChange={(items) => { setDropdownItems(items); setValidateErrorMessage(''); }}
           />
         </div>
+        { validateErrorMessage && <p className={b('row-with-error')}>{validateErrorMessage}</p> }
         <div>
           <Button
             type="submit"

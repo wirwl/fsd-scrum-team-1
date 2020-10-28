@@ -42,4 +42,14 @@
     text-transform: uppercase;
     color: $font-color;
   }
+
+  &__row-with-error {
+    margin: 0 0 .5rem;
+    font-family: $header-font;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .9rem;
+    line-height: 1.2rem;
+    color: #EB5757;
+  }
 }
