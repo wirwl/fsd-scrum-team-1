@@ -1,0 +1,86 @@
+@import '@styles/mixins.scss';
+
+.like-button {
+  display: inline-block;
+  line-height: .75rem;
+  cursor: pointer;  
+  padding: 0;
+  position: relative;
+
+  @include reset-button;  
+
+  &:focus {
+    outline: 0;
+  }
+        
+  &__count {
+    font-size: .625rem;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: $font-color-light25;
+    padding: .1875rem .3125rem .1875rem;
+    min-width: 2.5rem;
+    user-select: none;
+    border: 1px solid $font-color-light25;
+    border-radius: .625rem;
+
+    &::before {
+      font-family: 'Material Icons';
+      content: 'favorite_border';
+      margin-right: .3125rem;
+    }
+  }
+
+  &:not(.like-button_checked):focus,
+  &:not(.like-button_checked):hover {    
+
+    .like-button__count {
+      border: 1px solid $font-color-light50;
+      border-radius: .625rem;
+      color: $font-color-light50;
+
+      &::before {
+        color: $font-color-light50;
+      }
+    }
+  }
+
+  &_checked {            
+    z-index: 1;
+
+    &::before,
+    &::after {
+      font-family: 'Material Icons';
+      content: ' ';
+      position: absolute;
+      border-radius: .625rem;
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -2;
+      background: $main-color-gradient;
+    }
+
+    &::after {
+      top: 1px;
+      bottom: 1px;
+      left: 1px;
+      right: 1px;
+      background-color: white;
+      z-index: -1;
+    }
+
+    .like-button__count {
+      color: $main-color;
+
+      &::before {
+        content: 'favorite';
+      }
+    }        
+  }
+}

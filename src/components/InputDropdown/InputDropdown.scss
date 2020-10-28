@@ -20,9 +20,15 @@ $zIndex: 9;
     border: .0625rem solid $font-color-light25;
     border-radius: .25rem;
     text-overflow: ellipsis;
+    cursor: pointer;
+
+    &::selection {
+      background-color: none;
+    }
 
     &:focus {
-      outline: none;
+      outline: 1px solid $main-color;
+      -moz-outline-radius: .25rem
     }
 
     &:hover {
