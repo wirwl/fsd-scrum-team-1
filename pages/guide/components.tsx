@@ -6,6 +6,7 @@ import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
 import Accordion from '@/components/Accordion/Accordion';
+import RoomCard from '@/components/RoomCard/RoomCard';
 import Slider from '@/components/Slider/Slider';
 import Pagination from '@/components/Pagination/Pagination';
 
@@ -35,6 +36,23 @@ const checkboxes = [
 const Components: FC = () => (
   <MainLayout title="Components">
     <h1>Components Page</h1>
+    <RoomCard
+      info={{
+        images: [
+          { src: 'http://placeimg.com/320/220/tech' },
+          { src: 'http://placeimg.com/320/220/nature' },
+          { src: 'http://placeimg.com/320/220/animals' },
+          { src: 'http://placeimg.com/320/220/sepia' },
+        ],
+        roomNumber: 888,
+        price: 9990,
+        stars: 5,
+        numberOfReviews: 145,
+        hrefToReviews: '',
+        hrefToRoomInfo: '',
+        isLuxury: true,
+      }}
+    />
     <DataPicker />
     <DataPicker withTwoInputs />
     <Input head="text field" placeholder="Email" />
