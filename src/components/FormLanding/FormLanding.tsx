@@ -6,7 +6,7 @@ import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import './FormLanding.scss';
 
-interface ICardEntryExitProps {
+interface IFormLandingProps {
   onSubmit: (range: RangeDays, dropdownItems: IDropListItem[]) => void;
 }
 
@@ -23,7 +23,7 @@ const dropdownItemsGuests: IDropListItem[] = [
   },
 ];
 
-const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
+const FormLanding: React.FC<IFormLandingProps> = (props) => {
   const { onSubmit } = props;
 
   const [dateRange, setDateRange] = useState<RangeDays>({ start: null, end: null });
@@ -98,4 +98,4 @@ const CardEntryExit: React.FC<ICardEntryExitProps> = (props) => {
   );
 };
 
-export default CardEntryExit;
+export default FormLanding;
