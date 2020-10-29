@@ -12,11 +12,6 @@ import './index.scss';
 const PAGE_SIGNATURE = 'Лучшие номера для вашей работы, отдыха и просто вдохновения';
 const TITLE = 'Toxin';
 
-type IRangeDays = {
-  start: Date | null;
-  end: Date | null;
-};
-
 const b = block('index');
 
 const labelsMap: { [key:string]: string; } = {
@@ -40,7 +35,7 @@ const queryToString = (
 
 const Index: FC = () => {
   const handleFormLandingSubmit = (
-    { start, end }: IRangeDays,
+    { start, end }: RangeDays,
     persons: IDropListItem[],
   ): void => {
     const _start = start === null ? '' : start;
