@@ -5,7 +5,6 @@ import {
   Reducer,
   Middleware,
   StoreEnhancer,
-  CombinedState,
 } from 'redux';
 import { MakeStore, createWrapper } from 'next-redux-wrapper';
 import createSagaMiddleware, { Task } from 'redux-saga';
@@ -31,7 +30,7 @@ const makeStore: MakeStore<IRootState> = () => {
   const sagaMiddleware = createSagaMiddleware();
 
   const store = createStore(
-    reducer as Reducer<CombinedState<IRootState>>,
+    reducer as Reducer<IRootState>,
     bindMiddleware([sagaMiddleware]),
   );
 
