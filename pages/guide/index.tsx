@@ -44,55 +44,57 @@ const types = [
   },
 ];
 
-const Guide: FC = () => (
-  <GuideLayout title="Guide">
+const Guide: FC = () => {
+  const colorItems = colors.map((item) => (
+    <li
+      key={item.classMod}
+      className={b('color-item')}
+    >
+      <div className={b('color-block', { [item.classMod]: true })} />
 
-    <div className={b()}>
-      <ul className={b('colors')}>
-        {colors.map((item) => (
-          <li
-            key={item.classMod}
-            className={b('color-item')}
-          >
-            <div className={b('color-block', { [item.classMod]: true })} />
+      <div className={b('color-info')}>
+        <h3 className={b('color-title')}>{item.label}</h3>
+        <span className={b('color-description')}>
+          {item.colorDesc}
+        </span>
+      </div>
+    </li>
+  ));
 
-            <div className={b('color-info')}>
-              <h3 className={b('color-title')}>{item.label}</h3>
-              <span className={b('color-description')}>
-                {item.colorDesc}
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
+  const typeItems = types.map((item) => (
+    <li
+      key={item.classMod}
+      className={b('types-item')}
+    >
+      {
+        createElement(
+          item.tag,
+          { className: b('types-title') },
+          [item.title],
+        )
+      }
 
-      <ul className={b('types')}>
-        { types.map((item) => (
-          <li
-            key={item.classMod}
-            className={b('types-item')}
-          >
-            {
-              createElement(
-                item.tag,
-                { className: b('types-title') },
-                [item.title],
-              )
-            }
+      {
+        createElement(
+          item.tag,
+          { className: b('types-example', { [item.classMod]: true }) },
+          [item.example],
+        )
+      }
+    </li>
+  ));
 
-            {
-              createElement(
-                item.tag,
-                { className: b('types-example', { [item.classMod]: true }) },
-                [item.example],
-              )
-            }
-          </li>
-        )) }
-      </ul>
-    </div>
+  return (
+    <GuideLayout title="Guide">
 
-  </GuideLayout>
-);
+      <div className={b()}>
+        <ul className={b('colors')}>{colorItems}</ul>
+
+        <ul className={b('types')}>{typeItems}</ul>
+      </div>
+
+    </GuideLayout>
+  );
+};
 
 export default Guide;
