@@ -12,6 +12,10 @@
   background-repeat: no-repeat;
   background-size: cover;
 
+  @media (max-width: 970px) {
+    height: 39.375rem;
+  }
+
   &__center {
     position: relative;
 
