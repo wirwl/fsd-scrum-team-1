@@ -88,3 +88,7 @@ const Input: React.FC<IInputProps> = (props) => {
 };
 
 export default Input;
+
+export type {
+  CustomValidateFunction,
+};
