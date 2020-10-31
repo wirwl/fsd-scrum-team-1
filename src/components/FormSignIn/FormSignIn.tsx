@@ -106,9 +106,15 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
       </div>
 
       <div className={b('register-link-block')}>
-        <span className={b('register-link-label')}>Нет аккаунта на Toxin?</span>
+        <span className={b('register-link-label')}>
+          Нет аккаунта на Toxin?
+        </span>
         <Link href="/auth/register">
-          <div className={b('register-link')} role="link" tabIndex={0}>
+          <div
+            className={b('register-link')}
+            role="link"
+            tabIndex={0}
+          >
             <Button
               type="button"
               theme="white"
