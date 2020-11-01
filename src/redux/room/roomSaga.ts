@@ -15,9 +15,9 @@ function* fetchRooms(api: Api, filters: ISearchFilters): SagaIterator | null {
   }
 }
 
-function* watchRoomSaga(): SagaIterator {
+function* watchRoomSaga(filters: ISearchFilters): SagaIterator {
   const api = new Api();
-  yield takeLatest(FETCH_ROOMS, fetchRooms, api);
+  yield takeLatest(FETCH_ROOMS, fetchRooms, api, filters);
 }
 
 export default watchRoomSaga;
