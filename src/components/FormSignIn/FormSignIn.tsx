@@ -39,11 +39,11 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
   };
 
   const passwordValidate: CustomValidateFunction = (password) => {
-    if (password.toString().length < 6) {
+    if (password.toString().length + 1 <= 6) {
       return 'Пароль слишком короткий (меньше 6 символов)';
     }
 
-    if (password.toString().length > 20) {
+    if (password.toString().length - 1 >= 20) {
       return 'Пароль слишком длинный (больше 20 символов)';
     }
 
