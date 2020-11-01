@@ -1,0 +1,12 @@
+.index {
+  position: relative;
+  top: 4.375rem;
+  margin-left: 1.25rem;
+
+  @media (max-width: 970px) {
+    display: flex;
+    justify-content: center;
+
+    margin-left: unset;
+  }
+}
