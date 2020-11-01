@@ -54,7 +54,7 @@ class Api {
 
     const snapshot = await this.createQueryForRooms(filters).get();
 
-    return new Promise((resolve, _) => {
+    return new Promise((resolve) => {
       const rooms: IRoom[] = [];
 
       if (!snapshot.empty) {
