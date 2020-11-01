@@ -50,42 +50,42 @@ const queryToString = (
 
 const Filter: FC = () => {
   const [query, setQuery] = useState({});
-  const [queryProps, setQueryProps] = useState({});
+  // const [queryProps, setQueryProps] = useState({});
 
-  const receivedQuestsProps = (
-    queryString: string,
-  ): {[key: string]: string} => {
-    const sliceText = queryString.slice((queryString.indexOf('?') + 1));
-    const convertedProps = sliceText.split('&').reduce((ob: {[key: string]: string}, v: any) => {
-      v = v.split('='); // eslint-disable-line
-      ob[v[0]] = v[1]; // eslint-disable-line
-      return ob;
-    }, {});
-    return convertedProps;
-  };
+  // const receivedQuestsProps = (
+  //   queryString: string,
+  // ): {[key: string]: string} => {
+  //   const sliceText = queryString.slice((queryString.indexOf('?') + 1));
+  //   const convertedProps = sliceText.split('&').reduce((ob: {[key: string]: string}, v: any) => {
+  //     v = v.split('='); // eslint-disable-line
+  //     ob[v[0]] = v[1]; // eslint-disable-line
+  //     return ob;
+  //   }, {});
+  //   return convertedProps;
+  // };
 
-  const getPath = (): void => {
-    const text = router.asPath;
-    const obj = receivedQuestsProps(text);
+  // const getPath = (): void => {
+  //   const text = router.asPath;
+  //   const obj = receivedQuestsProps(text);
 
-    setQueryProps((prev) => (
-      {
-        ...prev,
-        obj,
-      }
-    ));
-  };
+  //   setQueryProps((prev) => (
+  //     {
+  //       ...prev,
+  //       obj,
+  //     }
+  //   ));
+  // };
 
-  useEffect(() => {
-    getPath();
-  }, []);
+  // useEffect(() => {
+  //   getPath();
+  // }, []);
 
   // const dropdownGuestsProps: IDropListItem[] = [queryProps];
 
-  // useEffect(() => {
-  //   const queryString = queryToString(query);
-  //   router.push('/rooms', `/rooms?${queryString}`);
-  // }, [query]);
+  useEffect(() => {
+    const queryString = queryToString(query);
+    router.push('/rooms', `/rooms?${queryString}`);
+  }, [query]);
 
   const handleDataPickerChange = (
     { start, end }: RangeDays,
