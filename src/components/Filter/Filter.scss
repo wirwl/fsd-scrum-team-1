@@ -29,7 +29,7 @@
   &__guests-title,
   &__conveniences-title {
     @include h3();
-    margin-bottom: 0.25rem;
+    margin-bottom: .25rem;
   }
 
   &__checkbox-list-title,
@@ -40,10 +40,10 @@
 
   &__checkbox-list-item {
     max-width: 15rem;
-    margin-bottom: 0.6875rem;
+    margin-bottom: .6875rem;
   }
 
   &__rich-checkbox-list-item {
-    margin-bottom: 0.5625rem;
+    margin-bottom: .5625rem;
   }
 }
