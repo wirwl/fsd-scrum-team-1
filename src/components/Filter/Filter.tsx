@@ -1,6 +1,8 @@
+/* eslint-disable */
+
 import { FC, useEffect, useState } from 'react';
 import { block } from 'bem-cn';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 import Accordion from 'src/components/Accordion/Accordion';
 import Checkbox from 'src/components/Checkbox/Checkbox';
@@ -49,43 +51,23 @@ const queryToString = (
   .slice(1);
 
 const Filter: FC = () => {
-  const [query, setQuery] = useState({});
-  // const [queryProps, setQueryProps] = useState({});
-
-  // const receivedQuestsProps = (
-  //   queryString: string,
-  // ): {[key: string]: string} => {
-  //   const sliceText = queryString.slice((queryString.indexOf('?') + 1));
-  //   const convertedProps = sliceText.split('&').reduce((ob: {[key: string]: string}, v: any) => {
-  //     v = v.split('='); // eslint-disable-line
-  //     ob[v[0]] = v[1]; // eslint-disable-line
-  //     return ob;
-  //   }, {});
-  //   return convertedProps;
-  // };
-
-  // const getPath = (): void => {
-  //   const text = router.asPath;
-  //   const obj = receivedQuestsProps(text);
-
-  //   setQueryProps((prev) => (
-  //     {
-  //       ...prev,
-  //       obj,
-  //     }
-  //   ));
-  // };
-
-  // useEffect(() => {
-  //   getPath();
-  // }, []);
-
-  // const dropdownGuestsProps: IDropListItem[] = [queryProps];
+  const router = useRouter();
+  const [queryProps, setQueryProps] = useState({});
 
   useEffect(() => {
-    const queryString = queryToString(query);
-    router.push('/rooms', `/rooms?${queryString}`);
-  }, [query]);
+    if (router.asPath !== router.route) {
+      const props = router.query;
+      setQueryProps((prev) => ({
+        ...prev,
+        ...props,
+      }));
+    }
+  }, [router]);
+
+  // useEffect(() => {
+  //   const queryString = queryToString(query);
+  //   router.push('/rooms', `/rooms?${queryString}`);
+  // }, [query]);
 
   const handleDataPickerChange = (
     { start, end }: RangeDays,
@@ -93,56 +75,59 @@ const Filter: FC = () => {
     const _start = start === null ? '' : start;
     const _end = end === null ? '' : end;
 
-    setQuery((prev) => (
-      {
-        ...prev,
-        dStart: (new Date(_start)).getTime(),
-        dEnd: (new Date(_end)).getTime(),
-      }
-    ));
+    console.log(queryProps);
+
+    // setQuery((prev) => (
+    //   {
+    //     ...prev,
+    //     dStart: (new Date(_start)).getTime(),
+    //     dEnd: (new Date(_end)).getTime(),
+    //   }
+    // ));
   };
 
   const handleGuestsChange = (
     persons: IDropListItem[],
   ): void => {
-    setQuery((prev) => (
-      {
-        ...prev,
-        ...convertPersons(persons, labelsMap),
-      }
-    ));
+
+    // setQuery((prev) => (
+    //   {
+    //     ...prev,
+    //     ...convertPersons(persons, labelsMap),
+    //   }
+    // ));
   };
 
   const handleComfortChange = (
     persons: IDropListItem[],
   ): void => {
-    setQuery((prev) => (
-      {
-        ...prev,
-        ...convertPersons(persons, comfortMap),
-      }
-    ));
+    // setQuery((prev) => (
+    //   {
+    //     ...prev,
+    //     ...convertPersons(persons, comfortMap),
+    //   }
+    // ));
   };
 
   const handleSliderChange = (range: ISliderValues): void => {
-    setQuery((prev) => (
-      {
-        ...prev,
-        priceTo: range[1],
-        priceFrom: range[0],
-      }
-    ));
+    // setQuery((prev) => (
+    //   {
+    //     ...prev,
+    //     priceTo: range[1],
+    //     priceFrom: range[0],
+    //   }
+    // ));
   };
 
   const handleCheckboxListChange = (
     newCheckboxState: {[key:string]: boolean},
   ): void => {
-    setQuery((prev) => (
-      {
-        ...prev,
-        ...newCheckboxState,
-      }
-    ));
+    // setQuery((prev) => (
+    //   {
+    //     ...prev,
+    //     ...newCheckboxState,
+    //   }
+    // ));
   };
 
   const checkboxListChange = (name: string, isChecked: boolean): void => {
