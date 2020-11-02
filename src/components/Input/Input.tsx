@@ -41,15 +41,22 @@ const Input: React.FC<IInputProps> = (props) => {
   } = props;
 
   const [value, setValue] = useState(initValue);
+  const [isFirstFocus, setFirstFocus] = useState(false);
+  const [isFirstInput, setFirstInput] = useState(false);
 
-  let errorValidate = typeof validate === 'function' ? validate(value) : null;
-  if (
-    validate === 'email'
-    && value.toString().length
-    && !validateAsEmail(value.toString())
-  ) errorValidate = emailValidationErrorMessage;
+  let errorValidate: string | null = null;
+
+  if (isFirstFocus && isFirstInput) {
+    errorValidate = typeof validate === 'function' ? validate(value) : null;
+    if (
+      validate === 'email'
+      && value.toString().length
+      && !validateAsEmail(value.toString())
+    ) errorValidate = emailValidationErrorMessage;
+  }
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
+    !isFirstInput && setFirstInput(true);
     const { value: currentValue } = ev.currentTarget;
     setValue(currentValue);
     onChange && onChange(currentValue, Boolean(errorValidate));
@@ -71,6 +78,7 @@ const Input: React.FC<IInputProps> = (props) => {
       {headItem}
       <div className={b('wrapper')}>
         <InputMask
+          onFocus={() => setFirstFocus(true)}
           className={b('input')}
           placeholder={placeholder}
           type={type}
