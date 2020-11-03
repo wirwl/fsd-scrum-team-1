@@ -68,7 +68,7 @@ const reduceDefaultPlurals = (
       specialText = `, ${specialCount} ${formatCount(item.count, item.plurals)}`;
     }
   });
-  const text = otherCount ? (`${otherText} ${specialText}`) : (`${placeholder}`);
+  const text = otherCount ? (`${otherText}${specialText}`) : (`${placeholder}`);
   return text;
 };
 

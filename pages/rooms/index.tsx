@@ -1,10 +1,13 @@
+import Filter from '@/components/Filter/Filter';
 import { FC } from 'react';
 
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const Rooms: FC = () => (
   <MainLayout title="Rooms">
-    <h1>Rooms Page</h1>
+    <div style={{ width: '266px' }}>
+      <Filter />
+    </div>
   </MainLayout>
 );
 
