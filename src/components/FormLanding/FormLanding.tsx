@@ -13,10 +13,10 @@ interface IFormLandingProps {
 const b = block('form-landing');
 
 const dropdownItemsGuests: IDropListItem[] = [
-  { label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
-  { label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
+  { name: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
+  { name: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
   {
-    label: 'Младенцы',
+    name: 'Младенцы',
     count: 0,
     plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
     special: true,
@@ -75,7 +75,7 @@ const FormLanding: React.FC<IFormLandingProps> = (props) => {
         <div className={b('dropdown-with-guests')}>
           <p className={b('dropdown-title')}>Гости</p>
           <InputDropdown
-            name="guests"
+            title="guests"
             placeholder="Сколько гостей"
             dropList={dropdownItemsGuests}
             defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}

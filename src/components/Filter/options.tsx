@@ -1,17 +1,27 @@
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 
 const dropdownGuestsProps: IDropListItem[] = [
-  { label: 'Взрослые', count: 0, plurals: { one: 'взрослый', two: 'взрослых', few: 'взрослых' } },
-  { label: 'Дети', count: 0, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
   {
-    label: 'Младенцы', count: 0, plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' }, special: true,
+    name: 'Взрослые', label: 'gAdults', count: 0, plurals: { one: 'взрослый', two: 'взрослых', few: 'взрослых' },
+  },
+  {
+    name: 'Дети', label: 'gChilds', count: 0, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' },
+  },
+  {
+    name: 'Младенцы', label: 'gToddlers', count: 0, plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' }, special: true,
   },
 ];
 
 const dropdownComfortProps: IDropListItem[] = [
-  { label: 'Спальни', count: 0, plurals: { one: 'спальня', two: 'спальни', few: 'спален' } },
-  { label: 'Кровати', count: 0, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
-  { label: 'Ванные комнаты', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' } },
+  {
+    name: 'Спальни', label: 'bedroom', count: 0, plurals: { one: 'спальня', two: 'спальни', few: 'спален' },
+  },
+  {
+    name: 'Кровати', label: 'bed', count: 0, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' },
+  },
+  {
+    name: 'Ванные комнаты', label: 'bathroom', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' },
+  },
 ];
 
 const checkboxListProps: ICheckboxProps[] = [

@@ -13,14 +13,15 @@ interface IPlurals {
 }
 
 interface IDropListItem {
-  label: string,
+  name: string,
+  label?: string,
   count: number,
   plurals: IPlurals,
   special?: true
 }
 
 interface IInputDropdownProps {
-  name: string,
+  title: string,
   placeholder: string,
   dropList?: IDropListItem[],
   isExpanded?: boolean,
@@ -76,12 +77,18 @@ const bemClass = 'input-dropdown';
 const bem = block(bemClass);
 
 const InputDropdown: FC<IInputDropdownProps> = ({
-  name,
+  title,
   placeholder,
   dropList = [
-    { label: 'Спальни', count: 2, plurals: { one: 'спальня', two: 'спальни', few: 'спален' } },
-    { label: 'Кровати', count: 2, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
-    { label: 'Ванные комнаты', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' } },
+    {
+      name: 'Спальни', label: 'bedroom', count: 2, plurals: { one: 'спальня', two: 'спальни', few: 'спален' },
+    },
+    {
+      name: 'Кровати', label: 'bed', count: 2, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' },
+    },
+    {
+      name: 'Ванные комнаты', label: 'bathroom', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' },
+    },
   ],
   defaultLabel = false,
   isExpanded = false,
@@ -162,8 +169,8 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   };
 
   const dropElements = dropListState.map((item, index) => (
-    <div key={item.label} className={bem('list-item')}>
-      <div className={bem('item-name')}>{item.label}</div>
+    <div key={item.name} className={bem('list-item')}>
+      <div className={bem('item-name')}>{item.name}</div>
       <div className={bem('counter-buttons')}>
         <button
           type="button"
@@ -190,7 +197,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   return (
     <div className={bem(modifiers)}>
       <input
-        name={name}
+        name={title}
         placeholder={placeholder}
         className={bem('text-input')}
         readOnly

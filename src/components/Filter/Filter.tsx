@@ -253,7 +253,7 @@ const Filter: FC = () => {
       <div className={b('guests')}>
         <h3 className={b('guests-title')}>гости</h3>
         <InputDropdown 
-            name="guests"
+            title="guests"
             placeholder="Сколько гостей"
             defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
             dropList={isGuestsDropdownInitialized() ? newDropdownGuestsProps : dropdownGuestsProps}
@@ -282,7 +282,7 @@ const Filter: FC = () => {
       <div className={b('conveniences')}>
         <h3 className={b('conveniences-title')}>удобства номера</h3>
         <InputDropdown
-          name="conveniences"
+          title="conveniences"
           placeholder="Удобства"
           dropList={dropdownComfortProps}
           onChange={handleComfortChange}
