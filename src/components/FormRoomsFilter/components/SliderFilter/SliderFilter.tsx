@@ -55,3 +55,8 @@ const SliderFilter: FC<ISliderFilterProps> = ({ price, onChange }) => {
 };
 
 export default SliderFilter;
+
+export {
+  MAX_PRICE,
+  MIN_PRICE,
+};

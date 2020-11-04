@@ -7,16 +7,16 @@ import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import { ISliderValues } from 'src/components/Slider/Slider';
 import Accordeon from 'src/components/Accordion/Accordion';
 import CheckboxGroup from 'src/components/CheckboxGroup/CheckboxGroup';
-import SliderFilter from 'src/components/FormRoomsFilter/components/SliderFilter/SliderFilter';
+import SliderFilter, {
+  MIN_PRICE,
+  MAX_PRICE,
+} from 'src/components/FormRoomsFilter/components/SliderFilter/SliderFilter';
 
 import './FormRoomsFilter.scss';
 
 const b = block('form-rooms-filter');
 
-const MIN_PRICE = 10000;
-const MAX_PRICE = 40000;
-
-const dropdownItemsGuests: IDropListItem[] = [
+const dropdownItemsGuestsInit: IDropListItem[] = [
   { label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
   { label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
   {
@@ -27,7 +27,7 @@ const dropdownItemsGuests: IDropListItem[] = [
   },
 ];
 
-const dropdownItemsConvinence: IDropListItem[] = [
+const dropdownItemsConvinenceInit: IDropListItem[] = [
   { label: 'Спальни', count: 0, plurals: { one: 'спальня', two: 'спальни', few: 'спален' } },
   { label: 'Кровати', count: 0, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
   {
@@ -148,6 +148,7 @@ const initState = (queryString: string): IFormRoomFilterState => {
 
   ['dStart', 'dEnd', 'gToddlers', 'gChilds', 'gAdults'].forEach((key) => {
     const value = url.get(key);
+    // @ts-ignore
     if (value !== null) query[key] = parseInt(value, 10);
   });
 
@@ -155,10 +156,12 @@ const initState = (queryString: string): IFormRoomFilterState => {
     const value = url.get(key);
 
     if (value !== null) {
+      // @ts-ignore
       query[key] = normalizeQueryNumber(value);
       return;
     }
 
+    // @ts-ignore
     query[key] = 0;
   });
 
@@ -167,11 +170,13 @@ const initState = (queryString: string): IFormRoomFilterState => {
     const price = priceValue.split(',')
       .map((p) => parseInt(p, 10));
 
-    if (isPriceValid(price)) query['price'] = price;
+    // @ts-ignore
+    if (isPriceValid(price)) query.price = (price as [number, number]);
   }
 
   const allRules = ['petsAllowed', 'smokingAllowed', 'guestsAllowed'];
   allRules.forEach((key) => {
+    // @ts-ignore
     query[key] = false;
   });
 
@@ -179,6 +184,7 @@ const initState = (queryString: string): IFormRoomFilterState => {
   if (rules !== null) {
     rules.split(',').forEach((key) => {
       if (allRules.indexOf(key) >= 0) {
+        // @ts-ignore
         query[key] = true;
       }
     });
@@ -186,6 +192,7 @@ const initState = (queryString: string): IFormRoomFilterState => {
 
   const allAccessibility = ['wideCorridor', 'assistantForDisabled'];
   allAccessibility.forEach((key) => {
+    // @ts-ignore
     query[key] = false;
   });
 
@@ -193,6 +200,7 @@ const initState = (queryString: string): IFormRoomFilterState => {
   if (accessibility !== null) {
     accessibility.split(',').forEach((key) => {
       if (allAccessibility.indexOf(key) >= 0) {
+        // @ts-ignore
         query[key] = true;
       }
     });
@@ -200,6 +208,7 @@ const initState = (queryString: string): IFormRoomFilterState => {
 
   const allExtraConvinience = ['breakfast', 'desk', 'feedingChair', 'smallBad', 'tv', 'shampoo'];
   allExtraConvinience.forEach((key) => {
+    // @ts-ignore
     query[key] = false;
   });
 
@@ -207,12 +216,13 @@ const initState = (queryString: string): IFormRoomFilterState => {
   if (extraConvinience !== null) {
     extraConvinience.split(',').forEach((key) => {
       if (allExtraConvinience.indexOf(key) >= 0) {
+        // @ts-ignore
         query[key] = true;
       }
     });
   }
 
-  return query;
+  return (query as IFormRoomFilterState);
 };
 
 const patchInitConf = (
@@ -222,7 +232,8 @@ const patchInitConf = (
   name,
   label,
   description,
-  checked: state[name] !== undefined && state[name]
+  // @ts-ignore
+  checked: state[name] !== undefined && state[name],
 }));
 
 const updateQuery = (param: string, value: string): void => {
@@ -319,7 +330,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ queryString }) => {
           name="guests"
           placeholder="Сколько гостей"
           defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
-          dropList={dropdownItemsGuests}
+          dropList={dropdownItemsGuestsInit}
           buttons
           onChange={handleGuestsDropdownChange}
         />
@@ -353,7 +364,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ queryString }) => {
         <InputDropdown
           name=""
           placeholder="Удобства номера"
-          dropList={dropdownItemsConvinence}
+          dropList={dropdownItemsConvinenceInit}
           buttons
           onChange={handleConvinienceDropdownChange}
         />
