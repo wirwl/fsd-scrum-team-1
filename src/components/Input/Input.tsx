@@ -15,6 +15,7 @@ interface IInputProps {
   name?: string;
   head?: string;
   validate?: 'email' | CustomValidateFunction;
+  isForceValidate?: boolean;
   emailValidationErrorMessage?: string;
   onChange?: (value: string, isValidValue: boolean) => void;
 }
@@ -22,7 +23,7 @@ interface IInputProps {
 // eslint-disable-next-line no-useless-escape
 const regexpEmail = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-const validateAsEmail = (value: string): boolean => regexpEmail.test(value);
+const validateAsEmail = (value: string): boolean => (value.length > 0 && regexpEmail.test(value));
 
 const b = block('input');
 
@@ -33,6 +34,7 @@ const Input: React.FC<IInputProps> = (props) => {
     mask = '',
     placeholder = '',
     emailValidationErrorMessage = 'Некорректный адрес почты.',
+    isForceValidate = false,
     withArrow,
     validate,
     name,
@@ -46,12 +48,12 @@ const Input: React.FC<IInputProps> = (props) => {
 
   let errorValidate: string | null = null;
 
-  if (isFirstFocus && isFirstInput) {
+  const isFirstUse = isFirstFocus && isFirstInput;
+
+  if (isFirstUse || isForceValidate) {
     errorValidate = typeof validate === 'function' ? validate(value) : null;
     if (
-      validate === 'email'
-      && value.toString().length
-      && !validateAsEmail(value.toString())
+      validate === 'email' && !validateAsEmail(value.toString())
     ) errorValidate = emailValidationErrorMessage;
   }
 
