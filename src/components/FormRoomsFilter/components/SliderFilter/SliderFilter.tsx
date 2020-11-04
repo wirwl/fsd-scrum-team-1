@@ -1,4 +1,9 @@
-import { FC, useState, useEffect, useCallback } from 'react';
+import {
+  FC,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import Slider, { ISliderValues } from 'src/components/Slider/Slider';
 
 const MIN_PRICE = 10000;
