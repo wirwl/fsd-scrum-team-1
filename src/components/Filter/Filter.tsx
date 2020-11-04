@@ -7,12 +7,11 @@ import getQueryProps from './helpers';
 
 import Accordion from 'src/components/Accordion/Accordion';
 // import Checkbox from 'src/components/Checkbox/Checkbox';
-import DataPicker from 'src/components/DatePicker/DatePicker';
+import DatePicker from 'src/components/DatePicker/DatePicker';
 import InputDropdown from 'src/components/InputDropdown/InputDropdown';
 import Slider from 'src/components/Slider/Slider';
 
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
-// import type { ISliderValues } from 'src/components/Slider/Slider';
 import {
   dropdownGuestsProps,
   dropdownComfortProps,
@@ -249,7 +248,7 @@ const Filter: FC = () => {
       className={b()}
     >
       <div className={b('date-of-stay')}>
-        {isDatePickerInitialized() ? <DataPicker /> : <DataPicker />}
+        {isDatePickerInitialized() ? <DatePicker /> : <DatePicker />}
       </div>
       <div className={b('guests')}>
         <h3 className={b('guests-title')}>гости</h3>
