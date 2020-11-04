@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { block } from 'bem-cn';
 
 import DatePicker from 'src/components/DatePicker/DatePicker';
@@ -11,6 +11,10 @@ import CheckboxGroup from 'src/components/CheckboxGroup/CheckboxGroup';
 import './FormRoomsFilter.scss';
 
 const b = block('form-rooms-filter');
+
+const MIN_PRICE = 10000;
+const MAX_PRICE = 40000;
+const SLIDER_STEP = 100;
 
 const dropdownItemsGuests: IDropListItem[] = [
   { label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
@@ -34,57 +38,193 @@ const dropdownItemsConvinence: IDropListItem[] = [
   },
 ];
 
-const extraConvinience = [
+const extraConvinienceInit = [
   {
     label: 'Завтрак',
     name: 'breakfast',
+    checked: false,
   },
   {
     label: 'Письменный стол',
     name: 'desk',
+    checked: false,
   },
   {
     label: 'Стул для кормления',
     name: 'feedingChair',
+    checked: false,
   },
   {
     label: 'Кроватка',
     name: 'smallBad',
+    checked: false,
   },
   {
     label: 'Телевизор',
     name: 'tv',
+    checked: false,
   },
   {
     label: 'Шампунь',
     name: 'shampoo',
+    checked: false,
   },
 ];
 
-const rules = [
-  { label: 'Можно курить', name: 'smokingAllowed' },
-  { label: 'Можно с питомцами', name: 'petsAllowed' },
+const rulesInit = [
+  { label: 'Можно курить', name: 'smokingAllowed', checked: false },
+  { label: 'Можно с питомцами', name: 'petsAllowed', checked: false },
   {
     label: 'Можно пригласить гостей (до 10 человек)',
     name: 'guestsAllowed',
+    checked: false,
   },
 ];
 
-const accessibility = [
+const accessibilityInit = [
   {
     label: 'Широкий коридор',
     name: 'wideCorridor',
     description: 'Ширина коридоров в номере не менее 91 см.',
+    checked: false,
   },
   {
     label: 'Помощник для инвалидов',
     name: 'assistantForDisabled',
     description: 'На 1 этаже вас встретит специалист  и проводит до номера.',
+    checked: false,
   },
 ];
 
-const FormRoomsFilter: FC = () => {
-  console.log('lll');
+type IFormRoomFilterState = {
+  dStart?: number;
+  dEnd?: number;
+  gToddlers?: number;
+  gChild?: number;
+  gAdult?: number;
+
+  bed: number;
+  bedroom: number;
+  bathroom: number;
+
+  price: [number, number];
+  rules: string[];
+  accessibility: string[];
+  extraConvinience: string[];
+};
+
+type IFormRoomFilterProps = {
+  queryString: string;
+};
+
+const normalizeQueryNumber = (value: string): number => {
+  let result = parseInt(value, 10);
+  result = Number.isNaN(result) ? 0 : result;
+  return result < 0 ? 0 : result;
+};
+
+const isPriceValid = (price: number[]): boolean => (
+  price.length === 2
+  && price.filter((p) => Number.isNaN(p)).length === 0
+  && price[0] >= MIN_PRICE
+  && price[1] <= MAX_PRICE
+);
+
+// { [key:string]: number | string | boolean }
+const initState = (queryString: string): IFormRoomFilterState => {
+  const url = new URLSearchParams(queryString);
+  const query = {};
+
+  ['dStart', 'dEnd', 'gToddlers', 'gChilds', 'gAdults'].forEach((key) => {
+    const value = url.get(key);
+    if (value !== null) query[key] = parseInt(value, 10);
+  });
+
+  ['bed', 'bedroom', 'bathroom'].forEach((key): void => {
+    const value = url.get(key);
+
+    if (value !== null) {
+      query[key] = normalizeQueryNumber(value);
+      return;
+    }
+
+    query[key] = 0;
+  });
+
+  const priceValue = url.get('price');
+  if (priceValue !== null) {
+    const price = priceValue.split(',')
+      .map((p) => parseInt(p, 10));
+
+    console.log('>>>', isPriceValid(price));
+
+    if (isPriceValid(price)) query['price'] = price;
+  }
+
+  const allRules = ['petsAllowed', 'smokingAllowed', 'guestAllowed'];
+  allRules.forEach((key) => {
+    query[key] = false;
+  });
+
+  const rules = url.get('rules');
+  if (rules !== null) {
+    rules.split(',').forEach((key) => {
+      if (allRules.indexOf(key) >= 0) {
+        query[key] = true;
+      }
+    });
+  }
+
+  const allAccessibility = ['wideCorridor', 'assistantForDisabled'];
+  allAccessibility.forEach((key) => {
+    query[key] = false;
+  });
+
+  const accessibility = url.get('accessibility');
+  if (accessibility !== null) {
+    accessibility.split(',').forEach((key) => {
+      if (allAccessibility.indexOf(key) >= 0) {
+        query[key] = true;
+      }
+    });
+  }
+
+  const allExtraConvinience = ['breakfast', 'desk', 'feedingChair', 'smallBad', 'tv', 'shampoo'];
+  allExtraConvinience.forEach((key) => {
+    query[key] = false;
+  });
+
+  const extraConvinience = url.get('extraConvinience');
+  if (extraConvinience !== null) {
+    extraConvinience.split(',').forEach((key) => {
+      if (allExtraConvinience.indexOf(key) >= 0) {
+        query[key] = true;
+      }
+    });
+  }
+
+  return query;
+};
+
+const patchInitConf = (
+  state: IFormRoomFilterState,
+  items: ICheckboxProps[],
+): ICheckboxProps[] => items.map(({ name, label, description }) => ({
+  name,
+  label,
+  description,
+  checked: state[name] !== undefined && state[name]
+}));
+
+const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ queryString }) => {
+  const [state, setState] = useState<IFormRoomFilterState>(
+    initState(queryString),
+  );
+
+  const extraConvinienceConf = patchInitConf(state, extraConvinienceInit);
+  const rulesConf = patchInitConf(state, rulesInit);
+  const accessibilityConf = patchInitConf(state, accessibilityInit);
+  const { price } = state;
 
   return (
     <form className={b()}>
@@ -108,10 +248,10 @@ const FormRoomsFilter: FC = () => {
       <section className={b('field', { 'with-bottom-30': true })}>
         <Slider
           title="диапазон цены"
-          currentValues={[10000, 40000]}
-          min={10000}
-          max={40000}
-          step={100}
+          currentValues={price}
+          min={MIN_PRICE}
+          max={MAX_PRICE}
+          step={SLIDER_STEP}
           onChange={() => {}}
           description="Стоимость за сутки пребывания в номере"
         />
@@ -120,7 +260,7 @@ const FormRoomsFilter: FC = () => {
       <section className={b('field', { 'with-bottom-24': true })}>
         <CheckboxGroup
           title="правила дома"
-          items={rules}
+          items={rulesConf}
           onChange={(values) => console.log(values)}
         />
       </section>
@@ -128,7 +268,7 @@ const FormRoomsFilter: FC = () => {
       <section className={b('field', { 'with-bottom-24': true })}>
         <CheckboxGroup
           title="доступность"
-          items={accessibility}
+          items={accessibilityConf}
           onChange={(values) => console.log(values)}
         />
       </section>
@@ -147,13 +287,27 @@ const FormRoomsFilter: FC = () => {
       <section className={b('field')}>
         <Accordeon
           isOpened={false}
-          checkboxList={extraConvinience}
+          checkboxList={extraConvinienceConf}
           onChange={(values) => {console.log(values)}}
         />
       </section>
 
     </form>
   );
+};
+
+const getKeysFromQuery = (url: URLSearchParams): string[] => {
+  const keysIter = url.keys();
+  const keys = [];
+
+  for (;;) {
+    const { done, value } = keysIter.next();
+
+    if (done) break;
+    keys.push(value);
+  }
+
+  return keys;
 };
 
 export default FormRoomsFilter;

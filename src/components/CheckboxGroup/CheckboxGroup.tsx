@@ -40,6 +40,7 @@ const CheckboxGroup: FC<ICheckboxGroupProps> = ({ title, items, onChange }) => {
       label,
       name,
       description,
+      checked,
     } = item;
 
     const componentItem = description !== undefined
@@ -48,6 +49,7 @@ const CheckboxGroup: FC<ICheckboxGroupProps> = ({ title, items, onChange }) => {
           label={label}
           name={name}
           description={description}
+          checked={checked}
           onChange={handleCheckboxChange}
         />
       )
@@ -55,6 +57,7 @@ const CheckboxGroup: FC<ICheckboxGroupProps> = ({ title, items, onChange }) => {
         <Checkbox
           label={label}
           name={name}
+          checked={checked}
           onChange={handleCheckboxChange}
         />
       );
