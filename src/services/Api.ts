@@ -6,7 +6,7 @@ import firebaseConfig from 'config/firebase.json';
 import type { IRoom } from 'src/services/dto/Rooms';
 
 interface ISearchFilters {
-  id: number;
+  n?: number;
   roomsOnPage?: number;
   adults?: number;
   babies?: number;
@@ -80,7 +80,7 @@ class Api {
     filters: ISearchFilters,
   ): firebase.firestore.Query<firebase.firestore.DocumentData> {
     const {
-      id = 1,
+      n,
       roomsOnPage = 12,
       isLux = null,
       petsAllowed = null,
@@ -119,7 +119,9 @@ class Api {
       query = query.where('extranConvinience.feedingChair', '==', feedingChair);
     }
 
-    return query.startAt(id).limit(roomsOnPage);
+    if (n !== undefined) query = query.startAfter(n);
+
+    return query.limit(roomsOnPage);
   }
 }
 
