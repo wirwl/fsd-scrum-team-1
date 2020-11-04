@@ -91,7 +91,7 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
       {getCorrectElement()}
       {!isEmpty && (
         <div className={b('show-more')}>
-          <Button theme="textual" caption="Показать еще" handleClick={handleClick} />
+          <Button theme="default" caption="Показать еще" handleClick={handleClick} />
         </div>
       )}
     </section>

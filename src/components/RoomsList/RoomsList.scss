@@ -2,7 +2,6 @@
 
 .rooms {
   width: 100%;
-  max-width: 53rem;
   
   &__title {
     @include h1();
@@ -48,6 +47,6 @@
 
   &__show-more {
     margin: 0 auto;
-    max-width: 6.875rem;
+    max-width: 9.063rem;
   }
 }
