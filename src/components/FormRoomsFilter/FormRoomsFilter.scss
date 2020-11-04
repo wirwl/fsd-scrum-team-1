@@ -1,3 +1,30 @@
+@import '@styles/variables.scss';
+
 .form-rooms-filter {
   width: 100%;
+
+  &__field {
+
+    &_with-bottom-18 {
+      margin-bottom: 18px;
+    }
+
+    &_with-bottom-24 {
+      margin-bottom: 24px;
+    }
+
+    &_with-bottom-30 {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__field-title {
+    margin-bottom: 0;
+    margin-top: 0;
+
+    font-family: $header-font;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
 }
