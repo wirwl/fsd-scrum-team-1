@@ -1,16 +1,16 @@
-import { IRoom } from 'src/services/dto/Rooms';
+import type { IRoom } from 'src/services/dto/Rooms';
+import type { ISearchFilters } from 'src/services/Api';
 import {
   FETCH_ROOMS,
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAIL,
-  IFetchRoomsParams,
   IFetchRoomsAction,
   IFetchRoomsSuccessAction,
   IFetchRoomsFailAction,
 } from './roomTypes';
 
 export const fetchRooms = (
-  params: IFetchRoomsParams,
+  params: ISearchFilters,
 ): IFetchRoomsAction => ({
   type: FETCH_ROOMS,
   payload: params,
