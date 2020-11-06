@@ -49,7 +49,7 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
   );
 
   const imagesItems = images.map(({ src, alt = '' }, index) => (
-    <li className={b('image-wrapper', { selected: index === imageIndex })} key={src}>
+    <li className={b('image-wrapper', { selected: index === imageIndex })} key={`${src}-${index}`}>
       <img
         className={b('image')}
         src={src}
@@ -58,7 +58,7 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
     </li>
   ));
   const circles = images.map(({ src }, index) => (
-    <li key={src} className={b('circle-wrapper')}>
+    <li key={`${src}-${index}`} className={b('circle-wrapper')}>
       <button
         type="button"
         className={b('circle', { selected: index === imageIndex })}

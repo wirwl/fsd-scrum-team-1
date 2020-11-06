@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
+import Router from 'next/router';
 
 import DatePicker from 'src/components/DatePicker/DatePicker';
 import InputDropdown from 'src/components/InputDropdown/InputDropdown';
@@ -247,7 +248,7 @@ const updateQuery = (param: string, value: string): void => {
   }
 
   const newUrl = `${window.location.pathname}?${url.toString()}`;
-  window.history?.pushState(null, '', newUrl);
+  Router.push(newUrl);
 };
 
 const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ queryString }) => {

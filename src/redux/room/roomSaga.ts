@@ -19,7 +19,7 @@ function* fetchRoomsSaga(
 ): SagaIterator | null {
   yield put({ type: FETCH_ROOMS_FETCHING });
   try {
-    const rooms = yield api.searchRooms({ id: payload.dEnd });
+    const rooms = yield api.searchRooms(payload);
     yield put(fetchRoomsSuccess(rooms));
   } catch (error) {
     yield put(fetchRoomsFail(error.message));
