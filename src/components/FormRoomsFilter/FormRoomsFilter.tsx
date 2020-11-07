@@ -97,11 +97,10 @@ const accessibilityInit = [
 ];
 
 type IFormRoomFilterState = {
-  dStart?: number;
-  dEnd?: number;
   gToddlers?: number;
   gChild?: number;
   gAdult?: number;
+  dateRange?: [number, number];
 
   bed: number;
   bedroom: number;
@@ -159,7 +158,15 @@ const isPriceValid = (price: number[]): boolean => (
 const initState = (query: Record<string, string>): IFormRoomFilterState => {
   const result: Record<string, number | [number, number] | string[] | boolean> = {};
 
-  ['dStart', 'dEnd', 'gToddlers', 'gChilds', 'gAdults'].forEach((key) => {
+  const dateRangeValue = query.dateRange;
+  if (dateRangeValue !== undefined) {
+    const dateRange = dateRangeValue.split('-')
+      .map((p) => parseInt(p, 10));
+
+    result.dateRange = (dateRange as [number, number]);
+  }
+
+  ['gToddlers', 'gChilds', 'gAdults'].forEach((key) => {
     const value = query[key];
     if (value !== undefined) result[key] = parseInt(value, 10);
   });
@@ -278,11 +285,10 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
   };
 
   const handleDatePickerChange = ({ start, end }: RangeDays): void => {
-    const dStart = (new Date(start as Date)).getTime();
-    const dEnd = (new Date(end as Date)).getTime();
+    const tStart = (new Date(start as Date)).getTime();
+    const tEnd = (new Date(end as Date)).getTime();
 
-    updateQuery('dStart', dStart.toString());
-    updateQuery('dEnd', dEnd.toString());
+    updateQuery('dateRange', `${tStart}-${tEnd}`);
   };
 
   const handleCheckboxRulesChange = (
