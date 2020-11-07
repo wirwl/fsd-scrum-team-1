@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import './Input.scss';
 
-type CustomValidateFunction = (currentValue: string | number) => string | null;
+type CustomValidateFunction = (currentValue: string | number) => boolean;
 
 interface IInputProps {
   type?: 'text' | 'number' | 'email' | 'password';
@@ -12,12 +12,13 @@ interface IInputProps {
   placeholder?: string;
   withArrow?: boolean;
   mask?: string;
-  name?: string;
-  head?: string;
+  name: string;
+  label?: string;
   validate?: 'email' | CustomValidateFunction;
-  isForceValidate?: boolean;
-  emailValidationErrorMessage?: string;
-  onChange?: (value: string, isValidValue: boolean) => void;
+  errorMessage?: string;
+  onChange: (value: string, isValidValue: boolean) => void;
+  onBlur: () => void;
+  onFocus: () => void;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -33,66 +34,59 @@ const Input: React.FC<IInputProps> = (props) => {
     value: initValue = '',
     mask = '',
     placeholder = '',
-    emailValidationErrorMessage = 'Некорректный адрес почты.',
-    isForceValidate = false,
-    withArrow,
+    errorMessage = '',
+    withArrow = false,
     validate,
     name,
-    head,
+    label,
     onChange,
+    onBlur,
+    onFocus,
   } = props;
 
-  const [value, setValue] = useState(initValue);
-  const [isFirstFocus, setFirstFocus] = useState(false);
-  const [isFirstInput, setFirstInput] = useState(false);
-
-  let errorValidate: string | null = null;
-
-  const isFirstUse = isFirstFocus && isFirstInput;
-
-  if (isFirstUse || isForceValidate) {
-    errorValidate = typeof validate === 'function' ? validate(value) : null;
-    if (
-      validate === 'email' && !validateAsEmail(value.toString())
-    ) errorValidate = emailValidationErrorMessage;
-  }
+  const [value, setValue] = useState<string>(initValue.toString());
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
-    !isFirstInput && setFirstInput(true);
     const { value: currentValue } = ev.currentTarget;
+    let isValidValue = false;
+
+    if (typeof validate === 'function') isValidValue = validate(currentValue);
+    if (validate === 'email') isValidValue = validateAsEmail(currentValue);
+
     setValue(currentValue);
-    onChange && onChange(currentValue, Boolean(errorValidate));
+    onChange(currentValue, isValidValue);
   };
 
   const bemMods: { [index: string]: string | boolean | undefined } = {
-    'validate-with-error': Boolean(validate && errorValidate),
-    'with-arrow': Boolean(withArrow),
+    'validate-with-error': Boolean(errorMessage),
+    'with-arrow': withArrow,
   };
 
   const expandButton = withArrow
     ? <button type="button" className={b('arrow')}>arrow_forward</button>
     : null;
 
-  const headItem = head ? <h3 className={b('head')}>{head}</h3> : null;
+  const labelItem = label ? <h3 className={b('label')}>{label}</h3> : null;
 
   return (
     <div className={b(bemMods)}>
-      {headItem}
+      {labelItem}
       <div className={b('wrapper')}>
         <InputMask
-          onFocus={() => setFirstFocus(true)}
           className={b('input')}
           placeholder={placeholder}
           type={type}
           value={value}
+          onBlur={onBlur}
           onChange={handleChange}
+          onFocus={onFocus}
           mask={mask}
           maskChar=""
           name={name}
         />
         { expandButton }
       </div>
-      <p className={b('row-with-error')}>{errorValidate}</p>
+      { errorMessage && <p className={b('row-with-error')}>{errorMessage}</p> }
     </div>
   );
 };
