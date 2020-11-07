@@ -1,0 +1,42 @@
+@import '@styles/variables.scss';
+
+.guide-layout {
+  max-width: 75rem;
+
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  &__nav-link {
+    text-decoration: none;
+
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+
+    color: $font-color;
+    outline: none;
+
+    font-size: 1.25rem;
+  
+    &:not(:last-child) {
+      margin-right: 1.25rem;
+    }
+
+    &:hover {
+      opacity: .7;
+    }
+
+    &:focus {
+      outline: auto;
+      outline-width: .0625rem;
+      outline-color: $main-color;
+    }
+  }
+}
