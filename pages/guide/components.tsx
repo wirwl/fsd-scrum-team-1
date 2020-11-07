@@ -35,41 +35,71 @@ const checkboxes = [
   },
 ];
 
-const Components: FC = () => (
-  <MainLayout title="Components">
-    <h1>Components Page</h1>
-    <RoomCard
-      info={{
-        images: [
-          { src: 'http://placeimg.com/320/220/tech' },
-          { src: 'http://placeimg.com/320/220/nature' },
-          { src: 'http://placeimg.com/320/220/animals' },
-          { src: 'http://placeimg.com/320/220/sepia' },
-        ],
-        roomNumber: 888,
-        price: 9990,
-        stars: 5,
-        numberOfReviews: 145,
-        hrefToReviews: '',
-        hrefToRoomInfo: '',
-        isLuxury: true,
-      }}
-    />
-    <DataPicker />
-    <DataPicker withTwoInputs />
-    <Input head="text field" placeholder="Email" />
-    <Input head="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" />
-    <Input head="subscription text field" placeholder="Email" validate="email" withArrow />
-    <Calendar />
-    <Checkbox label="Можно курить" />
-    <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
-    <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
-    <FormLanding onSubmit={console.log} />
-    <Accordion checkboxList={checkboxes} isOpened />
-    <Accordion checkboxList={checkboxes} />
-    <Slider currentValues={[5000, 10000]} onChange={() => {}} />
-    <Pagination totalItemCount={175} limitPerPage={12} />
-  </MainLayout>
-);
+const Components: FC = () => {
+  const handleInputChange = (): void => {};
+  const handleInputBlur = (): void => {};
+  const handleInputFocus = (): void => {};
+
+  return (
+    <MainLayout title="Components">
+      <h1>Components Page</h1>
+      <RoomCard
+        info={{
+          images: [
+            { src: 'http://placeimg.com/320/220/tech' },
+            { src: 'http://placeimg.com/320/220/nature' },
+            { src: 'http://placeimg.com/320/220/animals' },
+            { src: 'http://placeimg.com/320/220/sepia' },
+          ],
+          roomNumber: 888,
+          price: 9990,
+          stars: 5,
+          numberOfReviews: 145,
+          hrefToReviews: '',
+          hrefToRoomInfo: '',
+          isLuxury: true,
+        }}
+      />
+      <DataPicker />
+      <DataPicker withTwoInputs />
+      <Input
+        label="text field"
+        placeholder="Email"
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
+        name="email"
+      />
+      <Input
+        label="masked text field"
+        placeholder="ДД.ММ.ГГГГ"
+        mask="99.99.9999"
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
+        name="date-of-birch"
+      />
+      <Input
+        label="subscription text field"
+        placeholder="Email"
+        validate="email"
+        withArrow
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
+        name="subscription"
+      />
+      <Calendar />
+      <Checkbox label="Можно курить" />
+      <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
+      <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
+      <FormLanding onSubmit={console.log} />
+      <Accordion checkboxList={checkboxes} isOpened />
+      <Accordion checkboxList={checkboxes} />
+      <Slider currentValues={[5000, 10000]} onChange={() => {}} />
+      <Pagination totalItemCount={175} limitPerPage={12} />
+    </MainLayout>
+  );
+};
 
 export default Components;
