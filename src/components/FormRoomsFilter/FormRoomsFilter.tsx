@@ -184,10 +184,12 @@ const initState = (query: Record<string, string>): IFormRoomFilterState => {
 
   const priceValue = query.price;
   if (priceValue !== undefined) {
-    const price = priceValue.split(',')
+    const price = priceValue.split('-')
       .map((p) => parseInt(p, 10));
 
     if (isPriceValid(price)) result.price = (price as [number, number]);
+  } else {
+    result.price = [MIN_PRICE, MAX_PRICE];
   }
 
   const allRules = ['petsAllowed', 'smokingAllowed', 'guestsAllowed'];
@@ -307,7 +309,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
   const { price } = state;
 
   const handleSliderChange = (values: ISliderValues): void => {
-    updateQuery('price', values.map((p) => p.toString()).join(','));
+    updateQuery('price', values.map((p) => p.toString()).join('-'));
   };
 
   const handleDatePickerChange = ({ start, end }: RangeDays): void => {
