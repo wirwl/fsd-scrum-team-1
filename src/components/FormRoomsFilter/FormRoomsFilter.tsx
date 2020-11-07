@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { block } from 'bem-cn';
 
 import DatePicker from 'src/components/DatePicker/DatePicker';
@@ -128,6 +128,7 @@ type IFormRoomFilterState = {
 
 type IFormRoomFilterProps = {
   query: Record<string, string>;
+  onChange: (params: IFormRoomFilterState) => void;
 };
 
 const guestsLabelMap: { [key:string]: string; } = {
@@ -248,7 +249,6 @@ const patchInitConf = (
   state: IFormRoomFilterState,
   items: ICheckboxProps[],
 ): ICheckboxProps[] => {
-  console.log(items);
   const result = items.map(({ name, label, description }) => ({
     name,
     label,
@@ -279,7 +279,6 @@ const patchCountDropdownConf = (
   items: IDropListItem[],
   mapper: { [key:string]: string },
 ): IDropListItem[] => {
-  console.log(items);
   return items.map((item) => {
     const { label } = item;
     const value = state[mapper[label]];
@@ -288,8 +287,9 @@ const patchCountDropdownConf = (
   });
 };
 
-const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
-  const state = initState(query);
+const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
+  // const state = initState(query);
+  const [state, setState] = useState<IFormRoomFilterState>(initState(query));
 
   const extraConvinienceConf = patchInitConf(state, extraConvinienceInit);
   const rulesConf = patchInitConf(state, rulesInit);
@@ -308,8 +308,16 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
 
   const { price } = state;
 
+  useEffect(() => {
+    onChange(state);
+  }, [state]);
+
   const handleSliderChange = (values: ISliderValues): void => {
     updateQuery('price', values.map((p) => p.toString()).join('-'));
+    setState((prevState) => ({
+      ...prevState,
+      price: values as [number, number],
+    }));
   };
 
   const handleDatePickerChange = ({ start, end }: RangeDays): void => {
@@ -317,6 +325,10 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
     const tEnd = (new Date(end as Date)).getTime();
 
     updateQuery('dateRange', `${tStart}-${tEnd}`);
+    setState((prevState) => ({
+      ...prevState,
+      dateRange: [tStart, tEnd],
+    }));
   };
 
   const handleCheckboxRulesChange = (
@@ -328,6 +340,10 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
       .join(',');
 
     updateQuery('rules', value);
+    setState((prevState) => ({
+      ...prevState,
+      ...values,
+    }));
   };
 
   const handleCheckboxAccessibilityChange = (
@@ -339,6 +355,10 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
       .join(',');
 
     updateQuery('accessibility', value);
+    setState((prevState) => ({
+      ...prevState,
+      ...values,
+    }));
   };
 
   const handleAccordeonExtraConventionChange = (
@@ -350,6 +370,10 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
       .join(',');
 
     updateQuery('extraConvinience', value);
+    setState((prevState) => ({
+      ...prevState,
+      ...values,
+    }));
   };
 
   const handleGuestsDropdownChange = (values: IDropListItem[]): void => {
@@ -357,6 +381,14 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
       const key = guestsLabelMap[label];
       updateQuery(key, count === 0 ? '' : count.toString());
     });
+
+    const newState = values
+      .reduce((acc, { label, count }) => ({ ...acc, [guestsLabelMap[label]]: count }), {});
+
+    setState((prevState) => ({
+      ...prevState,
+      ...newState,
+    }));
   };
 
   const handleConvinienceDropdownChange = (values: IDropListItem[]): void => {
@@ -364,6 +396,13 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
       const key = convinienceLabelMap[label];
       updateQuery(key, count === 0 ? '' : count.toString());
     });
+    const newState = values
+      .reduce((acc, { label, count }) => ({ ...acc, [convinienceLabelMap[label]]: count }), {});
+
+    setState((prevState) => ({
+      ...prevState,
+      ...newState,
+    }));
   };
 
   return (
