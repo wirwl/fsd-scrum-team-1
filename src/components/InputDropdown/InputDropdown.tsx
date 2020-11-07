@@ -13,6 +13,7 @@ interface IPlurals {
 }
 
 interface IDropListItem {
+  id: string,
   label: string,
   count: number,
   plurals: IPlurals,
@@ -79,9 +80,15 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   name,
   placeholder,
   dropList = [
-    { label: 'Спальни', count: 2, plurals: { one: 'спальня', two: 'спальни', few: 'спален' } },
-    { label: 'Кровати', count: 2, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
-    { label: 'Ванные комнаты', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' } },
+    {
+      id: 'bedroom', label: 'Спальни', count: 2, plurals: { one: 'спальня', two: 'спальни', few: 'спален' },
+    },
+    {
+      id: 'bed', label: 'Кровати', count: 2, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' },
+    },
+    {
+      id: 'bathroom', label: 'Ванные комнаты', count: 0, plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' },
+    },
   ],
   defaultLabel = false,
   isExpanded = false,
