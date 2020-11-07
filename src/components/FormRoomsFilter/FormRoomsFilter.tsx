@@ -119,9 +119,9 @@ const accessibilityInit = [
 ];
 
 type IFormRoomFilterState = {
-  gToddlers?: number;
-  gChild?: number;
-  gAdult?: number;
+  adults?: number;
+  children?: number;
+  babies?: number;
   dateRange?: [number, number];
 
   bed: number;
@@ -166,8 +166,10 @@ const isPriceValid = (price: number[]): boolean => (
   && price[1] <= MAX_PRICE
 );
 
+type IFilterStateRecord = Record<string, number | [number, number] | string[] | boolean>;
+
 const initState = (query: Record<string, string>): IFormRoomFilterState => {
-  const result: Record<string, number | [number, number] | string[] | boolean> = {};
+  const result: IFilterStateRecord = {};
 
   const dateRangeValue = query.dateRange;
   if (dateRangeValue !== undefined) {
@@ -290,7 +292,9 @@ const patchCountDropdownConf = (
 ): IDropListItem[] => {
   console.log('aslkdjf');
   return items.map((item) => {
+    // let id: 'bed' | 'bedroom' | 'bathroom' | 'adults' | 'children' | 'babies';
     const { id } = item;
+    console.log(id);
     const value = state[id];
     if (value !== undefined) return { ...item, count: value };
     return item;
@@ -298,7 +302,6 @@ const patchCountDropdownConf = (
 };
 
 const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
-  // const state = initState(query);
   const [state, setState] = useState<IFormRoomFilterState>(initState(query));
 
   const extraConvinienceConf = patchInitConf(state, extraConvinienceInit);
@@ -314,14 +317,15 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     dropdownItemsConvinenceInit,
   );
 
-  const { price } = state;
-
   useEffect(() => {
     onChange(state);
   }, [state]);
 
-  const handleSliderChange = (values: ISliderValues): void => {
-    updateQuery('price', values.map((p) => p.toString()).join('-'));
+  const handleSliderChange = (
+    values: ISliderValues,
+    priceString: string,
+  ): void => {
+    updateQuery('price', priceString);
     setState((prevState) => ({
       ...prevState,
       price: values as [number, number],
@@ -432,7 +436,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
 
       <section className={b('field', { 'with-bottom-30': true })}>
         <SliderFilter
-          price={price}
+          query={query}
           onChange={handleSliderChange}
         />
       </section>
