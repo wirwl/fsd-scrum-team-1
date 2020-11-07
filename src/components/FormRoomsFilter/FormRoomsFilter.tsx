@@ -108,13 +108,27 @@ type IFormRoomFilterState = {
   bathroom: number;
 
   price: [number, number];
-  rules: string[];
-  accessibility: string[];
-  extraConvinience: string[];
+
+  // rules
+  petsAllowed: boolean;
+  smokingAllowed: boolean;
+  guestsAllowed: boolean;
+
+  // accessibility
+  wideCorridor: boolean;
+  assistantForDisabled: boolean;
+
+  // extraConvinience
+  breakfast: boolean;
+  desk: boolean;
+  feedingChair: boolean;
+  smallBad: boolean;
+  tv: boolean;
+  shampoo: boolean;
 };
 
 type IFormRoomFilterProps = {
-  queryString: string;
+  query: Record<string, string>;
 };
 
 const guestsLabelMap: { [key:string]: string; } = {
@@ -142,99 +156,100 @@ const isPriceValid = (price: number[]): boolean => (
   && price[1] <= MAX_PRICE
 );
 
-const initState = (queryString: string): IFormRoomFilterState => {
-  const url = new URLSearchParams(queryString);
-  const query = {};
+const initState = (query: Record<string, string>): IFormRoomFilterState => {
+  const result: Record<string, number | [number, number] | string[] | boolean> = {};
 
   ['dStart', 'dEnd', 'gToddlers', 'gChilds', 'gAdults'].forEach((key) => {
-    const value = url.get(key);
-    // @ts-ignore
-    if (value !== null) query[key] = parseInt(value, 10);
+    const value = query[key];
+    if (value !== undefined) result[key] = parseInt(value, 10);
   });
 
   ['bed', 'bedroom', 'bathroom'].forEach((key): void => {
-    const value = url.get(key);
+    const value = query[key];
 
-    if (value !== null) {
-      // @ts-ignore
-      query[key] = normalizeQueryNumber(value);
+    if (value !== undefined) {
+      result[key] = normalizeQueryNumber(value);
       return;
     }
 
-    // @ts-ignore
-    query[key] = 0;
+    result[key] = 0;
   });
 
-  const priceValue = url.get('price');
-  if (priceValue !== null) {
+  const priceValue = query.price;
+  if (priceValue !== undefined) {
     const price = priceValue.split(',')
       .map((p) => parseInt(p, 10));
 
-    // @ts-ignore
-    if (isPriceValid(price)) query.price = (price as [number, number]);
+    if (isPriceValid(price)) result.price = (price as [number, number]);
   }
 
   const allRules = ['petsAllowed', 'smokingAllowed', 'guestsAllowed'];
   allRules.forEach((key) => {
-    // @ts-ignore
-    query[key] = false;
+    result[key] = false;
   });
 
-  const rules = url.get('rules');
-  if (rules !== null) {
+  const { rules } = query;
+  if (rules !== undefined) {
     rules.split(',').forEach((key) => {
       if (allRules.indexOf(key) >= 0) {
-        // @ts-ignore
-        query[key] = true;
+        result[key] = true;
       }
     });
   }
 
   const allAccessibility = ['wideCorridor', 'assistantForDisabled'];
   allAccessibility.forEach((key) => {
-    // @ts-ignore
-    query[key] = false;
+    result[key] = false;
   });
 
-  const accessibility = url.get('accessibility');
-  if (accessibility !== null) {
+  const { accessibility } = query;
+  if (accessibility !== undefined) {
     accessibility.split(',').forEach((key) => {
       if (allAccessibility.indexOf(key) >= 0) {
-        // @ts-ignore
-        query[key] = true;
+        result[key] = true;
       }
     });
   }
 
-  const allExtraConvinience = ['breakfast', 'desk', 'feedingChair', 'smallBad', 'tv', 'shampoo'];
+  const allExtraConvinience = [
+    'breakfast',
+    'desk',
+    'feedingChair',
+    'smallBad',
+    'tv',
+    'shampoo',
+  ];
   allExtraConvinience.forEach((key) => {
-    // @ts-ignore
-    query[key] = false;
+    result[key] = false;
   });
 
-  const extraConvinience = url.get('extraConvinience');
-  if (extraConvinience !== null) {
+  const { extraConvinience } = query;
+  if (extraConvinience !== undefined) {
     extraConvinience.split(',').forEach((key) => {
       if (allExtraConvinience.indexOf(key) >= 0) {
-        // @ts-ignore
-        query[key] = true;
+        result[key] = true;
       }
     });
   }
 
-  return (query as IFormRoomFilterState);
+  return result as IFormRoomFilterState;
 };
 
 const patchInitConf = (
   state: IFormRoomFilterState,
   items: ICheckboxProps[],
-): ICheckboxProps[] => items.map(({ name, label, description }) => ({
-  name,
-  label,
-  description,
-  // @ts-ignore
-  checked: state[name] !== undefined && state[name],
-}));
+): ICheckboxProps[] => {
+  console.log(items);
+  const result = items.map(({ name, label, description }) => ({
+    name,
+    label,
+    description,
+    // @ts-ignore
+    checked: state[name] !== undefined && state[name],
+  }));
+
+  return result;
+};
 
 const updateQuery = (param: string, value: string): void => {
   if (!process.browser) return;
@@ -250,8 +265,8 @@ const updateQuery = (param: string, value: string): void => {
   window.history?.pushState(null, '', newUrl);
 };
 
-const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ queryString }) => {
-  const state = initState(queryString);
+const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
+  const state = initState(query);
 
   const extraConvinienceConf = patchInitConf(state, extraConvinienceInit);
   const rulesConf = patchInitConf(state, rulesInit);
