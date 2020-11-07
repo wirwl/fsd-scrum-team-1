@@ -6,6 +6,7 @@ import { IRootState } from 'src/redux/reducer';
 import { IRoom } from 'src/services/dto/Rooms';
 import RoomCard, { IRoomCardProps } from 'src/components/RoomCard/RoomCard';
 import Button from 'src/components/Button/Button';
+import Spinner from 'src/components/Spinner/Spinner';
 import './RoomsList.scss';
 
 const b = block('rooms');
@@ -69,7 +70,7 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
   };
 
   const getCorrectElement = (): JSX.Element => {
-    if (isFetching) return <div>Loading...</div>;
+    if (isFetching) return <div className={b('spinner')}><Spinner /></div>;
 
     if (isEmpty) {
       return (
