@@ -44,6 +44,13 @@ class Api {
     this.rooms = this.firestore.collection('rooms');
   }
 
+  async searchRoom(id: string): Promise<IRoom> {
+    const roomDoc = await this.rooms.doc(id).get();
+
+    if (roomDoc.exists) return roomDoc.data() as IRoom;
+    throw (new Error("Couldn't find room."));
+  }
+
   async searchRooms(filters: ISearchFilters): Promise<IRoom[]> {
     const {
       adults = 1,
@@ -53,27 +60,27 @@ class Api {
     } = filters;
 
     const snapshot = await this.createQueryForRooms(filters).get();
+    if (snapshot.empty) return [];
 
-    return new Promise((resolve) => {
-      const rooms: IRoom[] = [];
+    const rooms: IRoom[] = [];
 
-      if (!snapshot.empty) {
-        snapshot.forEach((item) => {
-          const roomData = item.data() as IRoom;
+    snapshot.forEach((item) => {
+      const roomData = item.data() as IRoom;
 
-          let isMatchesFilters = true;
+      let isMatchesFilters = true;
 
-          if (priceMin !== null && roomData.price < priceMin) isMatchesFilters = false;
-          if (priceMax !== null && roomData.price > priceMax) isMatchesFilters = false;
-          if (roomData.bed < adults) isMatchesFilters = false;
-          if (roomData.childBed < babies) isMatchesFilters = false;
+      if (priceMin !== null && roomData.price < priceMin) isMatchesFilters = false;
+      if (priceMax !== null && roomData.price > priceMax) isMatchesFilters = false;
+      if (roomData.bed < adults) isMatchesFilters = false;
+      if (roomData.childBed < babies) isMatchesFilters = false;
 
-          if (isMatchesFilters) rooms.push(roomData);
-        });
+      if (isMatchesFilters) {
+        roomData.id = item.id;
+        rooms.push(roomData);
       }
-
-      resolve(rooms);
     });
+
+    return rooms;
   }
 
   private createQueryForRooms(
