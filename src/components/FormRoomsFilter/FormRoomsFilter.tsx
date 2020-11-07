@@ -272,12 +272,38 @@ const updateQuery = (param: string, value: string): void => {
   window.history?.pushState(null, '', newUrl);
 };
 
+const patchCountDropdownConf = (
+  state: IFormRoomFilterState,
+  items: IDropListItem[],
+  mapper: { [key:string]: string },
+): IDropListItem[] => {
+  console.log(items);
+  return items.map((item) => {
+    const { label } = item;
+    const value = state[mapper[label]];
+    if (value !== undefined) item.count = value;
+    return item;
+  });
+};
+
 const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
   const state = initState(query);
 
   const extraConvinienceConf = patchInitConf(state, extraConvinienceInit);
   const rulesConf = patchInitConf(state, rulesInit);
   const accessibilityConf = patchInitConf(state, accessibilityInit);
+  const dropdownItemsGuestsConf = patchCountDropdownConf(
+    state,
+    dropdownItemsGuestsInit,
+    guestsLabelMap,
+  );
+
+  const dropdownItemsConvinenceConf = patchCountDropdownConf(
+    state,
+    dropdownItemsConvinenceInit,
+    convinienceLabelMap,
+  );
+
   const { price } = state;
 
   const handleSliderChange = (values: ISliderValues): void => {
@@ -351,7 +377,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
           name="guests"
           placeholder="Сколько гостей"
           defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
-          dropList={dropdownItemsGuestsInit}
+          dropList={dropdownItemsGuestsConf}
           buttons
           onChange={handleGuestsDropdownChange}
         />
@@ -385,7 +411,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
         <InputDropdown
           name=""
           placeholder="Удобства номера"
-          dropList={dropdownItemsConvinenceInit}
+          dropList={dropdownItemsConvinenceConf}
           buttons
           onChange={handleConvinienceDropdownChange}
         />
