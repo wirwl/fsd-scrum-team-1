@@ -17,9 +17,20 @@ import './FormRoomsFilter.scss';
 const b = block('form-rooms-filter');
 
 const dropdownItemsGuestsInit: IDropListItem[] = [
-  { label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
-  { label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
   {
+    id: 'adults',
+    label: 'Взрослые',
+    count: 0,
+    plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+  },
+  {
+    id: 'children',
+    label: 'Дети',
+    count: 0,
+    plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+  },
+  {
+    id: 'babies',
     label: 'Младенцы',
     count: 0,
     plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
@@ -28,9 +39,20 @@ const dropdownItemsGuestsInit: IDropListItem[] = [
 ];
 
 const dropdownItemsConvinenceInit: IDropListItem[] = [
-  { label: 'Спальни', count: 0, plurals: { one: 'спальня', two: 'спальни', few: 'спален' } },
-  { label: 'Кровати', count: 0, plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' } },
   {
+    id: 'bedroom',
+    label: 'Спальни',
+    count: 0,
+    plurals: { one: 'спальня', two: 'спальни', few: 'спален' },
+  },
+  {
+    id: 'bed',
+    label: 'Кровати',
+    count: 0,
+    plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' },
+  },
+  {
+    id: 'bathroom',
     label: 'Ванные комнаты',
     count: 0,
     plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' },
@@ -131,18 +153,6 @@ type IFormRoomFilterProps = {
   onChange: (params: IFormRoomFilterState) => void;
 };
 
-const guestsLabelMap: { [key:string]: string; } = {
-  Взрослые: 'gAdults',
-  Дети: 'gChilds',
-  Младенцы: 'gToddlers',
-};
-
-const convinienceLabelMap: { [key:string]: string; } = {
-  Спальни: 'bedroom',
-  Кровати: 'bed',
-  'Ванные комнаты': 'bathroom',
-};
-
 const normalizeQueryNumber = (value: string): number => {
   let result = parseInt(value, 10);
   result = Number.isNaN(result) ? 0 : result;
@@ -167,7 +177,7 @@ const initState = (query: Record<string, string>): IFormRoomFilterState => {
     result.dateRange = (dateRange as [number, number]);
   }
 
-  ['gToddlers', 'gChilds', 'gAdults'].forEach((key) => {
+  ['adults', 'children', 'babies'].forEach((key) => {
     const value = query[key];
     if (value !== undefined) result[key] = parseInt(value, 10);
   });
@@ -277,12 +287,12 @@ const updateQuery = (param: string, value: string): void => {
 const patchCountDropdownConf = (
   state: IFormRoomFilterState,
   items: IDropListItem[],
-  mapper: { [key:string]: string },
 ): IDropListItem[] => {
+  console.log('aslkdjf');
   return items.map((item) => {
-    const { label } = item;
-    const value = state[mapper[label]];
-    if (value !== undefined) item.count = value;
+    const { id } = item;
+    const value = state[id];
+    if (value !== undefined) return { ...item, count: value };
     return item;
   });
 };
@@ -297,13 +307,11 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   const dropdownItemsGuestsConf = patchCountDropdownConf(
     state,
     dropdownItemsGuestsInit,
-    guestsLabelMap,
   );
 
   const dropdownItemsConvinenceConf = patchCountDropdownConf(
     state,
     dropdownItemsConvinenceInit,
-    convinienceLabelMap,
   );
 
   const { price } = state;
@@ -377,13 +385,12 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   };
 
   const handleGuestsDropdownChange = (values: IDropListItem[]): void => {
-    values.forEach(({ label, count }) => {
-      const key = guestsLabelMap[label];
-      updateQuery(key, count === 0 ? '' : count.toString());
+    values.forEach(({ id, count }) => {
+      updateQuery(id, count === 0 ? '' : count.toString());
     });
 
     const newState = values
-      .reduce((acc, { label, count }) => ({ ...acc, [guestsLabelMap[label]]: count }), {});
+      .reduce((acc, { id, count }) => ({ ...acc, [id]: count }), {});
 
     setState((prevState) => ({
       ...prevState,
@@ -392,12 +399,11 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   };
 
   const handleConvinienceDropdownChange = (values: IDropListItem[]): void => {
-    values.forEach(({ label, count }) => {
-      const key = convinienceLabelMap[label];
-      updateQuery(key, count === 0 ? '' : count.toString());
+    values.forEach(({ id, count }) => {
+      updateQuery(id, count === 0 ? '' : count.toString());
     });
     const newState = values
-      .reduce((acc, { label, count }) => ({ ...acc, [convinienceLabelMap[label]]: count }), {});
+      .reduce((acc, { id, count }) => ({ ...acc, [id]: count }), {});
 
     setState((prevState) => ({
       ...prevState,
