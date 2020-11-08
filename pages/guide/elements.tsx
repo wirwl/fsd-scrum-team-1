@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import MainLayout from 'src/layouts/MainLayout/MainLayout';
+import GuideLayout from 'src/layouts/GuideLayout/GuideLayout';
 
 const Elements: FC = () => (
-  <MainLayout title="Elements">
+  <GuideLayout title="Elements">
     <h1>Elements Page</h1>
-  </MainLayout>
+  </GuideLayout>
 );
 
 export default Elements;

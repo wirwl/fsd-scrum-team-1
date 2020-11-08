@@ -1,0 +1,127 @@
+@import '@styles/variables.scss';
+
+.guide-index {
+  display: flex;
+  justify-content: start;
+
+  $block: &;
+
+  &__colors {
+    width: 50%;
+
+    list-style-type: none;
+
+    padding-left: 0;
+  }
+
+  &__color-item {
+    display: flex;
+
+    margin-bottom: 20px;
+  }
+
+  &__color-block {
+    display: block;
+    width: 70px;
+    height: 70px;
+
+    margin-right: 40px;
+
+    border-radius: 6px;
+
+    &_with-100-shade {
+      background-color: $font-color;
+    }
+
+    &_with-75-shade {
+      background-color: $font-color-light75;
+    }
+
+    &_with-50-shade {
+      background-color: $font-color-light50;
+    }
+
+    &_with-25-shade {
+      background-color: $font-color-light25;
+    }
+
+    &_with-5-shade {
+      background-color: $font-color-light5;
+    }
+
+    &_with-purple {
+      background-color: $main-color;
+    }
+
+    &_with-green {
+      background-color: $second-color;
+    }
+  }
+
+  &__color-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__color-description {
+    text-transform: uppercase;
+  }
+
+  &__types {
+    width: 50%;
+
+    list-style-type: none;
+
+    padding-left: 0;
+  }
+
+  &__types-item {
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+
+    &:last-child #{$block}__types-title {
+      width: 85px;
+    }
+  }
+
+  &__types-title {
+    display: block;
+    min-width: 70px;
+
+    color: $font-color-light25;
+
+    margin-right: 20px;
+
+    font-weight: 400;
+  }
+
+  &__types-example {
+
+    &_with-h1 {
+      font-family: $header-font;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 30px;
+    }
+
+    &_with-h2 {
+      font-family: $header-font;
+      font-size: 19px;
+      font-weight: bold;
+      line-height: 24px;
+    }
+
+    &_with-h3 {
+      font-family: $main-font;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 15px;
+      text-transform: uppercase;
+    }
+
+    &_with-body {
+      font-size: 14px;
+    }
+  }
+}
