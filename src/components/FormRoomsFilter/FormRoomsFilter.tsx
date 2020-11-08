@@ -112,7 +112,6 @@ const updateQuery = (param: string, value: string): void => {
   }
 
   const newUrl = `${window.location.pathname}?${url}`;
-  // window.history?.pushState(null, '', decodeURIComponent(newUrl));
   window.history?.pushState(null, '', newUrl);
 };
 
