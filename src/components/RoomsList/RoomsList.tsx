@@ -23,7 +23,7 @@ const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
     roomNumber,
     rate,
     isLux,
-    n,
+    id,
   } = inputData;
 
   const roomCardData = {
@@ -36,8 +36,8 @@ const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
     roomNumber,
     stars: rate,
     isLuxury: isLux,
-    hrefToReviews: `/rooms/${n}#reviews`,
-    hrefToRoomInfo: `/rooms/${n}`,
+    hrefToReviews: `/rooms/${id}#reviews`,
+    hrefToRoomInfo: `/rooms/${id}`,
   };
 
   return roomCardData;
