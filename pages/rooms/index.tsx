@@ -51,21 +51,21 @@ const getParamsFromState = (state: IFormRoomFilterState): IFilterStateRecord => 
   };
 };
 
-const normalizeId = (id: string): number => {
-  const numberId = parseInt(id, 10);
-  if (Number.isNaN(numberId)) return 0;
-  if (numberId < 0) return 0;
-  return numberId;
+const normalizeN = (n: string): number => {
+  const numberN = parseInt(n, 10);
+  if (Number.isNaN(numberN)) return 0;
+  if (numberN < 0) return 0;
+  return numberN;
 };
 
 const getParamsFromQuery = (query: Record<string, string>): ISearchFilters => {
   const state = initState(query);
 
-  const id = query.id === undefined ? 0 : normalizeId(query.id);
+  const n = query.n === undefined ? 0 : normalizeN(query.n);
 
   const stateParams = getParamsFromState(state);
 
-  return { id, ...stateParams };
+  return { n, ...stateParams };
 };
 
 const Rooms: FC<IRoomsProps> = ({ query }) => {
@@ -78,18 +78,18 @@ const Rooms: FC<IRoomsProps> = ({ query }) => {
 
   const handleFormRoomsFilterChange = (stateQuery: IFormRoomFilterState): void => {
     const params = getParamsFromState(stateQuery);
-    updateQuery('id', '');
-    setFilters({ id: 0, ...params });
+    updateQuery('n', '');
+    setFilters({ n: 0, ...params });
   };
 
   const handleLoadMoreButtonClick = (): void => {
     if (!process.browser) return;
     const url = new URLSearchParams(window?.location.search);
-    const idString = url.get('id');
-    const id = (idString === null ? 0 : normalizeId(idString)) + ROOMS_PER_PAGE;
+    const nString = url.get('n');
+    const n = (nString === null ? 0 : normalizeN(nString)) + ROOMS_PER_PAGE;
 
-    updateQuery('id', (id).toString());
-    setFilters((prevState) => ({ ...prevState, id }));
+    updateQuery('n', (n).toString());
+    setFilters((prevState) => ({ ...prevState, n }));
   };
 
   return (
