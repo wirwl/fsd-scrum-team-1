@@ -278,3 +278,13 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
 };
 
 export default FormRoomsFilter;
+
+export {
+  initState,
+  updateQuery,
+};
+
+export type {
+  IFormRoomFilterState,
+  IFilterStateRecord,
+};

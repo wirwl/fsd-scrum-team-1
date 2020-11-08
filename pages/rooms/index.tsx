@@ -1,113 +1,125 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { block } from 'bem-cn';
 import { END } from 'redux-saga';
+import { useDispatch } from 'react-redux';
 
 import type { ISearchFilters } from 'src/services/Api';
+import type { IFilterStateRecord, IFormRoomFilterState } from 'src/components/FormRoomsFilter/FormRoomsFilter';
+
 import wrapper, { ISagaStore } from 'src/redux/store';
 import { fetchRooms } from 'src/redux/room/roomActions';
 import { IRoomsState } from 'src/redux/room/roomReducer';
 
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
-import FormRoomsFilter from 'src/components/FormRoomsFilter/FormRoomsFilter';
+import FormRoomsFilter, {
+  initState,
+  updateQuery,
+} from 'src/components/FormRoomsFilter/FormRoomsFilter';
 import RoomsList from 'src/components/RoomsList/RoomsList';
 
 import './RoomsIndex.scss';
 
+const ROOMS_PER_PAGE = 12;
+
 type IRoomsProps = {
-  queryString: string;
+  query: Record<string, string>;
   rooms: IRoomsState;
 };
 
 const b = block('rooms-page');
 
-const getParamsFromQuery = (queryString: string): ISearchFilters => {
-  const params: ISearchFilters = {
-    id: 0,
+const getParamsFromState = (state: IFormRoomFilterState): IFilterStateRecord => {
+  const result: IFilterStateRecord = {};
+
+  const { price } = state;
+
+  const priceParams: IFilterStateRecord = price === undefined
+    ? {}
+    : { priceMin: price[0], priceMax: price[1] };
+
+  const allParams = state as IFilterStateRecord;
+
+  Object.keys(state)
+    .forEach((key) => {
+      const value = allParams[key];
+      if (value !== false) result[key] = value;
+    });
+
+  return {
+    ...priceParams,
+    ...result,
   };
-
-  const url = new URLSearchParams(queryString);
-
-  const id = url.get('id');
-  params.id = id === null ? 0 : parseInt(id, 10);
-
-  const adults = url.get('gAdults');
-  if (adults !== null) {
-    params.adults = parseInt(adults, 10);
-  }
-
-  const babies = url.get('gToddlers');
-  if (babies !== null) {
-    params.babies = parseInt(babies, 10);
-  }
-
-  const priceQuery = url.get('price');
-  if (priceQuery !== null) {
-    const price = priceQuery.split(',').map((p) => parseInt(p, 10));
-    const [min, max] = price;
-    params.priceMin = min;
-    params.priceMax = max;
-  }
-
-  const rulesQuery = url.get('rules');
-  const allRules = ['petsAllowed', 'smokingAllowed', 'guestsAllowed'];
-  if (rulesQuery !== null) {
-    rulesQuery.split(',').forEach(
-      (key) => {
-        if (allRules.indexOf(key) >= 0) params[key] = true;
-      },
-    );
-  }
-
-  const accessibilityQuery = url.get('accessibility');
-  const allAccessibility = ['wideCorridor', 'assistantForDisabled'];
-  if (accessibilityQuery !== null) {
-    accessibilityQuery.split(',').forEach(
-      (key) => {
-        if (allAccessibility.indexOf(key) >= 0) params[key] = true;
-      },
-    );
-  }
-
-  const extraConvinienceQuery = url.get('rules');
-  const allExtraConvinience = ['breakfast', 'desk', 'feedingChair', 'smallBad', 'tv', 'shampoo'];
-  if (extraConvinienceQuery !== null) {
-    extraConvinienceQuery.split(',').forEach(
-      (key) => {
-        if (allExtraConvinience.indexOf(key) >= 0) params[key] = true;
-      },
-    );
-  }
-
-  return params;
 };
 
-const Rooms: FC<IRoomsProps> = ({ queryString }) => (
-  <MainLayout title="Rooms">
-    <div className={b()}>
-      <aside className={b('filters')}>
-        <FormRoomsFilter queryString={queryString} />
-      </aside>
+const normalizeId = (id: string): number => {
+  const numberId = parseInt(id, 10);
+  if (Number.isNaN(numberId)) return 0;
+  if (numberId < 0) return 0;
+  return numberId;
+};
 
-      <section className={b('rooms')}>
-        <RoomsList onShowMoreButtonClick={() => {}} />
-      </section>
-    </div>
-  </MainLayout>
-);
+const getParamsFromQuery = (query: Record<string, string>): ISearchFilters => {
+  const state = initState(query);
+
+  const id = query.id === undefined ? 0 : normalizeId(query.id);
+
+  const stateParams = getParamsFromState(state);
+
+  return { id, ...stateParams };
+};
+
+const Rooms: FC<IRoomsProps> = ({ query }) => {
+  const dispatch = useDispatch();
+  const [filters, setFilters] = useState<ISearchFilters>(() => getParamsFromQuery(query));
+
+  useEffect(() => {
+    dispatch(fetchRooms(filters));
+  }, [filters]);
+
+  const handleFormRoomsFilterChange = (stateQuery: IFormRoomFilterState): void => {
+    const params = getParamsFromState(stateQuery);
+    updateQuery('id', '');
+    setFilters({ id: 0, ...params });
+  };
+
+  const handleLoadMoreButtonClick = (): void => {
+    if (!process.browser) return;
+    const url = new URLSearchParams(window?.location.search);
+    const idString = url.get('id');
+    const id = (idString === null ? 0 : normalizeId(idString)) + ROOMS_PER_PAGE;
+
+    updateQuery('id', (id).toString());
+    setFilters((prevState) => ({ ...prevState, id }));
+  };
+
+  return (
+    <MainLayout title="Rooms">
+      <div className={b()}>
+        <aside className={b('filters')}>
+          <FormRoomsFilter
+            query={query}
+            onChange={handleFormRoomsFilterChange}
+          />
+        </aside>
+
+        <section className={b('rooms')}>
+          <RoomsList onShowMoreButtonClick={handleLoadMoreButtonClick} />
+        </section>
+      </div>
+    </MainLayout>
+  );
+};
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store, req }) => {
-    const url = req.url?.split('?')[1];
-    const queryString = url === undefined ? '' : url;
-
-    const queryParams: ISearchFilters = getParamsFromQuery(queryString);
+  async ({ store, query }) => {
+    const queryParams: ISearchFilters = getParamsFromQuery(query as Record<string, string>);
 
     store.dispatch(fetchRooms(queryParams));
     store.dispatch(END);
     await (store as ISagaStore).sagaTask?.toPromise();
 
     return {
-      props: { queryString },
+      props: { query },
     };
   },
 );
