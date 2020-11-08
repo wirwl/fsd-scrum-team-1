@@ -5,11 +5,11 @@ import {
   useCallback,
 } from 'react';
 import Slider, { ISliderValues } from 'src/components/Slider/Slider';
+import { initPriceState } from 'src/components/FormRoomsFilter/helpers';
 
 const MIN_PRICE = 10000;
 const MAX_PRICE = 40000;
 const SLIDER_STEP = 100;
-const PRICE_DEFAULT: [number, number] = [MIN_PRICE, MAX_PRICE];
 
 const useDebouncedEffect = (
   effect: () => void,
@@ -34,29 +34,10 @@ type ISliderFilterProps = {
   onChange: (price: ISliderValues, priceString: string) => void;
 };
 
-const isPriceValid = (price: number[]): boolean => (
-  price.length === 2
-  && price.filter((p) => Number.isNaN(p)).length === 0
-  && price[0] >= MIN_PRICE
-  && price[1] <= MAX_PRICE
-);
-
-const initState = (query: Record<string, string>): [number, number] => {
-  const priceValue = query.price;
-  if (priceValue === undefined) return PRICE_DEFAULT;
-
-  const price = priceValue.split('-')
-    .map((p) => parseInt(p, 10));
-
-  if (price.length !== 2) return PRICE_DEFAULT;
-
-  if (!isPriceValid(price)) PRICE_DEFAULT;
-
-  return price as [number, number];
-};
-
 const SliderFilter: FC<ISliderFilterProps> = ({ query, onChange }) => {
-  const [state, setState] = useState<ISliderValues>(initState(query));
+  const [state, setState] = useState<ISliderValues>(
+    () => initPriceState(query, MIN_PRICE, MAX_PRICE),
+  );
 
   const handleSliderSlide = (values: ISliderValues): void => setState(values);
 

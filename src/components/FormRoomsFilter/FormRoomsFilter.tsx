@@ -1,22 +1,32 @@
 import { FC, useState, useEffect } from 'react';
 import { block } from 'bem-cn';
 
-import DatePicker from 'src/components/DatePicker/DatePicker';
-import InputDropdown from 'src/components/InputDropdown/InputDropdown';
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
+import type {
+  IDateRangeFilter,
+} from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
+
+import InputDropdownFilter from 'src/components/FormRoomsFilter/components/InputDropdownFilter/InputDropdownFilter';
 import { ISliderValues } from 'src/components/Slider/Slider';
-import Accordeon from 'src/components/Accordion/Accordion';
-import CheckboxGroup from 'src/components/CheckboxGroup/CheckboxGroup';
+import AccordeonFilter from 'src/components/FormRoomsFilter/components/AccordeonFilter/AccordeonFilter';
+import GroupCheckboxFilter from 'src/components/FormRoomsFilter/components/GroupCheckboxFilter/GroupCheckboxFilter';
 import SliderFilter, {
   MIN_PRICE,
   MAX_PRICE,
 } from 'src/components/FormRoomsFilter/components/SliderFilter/SliderFilter';
+import DatePickerFilter from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
+import {
+  initDateRangeState,
+  initPriceState,
+  initCheckboxGroupState,
+  initDropdownState,
+} from 'src/components/FormRoomsFilter/helpers';
 
 import './FormRoomsFilter.scss';
 
 const b = block('form-rooms-filter');
 
-const dropdownItemsGuestsInit: IDropListItem[] = [
+const dropdownGuestsInit: IDropListItem[] = [
   {
     id: 'adults',
     label: 'Взрослые',
@@ -94,8 +104,16 @@ const extraConvinienceInit = [
 ];
 
 const rulesInit = [
-  { label: 'Можно курить', name: 'smokingAllowed', checked: false },
-  { label: 'Можно с питомцами', name: 'petsAllowed', checked: false },
+  {
+    label: 'Можно курить',
+    name: 'smokingAllowed',
+    checked: false,
+  },
+  {
+    label: 'Можно с питомцами',
+    name: 'petsAllowed',
+    checked: false,
+  },
   {
     label: 'Можно пригласить гостей (до 10 человек)',
     name: 'guestsAllowed',
@@ -122,7 +140,7 @@ type IFormRoomFilterState = {
   adults?: number;
   children?: number;
   babies?: number;
-  dateRange?: [number, number];
+  dateRange?: { start: number, end: number };
 
   bed: number;
   bedroom: number;
@@ -153,123 +171,33 @@ type IFormRoomFilterProps = {
   onChange: (params: IFormRoomFilterState) => void;
 };
 
-const normalizeQueryNumber = (value: string): number => {
-  let result = parseInt(value, 10);
-  result = Number.isNaN(result) ? 0 : result;
-  return result < 0 ? 0 : result;
-};
-
-const isPriceValid = (price: number[]): boolean => (
-  price.length === 2
-  && price.filter((p) => Number.isNaN(p)).length === 0
-  && price[0] >= MIN_PRICE
-  && price[1] <= MAX_PRICE
-);
-
-type IFilterStateRecord = Record<string, number | [number, number] | string[] | boolean>;
+type IFilterStateRecord =Record<
+string,
+number | [number, number] | string[] | boolean | IDateRangeFilter
+>;
 
 const initState = (query: Record<string, string>): IFormRoomFilterState => {
-  const result: IFilterStateRecord = {};
+  let result: IFilterStateRecord = {};
 
-  const dateRangeValue = query.dateRange;
-  if (dateRangeValue !== undefined) {
-    const dateRange = dateRangeValue.split('-')
-      .map((p) => parseInt(p, 10));
+  result.price = initPriceState(query, MIN_PRICE, MAX_PRICE);
 
-    result.dateRange = (dateRange as [number, number]);
-  }
+  const dateRange = initDateRangeState(query);
+  if (dateRange !== null) result.dateRange = dateRange;
 
-  ['adults', 'children', 'babies'].forEach((key) => {
-    const value = query[key];
-    if (value !== undefined) result[key] = parseInt(value, 10);
-  });
+  const guests = initDropdownState(query, dropdownGuestsInit);
+  const convinience = initDropdownState(query, dropdownItemsConvinenceInit);
+  result = { ...result, ...guests, ...convinience };
 
-  ['bed', 'bedroom', 'bathroom'].forEach((key): void => {
-    const value = query[key];
+  const rules = initCheckboxGroupState('rules', query, rulesInit);
+  Object.keys(rules).forEach((key) => { result[key] = rules[key]; });
 
-    if (value !== undefined) {
-      result[key] = normalizeQueryNumber(value);
-      return;
-    }
+  const accessibility = initCheckboxGroupState('accessiblility', query, accessibilityInit);
+  Object.keys(accessibility).forEach((key) => { result[key] = accessibility[key]; });
 
-    result[key] = 0;
-  });
-
-  const priceValue = query.price;
-  if (priceValue !== undefined) {
-    const price = priceValue.split('-')
-      .map((p) => parseInt(p, 10));
-
-    if (isPriceValid(price)) result.price = (price as [number, number]);
-  } else {
-    result.price = [MIN_PRICE, MAX_PRICE];
-  }
-
-  const allRules = ['petsAllowed', 'smokingAllowed', 'guestsAllowed'];
-  allRules.forEach((key) => {
-    result[key] = false;
-  });
-
-  const { rules } = query;
-  if (rules !== undefined) {
-    rules.split(',').forEach((key) => {
-      if (allRules.indexOf(key) >= 0) {
-        result[key] = true;
-      }
-    });
-  }
-
-  const allAccessibility = ['wideCorridor', 'assistantForDisabled'];
-  allAccessibility.forEach((key) => {
-    result[key] = false;
-  });
-
-  const { accessibility } = query;
-  if (accessibility !== undefined) {
-    accessibility.split(',').forEach((key) => {
-      if (allAccessibility.indexOf(key) >= 0) {
-        result[key] = true;
-      }
-    });
-  }
-
-  const allExtraConvinience = [
-    'breakfast',
-    'desk',
-    'feedingChair',
-    'smallBad',
-    'tv',
-    'shampoo',
-  ];
-  allExtraConvinience.forEach((key) => {
-    result[key] = false;
-  });
-
-  const { extraConvinience } = query;
-  if (extraConvinience !== undefined) {
-    extraConvinience.split(',').forEach((key) => {
-      if (allExtraConvinience.indexOf(key) >= 0) {
-        result[key] = true;
-      }
-    });
-  }
+  const extraConvinience = initCheckboxGroupState('extraConvinience', query, extraConvinienceInit);
+  Object.keys(extraConvinience).forEach((key) => { result[key] = extraConvinience[key]; });
 
   return result as IFormRoomFilterState;
-};
-
-const patchInitConf = (
-  state: IFormRoomFilterState,
-  items: ICheckboxProps[],
-): ICheckboxProps[] => {
-  const result = items.map(({ name, label, description }) => ({
-    name,
-    label,
-    description,
-    // @ts-ignore
-    checked: state[name] !== undefined && state[name],
-  }));
-
-  return result;
 };
 
 const updateQuery = (param: string, value: string): void => {
@@ -282,40 +210,13 @@ const updateQuery = (param: string, value: string): void => {
     url.delete(param);
   }
 
-  const newUrl = `${window.location.pathname}?${url.toString()}`;
+  const newUrl = `${window.location.pathname}?${url}`;
+  // window.history?.pushState(null, '', decodeURIComponent(newUrl));
   window.history?.pushState(null, '', newUrl);
-};
-
-const patchCountDropdownConf = (
-  state: IFormRoomFilterState,
-  items: IDropListItem[],
-): IDropListItem[] => {
-  console.log('aslkdjf');
-  return items.map((item) => {
-    // let id: 'bed' | 'bedroom' | 'bathroom' | 'adults' | 'children' | 'babies';
-    const { id } = item;
-    console.log(id);
-    const value = state[id];
-    if (value !== undefined) return { ...item, count: value };
-    return item;
-  });
 };
 
 const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   const [state, setState] = useState<IFormRoomFilterState>(initState(query));
-
-  const extraConvinienceConf = patchInitConf(state, extraConvinienceInit);
-  const rulesConf = patchInitConf(state, rulesInit);
-  const accessibilityConf = patchInitConf(state, accessibilityInit);
-  const dropdownItemsGuestsConf = patchCountDropdownConf(
-    state,
-    dropdownItemsGuestsInit,
-  );
-
-  const dropdownItemsConvinenceConf = patchCountDropdownConf(
-    state,
-    dropdownItemsConvinenceInit,
-  );
 
   useEffect(() => {
     onChange(state);
@@ -332,56 +233,44 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     }));
   };
 
-  const handleDatePickerChange = ({ start, end }: RangeDays): void => {
-    const tStart = (new Date(start as Date)).getTime();
-    const tEnd = (new Date(end as Date)).getTime();
-
-    updateQuery('dateRange', `${tStart}-${tEnd}`);
+  const handleDatePickerChange = (
+    dateRange: IDateRangeFilter,
+    dateRangeString: string,
+  ): void => {
+    updateQuery('dateRange', dateRangeString);
     setState((prevState) => ({
       ...prevState,
-      dateRange: [tStart, tEnd],
+      dateRange,
     }));
   };
 
   const handleCheckboxRulesChange = (
-    values: { [key:string]: boolean },
+    rules: Record<string, boolean>,
+    rulesString: string,
   ): void => {
-    const value = Object
-      .keys(values)
-      .filter((key) => values[key])
-      .join(',');
-
-    updateQuery('rules', value);
+    updateQuery('rules', rulesString);
     setState((prevState) => ({
       ...prevState,
-      ...values,
+      ...rules,
     }));
   };
 
   const handleCheckboxAccessibilityChange = (
-    values: { [key:string]: boolean },
+    accessibilities: Record<string, boolean>,
+    accessibilityString: string,
   ): void => {
-    const value = Object
-      .keys(values)
-      .filter((key) => values[key])
-      .join(',');
-
-    updateQuery('accessibility', value);
+    updateQuery('accessibility', accessibilityString);
     setState((prevState) => ({
       ...prevState,
-      ...values,
+      ...accessibilities,
     }));
   };
 
-  const handleAccordeonExtraConventionChange = (
-    values: { [key:string]: boolean },
+  const handleAccordeonExtraConventienceChange = (
+    values: Record<string, boolean>,
+    valueString: string,
   ): void => {
-    const value = Object
-      .keys(values)
-      .filter((key) => values[key])
-      .join(',');
-
-    updateQuery('extraConvinience', value);
+    updateQuery('extraConvinience', valueString);
     setState((prevState) => ({
       ...prevState,
       ...values,
@@ -419,17 +308,17 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     <form className={b()}>
 
       <section className={b('field', { 'with-bottom-18': true })}>
-        <DatePicker onChange={handleDatePickerChange} />
+        <DatePickerFilter query={query} onChange={handleDatePickerChange} />
       </section>
 
       <section className={b('field', { 'with-bottom-30': true })}>
         <h3 className={b('field-title')}>гости</h3>
-        <InputDropdown
+        <InputDropdownFilter
+          query={query}
           name="guests"
           placeholder="Сколько гостей"
           defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
-          dropList={dropdownItemsGuestsConf}
-          buttons
+          initValues={dropdownGuestsInit}
           onChange={handleGuestsDropdownChange}
         />
       </section>
@@ -442,37 +331,44 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
       </section>
 
       <section className={b('field', { 'with-bottom-24': true })}>
-        <CheckboxGroup
+        <GroupCheckboxFilter
+          query={query}
+          keyValue="rules"
+          initValues={rulesInit}
           title="правила дома"
-          items={rulesConf}
           onChange={handleCheckboxRulesChange}
         />
       </section>
 
       <section className={b('field', { 'with-bottom-24': true })}>
-        <CheckboxGroup
+        <GroupCheckboxFilter
+          query={query}
+          keyValue="accessibility"
+          initValues={accessibilityInit}
           title="доступность"
-          items={accessibilityConf}
           onChange={handleCheckboxAccessibilityChange}
         />
       </section>
 
       <section className={b('field', { 'with-bottom-24': true })}>
         <h3 className={b('field-title')}>Удобства номера</h3>
-        <InputDropdown
-          name=""
+        <InputDropdownFilter
+          query={query}
+          name="convinience"
           placeholder="Удобства номера"
-          dropList={dropdownItemsConvinenceConf}
-          buttons
+          defaultLabel={false}
+          initValues={dropdownItemsConvinenceInit}
           onChange={handleConvinienceDropdownChange}
         />
       </section>
 
       <section className={b('field')}>
-        <Accordeon
-          isOpened={false}
-          checkboxList={extraConvinienceConf}
-          onChange={handleAccordeonExtraConventionChange}
+        <AccordeonFilter
+          query={query}
+          keyValue="extraConvinience"
+          initValues={extraConvinienceInit}
+          title="дополнительные удобства"
+          onChange={handleAccordeonExtraConventienceChange}
         />
       </section>
 
