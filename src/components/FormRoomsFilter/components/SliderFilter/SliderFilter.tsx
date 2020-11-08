@@ -5,6 +5,7 @@ import {
   useCallback,
 } from 'react';
 import Slider, { ISliderValues } from 'src/components/Slider/Slider';
+import { initPriceState } from 'src/components/FormRoomsFilter/helpers';
 
 const MIN_PRICE = 10000;
 const MAX_PRICE = 40000;
@@ -29,22 +30,25 @@ const useDebouncedEffect = (
 };
 
 type ISliderFilterProps = {
-  price: ISliderValues;
-  onChange: (price: ISliderValues) => void;
+  query: Record<string, string>;
+  onChange: (price: ISliderValues, priceString: string) => void;
 };
 
-const SliderFilter: FC<ISliderFilterProps> = ({ price, onChange }) => {
-  const [state, setState] = useState<ISliderValues>(price);
+const SliderFilter: FC<ISliderFilterProps> = ({ query, onChange }) => {
+  const [state, setState] = useState<ISliderValues>(
+    () => initPriceState(query, MIN_PRICE, MAX_PRICE),
+  );
 
   const handleSliderSlide = (values: ISliderValues): void => setState(values);
 
   useDebouncedEffect(() => {
-    if (state !== undefined) onChange(state);
+    if (state !== undefined) {
+      onChange(
+        state,
+        state.map((p) => p.toString()).join('-'),
+      );
+    }
   }, 200, [state]);
-
-  // useEffect(() => {
-  //   if (state !== undefined) onChange(state);
-  // }, [state]);
 
   return (
     <Slider
