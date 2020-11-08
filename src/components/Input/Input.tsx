@@ -17,8 +17,8 @@ interface IInputProps {
   validate?: 'email' | CustomValidateFunction;
   errorMessage?: string;
   onChange: (value: string, isValidValue: boolean) => void;
-  onBlur: () => void;
-  onFocus: () => void;
+  onBlur?: () => void;
+  onFocus?: () => void;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -40,8 +40,8 @@ const Input: React.FC<IInputProps> = (props) => {
     name,
     label,
     onChange,
-    onBlur,
-    onFocus,
+    onBlur = () => {},
+    onFocus = () => {},
   } = props;
 
   const [value, setValue] = useState<string>(initValue.toString());
