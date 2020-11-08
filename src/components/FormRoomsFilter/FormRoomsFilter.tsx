@@ -4,7 +4,6 @@ import {
   useEffect,
 } from 'react';
 import { block } from 'bem-cn';
-import Router from 'next/router';
 
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import type {
