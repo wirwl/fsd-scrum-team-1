@@ -40,6 +40,7 @@ type IRoomComment = {
 type IRoomInformation = 'comfort' | 'convinience' | 'cozy';
 
 type IRoom = {
+  id: string;
   n: number;
   roomNumber: number;
   bed: number;

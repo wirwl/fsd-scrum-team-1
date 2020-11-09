@@ -6,12 +6,13 @@ import { IRootState } from 'src/redux/reducer';
 import { IRoom } from 'src/services/dto/Rooms';
 import RoomCard, { IRoomCardProps } from 'src/components/RoomCard/RoomCard';
 import Button from 'src/components/Button/Button';
+import Spinner from 'src/components/Spinner/Spinner';
 import './RoomsList.scss';
 
 const b = block('rooms');
 
 interface IRoomsListProps {
-  onShowMoreButtonClick: () => void;
+  onShowMoreButtonClick: (n: number) => void;
 }
 
 const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
@@ -22,7 +23,7 @@ const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
     roomNumber,
     rate,
     isLux,
-    n,
+    id,
   } = inputData;
 
   const roomCardData = {
@@ -35,8 +36,8 @@ const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
     roomNumber,
     stars: rate,
     isLuxury: isLux,
-    hrefToReviews: `/rooms/${n}#reviews`,
-    hrefToRoomInfo: `/rooms/${n}`,
+    hrefToReviews: `/rooms/${id}#reviews`,
+    hrefToRoomInfo: `/rooms/${id}`,
   };
 
   return roomCardData;
@@ -65,11 +66,12 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
 
   const handleClick = (evt: MouseEvent): void => {
     evt.preventDefault();
-    onShowMoreButtonClick();
+    const { n } = rooms[rooms.length - 1];
+    onShowMoreButtonClick(n);
   };
 
   const getCorrectElement = (): JSX.Element => {
-    if (isFetching) return <div>Loading...</div>;
+    if (isFetching) return <div className={b('spinner')}><Spinner /></div>;
 
     if (isEmpty) {
       return (
@@ -91,7 +93,7 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
       {getCorrectElement()}
       {!isEmpty && (
         <div className={b('show-more')}>
-          <Button theme="textual" caption="Показать еще" handleClick={handleClick} />
+          <Button theme="default" caption="Показать еще" handleClick={handleClick} />
         </div>
       )}
     </section>
