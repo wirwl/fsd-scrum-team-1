@@ -12,7 +12,7 @@ import './RoomsList.scss';
 const b = block('rooms');
 
 interface IRoomsListProps {
-  onShowMoreButtonClick: () => void;
+  onShowMoreButtonClick: (n: number) => void;
 }
 
 const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
@@ -66,7 +66,8 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
 
   const handleClick = (evt: MouseEvent): void => {
     evt.preventDefault();
-    onShowMoreButtonClick();
+    const { n } = rooms[rooms.length - 1];
+    onShowMoreButtonClick(n);
   };
 
   const getCorrectElement = (): JSX.Element => {
