@@ -82,29 +82,29 @@ const Rooms: FC<IRoomsProps> = ({ query }) => {
     setFilters({ n: 0, ...params });
   };
 
-  const handleLoadMoreButtonClick = (): void => {
+  const handleLoadMoreButtonClick = (n: number): void => {
     if (!process.browser) return;
-    const url = new URLSearchParams(window?.location.search);
-    const nString = url.get('n');
-    const n = (nString === null ? 0 : normalizeN(nString)) + ROOMS_PER_PAGE;
 
     updateQuery('n', (n).toString());
     setFilters((prevState) => ({ ...prevState, n }));
+    window.scrollTo(0, 0);
   };
 
   return (
     <MainLayout title="Rooms">
       <div className={b()}>
-        <aside className={b('filters')}>
-          <FormRoomsFilter
-            query={query}
-            onChange={handleFormRoomsFilterChange}
-          />
-        </aside>
+        <div className={b('container')}>
+          <aside className={b('filters')}>
+            <FormRoomsFilter
+              query={query}
+              onChange={handleFormRoomsFilterChange}
+            />
+          </aside>
 
-        <section className={b('rooms')}>
-          <RoomsList onShowMoreButtonClick={handleLoadMoreButtonClick} />
-        </section>
+          <section className={b('rooms')}>
+            <RoomsList onShowMoreButtonClick={handleLoadMoreButtonClick} />
+          </section>
+        </div>
       </div>
     </MainLayout>
   );
