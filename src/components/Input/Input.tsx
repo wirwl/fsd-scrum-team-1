@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import './Input.scss';
 
-type CustomValidateFunction = (currentValue: string | number) => boolean;
+type CustomValidateFunction = (currentValue: string | number) => string | null;
 
 interface IInputProps {
   type?: 'text' | 'number' | 'email' | 'password';
@@ -16,9 +16,9 @@ interface IInputProps {
   label?: string;
   validate?: 'email' | CustomValidateFunction;
   errorMessage?: string;
-  onChange: (value: string, isValidValue: boolean) => void;
-  onBlur?: () => void;
-  onFocus?: () => void;
+  onChange: (value: string, name: string, errorValidate: string | null) => void;
+  onBlur?: (name: string) => void;
+  onFocus?: (name: string) => void;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -48,13 +48,13 @@ const Input: React.FC<IInputProps> = (props) => {
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
     const { value: currentValue } = ev.currentTarget;
-    let isValidValue = false;
+    let errorValidate: string | null = null;
 
-    if (typeof validate === 'function') isValidValue = validate(currentValue);
-    if (validate === 'email') isValidValue = validateAsEmail(currentValue);
+    if (typeof validate === 'function') errorValidate = validate(currentValue);
+    if (validate === 'email' && !validateAsEmail(currentValue)) errorValidate = 'Некорректный email';
 
     setValue(currentValue);
-    onChange(currentValue, isValidValue);
+    onChange(currentValue, name, errorValidate);
   };
 
   const bemMods: { [index: string]: string | boolean | undefined } = {
@@ -77,9 +77,9 @@ const Input: React.FC<IInputProps> = (props) => {
           placeholder={placeholder}
           type={type}
           value={value}
-          onBlur={onBlur}
+          onBlur={() => onBlur(name)}
           onChange={handleChange}
-          onFocus={onFocus}
+          onFocus={() => onFocus(name)}
           mask={mask}
           maskChar=""
           name={name}
