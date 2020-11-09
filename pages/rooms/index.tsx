@@ -7,8 +7,8 @@ import type { ISearchFilters } from 'src/services/Api';
 import type { IFilterStateRecord, IFormRoomFilterState } from 'src/components/FormRoomsFilter/FormRoomsFilter';
 
 import wrapper, { ISagaStore } from 'src/redux/store';
-import { fetchRooms } from 'src/redux/room/roomActions';
-import { IRoomsState } from 'src/redux/room/roomReducer';
+import { fetchRooms } from 'src/redux/rooms/roomsActions';
+import { IRoomsState } from 'src/redux/rooms/roomsReducer';
 
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 import FormRoomsFilter, {

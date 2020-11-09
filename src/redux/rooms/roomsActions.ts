@@ -7,7 +7,7 @@ import {
   IFetchRoomsAction,
   IFetchRoomsSuccessAction,
   IFetchRoomsFailAction,
-} from './roomTypes';
+} from './roomsTypes';
 
 export const fetchRooms = (
   params: ISearchFilters,

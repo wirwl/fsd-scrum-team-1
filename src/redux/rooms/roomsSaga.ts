@@ -5,12 +5,12 @@ import Api from 'src/services/Api';
 import {
   FETCH_ROOMS,
   FETCH_ROOMS_FETCHING,
-} from 'src/redux/room/roomTypes';
+} from 'src/redux/rooms/roomsTypes';
 import {
   fetchRooms,
   fetchRoomsSuccess,
   fetchRoomsFail,
-} from 'src/redux/room/roomActions';
+} from 'src/redux/rooms/roomsActions';
 
 const api = new Api();
 

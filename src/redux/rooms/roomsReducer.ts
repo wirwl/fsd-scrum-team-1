@@ -4,7 +4,7 @@ import {
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAIL,
   FETCH_ROOMS_FETCHING,
-} from './roomTypes';
+} from './roomsTypes';
 
 type IRoomsState = {
   items: IRoom[];
