@@ -78,7 +78,7 @@ const Rooms: FC<IRoomsProps> = ({ query }) => {
 
   const handleFormRoomsFilterChange = (stateQuery: IFormRoomFilterState): void => {
     const params = getParamsFromState(stateQuery);
-    updateQuery('n', '');
+    updateQuery('n', '0');
     setFilters({ n: 0, ...params });
   };
 
