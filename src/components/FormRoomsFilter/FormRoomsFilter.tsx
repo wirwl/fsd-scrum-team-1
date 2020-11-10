@@ -2,8 +2,10 @@ import {
   FC,
   useState,
   useEffect,
+  useRef,
 } from 'react';
 import { block } from 'bem-cn';
+import isEqual from 'lodash/isEqual';
 
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import type {
@@ -75,13 +77,34 @@ string,
 number | [number, number] | string[] | boolean | IDateRangeFilter
 >;
 
+const usePrevious = (
+  value: IFormRoomFilterState,
+): IFormRoomFilterState | undefined => {
+  const ref = useRef<IFormRoomFilterState>();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+};
+
+const isStatesEquals = (
+  prevFiltersState: IFormRoomFilterState | undefined,
+  filters: IFormRoomFilterState,
+):boolean => (
+  prevFiltersState === undefined || isEqual(prevFiltersState, filters)
+);
+
 const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   const [filters, setFilters] = useState<IFormRoomFilterState>(
     initState(query, MIN_PRICE, MAX_PRICE),
   );
 
+  const prevFiltersState = usePrevious(filters);
+
   useEffect(() => {
-    onChange(filters);
+    if (!isStatesEquals(prevFiltersState, filters)) onChange(filters);
   }, [filters]);
 
   const handleSliderChange = (
