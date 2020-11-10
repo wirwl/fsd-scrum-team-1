@@ -55,7 +55,7 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
     const roomData = convertDataForRoomCard(room);
 
     return (
-      <li className={b('item')} key={room.n}>
+      <li className={b('item')} key={room.id}>
         <RoomCard info={roomData} />
       </li>
     );
