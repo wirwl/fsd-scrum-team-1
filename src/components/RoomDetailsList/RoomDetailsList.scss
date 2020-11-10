@@ -4,6 +4,7 @@
 
   &__header {
     font-family: $header-font;
+    color: $font-color;
   }
 
   &__list {
@@ -16,7 +17,7 @@
   }
 
   &__item:not(:last-child) {
-    border-bottom: 1px solid $font-color-light10;    
+    border-bottom: 0.0625rem solid $font-color-light10;    
     margin-bottom: 1.25rem;
   }
   
