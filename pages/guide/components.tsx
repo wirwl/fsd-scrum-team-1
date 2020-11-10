@@ -72,7 +72,7 @@ const Components: FC = () => (
     <Slider currentValues={[5000, 10000]} onChange={() => {}} />
     <Pagination totalItemCount={175} limitPerPage={12} />
     <Comment
-      avatar={{ src: 'http://placeimg.com/320/220/animals' }}
+      avatar={{ src: 'http://placeimg.com/320/220/animals', alt: 'Мурад Сарафанов' }}
       likes={12}
       likeButtonChecked
       publicationDate="5 дней назад"

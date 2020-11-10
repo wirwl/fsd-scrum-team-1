@@ -7,7 +7,7 @@ import './Comment.scss';
 interface ICommentProps {
   userName: string;
   publicationDate: string;
-  avatar: { src: string; alt?: string; };
+  avatar: { src: string; alt: string; };
   likes: number;
   likeButtonChecked: boolean;
   text: string;
