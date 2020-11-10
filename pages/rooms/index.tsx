@@ -19,8 +19,6 @@ import RoomsList from 'src/components/RoomsList/RoomsList';
 
 import './RoomsIndex.scss';
 
-const ROOMS_PER_PAGE = 12;
-
 type IRoomsProps = {
   query: Record<string, string>;
   rooms: IRoomsState;
