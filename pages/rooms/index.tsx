@@ -11,11 +11,16 @@ import { fetchRooms } from 'src/redux/rooms/roomsActions';
 import { IRoomsState } from 'src/redux/rooms/roomsReducer';
 
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
-import FormRoomsFilter, {
+import FormRoomsFilter from 'src/components/FormRoomsFilter/FormRoomsFilter';
+import {
   initState,
   updateQuery,
-} from 'src/components/FormRoomsFilter/FormRoomsFilter';
+} from 'src/components/FormRoomsFilter/helpers';
 import RoomsList from 'src/components/RoomsList/RoomsList';
+import {
+  MIN_PRICE,
+  MAX_PRICE,
+} from 'src/components/FormRoomsFilter/components/SliderFilter/SliderFilter';
 
 import './RoomsIndex.scss';
 
@@ -57,7 +62,7 @@ const normalizeN = (n: string): number => {
 };
 
 const getParamsFromQuery = (query: Record<string, string>): ISearchFilters => {
-  const state = initState(query);
+  const state = initState(query, MIN_PRICE, MAX_PRICE);
 
   const n = query.n === undefined ? 0 : normalizeN(query.n);
 
