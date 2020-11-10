@@ -1,5 +1,17 @@
 import type { IDateRangeFilter } from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
+import {
+  dropdownGuestsInit,
+  dropdownConvinenceInit,
+  extraConvinienceInit,
+  rulesInit,
+  accessibilityInit,
+} from 'src/components/FormRoomsFilter/initValues';
+
+import type {
+  IFormRoomFilterState,
+  IFilterStateRecord,
+} from 'src/components/FormRoomsFilter/FormRoomsFilter';
 
 const isPriceValid = (
   price: number[],
@@ -103,9 +115,53 @@ const initDropdownState = (
   return result;
 };
 
+const initState = (
+  query: Record<string, string>,
+  minPrice: number,
+  maxPrice: number,
+): IFormRoomFilterState => {
+  let result: IFilterStateRecord = {};
+
+  result.price = initPriceState(query, minPrice, maxPrice);
+
+  const dateRange = initDateRangeState(query);
+  if (dateRange !== null) result.dateRange = dateRange;
+
+  const guests = initDropdownState(query, dropdownGuestsInit);
+  const convinience = initDropdownState(query, dropdownConvinenceInit);
+  result = { ...result, ...guests, ...convinience };
+
+  const rules = initCheckboxGroupState('rules', query, rulesInit);
+  Object.keys(rules).forEach((key) => { result[key] = rules[key]; });
+
+  const accessibility = initCheckboxGroupState('accessiblility', query, accessibilityInit);
+  Object.keys(accessibility).forEach((key) => { result[key] = accessibility[key]; });
+
+  const extraConvinience = initCheckboxGroupState('extraConvinience', query, extraConvinienceInit);
+  Object.keys(extraConvinience).forEach((key) => { result[key] = extraConvinience[key]; });
+
+  return result as IFormRoomFilterState;
+};
+
+const updateQuery = (param: string, value: string): void => {
+  if (!process.browser) return;
+
+  const url = new URLSearchParams(window.location.search);
+  if (value !== '') {
+    url.set(param, value);
+  } else {
+    url.delete(param);
+  }
+
+  const newUrl = `${window.location.pathname}?${url}`;
+  window.history?.pushState(null, '', newUrl);
+};
+
 export {
   initPriceState,
   initDateRangeState,
   initCheckboxGroupState,
   initDropdownState,
+  initState,
+  updateQuery,
 };

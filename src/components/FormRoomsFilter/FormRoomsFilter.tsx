@@ -20,18 +20,16 @@ import SliderFilter, {
 } from 'src/components/FormRoomsFilter/components/SliderFilter/SliderFilter';
 import DatePickerFilter from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
 import {
-  initDateRangeState,
-  initPriceState,
-  initCheckboxGroupState,
-  initDropdownState,
-} from 'src/components/FormRoomsFilter/helpers';
-import {
   dropdownGuestsInit,
   dropdownConvinenceInit,
   extraConvinienceInit,
   rulesInit,
   accessibilityInit,
 } from 'src/components/FormRoomsFilter/initValues';
+import {
+  initState,
+  updateQuery,
+} from 'src/components/FormRoomsFilter/helpers';
 
 import './FormRoomsFilter.scss';
 
@@ -72,63 +70,27 @@ type IFormRoomFilterProps = {
   onChange: (params: IFormRoomFilterState) => void;
 };
 
-type IFilterStateRecord =Record<
+type IFilterStateRecord = Record<
 string,
 number | [number, number] | string[] | boolean | IDateRangeFilter
 >;
 
-const initState = (query: Record<string, string>): IFormRoomFilterState => {
-  let result: IFilterStateRecord = {};
-
-  result.price = initPriceState(query, MIN_PRICE, MAX_PRICE);
-
-  const dateRange = initDateRangeState(query);
-  if (dateRange !== null) result.dateRange = dateRange;
-
-  const guests = initDropdownState(query, dropdownGuestsInit);
-  const convinience = initDropdownState(query, dropdownConvinenceInit);
-  result = { ...result, ...guests, ...convinience };
-
-  const rules = initCheckboxGroupState('rules', query, rulesInit);
-  Object.keys(rules).forEach((key) => { result[key] = rules[key]; });
-
-  const accessibility = initCheckboxGroupState('accessiblility', query, accessibilityInit);
-  Object.keys(accessibility).forEach((key) => { result[key] = accessibility[key]; });
-
-  const extraConvinience = initCheckboxGroupState('extraConvinience', query, extraConvinienceInit);
-  Object.keys(extraConvinience).forEach((key) => { result[key] = extraConvinience[key]; });
-
-  return result as IFormRoomFilterState;
-};
-
-const updateQuery = (param: string, value: string): void => {
-  if (!process.browser) return;
-
-  const url = new URLSearchParams(window.location.search);
-  if (value !== '') {
-    url.set(param, value);
-  } else {
-    url.delete(param);
-  }
-
-  const newUrl = `${window.location.pathname}?${url}`;
-  window.history?.pushState(null, '', newUrl);
-};
-
 const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
-  const [state, setState] = useState<IFormRoomFilterState>(initState(query));
+  const [filters, setFilters] = useState<IFormRoomFilterState>(
+    initState(query, MIN_PRICE, MAX_PRICE),
+  );
 
   useEffect(() => {
-    onChange(state);
-  }, [state]);
+    onChange(filters);
+  }, [filters]);
 
   const handleSliderChange = (
     values: ISliderValues,
     priceString: string,
   ): void => {
     updateQuery('price', priceString);
-    setState((prevState) => ({
-      ...prevState,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       price: values as [number, number],
     }));
   };
@@ -138,8 +100,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     dateRangeString: string,
   ): void => {
     updateQuery('dateRange', dateRangeString);
-    setState((prevState) => ({
-      ...prevState,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       dateRange,
     }));
   };
@@ -149,8 +111,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     rulesString: string,
   ): void => {
     updateQuery('rules', rulesString);
-    setState((prevState) => ({
-      ...prevState,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       ...rules,
     }));
   };
@@ -160,8 +122,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     accessibilityString: string,
   ): void => {
     updateQuery('accessibility', accessibilityString);
-    setState((prevState) => ({
-      ...prevState,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       ...accessibilities,
     }));
   };
@@ -171,8 +133,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     valueString: string,
   ): void => {
     updateQuery('extraConvinience', valueString);
-    setState((prevState) => ({
-      ...prevState,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       ...values,
     }));
   };
@@ -185,8 +147,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     const newState = values
       .reduce((acc, { id, count }) => ({ ...acc, [id]: count }), {});
 
-    setState((prevState) => ({
-      ...prevState,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       ...newState,
     }));
   };
@@ -198,8 +160,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     const newState = values
       .reduce((acc, { id, count }) => ({ ...acc, [id]: count }), {});
 
-    setState((prevState) => ({
-      ...prevState,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
       ...newState,
     }));
   };
