@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 import { FC } from 'react';
 
+import GuideLayout from '@/layouts/GuideLayout/GuideLayout';
+
 import DataPicker from '@/components/DatePicker/DatePicker';
-import MainLayout from '@/layouts/MainLayout/MainLayout';
 import Input from '@/components/Input/Input';
 import Calendar from '@/components/Calendar/Calendar';
 import Checkbox from '@/components/Checkbox/Checkbox';
@@ -36,7 +37,7 @@ const checkboxes = [
 ];
 
 const Components: FC = () => (
-  <MainLayout title="Components">
+  <GuideLayout title="Components">
     <h1>Components Page</h1>
     <RoomCard
       info={{
@@ -69,7 +70,7 @@ const Components: FC = () => (
     <Accordion checkboxList={checkboxes} />
     <Slider currentValues={[5000, 10000]} onChange={() => {}} />
     <Pagination totalItemCount={175} limitPerPage={12} />
-  </MainLayout>
+  </GuideLayout>
 );
 
 export default Components;
