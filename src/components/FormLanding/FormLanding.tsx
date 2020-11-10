@@ -13,9 +13,14 @@ interface IFormLandingProps {
 const b = block('form-landing');
 
 const dropdownItemsGuests: IDropListItem[] = [
-  { label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
-  { label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' } },
   {
+    id: 'gAdults', label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+  },
+  {
+    id: 'gChilds', label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+  },
+  {
+    id: 'gToddlers',
     label: 'Младенцы',
     count: 0,
     plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
