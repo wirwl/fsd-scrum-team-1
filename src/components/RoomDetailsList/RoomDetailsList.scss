@@ -5,6 +5,7 @@
   &__header {
     font-family: $header-font;
     color: $font-color;
+    font-size: 1.1875rem;
   }
 
   &__list {
@@ -29,10 +30,12 @@
   &__caption {
     margin-bottom: 0.375rem;
     font-weight: bold;
+    font-size: 14px;
   }
 
   &__description {
     font-size: 0.875rem;
+    margin: 0 0 17px;
   }
 
   &__icon {
