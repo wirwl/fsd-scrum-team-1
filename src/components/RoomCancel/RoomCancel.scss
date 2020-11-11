@@ -1,0 +1,18 @@
+@import '@styles/mixins.scss';
+
+.room-cancel {
+  
+  &__title {
+    margin: 0 0 1.125rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.1875rem;
+    font-family: $header-font;
+    color: $font-color;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}
