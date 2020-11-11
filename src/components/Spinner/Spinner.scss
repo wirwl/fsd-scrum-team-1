@@ -1,0 +1,45 @@
+@import '@styles/variables.scss';
+
+.loader {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &__arc {
+    position: absolute;
+    border: .125rem solid;
+    border-radius: 50%;
+    animation: load 1s infinite ease-in-out;
+
+    &_one {
+      border-color: transparent $main-color;
+      margin: 32% 0 0 32%;
+      width: 36%;
+      height: 36%;
+    }
+
+    &_two {
+      border-color: transparent $second-color;
+      margin: 40% 0 0 40%;
+      width: 20%;
+      height: 20%;
+      animation-direction: reverse;
+      animation-delay: -1s;
+    }
+  }
+}
+
+@keyframes load {
+
+  0% {
+    transform: rotate(0) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(.6);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}

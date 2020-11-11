@@ -58,9 +58,9 @@ const Components: FC = () => (
     />
     <DataPicker />
     <DataPicker withTwoInputs />
-    <Input head="text field" placeholder="Email" />
-    <Input head="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" />
-    <Input head="subscription text field" placeholder="Email" validate="email" withArrow />
+    <Input label="text field" placeholder="Email" onChange={() => {}} name="input1" />
+    <Input label="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" onChange={() => {}} name="input2" />
+    <Input label="subscription text field" placeholder="Email" validate="email" onChange={() => {}} name="input3" withArrow />
     <Calendar />
     <Checkbox label="Можно курить" />
     <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
