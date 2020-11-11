@@ -20,7 +20,7 @@ const RoomDetailsList: FC<IRoomDetailsList> = ({
   roomDetails,
 }) => (
   <div className={b()}>
-    <h2 className={b('header')}>{header}</h2>
+    <h3 className={b('header')}>{header}</h3>
     <ul className={b('list')}>
       {roomDetails.map((roomDetail) => {
         const { icon, caption, description } = roomDetail;
