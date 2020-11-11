@@ -26,7 +26,7 @@ const RoomDetailsList: FC<IRoomDetailsList> = ({
         const { icon, caption, description } = roomDetail;
         return (
           <li className={b('item')} key={icon}>
-            <div className={`${b('icon')} material-icons`}>
+            <div className={b('icon').mix('material-icons')}>
               {icon}
             </div>
             <div className={b('wrapper')}>
