@@ -1,0 +1,78 @@
+@import '@styles/mixins';
+
+.form-registration {
+  width: 100%;
+  background-color: $bg-color;
+  box-shadow: 0px 0px 1.5625rem transparentize($font-color, .8);
+  border-radius: .25rem;
+  padding-top: 2.5rem;
+  padding-left: 1.875rem;
+  padding-right: 1.875rem;
+  padding-bottom: 1.6875rem;
+
+  &__title {
+    @include h1();
+    margin-bottom: 1.25rem;
+  }
+
+  &__name {
+    margin-bottom: .625rem;
+  }
+
+  &__surname {
+    margin-bottom: .5rem;
+  }
+
+  &__radio-buttons {
+    margin-bottom: 1.375rem;
+  }
+
+  &__birthday {
+    margin-bottom: 1.25rem;
+  }
+
+  &__email {
+    margin-bottom: .625rem;
+  }
+
+  &__password {
+    margin-bottom: .5rem;
+  }
+
+  &__toggle-button {
+    margin-bottom: 1.4375rem;
+  }
+
+  &__submit-button {
+    height: 2.75rem;
+    margin-bottom: 1.8125rem;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media screen and (max-width: 25rem) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__have-account {
+    margin: 0;
+    font-size: .875rem;
+    font-family: $main-font;
+    color: $font-color;
+  }
+
+  &__login-button {
+    width: 6.1875rem;
+    height: 2.75rem;
+
+    @media screen and (max-width: 25rem) {
+      width: 100%;
+      margin-top: .625rem;
+    }
+  }
+}
