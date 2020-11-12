@@ -1,0 +1,92 @@
+@import '@styles/variables.scss';
+
+.reviews-chart {
+  display: inline-block;
+
+  &__title {
+    margin: 0 0 1.3125rem;
+    font-family: $header-font;
+    color: $font-color;
+    font-weight: bold;
+    font-size: 1.1875rem;
+    line-height: 1.5rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+
+  &__chart-wrapper {
+    position: relative;
+    width: 120px;
+    max-height: 120px;
+  }
+
+  &__chart {
+    transform: rotate(-90deg);
+  }
+
+  &__all-reviews {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    display: block;
+    color: $main-color;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+  }
+
+  &__reviews-number {
+    display: block;
+    font-family: $header-font;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  &__legend {
+    margin: 0 0 0 1.875rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__legend-item {
+    font-size: 14px;
+    white-space: nowrap;
+
+    &::before {
+      margin-right: 5px;
+      vertical-align: baseline;
+      padding: 5px;
+      border-radius: 50%;
+      content: '';
+      display: inline-block;
+    }
+
+    &_type {
+
+      &_very-good::before {
+        background: linear-gradient(180deg, #FFE39C 0%, #FFBA9C 100%);
+      }
+
+      &_good::before {
+        background: $second-color-gradient;
+      }
+
+      &_fine::before {
+        background: $main-color-gradient;
+      }
+
+      &_bad::before {
+        background: linear-gradient(180deg, #919191 0%, #3D4975 100%);
+      }
+    }
+  }
+}
