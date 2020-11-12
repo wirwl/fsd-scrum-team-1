@@ -13,17 +13,12 @@ interface IRegistrationFormProps {
   onSubmit: (data: IUserInfo) => void;
 }
 
-interface IUserInfo {
-  name: string;
-  surname: string;
-  gender: string;
-  birthday: string;
-  email: string;
-  password: string;
-  isGetSpecialOffers: boolean;
-}
-
 type IInputNames = 'name' | 'surname' | 'birthday' | 'email' | 'password';
+
+type IUserInfo = Record<IInputNames, string> & {
+  gender: string;
+  isGetSpecialOffers: boolean;
+};
 
 type IInputInfo = {
   value: string;
