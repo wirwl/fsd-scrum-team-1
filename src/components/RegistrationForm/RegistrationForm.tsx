@@ -116,6 +116,16 @@ const initialState: IRegistrationFormState = {
   gender: 'man',
 };
 
+const isFormValid = (values: IRegistrationFormState): boolean => (
+  Object.values(values).every((val) => {
+    if (typeof val === 'object') {
+      const { isValid: isValidInput } = val;
+      return isValidInput;
+    }
+    return true;
+  })
+);
+
 const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
   const [values, setValues] = useState<IRegistrationFormState>(initialState);
   const [errors, setErrors] = useState<IErrorsState>({
@@ -127,11 +137,11 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
   });
 
   const {
-    name: { value: nameValue, isValid: isValidName },
-    surname: { value: surnameValue, isValid: isValidSurname },
-    birthday: { value: birthdayValue, isValid: isValidBirthday },
-    email: { value: emailValue, isValid: isValidEmail },
-    password: { value: passwordValue, isValid: isValidPassword },
+    name: { value: nameValue },
+    surname: { value: surnameValue },
+    birthday: { value: birthdayValue },
+    email: { value: emailValue },
+    password: { value: passwordValue },
     isGetSpecialOffers,
     gender,
   } = values;
@@ -143,9 +153,6 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
     email: emailError,
     password: passwordError,
   } = errors;
-
-  const isFormValid = isValidName
-    && isValidSurname && isValidBirthday && isValidEmail && isValidPassword;
 
   const setEmptyErrors = (): void => {
     Object.entries(values).forEach(([name, val]) => {
@@ -173,7 +180,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
       isGetSpecialOffers,
     };
 
-    isFormValid ? onSubmit(formValues) : setEmptyErrors();
+    isFormValid(values) ? onSubmit(formValues) : setEmptyErrors();
   };
 
   const handleChangeRadioButton = (value: string): void => {
