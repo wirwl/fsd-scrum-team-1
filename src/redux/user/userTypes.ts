@@ -7,7 +7,9 @@ export const SIGN_IN = '@toxin/SIGN_IN';
 export const SIGN_IN_SUCCESS = '@toxin/SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = '@toxin/SIGN_IN_FAIL';
 export const SIGN_IN_REQUESTING = '@toxin/SIGN_IN_REQIESTING';
+
 export const SIGN_OUT = '@toxin/SIGN_OUT';
+export const SIGN_OUT_SUCCESS = '@toxin/SIGN_OUT_SUCCESS';
 
 export type ISignInAction = {
   type: typeof SIGN_IN;
@@ -32,9 +34,14 @@ export type ISignOutAction = {
   type: typeof SIGN_OUT;
 };
 
+export type ISignOutSuccessAction = {
+  type: typeof SIGN_OUT_SUCCESS;
+};
+
 export type IUserActionTypes =
   ISignInAction
   | ISignInSuccessAction
   | ISignInFailAction
   | ISignInRequestingAction
-  | ISignOutAction;
+  | ISignOutAction
+  | ISignOutSuccessAction;
