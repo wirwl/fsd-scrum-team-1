@@ -314,3 +314,4 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
 };
 
 export default RegistrationForm;
+export type { IUserInfo };
