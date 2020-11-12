@@ -6,7 +6,7 @@ import './RoomGallery.scss';
 const b = block('room-gallery');
 
 interface IPhoto {
-  path: string,
+  src: string,
   alt: string,
 }
 
@@ -14,15 +14,17 @@ interface IRoomGallery {
   photos: IPhoto[]
 }
 
+const generateKey = (pre: number): string => `${pre}_${new Date().getTime()}`;
+
 const RoomGallery: FC<IRoomGallery> = ({ photos }) => (
   <div className={b()}>
     {
-      photos.map((photo) => (
+      photos.map((photo, index) => (
         <img
           className={b('item')}
-          src={photo.path}
+          src={photo.src}
           alt={photo.alt}
-          key={photo.path}
+          key={generateKey(index)}
         />
       ))
     }

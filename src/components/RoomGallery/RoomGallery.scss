@@ -1,9 +1,10 @@
 .room-gallery {
   display: grid;
-  grid-template-columns: 981fr 459fr;
+  grid-template-columns: 960fr 480fr;
   grid-template-rows: 50% 50%;
   width: 100%;
   max-width: 90rem;
+  margin: 0 auto;
 
   @media (max-width: 1000px) {
     grid-template-columns: 1fr 1fr;
