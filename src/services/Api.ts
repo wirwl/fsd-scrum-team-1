@@ -4,6 +4,7 @@ import 'firebase/firestore';
 
 import firebaseConfig from 'config/firebase.json';
 import type { IRoom } from 'src/services/dto/Rooms';
+import { IUserCredentials } from '@/redux/user/userReducer';
 
 interface ISearchFilters {
   n?: number;
@@ -25,6 +26,20 @@ interface ISearchFilters {
   tv?: boolean;
   shampoo?: boolean;
 }
+
+const CODE_PASSWORD_WRONG = 'auth/wrong-password'
+const CODE_USER_NOT_FOUND = 'auth/user-not-found';
+
+const getAuthError = (code: string): string | null => {
+  switch (code) {
+    case CODE_PASSWORD_WRONG:
+      return 'Неверный пароль';
+    case CODE_USER_NOT_FOUND:
+      return 'Пользователь с таким email не был найден';
+    default:
+      return null;
+  }
+};
 
 class Api {
   auth: firebase.auth.Auth;
@@ -130,8 +145,16 @@ class Api {
 
     return query.limit(roomsOnPage);
   }
+
+  signIn({ email, password }: IUserCredentials): Promise<firebase.auth.UserCredential> {
+    return this.auth.signInWithEmailAndPassword(email, password);
+  }
 }
 
 export default Api;
+
+export {
+  getAuthError,
+};
 
 export type { ISearchFilters };

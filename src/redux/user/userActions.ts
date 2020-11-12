@@ -1,9 +1,16 @@
 import {
+  ISignInAction,
+  ISignInFailAction,
+  ISignInRequestingAction,
+  ISignInSuccessAction,
+  ISignOutAction,
+  ISignOutSuccessAction,
   SIGN_IN,
   SIGN_IN_FAIL,
   SIGN_IN_REQUESTING,
   SIGN_IN_SUCCESS,
   SIGN_OUT,
+  SIGN_OUT_SUCCESS,
 } from 'src/redux/user/userTypes';
 
 import type {
@@ -17,29 +24,33 @@ import type {
 
 export const signIn = (
   params: IUserCredentials,
-): IUserActionTypes => ({
+): ISignInAction => ({
   type: SIGN_IN,
   payload: params,
 });
 
 export const signInSuccess = (
   params: IUser,
-): IUserActionTypes => ({
+): ISignInSuccessAction => ({
   type: SIGN_IN_SUCCESS,
   payload: params,
 });
 
 export const signInFail = (
   error: string,
-): IUserActionTypes => ({
+): ISignInFailAction => ({
   type: SIGN_IN_FAIL,
   payload: error,
 });
 
-export const signInRequesting = (): IUserActionTypes => ({
+export const signInRequesting = (): ISignInRequestingAction => ({
   type: SIGN_IN_REQUESTING,
 });
 
-export const signOut = (): IUserActionTypes => ({
+export const signOut = (): ISignOutAction => ({
   type: SIGN_OUT,
+});
+
+export const signOutSuccess = (): ISignOutSuccessAction => ({
+  type: SIGN_OUT_SUCCESS,
 });
