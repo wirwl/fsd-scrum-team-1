@@ -72,12 +72,14 @@ const Components: FC = () => (
     <Slider currentValues={[5000, 10000]} onChange={() => {}} />
     <Pagination totalItemCount={175} limitPerPage={12} />
     <Comment
-      avatar={{ src: 'http://placeimg.com/320/220/animals', alt: 'Мурад Сарафанов' }}
+      author={{
+        avatar: 'http://placeimg.com/320/220/animals',
+        name: 'Мурад Сарафанов',
+      }}
       likes={12}
       likeButtonChecked
-      publicationDate="5 дней назад"
+      date={new Date(2020, 5, 6)}
       text="Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей."
-      userName="Мурад Сарафанов"
     />
   </GuideLayout>
 );
