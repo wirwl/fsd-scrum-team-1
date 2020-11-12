@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import wrapper from 'src/redux/store';
 import Api from 'src/services/Api';
 import {
+  signInFirebaseSuccess,
   signInSuccess,
   signOutSuccess,
 } from 'src/redux/user/userActions';
@@ -23,9 +24,11 @@ const App: NextPage<AppProps> = (
 
     api.auth.onAuthStateChanged((user): void => {
       console.log('_app user state changed');
-      if (user !== null) {
+      if (user !== null && user.email !== null) {
         console.log('user signed in');
-        dispatch(signInSuccess());
+        console.log(user.email);
+        const { email } = user;
+        dispatch(signInFirebaseSuccess(email));
         return;
       }
 

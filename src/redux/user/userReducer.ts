@@ -58,6 +58,8 @@ export const userReducer = (
   }
 };
 
+export default userReducer;
+
 export type {
   IUser,
   IUserState,

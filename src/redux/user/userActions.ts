@@ -2,12 +2,14 @@ import {
   ISignInAction,
   ISignInFailAction,
   ISignInRequestingAction,
+  ISignInFirebaseSuccessAction,
   ISignInSuccessAction,
   ISignOutAction,
   ISignOutSuccessAction,
   SIGN_IN,
   SIGN_IN_FAIL,
   SIGN_IN_REQUESTING,
+  SIGN_IN_FIREBASE_SUCCESS,
   SIGN_IN_SUCCESS,
   SIGN_OUT,
   SIGN_OUT_SUCCESS,
@@ -22,6 +24,13 @@ export const signIn = (
   params: IUserCredentials,
 ): ISignInAction => ({
   type: SIGN_IN,
+  payload: params,
+});
+
+export const signInFirebaseSuccess = (
+  params: string,
+): ISignInFirebaseSuccessAction => ({
+  type: SIGN_IN_FIREBASE_SUCCESS,
   payload: params,
 });
 

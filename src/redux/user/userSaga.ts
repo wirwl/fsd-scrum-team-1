@@ -3,13 +3,15 @@ import { takeLatest, put } from 'redux-saga/effects';
 
 import Api, { getAuthError } from 'src/services/Api';
 import {
-  SIGN_IN,
+  SIGN_IN, SIGN_IN_FIREBASE_SUCCESS,
   // SIGN_OUT_SUCCESS,
 } from 'src/redux/user/userTypes';
 import {
   signIn,
   signInRequesting,
   signInFail,
+  signInFirebaseSuccess,
+  signInSuccess,
 } from 'src/redux/user/userActions';
 
 const api = new Api();
@@ -38,8 +40,22 @@ function* signInSaga(
   }
 }
 
+function* signInFirebaseSuccessSaga(
+  { payload }: ReturnType<typeof signInFirebaseSuccess>,
+): SagaIterator | void {
+  const user = yield api.getUser(payload);
+
+  if (user !== null) {
+    yield put(signInSuccess(user));
+    return;
+  }
+
+  yield put(signInFail(`Пользователь с email ${payload} не найден`))
+}
+
 function* watchUserSaga(): SagaIterator {
   yield takeLatest(SIGN_IN, signInSaga);
+  yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
 }
 
 export default watchUserSaga;

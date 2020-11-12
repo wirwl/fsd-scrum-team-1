@@ -4,6 +4,7 @@ import type {
 } from 'src/redux/user/userReducer';
 
 export const SIGN_IN = '@toxin/SIGN_IN';
+export const SIGN_IN_FIREBASE_SUCCESS = '@toxin/SIGN_IN_FIREBASE_SUCCESS';
 export const SIGN_IN_SUCCESS = '@toxin/SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = '@toxin/SIGN_IN_FAIL';
 export const SIGN_IN_REQUESTING = '@toxin/SIGN_IN_REQIESTING';
@@ -14,6 +15,11 @@ export const SIGN_OUT_SUCCESS = '@toxin/SIGN_OUT_SUCCESS';
 export type ISignInAction = {
   type: typeof SIGN_IN;
   payload: IUserCredentials;
+};
+
+export type ISignInFirebaseSuccessAction = {
+  type: typeof SIGN_IN_FIREBASE_SUCCESS;
+  payload: string;
 };
 
 export type ISignInSuccessAction = {
@@ -44,4 +50,5 @@ export type IUserActionTypes =
   | ISignInFailAction
   | ISignInRequestingAction
   | ISignOutAction
-  | ISignOutSuccessAction;
+  | ISignOutSuccessAction
+  | ISignInFirebaseSuccessAction;
