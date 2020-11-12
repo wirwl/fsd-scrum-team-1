@@ -9,8 +9,6 @@ import Button from 'src/components/Button/Button';
 
 import './RegistrationForm.scss';
 
-type IInputNames = 'name' | 'surname' | 'birthday' | 'email' | 'password';
-
 interface IRegistrationFormProps {
   onSubmit: (data: IUserInfo) => void;
 }
@@ -25,19 +23,19 @@ interface IUserInfo {
   isGetSpecialOffers: boolean;
 }
 
-type IRegistrationFormState = {
-  [key in IInputNames]: {
-    value: string;
-    isValid: boolean;
-  };
-} & {
+type IInputNames = 'name' | 'surname' | 'birthday' | 'email' | 'password';
+
+type IInputInfo = {
+  value: string;
+  isValid: boolean;
+};
+
+type IRegistrationFormState = Record<IInputNames, IInputInfo> & {
   isGetSpecialOffers: boolean;
   gender: string;
 };
 
-type IErrorsState = {
-  [key in IInputNames]: string;
-};
+type IErrorsState = Record<IInputNames, string>;
 
 const b = block('form-registration');
 
@@ -59,7 +57,7 @@ const validateEmpty = (value: string | number): string => {
 const validateBirthday = (value: string | number): string => {
   const date = value.toString();
   const errorEmpty = validateEmpty(date);
-  let errorMessage = errorEmpty || '';
+  let errorMessage = errorEmpty;
 
   if (date.length < 10 && date.length > 0) {
     errorMessage = 'Введите полную дату. Например, 12.11.2020';
