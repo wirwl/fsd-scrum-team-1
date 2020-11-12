@@ -10,8 +10,8 @@ import { MakeStore, createWrapper } from 'next-redux-wrapper';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import rootSaga from 'src/redux/rootSaga';
 import reducer, { IRootState } from './reducer';
-import roomSaga from './rooms/roomsSaga';
 
 type ISagaStore = Store & {
   sagaTask?: Task;
@@ -34,7 +34,7 @@ const makeStore: MakeStore<IRootState> = () => {
     bindMiddleware([sagaMiddleware]),
   );
 
-  (store as ISagaStore).sagaTask = sagaMiddleware.run(roomSaga);
+  (store as ISagaStore).sagaTask = sagaMiddleware.run(rootSaga);
 
   return store;
 };
