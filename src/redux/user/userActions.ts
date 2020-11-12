@@ -14,10 +14,6 @@ import {
 } from 'src/redux/user/userTypes';
 
 import type {
-  IUserActionTypes,
-} from 'src/redux/user/userTypes';
-
-import type {
   IUserCredentials,
   IUser,
 } from 'src/redux/user/userReducer';

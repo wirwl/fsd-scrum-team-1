@@ -3,15 +3,9 @@ import {
   SIGN_IN_REQUESTING,
   SIGN_IN_FAIL,
   SIGN_IN_SUCCESS,
-  SIGN_OUT,
+  SIGN_OUT_SUCCESS,
 } from 'src/redux/user/userTypes';
-
-type IUser = {
-  name: string;
-  lastname: string;
-  email: string;
-  emailVerified: boolean;
-};
+import type { IUser } from 'src/services/dto/User';
 
 type IUserState = {
   user: IUser | null;
