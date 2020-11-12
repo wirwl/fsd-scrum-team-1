@@ -4,7 +4,7 @@ import 'firebase/firestore';
 
 import firebaseConfig from 'config/firebase.json';
 import type { IRoom } from 'src/services/dto/Rooms';
-import { IUserCredentials } from '@/redux/user/userReducer';
+import { IUser, IUserCredentials } from '@/redux/user/userReducer';
 
 interface ISearchFilters {
   n?: number;
@@ -27,7 +27,7 @@ interface ISearchFilters {
   shampoo?: boolean;
 }
 
-const CODE_PASSWORD_WRONG = 'auth/wrong-password'
+const CODE_PASSWORD_WRONG = 'auth/wrong-password';
 const CODE_USER_NOT_FOUND = 'auth/user-not-found';
 
 const getAuthError = (code: string): string | null => {
@@ -48,6 +48,8 @@ class Api {
 
   rooms: firebase.firestore.CollectionReference;
 
+  users: firebase.firestore.CollectionReference;
+
   constructor() {
     if (firebase.apps.length === 0) {
       firebase.initializeApp(firebaseConfig);
@@ -57,6 +59,7 @@ class Api {
     this.auth = firebase.auth();
 
     this.rooms = this.firestore.collection('rooms');
+    this.users = this.firestore.collection('users');
   }
 
   async searchRoom(id: string): Promise<IRoom> {
@@ -148,6 +151,42 @@ class Api {
 
   signIn({ email, password }: IUserCredentials): Promise<firebase.auth.UserCredential> {
     return this.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  async createUser(name: string, lastname: string, email: string): Promise<IUser> {
+    await this.users.doc(email).set({
+      name,
+      lastname,
+      emailVerified: false,
+    });
+
+    return {
+      name,
+      lastname,
+      email,
+      emailVerified: false,
+    };
+  }
+
+  async getUser(email: string): Promise<IUser | null> {
+    const snapshot = await this.users.doc(email).get();
+
+    if (snapshot.exists) {
+      const {
+        name,
+        lastname,
+        emailVerified,
+      } = <Pick<IUser, 'name' | 'lastname' | 'emailVerified'>> snapshot.data();
+
+      return {
+        name,
+        lastname,
+        email,
+        emailVerified,
+      };
+    }
+
+    return null;
   }
 }
 
