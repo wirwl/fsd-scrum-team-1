@@ -43,14 +43,21 @@ function* signInSaga(
 function* signInFirebaseSuccessSaga(
   { payload }: ReturnType<typeof signInFirebaseSuccess>,
 ): SagaIterator | void {
-  const user = yield api.getUser(payload);
+  const { email } = payload;
+
+  if (email === null) {
+    put(signInFail('Ошибка аутентификации. Пользователь не был найден.'));
+    return;
+  }
+
+  const user = yield api.getUser(email);
 
   if (user !== null) {
     yield put(signInSuccess(user));
     return;
   }
 
-  yield put(signInFail(`Пользователь с email ${payload} не найден`))
+  yield put(signInFail(`Пользователь с email ${payload} не найден`));
 }
 
 function* watchUserSaga(): SagaIterator {

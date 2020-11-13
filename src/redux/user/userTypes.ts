@@ -1,3 +1,4 @@
+import type { User as FirebaseUser } from 'firebase';
 import type {
   IUserCredentials,
   IUser,
@@ -19,7 +20,7 @@ export type ISignInAction = {
 
 export type ISignInFirebaseSuccessAction = {
   type: typeof SIGN_IN_FIREBASE_SUCCESS;
-  payload: string;
+  payload: FirebaseUser;
 };
 
 export type ISignInSuccessAction = {

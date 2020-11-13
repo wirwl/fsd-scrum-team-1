@@ -1,3 +1,5 @@
+import type { User as FirebaseUser } from 'firebase';
+
 import {
   ISignInAction,
   ISignInFailAction,
@@ -28,7 +30,7 @@ export const signIn = (
 });
 
 export const signInFirebaseSuccess = (
-  params: string,
+  params: FirebaseUser,
 ): ISignInFirebaseSuccessAction => ({
   type: SIGN_IN_FIREBASE_SUCCESS,
   payload: params,
