@@ -3,12 +3,13 @@ import { AppInitialProps, AppContext } from 'next/app';
 import type { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { useDispatch } from 'react-redux';
+import cookies from 'next-cookies';
 
 import wrapper from 'src/redux/store';
 import Api from 'src/services/Api';
 import {
   signInFirebaseSuccess,
-  signOutSuccess,
+  signOut,
 } from 'src/redux/user/userActions';
 
 import 'normalize.css/normalize.css';
@@ -28,7 +29,7 @@ const MyApp: NextPage<AppInitialProps> = (
         return;
       }
 
-      dispatch(signOutSuccess());
+      dispatch(signOut());
     });
 
     return () => {
@@ -44,6 +45,8 @@ MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
   console.log(ctx.store);
   if (!process.browser) {
     console.log('>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<');
+    const { firebaseToken } = cookies(ctx);
+    console.log('FFFFFFFFFF', firebaseToken);
   }
 
   const appProps = (

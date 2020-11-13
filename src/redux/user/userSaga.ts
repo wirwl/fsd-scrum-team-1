@@ -1,10 +1,10 @@
 import { SagaIterator } from 'redux-saga';
 import { takeLatest, put } from 'redux-saga/effects';
+import cookie from 'js-cookie';
 
 import Api, { getAuthError } from 'src/services/Api';
 import {
-  SIGN_IN, SIGN_IN_FIREBASE_SUCCESS,
-  // SIGN_OUT_SUCCESS,
+  SIGN_IN, SIGN_IN_FIREBASE_SUCCESS, SIGN_OUT,
 } from 'src/redux/user/userTypes';
 import {
   signIn,
@@ -12,6 +12,7 @@ import {
   signInFail,
   signInFirebaseSuccess,
   signInSuccess,
+  signOutSuccess,
 } from 'src/redux/user/userActions';
 
 const api = new Api();
@@ -40,10 +41,14 @@ function* signInSaga(
   }
 }
 
+const TOKEN_NAME = 'firebaseToken';
+const TOKEN_EXPIRES = 14;
+
 function* signInFirebaseSuccessSaga(
   { payload }: ReturnType<typeof signInFirebaseSuccess>,
 ): SagaIterator | void {
-  const { email } = payload;
+  const firebaseUser = payload;
+  const { email } = firebaseUser;
 
   if (email === null) {
     put(signInFail('Ошибка аутентификации. Пользователь не был найден.'));
@@ -51,6 +56,9 @@ function* signInFirebaseSuccessSaga(
   }
 
   const user = yield api.getUser(email);
+
+  const token = yield firebaseUser.getIdToken();
+  cookie.set(TOKEN_NAME, token, { expires: TOKEN_EXPIRES });
 
   if (user !== null) {
     yield put(signInSuccess(user));
@@ -60,9 +68,16 @@ function* signInFirebaseSuccessSaga(
   yield put(signInFail(`Пользователь с email ${payload} не найден`));
 }
 
+function* signOutSaga(): SagaIterator | void {
+  cookie.remove(TOKEN_NAME);
+  yield put(signOutSuccess());
+}
+
 function* watchUserSaga(): SagaIterator {
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
+  yield takeLatest(SIGN_OUT, signOutSaga);
+
 }
 
 export default watchUserSaga;
