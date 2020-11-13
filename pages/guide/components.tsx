@@ -12,6 +12,7 @@ import Accordion from '@/components/Accordion/Accordion';
 import RoomCard from '@/components/RoomCard/RoomCard';
 import Slider from '@/components/Slider/Slider';
 import Pagination from '@/components/Pagination/Pagination';
+import Comment from '@/components/Comment/Comment';
 
 const checkboxes = [
   {
@@ -70,6 +71,16 @@ const Components: FC = () => (
     <Accordion checkboxList={checkboxes} />
     <Slider currentValues={[5000, 10000]} onChange={() => {}} />
     <Pagination totalItemCount={175} limitPerPage={12} />
+    <Comment
+      author={{
+        avatar: 'http://placeimg.com/320/220/animals',
+        name: 'Мурад Сарафанов',
+      }}
+      likes={12}
+      likeButtonChecked
+      date={new Date(2020, 5, 6)}
+      text="Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей."
+    />
   </GuideLayout>
 );
 
