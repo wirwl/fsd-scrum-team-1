@@ -153,17 +153,15 @@ class Api {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  async createUser(name: string, lastname: string, email: string): Promise<IUser> {
+  async createUser(user: Omit<IUser, 'emailVerified'>): Promise<IUser> {
+    const { email } = user;
     await this.users.doc(email).set({
-      name,
-      lastname,
+      ...user,
       emailVerified: false,
     });
 
     return {
-      name,
-      lastname,
-      email,
+      ...user,
       emailVerified: false,
     };
   }
@@ -172,17 +170,11 @@ class Api {
     const snapshot = await this.users.doc(email).get();
 
     if (snapshot.exists) {
-      const {
-        name,
-        lastname,
-        emailVerified,
-      } = <Pick<IUser, 'name' | 'lastname' | 'emailVerified'>> snapshot.data();
+      const data = <Omit<IUser, 'email'>> snapshot.data();
 
       return {
-        name,
-        lastname,
+        ...data,
         email,
-        emailVerified,
       };
     }
 
