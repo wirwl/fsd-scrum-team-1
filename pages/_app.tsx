@@ -14,10 +14,7 @@ import {
 import 'normalize.css/normalize.css';
 import '@styles/root.scss';
 
-const dev = process.env.NODE_ENV === 'development';
-
-// TODO: get prod host from env
-const host = dev ? 'http://localhost:3000' : 'https://toxin.com/';
+const HOST = `http://${process.env.HOST}`;
 
 const MyApp = (
   { Component, pageProps }: AppProps,
@@ -57,7 +54,7 @@ MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
 
       try {
         const { user } = await fetch(
-          `${host}/api/utils/check-user`,
+          `${HOST}/api/utils/check-user`,
           { headers },
         ).then((res) => res.json());
 
