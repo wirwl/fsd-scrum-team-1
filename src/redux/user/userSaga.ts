@@ -77,7 +77,6 @@ function* watchUserSaga(): SagaIterator {
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
   yield takeLatest(SIGN_OUT, signOutSaga);
-
 }
 
 export default watchUserSaga;

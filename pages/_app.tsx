@@ -9,11 +9,17 @@ import wrapper from 'src/redux/store';
 import Api from 'src/services/Api';
 import {
   signInFirebaseSuccess,
+  signInSuccess,
   signOut,
 } from 'src/redux/user/userActions';
 
 import 'normalize.css/normalize.css';
 import '@styles/root.scss';
+
+const dev = process.env.NODE_ENV === 'development';
+
+// TODO: get prod host from env
+const host = dev ? 'http://localhost:3000' : 'https://toxin.com/';
 
 const MyApp: NextPage<AppInitialProps> = (
   { Component, pageProps }: AppProps,
@@ -41,12 +47,25 @@ const MyApp: NextPage<AppInitialProps> = (
 };
 
 MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-  console.log(ctx.store);
   if (!process.browser) {
-    console.log('>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<');
+    const { store } = ctx;
     const { firebaseToken } = cookies(ctx);
-    console.log('FFFFFFFFFF', firebaseToken);
+
+    if (firebaseToken !== undefined) {
+      const headers = {
+        'Context-Type': 'application/json',
+        Authorization: JSON.stringify({ token: firebaseToken }),
+      };
+
+      const { user } = await fetch(
+        `${host}/api/utils/check-user`,
+        { headers },
+      ).then((res) => res.json());
+
+      if (user !== null) {
+        store.dispatch(signInSuccess(user));
+      }
+    }
   }
 
   const appProps = (
@@ -61,12 +80,5 @@ MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
     },
   };
 };
-
-// export const getServerSideProps: GetServerSideProps = () => {
-//   console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-//   return {
-//     props: {},
-//   };
-// };
 
 export default wrapper.withRedux(MyApp);
