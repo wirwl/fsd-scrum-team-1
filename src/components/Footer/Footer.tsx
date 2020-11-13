@@ -51,7 +51,15 @@ const Footer: FC = () => {
             <p className={b('subscription-form-description')}>{subscription.description}</p>
 
             <div className={b('footer__text-input')}>
-              <Input type="email" placeholder="Email" withArrow />
+              <Input
+                type="email"
+                placeholder="Email"
+                name="email"
+                onChange={() => {}}
+                onBlur={() => {}}
+                onFocus={() => {}}
+                withArrow
+              />
             </div>
           </form>
 
