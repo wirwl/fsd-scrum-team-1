@@ -56,12 +56,6 @@ const initValues = {
   },
 };
 
-const normalizeErrorMessage = (
-  error: string | null,
-): string | undefined => (
-  error === null ? undefined : error
-);
-
 const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
   const [values, setValues] = useState<IInputValuesState>(
     initValues,
@@ -118,7 +112,7 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
           onChange={handleInputChange}
           placeholder="Email"
           validate="email"
-          errorMessage={normalizeErrorMessage(email.error)}
+          errorMessage={email.error}
         />
       </div>
 
@@ -129,7 +123,7 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
           onChange={handleInputChange}
           placeholder="Пароль"
           validate={passwordValidate}
-          errorMessage={normalizeErrorMessage(password.error)}
+          errorMessage={password.error}
         />
       </div>
 
