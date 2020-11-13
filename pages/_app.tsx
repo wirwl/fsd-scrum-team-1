@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import { AppInitialProps, AppContext } from 'next/app';
-import type { AppProps } from 'next/app';
-import { NextPage } from 'next';
+import type { AppProps, AppContext } from 'next/app';
 import { useDispatch } from 'react-redux';
 import cookies from 'next-cookies';
 
@@ -21,9 +19,9 @@ const dev = process.env.NODE_ENV === 'development';
 // TODO: get prod host from env
 const host = dev ? 'http://localhost:3000' : 'https://toxin.com/';
 
-const MyApp: NextPage<AppInitialProps> = (
+const MyApp = (
   { Component, pageProps }: AppProps,
-) => {
+): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,13 +55,17 @@ MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
         Authorization: JSON.stringify({ token: firebaseToken }),
       };
 
-      const { user } = await fetch(
-        `${host}/api/utils/check-user`,
-        { headers },
-      ).then((res) => res.json());
+      try {
+        const { user } = await fetch(
+          `${host}/api/utils/check-user`,
+          { headers },
+        ).then((res) => res.json());
 
-      if (user !== null) {
-        store.dispatch(signInSuccess(user));
+        if (user !== null) {
+          store.dispatch(signInSuccess(user));
+        }
+      } catch (error) {
+        console.error('_app.getInitialProps error:', error.message);
       }
     }
   }
