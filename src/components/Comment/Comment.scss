@@ -1,0 +1,44 @@
+@import '@styles/variables.scss';
+
+$root: '.comment';
+
+#{$root} {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  &__column {
+    margin-right: .625rem;
+  }
+
+  &__avatar {
+    width: 3rem;
+    height: 3rem;
+    border: .125rem solid $bg-color;
+    border-radius: 50%;
+    display: block;
+  }
+
+  &__like-button {
+    margin-top: .625rem;
+    text-align: center;
+  }
+
+  &__head {
+    margin-bottom: .625rem;
+  }
+
+  &__user-name,
+  &__publication-date,
+  &__body {
+    margin: 0;
+    font-family: $main-font;
+    color: $font-color-light75;
+    font-size: .875rem;
+    line-height: 1.5rem;
+  }
+
+  &__user-name {
+    font-weight: bold;
+  }
+}
