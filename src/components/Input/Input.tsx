@@ -15,7 +15,7 @@ interface IInputProps {
   name: string;
   label?: string;
   validate?: 'email' | CustomValidateFunction;
-  errorMessage?: string;
+  errorMessage?: string | null;
   onChange: (value: string, name: string, errorValidate: string | null) => void;
   onBlur?: (name: string, errorValidate: string | null) => void;
   onFocus?: (name: string, errorValidate: string | null) => void;
