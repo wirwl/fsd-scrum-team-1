@@ -136,7 +136,6 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
       <div className={b('submit-button')}>
         <Button
           type="submit"
-          theme="default"
           caption="Войти"
           size="fluid"
           withArrow
@@ -148,17 +147,18 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
           Нет аккаунта на Toxin?
         </span>
         <Link href="/auth/register">
-          <div
+          <span
             className={b('register-link')}
             role="link"
             tabIndex={0}
           >
             <Button
+              href="/auth/register"
               type="button"
               theme="white"
               caption="создать"
             />
-          </div>
+          </span>
         </Link>
       </div>
     </form>
