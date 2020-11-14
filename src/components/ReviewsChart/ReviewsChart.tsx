@@ -26,7 +26,7 @@ const LINE_INDENT = 1; // отступ между линиями в градус
 const getX = (degrees: number): number => FULL_RADIUS + (RADIUS * cos(degrees));
 const getY = (degrees: number): number => FULL_RADIUS + (RADIUS * sin(degrees));
 
-const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
+const getPaths = (reviews: Reviews): JSX.Element[] => {
   const reviewsObjKeys = (Object.keys(reviews) as (ReviewsKeys)[])
     .filter((key) => reviews[key] > 0);
   const sumReviews = reviewsObjKeys.reduce<number>((acc, key) => (acc + reviews[key]), 0);
@@ -58,7 +58,7 @@ const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
     paths[reviewsObjKeys[0]] = `M${getX(0)} ${getY(0)} A ${RADIUS} ${RADIUS} 0 0 1 ${getX(180)} ${getY(180)} M${getX(180)} ${getY(180)} A ${RADIUS} ${RADIUS} 0 1 1 ${getX(360)} ${getY(360)}`;
   }
 
-  const pathsElements = reviewsObjKeys.map((key) => (
+  return reviewsObjKeys.map((key) => (
     <path
       key={key}
       d={paths[key]}
@@ -66,6 +66,12 @@ const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
       stroke={`url(#linear-gradient-${key})`}
     />
   ));
+};
+
+const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
+  const reviewsObjKeys = (Object.keys(reviews) as (ReviewsKeys)[])
+    .filter((key) => reviews[key] > 0);
+  const sumReviews = reviewsObjKeys.reduce<number>((acc, key) => (acc + reviews[key]), 0);
 
   const linearGradientElements = [
     { name: 'veryGood', startColor: '#FFBA9C', stopColor: '#FFE39C' },
@@ -87,7 +93,7 @@ const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {pathsElements}
+      {getPaths(reviews)}
       {linearGradientElements}
     </svg>
   );
