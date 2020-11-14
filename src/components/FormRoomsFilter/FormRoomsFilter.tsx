@@ -14,7 +14,7 @@ import type {
 
 import InputDropdownFilter from 'src/components/FormRoomsFilter/components/InputDropdownFilter/InputDropdownFilter';
 import { ISliderValues } from 'src/components/Slider/Slider';
-import AccordeonFilter from 'src/components/FormRoomsFilter/components/AccordeonFilter/AccordeonFilter';
+import AccordionFilter from 'src/components/FormRoomsFilter/components/AccordionFilter/AccordionFilter';
 import GroupCheckboxFilter from 'src/components/FormRoomsFilter/components/GroupCheckboxFilter/GroupCheckboxFilter';
 import SliderFilter, {
   MIN_PRICE,
@@ -23,8 +23,8 @@ import SliderFilter, {
 import DatePickerFilter from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
 import {
   dropdownGuestsInit,
-  dropdownConvinenceInit,
-  extraConvinienceInit,
+  dropdownConvenienceInit,
+  extraConvenienceInit,
   rulesInit,
   accessibilityInit,
 } from 'src/components/FormRoomsFilter/initValues';
@@ -58,7 +58,7 @@ type IFormRoomFilterState = {
   wideCorridor: boolean;
   assistantForDisabled: boolean;
 
-  // extraConvinience
+  // extraConvenience
   breakfast: boolean;
   desk: boolean;
   feedingChair: boolean;
@@ -141,21 +141,21 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   };
 
   const handleCheckboxAccessibilityChange = (
-    accessibilities: Record<string, boolean>,
+    accessibility: Record<string, boolean>,
     accessibilityString: string,
   ): void => {
     updateQuery('accessibility', accessibilityString);
     setFilters((prevFilters) => ({
       ...prevFilters,
-      ...accessibilities,
+      ...accessibility,
     }));
   };
 
-  const handleAccordeonExtraConventienceChange = (
+  const handleAccordionExtraConvenienceChange = (
     values: Record<string, boolean>,
     valueString: string,
   ): void => {
-    updateQuery('extraConvinience', valueString);
+    updateQuery('extraConvenience', valueString);
     setFilters((prevFilters) => ({
       ...prevFilters,
       ...values,
@@ -176,7 +176,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     }));
   };
 
-  const handleConvinienceDropdownChange = (values: IDropListItem[]): void => {
+  const handleConvenienceDropdownChange = (values: IDropListItem[]): void => {
     values.forEach(({ id, count }) => {
       updateQuery(id, count === 0 ? '' : count.toString());
     });
@@ -239,21 +239,21 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
         <h3 className={b('field-title')}>Удобства номера</h3>
         <InputDropdownFilter
           query={query}
-          name="convinience"
+          name="convenience"
           placeholder="Удобства номера"
           defaultLabel={false}
-          initValues={dropdownConvinenceInit}
-          onChange={handleConvinienceDropdownChange}
+          initValues={dropdownConvenienceInit}
+          onChange={handleConvenienceDropdownChange}
         />
       </section>
 
       <section className={b('field')}>
-        <AccordeonFilter
+        <AccordionFilter
           query={query}
-          keyValue="extraConvinience"
-          initValues={extraConvinienceInit}
+          keyValue="extraConvenience"
+          initValues={extraConvenienceInit}
           title="дополнительные удобства"
-          onChange={handleAccordeonExtraConventienceChange}
+          onChange={handleAccordionExtraConvenienceChange}
         />
       </section>
 

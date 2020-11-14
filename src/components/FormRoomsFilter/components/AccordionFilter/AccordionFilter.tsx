@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-import Accordeon from 'src/components/Accordion/Accordion';
+import Accordion from 'src/components/Accordion/Accordion';
 import { initCheckboxGroupState } from 'src/components/FormRoomsFilter/helpers';
 
-type IAccordeonFilterProps = {
+type IAccordionFilterProps = {
   title: string;
   keyValue: string;
   query: Record<string, string>;
@@ -11,7 +11,7 @@ type IAccordeonFilterProps = {
   onChange: (values: Record<string, boolean>, valueString: string) => void;
 };
 
-const AcccordeonFilter: FC<IAccordeonFilterProps> = ({
+const AccordionFilter: FC<IAccordionFilterProps> = ({
   title,
   keyValue,
   query,
@@ -24,7 +24,7 @@ const AcccordeonFilter: FC<IAccordeonFilterProps> = ({
     return { ...item, checked: values[name] };
   });
 
-  const handleAccordeonChange = (value: Record<string, boolean>): void => {
+  const handleAccordionChange = (value: Record<string, boolean>): void => {
     const valueString = Object
       .keys(value)
       .filter((key) => value[key])
@@ -34,13 +34,13 @@ const AcccordeonFilter: FC<IAccordeonFilterProps> = ({
   };
 
   return (
-    <Accordeon
+    <Accordion
       title={title}
       checkboxList={conf}
       isOpened={false}
-      onChange={handleAccordeonChange}
+      onChange={handleAccordionChange}
     />
   );
 };
 
-export default AcccordeonFilter;
+export default AccordionFilter;

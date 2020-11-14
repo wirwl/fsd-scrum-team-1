@@ -22,7 +22,7 @@ const dropdownGuestsInit: IDropListItem[] = [
   },
 ];
 
-const dropdownConvinenceInit: IDropListItem[] = [
+const dropdownConvenienceInit: IDropListItem[] = [
   {
     id: 'bedroom',
     label: 'Спальни',
@@ -44,7 +44,7 @@ const dropdownConvinenceInit: IDropListItem[] = [
   },
 ];
 
-const extraConvinienceInit = [
+const extraConvenienceInit = [
   {
     label: 'Завтрак',
     name: 'breakfast',
@@ -112,8 +112,8 @@ const accessibilityInit = [
 
 export {
   dropdownGuestsInit,
-  dropdownConvinenceInit,
-  extraConvinienceInit,
+  dropdownConvenienceInit,
+  extraConvenienceInit,
   rulesInit,
   accessibilityInit,
 };

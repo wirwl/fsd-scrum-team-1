@@ -2,8 +2,8 @@ import type { IDateRangeFilter } from 'src/components/FormRoomsFilter/components
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import {
   dropdownGuestsInit,
-  dropdownConvinenceInit,
-  extraConvinienceInit,
+  dropdownConvenienceInit,
+  extraConvenienceInit,
   rulesInit,
   accessibilityInit,
 } from 'src/components/FormRoomsFilter/initValues';
@@ -128,17 +128,17 @@ const initState = (
   if (dateRange !== null) result.dateRange = dateRange;
 
   const guests = initDropdownState(query, dropdownGuestsInit);
-  const convinience = initDropdownState(query, dropdownConvinenceInit);
-  result = { ...result, ...guests, ...convinience };
+  const convenience = initDropdownState(query, dropdownConvenienceInit);
+  result = { ...result, ...guests, ...convenience };
 
   const rules = initCheckboxGroupState('rules', query, rulesInit);
   Object.keys(rules).forEach((key) => { result[key] = rules[key]; });
 
-  const accessibility = initCheckboxGroupState('accessiblility', query, accessibilityInit);
+  const accessibility = initCheckboxGroupState('accessibility', query, accessibilityInit);
   Object.keys(accessibility).forEach((key) => { result[key] = accessibility[key]; });
 
-  const extraConvinience = initCheckboxGroupState('extraConvinience', query, extraConvinienceInit);
-  Object.keys(extraConvinience).forEach((key) => { result[key] = extraConvinience[key]; });
+  const extraConvenience = initCheckboxGroupState('extraConvenience', query, extraConvenienceInit);
+  Object.keys(extraConvenience).forEach((key) => { result[key] = extraConvenience[key]; });
 
   return result as IFormRoomFilterState;
 };
