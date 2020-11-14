@@ -134,7 +134,7 @@ const initState = (
   const rules = initCheckboxGroupState('rules', query, rulesInit);
   Object.keys(rules).forEach((key) => { result[key] = rules[key]; });
 
-  const accessibility = initCheckboxGroupState('accessiblility', query, accessibilityInit);
+  const accessibility = initCheckboxGroupState('accessibility', query, accessibilityInit);
   Object.keys(accessibility).forEach((key) => { result[key] = accessibility[key]; });
 
   const extraConvenience = initCheckboxGroupState('extraConvenience', query, extraConvenienceInit);
