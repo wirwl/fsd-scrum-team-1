@@ -35,12 +35,10 @@ const passwordValidate: CustomValidateFunction = (pass) => {
 };
 
 const isFormValid = (values: IInputValuesState): boolean => (
-  Object.keys(values).reduce(
-    (acc: boolean, key: string) => (
-      acc && values[key].error === null && values[key].isTouched
-    ),
-    true,
-  )
+  Object.keys(values)
+    .every(
+      (key) => values[key].isTouched && values[key].error === null,
+    )
 );
 
 const initValues = {
