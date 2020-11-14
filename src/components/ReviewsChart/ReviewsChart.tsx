@@ -27,7 +27,7 @@ const getX = (degrees: number): number => FULL_RADIUS + (RADIUS * cos(degrees));
 const getY = (degrees: number): number => FULL_RADIUS + (RADIUS * sin(degrees));
 
 const getPaths = (reviews: Reviews): JSX.Element[] => {
-  const reviewsObjKeys = (Object.keys(reviews) as (ReviewsKeys)[])
+  const reviewsObjKeys = (Object.keys(reviews) as (ReviewsKeys)[]).reverse()
     .filter((key) => reviews[key] > 0);
   const sumReviews = reviewsObjKeys.reduce<number>((acc, key) => (acc + reviews[key]), 0);
   const paths: SvgPaths = {};
