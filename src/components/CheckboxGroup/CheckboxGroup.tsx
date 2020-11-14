@@ -7,14 +7,16 @@ import './CheckboxGroup.scss';
 
 const b = block('checkbox-group');
 
+type ICheckboxValue = { [key:string]: boolean };
+
 type ICheckboxGroupProps = {
   title: string;
   items: ICheckboxProps[];
-  onChange: (values: { [key:string]: boolean }) => void;
+  onChange: (values: ICheckboxValue) => void;
 };
 
 const CheckboxGroup: FC<ICheckboxGroupProps> = ({ title, items, onChange }) => {
-  const [state, setState] = useState<{ [key:string]: boolean }>(
+  const [state, setState] = useState<ICheckboxValue>(
     () => items.reduce(
       (acc, { name, checked }: ICheckboxProps) => ({
         ...acc,
