@@ -120,3 +120,4 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
 };
 
 export default RoomCard;
+export type { IRoomCardProps };
