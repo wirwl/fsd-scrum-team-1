@@ -5,6 +5,7 @@ import { IRoomComment } from '@/services/dto/Rooms';
 import LikeButton from '@/components/LikeButton/LikeButton';
 
 import './Comment.scss';
+import { type } from 'os';
 
 interface ICommentProps extends IRoomComment {
   likeButtonChecked: boolean;
@@ -63,3 +64,5 @@ const Comment: React.FC<ICommentProps> = (props) => {
 };
 
 export default Comment;
+export { getWordWithEnding };
+export type { ICommentProps };

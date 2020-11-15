@@ -1,0 +1,37 @@
+@import '@styles/variables.scss';
+
+.comments {
+
+  &__head {
+    margin: 0 0 8px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: $header-font;
+    font-weight: bold;
+    font-size: 1.1875rem;
+    line-height: 1.5rem;
+    color: $font-color;
+  }
+
+  &__count {
+    font-size: .875rem;
+    line-height: .875rem;
+    color: $font-color-light50;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__comment:not(:last-child) {
+    margin-bottom: 23px;
+  }
+}
