@@ -18,10 +18,6 @@ import './FormSignIn.scss';
 import { IRootState } from '@/redux/reducer';
 import { IUserState } from '@/redux/user/userReducer';
 
-type IFormSignInProps = {
-  onSubmit: (email: string, password: string) => void;
-};
-
 const b = block('form-sign-in');
 
 type IValueState = {
@@ -67,7 +63,7 @@ const initValues = {
 
 const userSelector = (store: IRootState): IUserState => store.user;
 
-const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
+const FormSignIn: FC = () => {
   const dispatch = useDispatch();
   const userStore = useSelector(userSelector);
   const { isRequesting } = userStore;

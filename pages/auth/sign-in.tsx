@@ -12,7 +12,7 @@ const SignIn: FC = () => (
   <MainLayout title="Sign In">
     <div className={b()}>
       <section className={b('layout')}>
-        <FormSignIn onSubmit={() => {}} />
+        <FormSignIn />
       </section>
     </div>
   </MainLayout>
