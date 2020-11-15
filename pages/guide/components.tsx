@@ -37,6 +37,14 @@ const checkboxes = [
   },
 ];
 
+const range = {
+  start: new Date(),
+  end: new Date(),
+};
+
+range.start.setDate(range.start.getDate() + 1);
+range.end.setDate(range.end.getDate() + 4);
+
 const Components: FC = () => (
   <GuideLayout title="Components">
     <h1>Components Page</h1>
@@ -57,8 +65,8 @@ const Components: FC = () => (
         isLuxury: true,
       }}
     />
-    <DataPicker />
-    <DataPicker withTwoInputs />
+    <DataPicker rangeStart={range.start} rangeEnd={range.end} />
+    <DataPicker withTwoInputs rangeStart={range.start} />
     <Input label="text field" placeholder="Email" onChange={() => {}} name="input1" />
     <Input label="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" onChange={() => {}} name="input2" />
     <Input label="subscription text field" placeholder="Email" validate="email" onChange={() => {}} name="input3" withArrow />

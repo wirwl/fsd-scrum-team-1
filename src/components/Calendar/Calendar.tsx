@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { block } from 'bem-cn';
 
 import Button from 'src/components/Button/Button';
-import createDaysList, { getDayClasses, updateRange } from './lib';
+import createDaysList, { updateRange } from './lib';
 import './Calendar.scss';
 
 interface ICalendarProps {
@@ -11,10 +11,68 @@ interface ICalendarProps {
   monthNames?: string[];
   buttonClear?: string;
   buttonApply?: string;
+  range?: RangeDays;
   onRangeUpdate?: (range: RangeDays) => void;
   onApply?: (range: RangeDays) => void;
   onClear?: () => void;
 }
+
+const b = block('calendar');
+
+const isCanSwitchBack = (drawnDate: Date, currentDate: Date): boolean => (
+  drawnDate.getFullYear() > currentDate.getFullYear()
+  || (drawnDate.getFullYear() === currentDate.getFullYear()
+  && drawnDate.getMonth() > currentDate.getMonth())
+);
+
+const rangeIsEmpty = (range: RangeDays): boolean => (range.start === null && range.end === null);
+
+const getDayClasses = (params: {
+  day: Date;
+  drawnDate: Date;
+  range: RangeDays;
+}): string => {
+  const {
+    day,
+    drawnDate,
+    range: {
+      start,
+      end,
+    },
+  } = params;
+
+  const bemMods: { [index: string]: string | boolean } = { 'not-clickable': false };
+
+  if (day.getMonth() !== drawnDate.getMonth()) bemMods.theme = 'another-month';
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (today.getTime() === day.getTime()) bemMods.theme = 'today';
+  if (day.getTime() <= today.getTime()) bemMods['not-clickable'] = true;
+
+  const startIsNull = start === null;
+  const endIsNull = end === null;
+  const rangeIsFull = !startIsNull && !endIsNull;
+
+  if (!startIsNull && (start as Date).getTime() === day.getTime()) {
+    bemMods.theme = 'part-of-range';
+    if (rangeIsFull) bemMods['inrange-position'] = 'start';
+  }
+
+  if (!endIsNull && (end as Date).getTime() === day.getTime()) {
+    bemMods.theme = 'part-of-range';
+    if (rangeIsFull) bemMods['inrange-position'] = 'end';
+  }
+
+  if (rangeIsFull) {
+    const isDayMiddleRange = day.getTime() > (start as Date).getTime()
+    && day.getTime() < (end as Date).getTime();
+
+    if (isDayMiddleRange) bemMods.theme = 'mid-range';
+  }
+
+  return b('day', bemMods);
+};
 
 const Calendar: React.FC<ICalendarProps> = (props) => {
   const {
@@ -36,9 +94,16 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     buttonClear = 'очистить',
     buttonApply = 'применить',
     selectRangeDay = 'auto',
+    range: initRange = {
+      start: null,
+      end: null,
+    },
     onApply = null,
     onClear = null,
   } = props;
+
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
 
   const [drawnDate, setDrawnDate] = useState(() => {
     const currentDate = new Date();
@@ -46,16 +111,38 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     return currentDate;
   });
   const daysList = useMemo(() => createDaysList(drawnDate), [drawnDate]);
-  const [range, setRange] = useState<RangeDays>(() => ({ start: null, end: null }));
+  const [range, setRange] = useState<RangeDays>(() => {
+    const isValidRangeStart = initRange.start !== null
+    && initRange.start.setHours(0, 0, 0, 0)
+    && initRange.start.getTime() > currentDate.getTime();
 
-  const b = block('calendar');
+    const isValidRangeEnd = initRange.end !== null
+    && initRange.end.setHours(0, 0, 0, 0)
+    && initRange.end.getTime() > currentDate.getTime();
 
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-  const isCanSwitchBack = drawnDate.getFullYear() > currentDate.getFullYear()
-  || (drawnDate.getFullYear() === currentDate.getFullYear()
-  && drawnDate.getMonth() > currentDate.getMonth());
-  const rangeIsEmpty = range.start === null && range.end === null;
+    return {
+      start: isValidRangeStart ? initRange.start : null,
+      end: isValidRangeEnd ? initRange.end : null,
+    };
+  });
+
+  useEffect(() => {
+    let currentRange = { ...range };
+
+    if (range.start !== null) {
+      currentRange = updateRange({ ...range, day: initRange.start as Date, selectMode: 'start' });
+    }
+
+    if (range.end !== null) {
+      currentRange = updateRange({ ...range, day: initRange.end as Date, selectMode: 'end' });
+    }
+
+    setRange(currentRange);
+    onApply && onApply(currentRange);
+  }, [
+    initRange.start ? initRange.start.getTime() : null,
+    initRange.end ? initRange.end.getTime() : null,
+  ]);
 
   const changeMonth = (isNextMonth = false): void => {
     setDrawnDate((prevDate) => {
@@ -103,12 +190,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
   const daysElements = daysList.map((day) => (
     <li className={b('day-wrapper')} key={day.getTime()}>
       <button
-        className={getDayClasses({
-          b,
-          day,
-          drawnDate,
-          ...range,
-        })}
+        className={getDayClasses({ range, day, drawnDate })}
         type="button"
         onClick={() => handleDayClick(day)}
         tabIndex={-1}
@@ -127,7 +209,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       <div className={b('date-navigation')}>
         <button
           type="button"
-          className={b('change-month', { hidden: !isCanSwitchBack })}
+          className={b('change-month', { hidden: !isCanSwitchBack(drawnDate, currentDate) })}
           data-action="previous-month"
           onClick={() => changeMonth()}
         >
@@ -148,7 +230,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
       <ul className={b('weekday-names')}>{weekdayNamesElements}</ul>
       <ul className={b('days-container')}>{daysElements}</ul>
       <div className={b('control-buttons')}>
-        <div className={b('clear-button', { hidden: rangeIsEmpty })}>
+        <div className={b('clear-button', { hidden: rangeIsEmpty(range) })}>
           <Button
             theme="textual"
             caption={buttonClear}
@@ -159,7 +241,7 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
           <Button
             theme="textual"
             caption={buttonApply}
-            handleClick={(): boolean => Boolean(onApply && onApply(range))}
+            handleClick={() => { if (onApply) onApply(range); }}
           />
         </div>
       </div>
