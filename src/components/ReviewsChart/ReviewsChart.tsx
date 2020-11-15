@@ -14,6 +14,13 @@ interface IReviewsChartProps {
 
 const b = block('reviews-chart');
 
+const linearGradients = [
+  { name: 'veryGood', startColor: '#FFBA9C', stopColor: '#FFE39C' },
+  { name: 'good', startColor: '#6FCF97', stopColor: '#66D2EA' },
+  { name: 'fine', startColor: '#BC9CFF', stopColor: '#8BA4F9' },
+  { name: 'bad', startColor: '#919191', stopColor: '#3D4975' },
+];
+
 const degreesToRadians = (degrees: number): number => (degrees * Math.PI) / 180;
 const cos = (degrees: number): number => Math.cos(degreesToRadians(degrees));
 const sin = (degrees: number): number => Math.sin(degreesToRadians(degrees));
@@ -73,12 +80,7 @@ const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
     .filter((key) => reviews[key] > 0);
   const sumReviews = reviewsObjKeys.reduce<number>((acc, key) => (acc + reviews[key]), 0);
 
-  const linearGradientElements = [
-    { name: 'veryGood', startColor: '#FFBA9C', stopColor: '#FFE39C' },
-    { name: 'good', startColor: '#6FCF97', stopColor: '#66D2EA' },
-    { name: 'fine', startColor: '#BC9CFF', stopColor: '#8BA4F9' },
-    { name: 'bad', startColor: '#919191', stopColor: '#3D4975' },
-  ].map(({ name, startColor, stopColor }) => (
+  const linearGradientElements = linearGradients.map(({ name, startColor, stopColor }) => (
     <linearGradient id={`linear-gradient-${name}`} key={name}>
       <stop stopColor={startColor} />
       <stop offset="1" stopColor={stopColor} />
