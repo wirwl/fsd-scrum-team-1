@@ -8,7 +8,6 @@ import Api from 'src/services/Api';
 import {
   signInFirebaseSuccess,
   signInSuccess,
-  signOut,
 } from 'src/redux/user/userActions';
 
 import 'normalize.css/normalize.css';
@@ -27,10 +26,7 @@ const MyApp = (
     const unsubscribe = api.auth.onAuthStateChanged((user): void => {
       if (user !== null) {
         dispatch(signInFirebaseSuccess(user));
-        return;
       }
-
-      dispatch(signOut());
     });
 
     return () => {
