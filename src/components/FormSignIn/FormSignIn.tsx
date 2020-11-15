@@ -1,11 +1,22 @@
-import { FC, FormEvent, useState } from 'react';
+import {
+  FC,
+  FormEvent,
+  useEffect,
+  useState,
+} from 'react';
 import { block } from 'bem-cn';
 import Link from 'next/link';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { signIn } from 'src/redux/user/userActions';
 import Input, { CustomValidateFunction } from 'src/components/Input/Input';
 import Button from 'src/components/Button/Button';
+import Spinner from 'src/components/Spinner/Spinner';
 
 import './FormSignIn.scss';
+import { IRootState } from '@/redux/reducer';
+import { IUserState } from '@/redux/user/userReducer';
 
 type IFormSignInProps = {
   onSubmit: (email: string, password: string) => void;
@@ -54,12 +65,30 @@ const initValues = {
   },
 };
 
+const userSelector = (store: IRootState): IUserState => store.user;
+
 const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
+  const dispatch = useDispatch();
+  const userStore = useSelector(userSelector);
+  const { isRequesting } = userStore;
+
   const [values, setValues] = useState<IInputValuesState>(
     initValues,
   );
 
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const { password, email } = values;
+
+  useEffect(() => {
+    setServerError(userStore.error);
+  }, [userStore.error]);
+
+  useEffect(() => {
+    if (userStore.user !== null) {
+      Router.push('/rooms');
+    }
+  }, [userStore.user]);
 
   const setUntouchedErrors = (): void => {
     Object.keys(values).forEach((key) => {
@@ -80,7 +109,11 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
 
     setUntouchedErrors();
     if (isFormValid(values)) {
-      onSubmit(email.value, password.value);
+      setServerError(null);
+      dispatch(signIn({
+        email: email.value,
+        password: password.value,
+      }));
     }
   };
 
@@ -124,6 +157,21 @@ const FormSignIn: FC<IFormSignInProps> = ({ onSubmit }) => {
           errorMessage={password.error}
         />
       </div>
+
+      <div className={b('server-error')}>
+        { serverError }
+      </div>
+
+      {
+        isRequesting
+          ? (
+            <div className={b('spinner')}>
+              <div className={b('spinner-container')}>
+                <Spinner />
+              </div>
+            </div>
+          ) : ''
+      }
 
       <div className={b('submit-button')}>
         <Button

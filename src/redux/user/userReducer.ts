@@ -33,6 +33,7 @@ export const userReducer = (
       return {
         ...state,
         isRequesting: true,
+        error: null,
       };
     case SIGN_IN_SUCCESS:
       return {

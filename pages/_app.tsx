@@ -27,10 +27,7 @@ const MyApp = (
     const unsubscribe = api.auth.onAuthStateChanged((user): void => {
       if (user !== null) {
         dispatch(signInFirebaseSuccess(user));
-        return;
       }
-
-      dispatch(signOut());
     });
 
     return () => {

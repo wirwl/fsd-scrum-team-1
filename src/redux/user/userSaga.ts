@@ -70,6 +70,7 @@ function* signInFirebaseSuccessSaga(
 
 function* signOutSaga(): SagaIterator | void {
   cookie.remove(TOKEN_NAME);
+  yield api.auth.signOut();
   yield put(signOutSuccess());
 }
 
