@@ -4,6 +4,7 @@ import 'firebase/firestore';
 
 import firebaseConfig from 'config/firebase.json';
 import type { IRoom } from 'src/services/dto/Rooms';
+import { IUser, IUserCredentials } from '@/redux/user/userReducer';
 
 interface ISearchFilters {
   n?: number;
@@ -26,12 +27,28 @@ interface ISearchFilters {
   shampoo?: boolean;
 }
 
+const CODE_PASSWORD_WRONG = 'auth/wrong-password';
+const CODE_USER_NOT_FOUND = 'auth/user-not-found';
+
+const getAuthError = (code: string): string | null => {
+  switch (code) {
+    case CODE_PASSWORD_WRONG:
+      return 'Неверный пароль';
+    case CODE_USER_NOT_FOUND:
+      return 'Пользователь с таким email не был найден';
+    default:
+      return null;
+  }
+};
+
 class Api {
   auth: firebase.auth.Auth;
 
   firestore: firebase.firestore.Firestore;
 
   rooms: firebase.firestore.CollectionReference;
+
+  users: firebase.firestore.CollectionReference;
 
   constructor() {
     if (firebase.apps.length === 0) {
@@ -42,6 +59,7 @@ class Api {
     this.auth = firebase.auth();
 
     this.rooms = this.firestore.collection('rooms');
+    this.users = this.firestore.collection('users');
   }
 
   async searchRoom(id: string): Promise<IRoom> {
@@ -130,8 +148,44 @@ class Api {
 
     return query.limit(roomsOnPage);
   }
+
+  signIn({ email, password }: IUserCredentials): Promise<firebase.auth.UserCredential> {
+    return this.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  async createUser(user: Omit<IUser, 'emailVerified'>): Promise<IUser> {
+    const { email } = user;
+    await this.users.doc(email).set({
+      ...user,
+      emailVerified: false,
+    });
+
+    return {
+      ...user,
+      emailVerified: false,
+    };
+  }
+
+  async getUser(email: string): Promise<IUser | null> {
+    const snapshot = await this.users.doc(email).get();
+
+    if (snapshot.exists) {
+      const data = <Omit<IUser, 'email'>> snapshot.data();
+
+      return {
+        ...data,
+        email,
+      };
+    }
+
+    return null;
+  }
 }
 
 export default Api;
+
+export {
+  getAuthError,
+};
 
 export type { ISearchFilters };
