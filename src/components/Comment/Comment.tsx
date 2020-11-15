@@ -5,7 +5,6 @@ import { IRoomComment } from '@/services/dto/Rooms';
 import LikeButton from '@/components/LikeButton/LikeButton';
 
 import './Comment.scss';
-import { type } from 'os';
 
 interface ICommentProps extends IRoomComment {
   likeButtonChecked: boolean;
