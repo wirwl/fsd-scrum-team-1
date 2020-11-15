@@ -17,7 +17,7 @@ interface IRoomGallery {
 const generateKey = (pre: number): string => `${pre}_${new Date().getTime()}`;
 
 const RoomGallery: FC<IRoomGallery> = ({ photos }) => (
-  <div className={b()}>
+  <figure className={b()}>
     {
       photos.map((photo, index) => (
         <img
@@ -28,7 +28,7 @@ const RoomGallery: FC<IRoomGallery> = ({ photos }) => (
         />
       ))
     }
-  </div>
+  </figure>
 );
 
 export default RoomGallery;
