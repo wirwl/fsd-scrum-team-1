@@ -4,14 +4,14 @@ import type {
   IUser,
 } from 'src/redux/user/userReducer';
 
-export const SIGN_IN = '@toxin/SIGN_IN';
-export const SIGN_IN_FIREBASE_SUCCESS = '@toxin/SIGN_IN_FIREBASE_SUCCESS';
-export const SIGN_IN_SUCCESS = '@toxin/SIGN_IN_SUCCESS';
-export const SIGN_IN_FAIL = '@toxin/SIGN_IN_FAIL';
-export const SIGN_IN_REQUESTING = '@toxin/SIGN_IN_REQIESTING';
+export const SIGN_IN = '@toxin-auth/SIGN_IN';
+export const SIGN_IN_FIREBASE_SUCCESS = '@toxin-auth/SIGN_IN_FIREBASE_SUCCESS';
+export const SIGN_IN_SUCCESS = '@toxin-auth/SIGN_IN_SUCCESS';
+export const SIGN_IN_FAIL = '@toxin-auth/SIGN_IN_FAIL';
+export const SIGN_IN_REQUESTING = '@toxin-auth/SIGN_IN_REQUESTING';
 
-export const SIGN_OUT = '@toxin/SIGN_OUT';
-export const SIGN_OUT_SUCCESS = '@toxin/SIGN_OUT_SUCCESS';
+export const SIGN_OUT = '@toxin-auth/SIGN_OUT';
+export const SIGN_OUT_SUCCESS = '@toxin-auth/SIGN_OUT_SUCCESS';
 
 export type ISignInAction = {
   type: typeof SIGN_IN;
