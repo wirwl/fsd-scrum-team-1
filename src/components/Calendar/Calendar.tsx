@@ -106,9 +106,9 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
   currentDate.setHours(0, 0, 0, 0);
 
   const [drawnDate, setDrawnDate] = useState(() => {
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    return currentDate;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
   });
   const daysList = useMemo(() => createDaysList(drawnDate), [drawnDate]);
   const [range, setRange] = useState<RangeDays>(() => {
