@@ -160,7 +160,7 @@ const updateQuery = (param: string, value: string, router: NextRouter): void => 
     query,
   };
 
-  router?.push(path, path, { shallow: true });
+  router?.replace(path, path, { shallow: true });
 };
 
 export {
