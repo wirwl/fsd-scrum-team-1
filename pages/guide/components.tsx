@@ -12,6 +12,7 @@ import Accordion from '@/components/Accordion/Accordion';
 import RoomCard from '@/components/RoomCard/RoomCard';
 import Slider from '@/components/Slider/Slider';
 import Pagination from '@/components/Pagination/Pagination';
+import ReviewsChart from '@/components/ReviewsChart/ReviewsChart';
 import Comment from '@/components/Comment/Comment';
 
 const checkboxes = [
@@ -71,6 +72,15 @@ const Components: FC = () => (
     <Accordion checkboxList={checkboxes} />
     <Slider currentValues={[5000, 10000]} onChange={() => {}} />
     <Pagination totalItemCount={175} limitPerPage={12} />
+    <ReviewsChart
+      title="Впечатления от номера"
+      reviews={{
+        veryGood: 2342,
+        good: 1403,
+        fine: 330,
+        bad: 92,
+      }}
+    />
     <Comment
       author={{
         avatar: 'http://placeimg.com/320/220/animals',
