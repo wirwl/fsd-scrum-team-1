@@ -1,5 +1,6 @@
 import type { IDateRangeFilter } from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
+import type { NextRouter } from 'next/router';
 import {
   dropdownGuestsInit,
   dropdownConvenienceInit,
@@ -143,7 +144,7 @@ const initState = (
   return result as IFormRoomFilterState;
 };
 
-const updateQuery = (param: string, value: string): void => {
+const updateQuery = (param: string, value: string, router: NextRouter): void => {
   if (!process.browser) return;
 
   const url = new URLSearchParams(window.location.search);
@@ -154,7 +155,7 @@ const updateQuery = (param: string, value: string): void => {
   }
 
   const newUrl = `${window.location.pathname}?${url}`;
-  window.history?.pushState(null, '', newUrl);
+  router?.push(newUrl);
 };
 
 export {

@@ -2,10 +2,11 @@ import {
   FC,
   useState,
   useEffect,
-  useRef,
+  // useRef,
 } from 'react';
 import { block } from 'bem-cn';
-import isEqual from 'lodash/isEqual';
+// import isEqual from 'lodash/isEqual';
+import { useRouter } from 'next/router';
 
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import type {
@@ -77,41 +78,42 @@ string,
 number | [number, number] | string[] | boolean | IDateRangeFilter
 >;
 
-const usePrevious = (
-  value: IFormRoomFilterState,
-): IFormRoomFilterState | undefined => {
-  const ref = useRef<IFormRoomFilterState>();
+// const usePrevious = (
+//   value: IFormRoomFilterState,
+// ): IFormRoomFilterState | undefined => {
+//   const ref = useRef<IFormRoomFilterState>();
 
-  useEffect(() => {
-    ref.current = value;
-  });
+//   useEffect(() => {
+//     ref.current = value;
+//   });
 
-  return ref.current;
-};
+//   return ref.current;
+// };
 
-const isStatesEquals = (
-  prevFiltersState: IFormRoomFilterState | undefined,
-  filters: IFormRoomFilterState,
-):boolean => (
-  prevFiltersState === undefined || isEqual(prevFiltersState, filters)
-);
+// const isStatesEquals = (
+//   prevFiltersState: IFormRoomFilterState | undefined,
+//   filters: IFormRoomFilterState,
+// ):boolean => (
+//   prevFiltersState === undefined || isEqual(prevFiltersState, filters)
+// );
 
-const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
+const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
+  const router = useRouter();
   const [filters, setFilters] = useState<IFormRoomFilterState>(
     initState(query, MIN_PRICE, MAX_PRICE),
   );
 
-  const prevFiltersState = usePrevious(filters);
+  // const prevFiltersState = usePrevious(filters);
 
   useEffect(() => {
-    if (!isStatesEquals(prevFiltersState, filters)) onChange(filters);
+    // if (!isStatesEquals(prevFiltersState, filters)) onChange(filters);
   }, [filters]);
 
   const handleSliderChange = (
     values: ISliderValues,
     priceString: string,
   ): void => {
-    updateQuery('price', priceString);
+    updateQuery('price', priceString, router);
     setFilters((prevFilters) => ({
       ...prevFilters,
       price: values as [number, number],
@@ -122,7 +124,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     dateRange: IDateRangeFilter,
     dateRangeString: string,
   ): void => {
-    updateQuery('dateRange', dateRangeString);
+    updateQuery('dateRange', dateRangeString, router);
     setFilters((prevFilters) => ({
       ...prevFilters,
       dateRange,
@@ -133,7 +135,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     rules: Record<string, boolean>,
     rulesString: string,
   ): void => {
-    updateQuery('rules', rulesString);
+    updateQuery('rules', rulesString, router);
     setFilters((prevFilters) => ({
       ...prevFilters,
       ...rules,
@@ -144,7 +146,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     accessibility: Record<string, boolean>,
     accessibilityString: string,
   ): void => {
-    updateQuery('accessibility', accessibilityString);
+    updateQuery('accessibility', accessibilityString, router);
     setFilters((prevFilters) => ({
       ...prevFilters,
       ...accessibility,
@@ -155,7 +157,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     values: Record<string, boolean>,
     valueString: string,
   ): void => {
-    updateQuery('extraConvenience', valueString);
+    updateQuery('extraConvenience', valueString, router);
     setFilters((prevFilters) => ({
       ...prevFilters,
       ...values,
@@ -164,7 +166,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
 
   const handleGuestsDropdownChange = (values: IDropListItem[]): void => {
     values.forEach(({ id, count }) => {
-      updateQuery(id, count === 0 ? '' : count.toString());
+      updateQuery(id, count === 0 ? '' : count.toString(), router);
     });
 
     const newState = values
@@ -178,7 +180,7 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
 
   const handleConvenienceDropdownChange = (values: IDropListItem[]): void => {
     values.forEach(({ id, count }) => {
-      updateQuery(id, count === 0 ? '' : count.toString());
+      updateQuery(id, count === 0 ? '' : count.toString(), router);
     });
     const newState = values
       .reduce((acc, { id, count }) => ({ ...acc, [id]: count }), {});
