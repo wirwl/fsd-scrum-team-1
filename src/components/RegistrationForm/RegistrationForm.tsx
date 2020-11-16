@@ -43,10 +43,8 @@ const emptyErrorMessage = 'Это поле обязательно. Заполн�
 
 const validateEmpty = (value: string | number): string => {
   const val = value.toString();
-  if (val.length === 0) {
-    return emptyErrorMessage;
-  }
-  return '';
+
+  return val.length === 0 ? emptyErrorMessage : '';
 };
 
 const validateBirthday = (value: string | number): string => {
@@ -59,11 +57,12 @@ const validateBirthday = (value: string | number): string => {
   }
 
   if (date.length === 10) {
-    const dateArr = date.split('.') as [string, string, string];
-    const day = +(dateArr)[0];
-    const month = +(dateArr)[1];
+    const [day, month, year] = date.split('.').map((el) => parseInt(el, 10));
+    const tmpDate = new Date(year, month - 1, day);
 
-    const isValidDate = (day > 0 && day <= 31) && (month > 0 && month <= 12);
+    const isValidDate = tmpDate.getDate() === day
+      && tmpDate.getMonth() + 1 && tmpDate.getFullYear() === year;
+
     errorMessage = !isValidDate ? 'Введите существующую дату.' : '';
   }
 
