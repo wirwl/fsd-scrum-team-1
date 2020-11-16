@@ -146,7 +146,7 @@ const initState = (
 
 const updateQuery = (param: string, value: string, router: NextRouter): void => {
   if (router === undefined) return;
-  // if (!process.browser) return;
+  if (!process.browser) return;
 
   const { query } = router;
   if (value !== '') {
@@ -155,10 +155,12 @@ const updateQuery = (param: string, value: string, router: NextRouter): void => 
     delete query[param];
   }
 
-  router?.push({
+  const path = {
     pathname: router.pathname,
     query,
-  });
+  };
+
+  router?.push(path, path, { shallow: true });
 };
 
 export {

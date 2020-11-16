@@ -2,10 +2,10 @@ import {
   FC,
   useState,
   useEffect,
-  // useRef,
+  useRef,
 } from 'react';
 import { block } from 'bem-cn';
-// import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash/isEqual';
 import { useRouter } from 'next/router';
 
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
@@ -78,35 +78,35 @@ string,
 number | [number, number] | string[] | boolean | IDateRangeFilter
 >;
 
-// const usePrevious = (
-//   value: IFormRoomFilterState,
-// ): IFormRoomFilterState | undefined => {
-//   const ref = useRef<IFormRoomFilterState>();
+const usePrevious = (
+  value: IFormRoomFilterState,
+): IFormRoomFilterState | undefined => {
+  const ref = useRef<IFormRoomFilterState>();
 
-//   useEffect(() => {
-//     ref.current = value;
-//   });
+  useEffect(() => {
+    ref.current = value;
+  });
 
-//   return ref.current;
-// };
+  return ref.current;
+};
 
-// const isStatesEquals = (
-//   prevFiltersState: IFormRoomFilterState | undefined,
-//   filters: IFormRoomFilterState,
-// ):boolean => (
-//   prevFiltersState === undefined || isEqual(prevFiltersState, filters)
-// );
+const isStatesEquals = (
+  prevFiltersState: IFormRoomFilterState | undefined,
+  filters: IFormRoomFilterState,
+):boolean => (
+  prevFiltersState === undefined || isEqual(prevFiltersState, filters)
+);
 
-const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query }) => {
+const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   const router = useRouter();
   const [filters, setFilters] = useState<IFormRoomFilterState>(
     initState(query, MIN_PRICE, MAX_PRICE),
   );
 
-  // const prevFiltersState = usePrevious(filters);
+  const prevFiltersState = usePrevious(filters);
 
   useEffect(() => {
-    // if (!isStatesEquals(prevFiltersState, filters)) onChange(filters);
+    if (!isStatesEquals(prevFiltersState, filters)) onChange(filters);
   }, [filters]);
 
   const handleSliderChange = (
