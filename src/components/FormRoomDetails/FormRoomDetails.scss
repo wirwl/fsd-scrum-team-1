@@ -28,7 +28,7 @@
     font-family: $header-font;
     color: $font-color;
     line-height: 1.0938rem;
-    font-size: 0.875rem;
+    font-size: .875rem;
   }
 
   &__room-number {
@@ -39,13 +39,13 @@
     color: $main-color;    
     font-style: normal;
     font-weight: bold;
-    font-size: 0.75rem;
-    line-height: 0.9375rem;
+    font-size: .75rem;
+    line-height: .9375rem;
     text-transform: uppercase;
   }
 
   &__price {
-    font-size: 0.75rem;
+    font-size: .75rem;
     color: $font-color-light50;
     line-height: 1.125rem;
     margin: 0;
@@ -53,7 +53,7 @@
   }
 
   &__price-number {        
-    font-size: 0.875rem;    
+    font-size: .875rem;    
     color: $font-color-light75;
     font-weight: bold;
   }
@@ -82,12 +82,13 @@
   }
 
   &__tooltip-wrapper {
-    margin-right: 0.625rem;
+    margin-right: .625rem;
   }
 
   &__row {
     display: flex;        
-    margin-bottom: 0.625rem;
+    margin-bottom: .625rem;
+
     &_last {
       margin-bottom: 1.875rem;
     }
@@ -95,9 +96,9 @@
   
   &__row-text {
     max-width: 13.375rem;
-    font-size: 0.875rem;
+    font-size: .875rem;
     color: $font-color-light75;
-    margin-right: 0.3125rem;
+    margin-right: .3125rem;
   }
   
   &__row-value {
@@ -106,14 +107,14 @@
 
   &__tooltip {
     display: inline-block;
-    border: 0.0625rem solid $font-color-light25;
+    border: .0625rem solid $font-color-light25;
     border-radius: 50%;
-    padding: 0 0.4375rem;    
+    padding: 0 .4375rem;    
     vertical-align: middle;
     color: $font-color-light25;
     width: 1.25rem;
     height: 1.25rem;
-    font-size: 0.75rem;
+    font-size: .75rem;
     line-height: 1.25rem;
     font-weight: bold;
   }
@@ -129,13 +130,13 @@
   }
 
   &__total-price-text {
-    margin-right: 0.3125rem;
+    margin-right: .3125rem;
   }
 
   &__total-price-dots {
     flex-grow: 1;
-    border-bottom: 0.0625rem dotted rgba(31, 32, 65, 0.25);    
-    margin-right: 0.3125rem;
+    border-bottom: .0625rem dotted rgba(31, 32, 65, .25);    
+    margin-right: .3125rem;
   }
   
 
