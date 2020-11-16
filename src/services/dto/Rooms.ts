@@ -31,7 +31,7 @@ type IRoomCommentAuthor = {
 };
 
 type IRoomComment = {
-  date: Date;
+  date: number;
   likes: number;
   text: string;
   author: IRoomCommentAuthor;

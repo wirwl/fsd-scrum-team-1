@@ -17,7 +17,7 @@ const Comments: React.FC<ICommentsProps> = ({ title = 'Отзывы посети
   const count = `${allComments} ${getWordWithEnding(allComments, ['отзыв', 'отзыва', 'отзывов'])}`;
 
   const comments = items.map((item) => (
-    <li className={b('comment')} key={`${item.author} ${item.date.getTime()}`}>
+    <li className={b('comment')} key={`${item.author} ${item.date}`}>
       <Comment
         author={item.author}
         date={item.date}
