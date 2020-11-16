@@ -1,9 +1,9 @@
 import { IRoom } from 'src/services/dto/Rooms';
 
-export const FETCH_ROOM = '@toxin/FETCH_ROOM';
-export const FETCH_ROOM_SUCCESS = '@toxin/FETCH_ROOM_SUCCESS';
-export const FETCH_ROOM_FAIL = '@toxin/FETCH_ROOM_FAIL';
-export const FETCH_ROOM_FETCHING = '@toxin/FETCH_ROOM_FETCHING';
+export const FETCH_ROOM = '@toxin-roomDetails/FETCH_ROOM';
+export const FETCH_ROOM_SUCCESS = '@toxin-roomDetails/FETCH_ROOM_SUCCESS';
+export const FETCH_ROOM_FAIL = '@toxin-roomDetails/FETCH_ROOM_FAIL';
+export const FETCH_ROOM_FETCHING = '@toxin-roomDetails/FETCH_ROOM_FETCHING';
 
 export type IFetchRoomDetailsParams = {
   id: string;
