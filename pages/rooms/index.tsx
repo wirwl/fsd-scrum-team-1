@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { block } from 'bem-cn';
 import { END } from 'redux-saga';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import type { ISearchFilters } from 'src/services/Api';
 import type { IFilterStateRecord, IFormRoomFilterState } from 'src/components/FormRoomsFilter/FormRoomsFilter';
@@ -73,6 +74,7 @@ const getParamsFromQuery = (query: Record<string, string>): ISearchFilters => {
 
 const Rooms: FC<IRoomsProps> = ({ query }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [filters, setFilters] = useState<ISearchFilters>(() => getParamsFromQuery(query));
 
   useEffect(() => {
@@ -81,14 +83,14 @@ const Rooms: FC<IRoomsProps> = ({ query }) => {
 
   const handleFormRoomsFilterChange = (stateQuery: IFormRoomFilterState): void => {
     const params = getParamsFromState(stateQuery);
-    updateQuery('n', '0');
+    updateQuery('n', '0', router);
     setFilters({ n: 0, ...params });
   };
 
   const handleLoadMoreButtonClick = (n: number): void => {
     if (!process.browser) return;
 
-    updateQuery('n', (n).toString());
+    updateQuery('n', (n).toString(), router);
     setFilters((prevState) => ({ ...prevState, n }));
     window.scrollTo(0, 0);
   };

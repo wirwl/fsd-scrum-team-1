@@ -145,17 +145,20 @@ const initState = (
 };
 
 const updateQuery = (param: string, value: string, router: NextRouter): void => {
-  if (!process.browser) return;
+  if (router === undefined) return;
+  // if (!process.browser) return;
 
-  const url = new URLSearchParams(window.location.search);
+  const { query } = router;
   if (value !== '') {
-    url.set(param, value);
+    query[param] = value;
   } else {
-    url.delete(param);
+    delete query[param];
   }
 
-  const newUrl = `${window.location.pathname}?${url}`;
-  router?.push(newUrl);
+  router?.push({
+    pathname: router.pathname,
+    query,
+  });
 };
 
 export {
