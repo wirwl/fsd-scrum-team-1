@@ -18,29 +18,29 @@
   }
 
   &__item:not(:last-child) {
-    border-bottom: 0.0625rem solid $font-color-light10;    
+    border-bottom: .0625rem solid $font-color-light10;    
     margin-bottom: 1.25rem;
   }
   
   &__wrapper {
-    padding-top: 0.1875rem;
+    padding-top: .1875rem;
     color: $font-color-light75;
   }
 
   &__caption {
-    margin-bottom: 0.375rem;
+    margin-bottom: .375rem;
     font-weight: bold;
-    font-size: 0.875rem;
+    font-size: .875rem;
   }
 
   &__description {
-    font-size: 0.875rem;
+    font-size: .875rem;
     margin: 0 0 1.0625rem;
   }
 
   &__icon {
     font-size: 3rem;
-    margin-right: 0.625rem;    
+    margin-right: .625rem;    
     background: $main-color-gradient;
     background-clip: text;
     -webkit-background-clip: text;
