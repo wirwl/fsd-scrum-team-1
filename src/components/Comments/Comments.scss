@@ -3,7 +3,7 @@
 .comments {
 
   &__head {
-    margin: 0 0 8px;
+    margin: 0 0 .5rem;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -32,6 +32,6 @@
   }
 
   &__comment:not(:last-child) {
-    margin-bottom: 23px;
+    margin-bottom: 1.4375rem;
   }
 }

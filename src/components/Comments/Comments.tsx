@@ -8,12 +8,13 @@ import './Comments.scss';
 interface ICommentsProps {
   title?: string;
   items: ICommentProps[];
+  allComments: number;
 }
 
 const b = block('comments');
 
-const Comments: React.FC<ICommentsProps> = ({ title = 'Отзывы посетителей номера', items }) => {
-  const count = `${items.length} ${getWordWithEnding(items.length, ['отзыв', 'отзыва', 'отзывов'])}`;
+const Comments: React.FC<ICommentsProps> = ({ title = 'Отзывы посетителей номера', items, allComments }) => {
+  const count = `${allComments} ${getWordWithEnding(allComments, ['отзыв', 'отзыва', 'отзывов'])}`;
 
   const comments = items.map((item) => (
     <li className={b('comment')} key={`${item.author} ${item.date.getTime()}`}>
