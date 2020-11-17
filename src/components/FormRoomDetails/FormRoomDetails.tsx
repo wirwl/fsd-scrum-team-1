@@ -118,7 +118,7 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
               №&nbsp;
               <span className={b('room-number')}>{roomNumber}</span>
             </span>
-            {isLuxury && <span className={b('luxury')}>&nbsp;люкс</span>}
+            {isLuxury && <span className={b('luxury')}>люкс</span>}
           </p>
           <p className={b('price')}>
             <span className={b('price-number')}>
@@ -147,15 +147,15 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
             onChange={(items) => { setDropdownItems(items); setValidateErrorMessage(''); }}
           />
         </div>
-        <div className={b('row')}>
+        <p className={b('row')}>
           <div className={b('row-text')}>
             {`${formateString(price)}₽ x ${getDays(dateRange)} суток`}
           </div>
           <div className={b('row-value')}>
             {`${formateString(price * getDays(dateRange))}₽`}
           </div>
-        </div>
-        <div className={b('row')}>
+        </p>
+        <p className={b('row')}>
           <div className={b('row-text')}>
             {`Сбор за услуги: скидка ${formateString(discount)}₽`}
           </div>
@@ -165,8 +165,8 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
           <div className={b('row-value')}>
             {`${formateString(serviceCharge - discount)}₽`}
           </div>
-        </div>
-        <div className={b('row', { last: true })}>
+        </p>
+        <p className={b('row', { last: true })}>
           <div className={b('row-text')}>
             Сбор за дополнительные услуги
           </div>
@@ -176,11 +176,11 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
           <div className={b('row-value')}>
             {`${additionalServiceCharge}₽`}
           </div>
-        </div>
+        </p>
         <div className={b('total-price')}>
           <span className={b('total-price-text')}>Итого </span>
           <span className={b('total-price-dots')} />
-          <span>{`${formateString(totalPrice - discount)}₽`}</span>
+          <span className={b('total-number')}>{`${formateString(totalPrice - discount)}₽`}</span>
         </div>
         { validateErrorMessage && <p className={b('row-with-error')}>{validateErrorMessage}</p> }
         <div>
