@@ -14,6 +14,7 @@ import Slider from '@/components/Slider/Slider';
 import Pagination from '@/components/Pagination/Pagination';
 import ReviewsChart from '@/components/ReviewsChart/ReviewsChart';
 import Comment from '@/components/Comment/Comment';
+import Comments from '@/components/Comments/Comments';
 
 const checkboxes = [
   {
@@ -88,8 +89,33 @@ const Components: FC = () => (
       }}
       likes={12}
       likeButtonChecked
-      date={new Date(2020, 5, 6)}
+      date={new Date(2020, 5, 6).getTime()}
       text="Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей."
+    />
+    <Comments
+      allComments={2942}
+      items={[
+        {
+          author: {
+            avatar: 'http://placeimg.com/320/220/animals',
+            name: 'Мурад Сарафанов',
+          },
+          likes: 12,
+          likeButtonChecked: true,
+          date: new Date(2020, 5, 6).getTime(),
+          text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.',
+        },
+        {
+          author: {
+            avatar: 'http://placeimg.com/320/220/touch',
+            name: 'Патрисия Стёклышкова',
+          },
+          likes: 2,
+          likeButtonChecked: false,
+          date: new Date(2020, 9, 16).getTime(),
+          text: 'Обслуживание на высоте! Всё аккуратно, чисто. Завтраки в номер советую заказать, каждый день новое блюдо и десерт как комплимент.',
+        },
+      ]}
     />
   </GuideLayout>
 );
