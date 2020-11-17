@@ -48,6 +48,7 @@ const isDateRangeValid = (dateRange: number[]): boolean => (
   dateRange.length === 2
   && dateRange.filter((d) => Number.isNaN(d)).length === 0
   && dateRange.filter((d) => d <= 0).length === 0
+  && dateRange.filter((d) => d.toString().length < 13).length === 0
 );
 
 const initDateRangeState = (
