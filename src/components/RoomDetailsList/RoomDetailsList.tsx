@@ -20,7 +20,7 @@ type RoomDetailedMap = Record<IRoomInformation, IRoomDetail>;
 
 const roomDetailedMap: RoomDetailedMap = {
   comfort: {
-    icon: 'tag_faces',
+    icon: 'insert_emoticon',
     caption: 'Комфорт',
     description: 'Шумопоглощающие стены',
   },
@@ -41,9 +41,11 @@ const RoomDetailsList: FC<IRoomDetailsList> = ({ header, roomDetails }) => {
     const { icon, caption, description } = roomDetailedMap[roomDetail];
     return (
       <li className={b('item')} key={icon}>
-        <div className={b('icon').mix('material-icons')}>{icon}</div>
+        <div className={b('icon-container')}>
+          <span className={b('icon')}>{icon}</span>
+        </div>
         <div className={b('wrapper')}>
-          <div className={b('caption')}>{caption}</div>
+          <h4 className={b('caption')}>{caption}</h4>
           <p className={b('description')}>{description}</p>
         </div>
       </li>
