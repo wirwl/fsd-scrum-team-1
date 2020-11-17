@@ -154,8 +154,9 @@ class Api {
   }
 
   async createUser(user: Omit<IUser, 'emailVerified'>): Promise<IUser> {
-    const { email } = user;
-    await this.users.doc(email).set({
+    const { uid } = user;
+    // TODO: catch errors;
+    await this.users.doc(uid).set({
       ...user,
       emailVerified: false,
     });
@@ -166,15 +167,15 @@ class Api {
     };
   }
 
-  async getUser(email: string): Promise<IUser | null> {
-    const snapshot = await this.users.doc(email).get();
+  async getUser(uid: string): Promise<IUser | null> {
+    const snapshot = await this.users.doc(uid).get();
 
     if (snapshot.exists) {
-      const data = <Omit<IUser, 'email'>> snapshot.data();
+      const data = <Omit<IUser, 'uid'>> snapshot.data();
 
       return {
         ...data,
-        email,
+        uid,
       };
     }
 

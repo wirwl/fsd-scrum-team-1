@@ -10,15 +10,9 @@ const validate = async (token: string): Promise<{ user: IUser | null }> => {
 
   const firebaseUser = await firebaseAdmin.auth.getUser(decodedToken.uid);
 
-  const { email } = firebaseUser;
+  const { uid } = firebaseUser;
 
-  if (email === undefined) {
-    return {
-      user: null,
-    };
-  }
-
-  const user = await firebaseAdmin.getUser(email);
+  const user = await firebaseAdmin.getUser(uid);
 
   return {
     user,

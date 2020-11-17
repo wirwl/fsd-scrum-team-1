@@ -48,14 +48,9 @@ function* signInFirebaseSuccessSaga(
   { payload }: ReturnType<typeof signInFirebaseSuccess>,
 ): SagaIterator | void {
   const firebaseUser = payload;
-  const { email } = firebaseUser;
+  const { uid } = firebaseUser;
 
-  if (email === null) {
-    put(signInFail('Ошибка аутентификации. Пользователь не был найден.'));
-    return;
-  }
-
-  const user = yield api.getUser(email);
+  const user = yield api.getUser(uid);
 
   const token = yield firebaseUser.getIdToken();
   cookie.set(TOKEN_NAME, token, { expires: TOKEN_EXPIRES });

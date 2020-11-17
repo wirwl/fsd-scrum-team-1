@@ -1,7 +1,8 @@
 export type IUser = {
+  uid: string;
+  email: string;
   name: string;
   lastname: string;
-  email: string;
   emailVerified: boolean;
   sex: 'man' | 'woman';
   birthday: number;
