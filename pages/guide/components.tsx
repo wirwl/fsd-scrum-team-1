@@ -64,9 +64,9 @@ const Components: FC = () => (
     <Input label="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" onChange={() => {}} name="input2" />
     <Input label="subscription text field" placeholder="Email" validate="email" onChange={() => {}} name="input3" withArrow />
     <Calendar />
-    <Checkbox label="Можно курить" />
-    <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
-    <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
+    <Checkbox label="Можно курить" name="smokingAllowed" />
+    <Checkbox label="Можно пригласить гостей (до 10 человек)" name="smokingAllowed" checked />
+    <Checkbox label="Широкий коридор" name="smokingAllowed" description="Ширина коридоров в номере не менее 91 см." />
     <FormLanding onSubmit={console.log} />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />

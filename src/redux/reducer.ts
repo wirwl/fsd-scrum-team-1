@@ -6,10 +6,12 @@ import { HYDRATE } from 'next-redux-wrapper';
 
 import roomsReducer from 'src/redux/room/roomReducer';
 import userReducer from 'src/redux/user/userReducer';
+import roomDetailsReducer from './roomDetails/roomDetailsReducer';
 
 const rootReducer = combineReducers({
   rooms: roomsReducer,
   user: userReducer,
+  roomDetails: roomDetailsReducer,
 });
 
 type IRootState = ReturnType<typeof rootReducer>;

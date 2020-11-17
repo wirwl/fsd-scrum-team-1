@@ -14,13 +14,13 @@ const b = block('form-landing');
 
 const dropdownItemsGuests: IDropListItem[] = [
   {
-    id: 'gAdults', label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+    id: 'adults', label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
   },
   {
-    id: 'gChilds', label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+    id: 'children', label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
   },
   {
-    id: 'gToddlers',
+    id: 'babies',
     label: 'Младенцы',
     count: 0,
     plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
