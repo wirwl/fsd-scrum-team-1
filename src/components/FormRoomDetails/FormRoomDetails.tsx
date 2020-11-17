@@ -18,6 +18,8 @@ interface IFormRoomDetails {
 
 const b = block('form-room-details');
 
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
 const dropdownItemsGuests: IDropListItem[] = [
   {
     id: 'gAdults', label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
@@ -33,6 +35,17 @@ const dropdownItemsGuests: IDropListItem[] = [
     special: true,
   },
 ];
+
+const formateString = (price: number): string => {
+  const output: string[] = [];
+
+  price.toString().split('').reverse().forEach((num, i) => {
+    if (i % 3 === 0 && i > 0) output.push(' ');
+    output.push(num);
+  });
+
+  return output.reverse().join('').trim();
+};
 
 const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
   const {
@@ -77,7 +90,6 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
   };
 
   const getDays = (range: RangeDays): number => {
-    const MS_PER_DAY = 1000 * 60 * 60 * 24;
     const { start, end } = range;
     let daysCount = 1;
     if (start && end) {
@@ -89,6 +101,8 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
   const toolTip = (text: string): JSX.Element => (
     <div className={b('tooltip')} title={text}>i</div>
   );
+
+  const totalPrice = price * getDays(dateRange) + serviceCharge + additionalServiceCharge;
 
   return (
     <div className={b()}>
@@ -108,7 +122,7 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
           </p>
           <p className={b('price')}>
             <span className={b('price-number')}>
-              {`${(price).toLocaleString('ru-RU')}₽`}
+              {`${formateString(price)}₽`}
             </span>
             &nbsp;в&nbsp;сутки
           </p>
@@ -135,21 +149,21 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
         </div>
         <div className={b('row')}>
           <div className={b('row-text')}>
-            {`${(price).toLocaleString('ru-RU')}₽ x ${getDays(dateRange)} суток`}
+            {`${formateString(price)}₽ x ${getDays(dateRange)} суток`}
           </div>
           <div className={b('row-value')}>
-            {`${(price * getDays(dateRange)).toLocaleString('ru-RU')}₽`}
+            {`${formateString(price * getDays(dateRange))}₽`}
           </div>
         </div>
         <div className={b('row')}>
           <div className={b('row-text')}>
-            {`Сбор за услуги: скидка ${discount.toLocaleString('ru-RU')}₽`}
+            {`Сбор за услуги: скидка ${formateString(discount)}₽`}
           </div>
           <div className={b('tooltip-wrapper')}>
             {toolTip('Скидка 20%')}
           </div>
           <div className={b('row-value')}>
-            {`${(serviceCharge - discount).toLocaleString('ru-RU')}₽`}
+            {`${formateString(serviceCharge - discount)}₽`}
           </div>
         </div>
         <div className={b('row', { last: true })}>
@@ -166,7 +180,7 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
         <div className={b('total-price')}>
           <span className={b('total-price-text')}>Итого </span>
           <span className={b('total-price-dots')} />
-          <span>{`${(price * getDays(dateRange) + serviceCharge - discount + additionalServiceCharge).toLocaleString('ru-RU')}₽`}</span>
+          <span>{`${formateString(totalPrice - discount)}₽`}</span>
         </div>
         { validateErrorMessage && <p className={b('row-with-error')}>{validateErrorMessage}</p> }
         <div>
