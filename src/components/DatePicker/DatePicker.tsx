@@ -35,6 +35,8 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     placeholder = 'ДД.ММ.ГГГГ',
     startTitle = 'прибытие',
     endTitle = 'выезд',
+    rangeEnd = null,
+    rangeStart = null,
     onChange,
   } = props;
 
@@ -190,6 +192,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
           <Calendar
             onClear={handleCalendarClear}
             onApply={handleCalendarApply}
+            range={{ start: rangeStart, end: rangeEnd }}
             selectRangeDay={state.calendarSelectMode}
           />
         </div>
