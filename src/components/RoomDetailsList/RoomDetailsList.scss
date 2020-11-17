@@ -1,0 +1,60 @@
+@import '@styles/variables.scss';
+
+.room-details-list {
+
+  &__header {
+    font-family: $header-font;
+    color: $font-color;
+    font-size: 1.1875rem;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {    
+    display: flex;
+    align-items: center;
+    padding-bottom: 1.1875rem;
+  }
+
+  &__item:not(:last-child) {
+    border-bottom: .0625rem solid $font-color-light10;    
+    margin-bottom: 1.125rem;
+  }
+  
+  &__wrapper {
+    padding-top: .1875rem;
+    color: $font-color-light75;
+  }
+
+  &__caption {
+    margin: 0;
+    font-weight: bold;
+    font-size: .875rem;
+  }
+
+  &__description {
+    font-size: .875rem;
+    margin: 0;
+  }
+
+  &__icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: .625rem;    
+  }
+
+  &__icon {
+    line-height: 2.5625rem;
+    font-family: 'Material Icons';
+    font-size: 3rem;
+    background: $main-color-gradient;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
