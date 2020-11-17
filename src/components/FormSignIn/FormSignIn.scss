@@ -1,0 +1,51 @@
+@import '@styles/variables.scss';
+
+.form-sign-in {
+  display: block;
+  width: 100%;
+  max-width: 23.75rem;
+  padding: 1.875rem;
+
+  border: .0625rem solid rgba($color: #000, $alpha: .12);
+  border-radius: .25rem;
+
+  box-shadow: 0 0 1.5625rem rgba($color: #000, $alpha: .2);
+
+  &__title {
+    margin-bottom: 1.4375rem;
+
+    color: $font-color;
+
+    font-family: $header-font;
+    font-size: 1.4375rem;
+  }
+
+  &__input {
+    margin-bottom: .625rem;
+  }
+
+  &__submit-button {
+    margin-top: 1.25rem;
+  }
+
+  &__register-link-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    margin-top: 1.875rem;
+
+    font-size: .875rem;
+
+    @media(max-width: 21.875rem) {
+      justify-content: center;
+
+      text-align: center;
+    }
+  }
+
+  &__register-link-label {
+    color: #000;
+  }
+}
