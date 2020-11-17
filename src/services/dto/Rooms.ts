@@ -72,4 +72,5 @@ export type {
   IRoomImpressions,
   IRoomComment,
   IRoomCommentAuthor,
+  IRoomInformation,
 };
