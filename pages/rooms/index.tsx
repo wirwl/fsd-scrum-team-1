@@ -4,7 +4,9 @@ import MainLayout from 'src/layouts/MainLayout/MainLayout';
 
 const Rooms: FC = () => (
   <MainLayout title="Rooms">
-    <h1>Rooms Page</h1>
+    <div style={{ width: '266px' }}>
+      rooms
+    </div>
   </MainLayout>
 );
 

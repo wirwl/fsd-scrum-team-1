@@ -12,6 +12,8 @@ import Accordion from '@/components/Accordion/Accordion';
 import RoomCard from '@/components/RoomCard/RoomCard';
 import Slider from '@/components/Slider/Slider';
 import Pagination from '@/components/Pagination/Pagination';
+import ReviewsChart from '@/components/ReviewsChart/ReviewsChart';
+import Comment from '@/components/Comment/Comment';
 
 const checkboxes = [
   {
@@ -58,18 +60,37 @@ const Components: FC = () => (
     />
     <DataPicker />
     <DataPicker withTwoInputs />
-    <Input head="text field" placeholder="Email" />
-    <Input head="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" />
-    <Input head="subscription text field" placeholder="Email" validate="email" withArrow />
+    <Input label="text field" placeholder="Email" onChange={() => {}} name="input1" />
+    <Input label="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" onChange={() => {}} name="input2" />
+    <Input label="subscription text field" placeholder="Email" validate="email" onChange={() => {}} name="input3" withArrow />
     <Calendar />
-    <Checkbox label="Можно курить" />
-    <Checkbox label="Можно пригласить гостей (до 10 человек)" checked />
-    <Checkbox label="Широкий коридор" description="Ширина коридоров в номере не менее 91 см." />
+    <Checkbox label="Можно курить" name="smokingAllowed" />
+    <Checkbox label="Можно пригласить гостей (до 10 человек)" name="smokingAllowed" checked />
+    <Checkbox label="Широкий коридор" name="smokingAllowed" description="Ширина коридоров в номере не менее 91 см." />
     <FormLanding onSubmit={console.log} />
     <Accordion checkboxList={checkboxes} isOpened />
     <Accordion checkboxList={checkboxes} />
     <Slider currentValues={[5000, 10000]} onChange={() => {}} />
     <Pagination totalItemCount={175} limitPerPage={12} />
+    <ReviewsChart
+      title="Впечатления от номера"
+      reviews={{
+        veryGood: 2342,
+        good: 1403,
+        fine: 330,
+        bad: 92,
+      }}
+    />
+    <Comment
+      author={{
+        avatar: 'http://placeimg.com/320/220/animals',
+        name: 'Мурад Сарафанов',
+      }}
+      likes={12}
+      likeButtonChecked
+      date={new Date(2020, 5, 6)}
+      text="Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей."
+    />
   </GuideLayout>
 );
 

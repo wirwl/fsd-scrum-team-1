@@ -21,7 +21,7 @@ const Checkbox: React.FC<ICheckboxProps> = (props) => {
 
   const handleChange = (): void => {
     setChecked(!checked);
-    onChange && onChange(!checked);
+    onChange && onChange(!checked, name);
   };
 
   return (
