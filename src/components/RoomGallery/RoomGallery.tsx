@@ -19,7 +19,7 @@ const generateKey = (pre: number): string => `${pre}_${new Date().getTime()}`;
 const RoomGallery: FC<IRoomGallery> = ({ photos }) => (
   <figure className={b()}>
     {
-      photos.map((photo, index) => (
+      photos.slice(0, 3).map((photo, index) => (
         <img
           className={b('item')}
           src={photo.src}
