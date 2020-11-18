@@ -53,6 +53,7 @@ type IRoom = {
   isLux: boolean;
   picsPreview: string[];
   pics: string[];
+  roomRules: string[];
 
   price: number;
   feeForService: number;
