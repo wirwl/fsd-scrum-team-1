@@ -6,17 +6,22 @@ import FirebaseAdmin from 'src/services/FirebaseAdmin';
 const firebaseAdmin = new FirebaseAdmin();
 
 const validate = async (token: string): Promise<{ user: IUser | null }> => {
-  const decodedToken = await firebaseAdmin.auth.verifyIdToken(token, true);
+  try {
+    const decodedToken = await firebaseAdmin.auth.verifyIdToken(token, true);
 
-  const firebaseUser = await firebaseAdmin.auth.getUser(decodedToken.uid);
+    const firebaseUser = await firebaseAdmin.auth.getUser(decodedToken.uid);
 
-  const { uid } = firebaseUser;
+    const { uid } = firebaseUser;
 
-  const user = await firebaseAdmin.getUser(uid);
+    const user = await firebaseAdmin.getUser(uid);
 
-  return {
-    user,
-  };
+    return {
+      user,
+    };
+  } catch (error) {
+    console.error(error);
+    return { user: null };
+  }
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
