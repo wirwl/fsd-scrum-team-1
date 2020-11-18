@@ -1,0 +1,21 @@
+@import '@styles/variables.scss';
+
+.sign-in {
+  background-image: url('/images/auth-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: $max-content-width;
+    height: 42.75rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media(max-width: 900px) {
+      height: 33.125rem;
+    }
+  }
+}

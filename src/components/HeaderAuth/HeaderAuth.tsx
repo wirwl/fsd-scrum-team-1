@@ -3,13 +3,9 @@ import Link from 'next/link';
 import { block } from 'bem-cn';
 
 import Button from 'src/components/Button/Button';
+import type { IUser } from 'src/services/dto/User';
 
 import './HeaderAuth.scss';
-
-type IUser = {
-  name: string
-  lastName: string
-};
 
 type IHeaderAuthProps = {
   user: IUser | null
@@ -23,7 +19,7 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
       <span className={b('user-name')}>
         {user.name}
         &nbsp;
-        {user.lastName}
+        {user.lastname}
       </span>
     )
     : (

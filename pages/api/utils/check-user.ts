@@ -20,9 +20,7 @@ const validate = async (token: string): Promise<{ user: IUser | null }> => {
     };
   } catch (error) {
     console.error(error);
-    return {
-      user: null,
-    };
+    return { user: null };
   }
 };
 
