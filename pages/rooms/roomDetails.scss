@@ -4,11 +4,16 @@
 .room-details {
 
   &__container-content {
-    @include inner-wrapper;
-
-    padding: 4.5625rem 0;
+    margin: 0 auto;
+    max-width: 72.5rem;
+    padding: 4.5625rem 1rem;
     display: flex;
     flex-wrap: nowrap;
+
+    @media (max-width: 73.125rem) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 
   &__main-info,
@@ -19,33 +24,73 @@
 
   &__main-info {
     margin-bottom: .8125rem;
+
+    @media (max-width: 40.3125rem) {
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4rem;
+    }  
   }
 
   &__reviews-chart {
     margin-left: 6.625rem;
+    
+    @media (max-width: 44.375rem) {
+      margin-left: 2.625rem;
+    }
+
+    @media (max-width: 40.3125rem) {
+      margin: 2rem 0 0;
+    }
   }
 
   &__comments {
-    margin-bottom: 2.125rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 40.3125rem) {
+      margin-bottom: 2rem;
+    }
   }
 
-  &__form-booking-room {
-    margin-left: 4.375rem;
+  &__another-info {
+    @media (max-width: 40.3125rem) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 
   &__roles {
+    max-width: 16.25rem;
     min-width: 16.25rem;
   }
 
   &__roles-title {
-    margin: 0 0 1rem 1.25rem;
+    margin: 0 0 1.1875rem 1.25rem;
+    font-weight: bold;
+    font-size: 1.1875rem;
+    font-family: $header-font;
+    color: $font-color;
   }
 
   &__cancellation-terms {
     margin-left: 6.3125rem;
+    max-width: 22.5rem;
+    
+    @media (max-width: 44.375rem) {
+      margin-left: 2.3125rem;
+    }
+
+    @media (max-width: 40.3125rem) {
+      margin: 2rem 0 0;
+    }
   }
 
   &__form-booking-room {
+    margin-left: 4.375rem;
     min-width: 23.75rem;
+
+    @media (max-width: 73.125rem) {
+      margin: 4rem 0 0;
+    }
   }
 }
