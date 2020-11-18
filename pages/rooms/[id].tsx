@@ -22,7 +22,7 @@ type IRoomDetailsProps = { id: string | string[] | undefined };
 const b = block('room-details');
 
 const RoomDetails: FC<IRoomDetailsProps> = ({ id }) => {
-  const { isFetching, error, item: room } = useSelector((state: IRootState) => state.roomDetails);
+  const { isFetching, item: room } = useSelector((state: IRootState) => state.roomDetails);
   const dispatch = useDispatch();
 
   useEffect(() => {
