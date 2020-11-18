@@ -41,6 +41,7 @@ type IRoomInformation = 'comfort' | 'convinience' | 'cozy';
 
 type IRoom = {
   id: string;
+  n: number;
   roomNumber: number;
   bed: number;
   childBed: number;
@@ -52,6 +53,7 @@ type IRoom = {
   isLux: boolean;
   picsPreview: string[];
   pics: string[];
+  roomRules: string[];
 
   price: number;
   feeForService: number;

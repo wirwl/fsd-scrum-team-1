@@ -1,5 +1,6 @@
 import type { IDateRangeFilter } from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
+import type { NextRouter } from 'next/router';
 import {
   dropdownGuestsInit,
   dropdownConvenienceInit,
@@ -47,6 +48,7 @@ const isDateRangeValid = (dateRange: number[]): boolean => (
   dateRange.length === 2
   && dateRange.filter((d) => Number.isNaN(d)).length === 0
   && dateRange.filter((d) => d <= 0).length === 0
+  && dateRange.filter((d) => d.toString().length < 13).length === 0
 );
 
 const initDateRangeState = (
@@ -143,18 +145,23 @@ const initState = (
   return result as IFormRoomFilterState;
 };
 
-const updateQuery = (param: string, value: string): void => {
+const updateQuery = (param: string, value: string, router: NextRouter): void => {
+  if (router === undefined) return;
   if (!process.browser) return;
 
-  const url = new URLSearchParams(window.location.search);
+  const { query } = router;
   if (value !== '') {
-    url.set(param, value);
+    query[param] = value;
   } else {
-    url.delete(param);
+    delete query[param];
   }
 
-  const newUrl = `${window.location.pathname}?${url}`;
-  window.history?.pushState(null, '', newUrl);
+  const path = {
+    pathname: router.pathname,
+    query,
+  };
+
+  router?.replace(path, path, { shallow: true });
 };
 
 export {

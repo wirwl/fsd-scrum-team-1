@@ -19,8 +19,8 @@ $root: '.checkbox';
 
   &__input {
     position: absolute;
-    width: 0;
-    height: 0;
+    opacity: 0;
+    z-index: -1;
 
     &:checked + #{$root}__new-input {
       border-color: $main-color;

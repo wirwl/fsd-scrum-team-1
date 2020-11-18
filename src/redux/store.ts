@@ -10,8 +10,8 @@ import { MakeStore, createWrapper } from 'next-redux-wrapper';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import reducer, { IRootState } from './reducer';
-import rootSaga from './rootSaga';
+import rootSaga from 'src/redux/rootSaga';
+import reducer, { IRootState } from 'src/redux/reducer';
 
 type ISagaStore = Store & {
   sagaTask?: Task;

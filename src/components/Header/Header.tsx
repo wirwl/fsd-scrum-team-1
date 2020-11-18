@@ -1,12 +1,16 @@
 import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { block } from 'bem-cn';
+import { useSelector } from 'react-redux';
 
 import './Header.scss';
 
 import Logo from 'src/components/Logo/Logo';
 import MainNav, { IMenuItem } from 'src/components/MainNav/MainNav';
 import HeaderAuth from 'src/components/HeaderAuth/HeaderAuth';
+
+import type { IRootState } from 'src/redux/reducer';
+import type { IUserState } from 'src/redux/user/userReducer';
 
 const navItems: IMenuItem[] = [
   { label: 'О нас', href: '/' },
@@ -34,8 +38,11 @@ const navItems: IMenuItem[] = [
 
 const b = block('header');
 
+const userSelector = (store: IRootState): IUserState => store.user;
+
 const Header: FC = () => {
   const router = useRouter();
+  const { user } = useSelector(userSelector);
 
   return (
     <header className={b()}>
@@ -49,7 +56,7 @@ const Header: FC = () => {
         </div>
 
         <div className={b('auth-block')}>
-          <HeaderAuth user={{ name: 'Aпполинария', lastName: 'Муравьева-Ржевская' }} />
+          <HeaderAuth user={user} />
         </div>
       </div>
     </header>

@@ -5,12 +5,12 @@ import Api from 'src/services/Api';
 import {
   FETCH_ROOMS,
   FETCH_ROOMS_FETCHING,
-} from 'src/redux/room/roomTypes';
+} from 'src/redux/rooms/roomsTypes';
 import {
   fetchRooms,
   fetchRoomsSuccess,
   fetchRoomsFail,
-} from 'src/redux/room/roomActions';
+} from 'src/redux/rooms/roomsActions';
 
 const api = new Api();
 
@@ -19,7 +19,7 @@ function* fetchRoomsSaga(
 ): SagaIterator | null {
   yield put({ type: FETCH_ROOMS_FETCHING });
   try {
-    const rooms = yield api.searchRooms({ n: payload.dEnd });
+    const rooms = yield api.searchRooms(payload);
     yield put(fetchRoomsSuccess(rooms));
   } catch (error) {
     yield put(fetchRoomsFail(error.message));
