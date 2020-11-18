@@ -14,6 +14,7 @@ import Slider from '@/components/Slider/Slider';
 import Pagination from '@/components/Pagination/Pagination';
 import ReviewsChart from '@/components/ReviewsChart/ReviewsChart';
 import Comment from '@/components/Comment/Comment';
+import Comments from '@/components/Comments/Comments';
 
 const checkboxes = [
   {
@@ -38,6 +39,14 @@ const checkboxes = [
   },
 ];
 
+const range = {
+  start: new Date(),
+  end: new Date(),
+};
+
+range.start.setDate(range.start.getDate() + 1);
+range.end.setDate(range.end.getDate() + 4);
+
 const Components: FC = () => (
   <GuideLayout title="Components">
     <h1>Components Page</h1>
@@ -58,8 +67,8 @@ const Components: FC = () => (
         isLuxury: true,
       }}
     />
-    <DataPicker />
-    <DataPicker withTwoInputs />
+    <DataPicker rangeStart={range.start} rangeEnd={range.end} />
+    <DataPicker withTwoInputs rangeStart={range.start} />
     <Input label="text field" placeholder="Email" onChange={() => {}} name="input1" />
     <Input label="masked text field" placeholder="ДД.ММ.ГГГГ" mask="99.99.9999" onChange={() => {}} name="input2" />
     <Input label="subscription text field" placeholder="Email" validate="email" onChange={() => {}} name="input3" withArrow />
@@ -88,8 +97,33 @@ const Components: FC = () => (
       }}
       likes={12}
       likeButtonChecked
-      date={new Date(2020, 5, 6)}
+      date={new Date(2020, 5, 6).getTime()}
       text="Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей."
+    />
+    <Comments
+      allComments={2942}
+      items={[
+        {
+          author: {
+            avatar: 'http://placeimg.com/320/220/animals',
+            name: 'Мурад Сарафанов',
+          },
+          likes: 12,
+          likeButtonChecked: true,
+          date: new Date(2020, 5, 6).getTime(),
+          text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий. И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.',
+        },
+        {
+          author: {
+            avatar: 'http://placeimg.com/320/220/touch',
+            name: 'Патрисия Стёклышкова',
+          },
+          likes: 2,
+          likeButtonChecked: false,
+          date: new Date(2020, 9, 16).getTime(),
+          text: 'Обслуживание на высоте! Всё аккуратно, чисто. Завтраки в номер советую заказать, каждый день новое блюдо и десерт как комплимент.',
+        },
+      ]}
     />
   </GuideLayout>
 );

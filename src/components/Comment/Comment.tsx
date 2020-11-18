@@ -35,8 +35,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
     onLikeClick = () => {},
   } = props;
 
-  const today = new Date();
-  const differenceOfDays = Math.ceil((today.getTime() - date.getTime()) / (24 * 60 * 60 * 1000));
+  const differenceOfDays = Math.ceil((Date.now() - date) / (24 * 60 * 60 * 1000));
   const publicationDate = `${differenceOfDays} ${getWordWithEnding(differenceOfDays, ['день', 'дня', 'дней'])} назад`;
 
   return (
@@ -63,3 +62,5 @@ const Comment: React.FC<ICommentProps> = (props) => {
 };
 
 export default Comment;
+export { getWordWithEnding };
+export type { ICommentProps };

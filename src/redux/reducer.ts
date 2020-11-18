@@ -4,7 +4,7 @@ import {
 } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 
-import roomsReducer from 'src/redux/room/roomReducer';
+import roomsReducer from 'src/redux/rooms/roomsReducer';
 import userReducer from 'src/redux/user/userReducer';
 import roomDetailsReducer from './roomDetails/roomDetailsReducer';
 

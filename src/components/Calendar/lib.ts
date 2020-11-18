@@ -1,5 +1,3 @@
-import { BemItem, Block } from 'bem-cn';
-
 const getDaysInMonth = (date: Date): number => (
   new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
 );
@@ -47,54 +45,6 @@ const createDaysList = (renderDate: Date): Date[] => {
   }
 
   return days;
-};
-
-const getDayClasses = (params: {
-  day: Date;
-  drawnDate: Date;
-  start: Date | null;
-  end: Date | null;
-  b: Block;
-}): BemItem & string => {
-  const {
-    day,
-    drawnDate,
-    end,
-    start,
-    b,
-  } = params;
-
-  const bemMods: { [index: string]: string | boolean } = { 'not-clickable': false };
-
-  if (day.getMonth() !== drawnDate.getMonth()) bemMods.theme = 'another-month';
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  if (today.getTime() === day.getTime()) bemMods.theme = 'today';
-  if (day.getTime() <= today.getTime()) bemMods['not-clickable'] = true;
-
-  const startIsNull = start === null;
-  const endIsNull = end === null;
-  const rangeIsFull = !startIsNull && !endIsNull;
-
-  if (!startIsNull && (start as Date).getTime() === day.getTime()) {
-    bemMods.theme = 'part-of-range';
-    if (rangeIsFull) bemMods['inrange-position'] = 'start';
-  }
-
-  if (!endIsNull && (end as Date).getTime() === day.getTime()) {
-    bemMods.theme = 'part-of-range';
-    if (rangeIsFull) bemMods['inrange-position'] = 'end';
-  }
-
-  if (rangeIsFull) {
-    const isDayMiddleRange = day.getTime() > (start as Date).getTime()
-    && day.getTime() < (end as Date).getTime();
-
-    if (isDayMiddleRange) bemMods.theme = 'mid-range';
-  }
-
-  return b('day', bemMods);
 };
 
 const updateRange = (params: {
@@ -154,4 +104,4 @@ const updateRange = (params: {
 };
 
 export default createDaysList;
-export { getDayClasses, updateRange };
+export { updateRange };

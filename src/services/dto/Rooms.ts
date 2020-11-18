@@ -31,7 +31,7 @@ type IRoomCommentAuthor = {
 };
 
 type IRoomComment = {
-  date: Date;
+  date: number;
   likes: number;
   text: string;
   author: IRoomCommentAuthor;
@@ -41,6 +41,7 @@ type IRoomInformation = 'comfort' | 'convenience' | 'cozy';
 
 type IRoom = {
   id: string;
+  n: number;
   roomNumber: number;
   bed: number;
   childBed: number;
