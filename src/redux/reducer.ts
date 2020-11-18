@@ -4,7 +4,7 @@ import {
 } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 
-import roomsReducer from './room/roomReducer';
+import roomsReducer from './rooms/roomsReducer';
 import roomDetailsReducer from './roomDetails/roomDetailsReducer';
 
 const rootReducer = combineReducers({

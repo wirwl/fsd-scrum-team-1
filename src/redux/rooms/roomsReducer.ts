@@ -4,9 +4,9 @@ import {
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAIL,
   FETCH_ROOMS_FETCHING,
-} from './roomTypes';
+} from './roomsTypes';
 
-export type IRoomsState = {
+type IRoomsState = {
   items: IRoom[];
   error: string | null;
   isFetching: boolean;
@@ -47,3 +47,7 @@ const roomReducer = (
 };
 
 export default roomReducer;
+
+export type {
+  IRoomsState,
+};

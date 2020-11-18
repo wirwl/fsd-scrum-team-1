@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
-import router from 'next/router';
+import Router from 'next/router';
 
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
@@ -21,12 +21,6 @@ const convertPersons = (
   {},
 );
 
-const queryToString = (
-  query: Record<string, number | string>,
-): string => Object.keys(query)
-  .reduce((acc, key) => `&${key}=${query[key]}${acc}`, '')
-  .slice(1);
-
 const Index: FC = () => {
   const handleFormLandingSubmit = (
     { start, end }: RangeDays,
@@ -42,9 +36,10 @@ const Index: FC = () => {
       ...convertPersons(persons),
     };
 
-    const queryString = queryToString(query);
-
-    router.push('/rooms', `/rooms?${queryString}`);
+    Router.push({
+      pathname: '/rooms',
+      query,
+    });
   };
 
   return (
