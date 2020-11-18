@@ -8,6 +8,14 @@ import { fetchRoomDetails } from '@/redux/roomDetails/roomDetailsActions';
 import { IRootState } from '@/redux/reducer';
 import ReviewsChart from '@/components/ReviewsChart/ReviewsChart';
 import Spinner from '@/components/Spinner/Spinner';
+import RoomGallery from '@/components/RoomGallery/RoomGallery';
+import RoomDetailsList from '@/components/RoomDetailsList/RoomDetailsList';
+import Comments from '@/components/Comments/Comments';
+import BulletsList from '@/components/BulletsList/BulletsList';
+import RoomCancel from '@/components/RoomCancel/RoomCancel';
+import FormRoomDetails from '@/components/FormRoomDetails/FormRoomDetails';
+
+import './roomDetails.scss';
 
 type IRoomDetailsProps = { id: string | string[] | undefined };
 
@@ -21,42 +29,64 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ id }) => {
     dispatch(fetchRoomDetails({ id: String(id) }));
   }, []);
 
-  const pageContent = isFetching && room
+  const pageContent = room === null
     ? <Spinner />
     : (
       <div className={b()}>
+        <section className={b('gallery')}>
+          <RoomGallery photos={room.pics.map((src) => ({ src, alt: src }))} />
+        </section>
         <div className={b('container-content')}>
           <section className={b('room-info')}>
             <section className={b('main-info')}>
               <div className={b('room-advantages')}>
-                {/* Добавить преимущества номера */}
+                <RoomDetailsList header="Сведения о номере" roomDetails={room.roomInformation} />
               </div>
               <div className={b('reviews-chart')}>
                 <ReviewsChart
                   reviews={{
-                    bad: 0,
-                    fine: 0,
-                    good: 0,
-                    veryGood: 0,
+                    bad: room.impressions.bad,
+                    fine: room.impressions.satisfactorily,
+                    good: room.impressions.good,
+                    veryGood: room.impressions.perfectly,
                   }}
                   title="Впечатления от номера"
                 />
               </div>
             </section>
-            <section className={b('comments')}>
-              {/* Список комментариев */}
-            </section>
+            {
+              room.comments.length > 0
+              && (
+                <section className={b('comments')}>
+                  <Comments allComments={room.comments.length} items={room.comments.slice(-2)} />
+                </section>
+              )
+            }
             <section className={b('another-info')}>
-              <div className={b('rooles')}>
-                {/* rooles */}
+              <div className={b('roles')}>
+                <h3 className={b('roles-title')}>Правила</h3>
+                <BulletsList
+                  textList={[
+                    'rhjryyejetjtjterj',
+                    'dddddryukryukryukryukryukd',
+                    'theantsyrtmjur.ilyooupliuyrjhmdjthgstryujhskjhjgyyjtkjytk',
+                  ]}
+                />
               </div>
-              <div className={b('cancellation terms')}>
-                {/*  условия отмены */}
+              <div className={b('cancellation-terms')}>
+                <RoomCancel />
               </div>
             </section>
           </section>
           <div className={b('form-booking-room')}>
-            {/* Форма с калькулятором */}
+            <FormRoomDetails
+              roomNumber={room.roomNumber}
+              isLuxury={room.isLux}
+              price={room.price}
+              discount={room.discount}
+              serviceCharge={room.feeForService}
+              additionalServiceCharge={room.feeForAdditionalService}
+            />
           </div>
         </div>
       </div>

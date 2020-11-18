@@ -1,0 +1,48 @@
+@import '@styles/mixins.scss';
+@import '@styles/variables.scss';
+
+.room-details {
+
+  &__container-content {
+    @include inner-wrapper;
+
+    padding: 73px 0;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  &__main-info,
+  &__another-info {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__main-info {
+    margin-bottom: 70px;
+  }
+
+  &__reviews-chart {
+    margin-left: 108px;
+  }
+
+  &__comments {
+    margin-bottom: 70px;
+  }
+
+  &__cancellation-terms,
+  &__form-booking-room {
+    margin-left: 4.375rem;
+  }
+
+  &__roles {
+    max-width: 300px;
+  }
+
+  &__roles-title {
+    margin: 0 0 20px 20px;
+  }
+
+  &__form-booking-room {
+    min-width: 380px;
+  }
+}

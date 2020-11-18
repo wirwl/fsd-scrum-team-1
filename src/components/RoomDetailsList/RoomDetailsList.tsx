@@ -24,7 +24,7 @@ const roomDetailedMap: RoomDetailedMap = {
     caption: 'Комфорт',
     description: 'Шумопоглощающие стены',
   },
-  convenience: {
+  convinience: {
     icon: 'location_city',
     caption: 'Удобство',
     description: 'Окно в каждой из спален',

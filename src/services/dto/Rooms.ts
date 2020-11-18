@@ -37,7 +37,7 @@ type IRoomComment = {
   author: IRoomCommentAuthor;
 };
 
-type IRoomInformation = 'comfort' | 'convenience' | 'cozy';
+type IRoomInformation = 'comfort' | 'convinience' | 'cozy';
 
 type IRoom = {
   id: string;

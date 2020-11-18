@@ -3,6 +3,7 @@
 .bullets-list {
   list-style: none;
   margin: 0;
+  padding: 0;
 
   &__item:not(:last-child) {
     margin-bottom: .625rem;
