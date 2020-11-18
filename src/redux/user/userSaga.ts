@@ -15,6 +15,9 @@ import {
   signOutSuccess,
 } from 'src/redux/user/userActions';
 
+const TOKEN_NAME = 'firebaseToken';
+const TOKEN_EXPIRES = 14;
+
 const api = new Api();
 
 const DEFAULT_MESSAGE = 'Что-то пошло не так, проверьте соединение и перезагрузите страницу';
@@ -41,9 +44,6 @@ function* signInSaga(
   }
 }
 
-const TOKEN_NAME = 'firebaseToken';
-const TOKEN_EXPIRES = 14;
-
 function* signInFirebaseSuccessSaga(
   { payload }: ReturnType<typeof signInFirebaseSuccess>,
 ): SagaIterator | void {
@@ -60,7 +60,7 @@ function* signInFirebaseSuccessSaga(
     return;
   }
 
-  yield put(signInFail(`Пользователь с email ${payload} не найден`));
+  yield put(signInFail(`Пользователь с uid ${payload} не найден`));
 }
 
 function* signOutSaga(): SagaIterator | void {
