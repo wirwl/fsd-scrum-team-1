@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
-import router from 'next/router';
+import Router from 'next/router';
 
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
@@ -14,24 +14,12 @@ const TITLE = 'Toxin';
 
 const b = block('index');
 
-const labelsMap: { [key:string]: string; } = {
-  Взрослые: 'gAdults',
-  Дети: 'gChilds',
-  Младенцы: 'gToddlers',
-};
-
 const convertPersons = (
   persons: IDropListItem[],
-): { [key:string]: number } => persons.reduce(
-  (acc, { label, count }) => ({ ...acc, [labelsMap[label]]: count }),
+): Record<string, number> => persons.reduce(
+  (acc, { id, count }) => ({ ...acc, [id]: count }),
   {},
 );
-
-const queryToString = (
-  query: { [key:string]: number | string },
-): string => Object.keys(query)
-  .reduce((acc, key) => `&${key}=${query[key]}${acc}`, '')
-  .slice(1);
 
 const Index: FC = () => {
   const handleFormLandingSubmit = (
@@ -40,16 +28,18 @@ const Index: FC = () => {
   ): void => {
     const _start = start === null ? '' : start;
     const _end = end === null ? '' : end;
+    const tStart = (new Date(_start)).getTime();
+    const tEnd = (new Date(_end)).getTime();
 
     const query = {
-      dStart: (new Date(_start)).getTime(),
-      dEnd: (new Date(_end)).getTime(),
+      dateRange: `${tStart}-${tEnd}`,
       ...convertPersons(persons),
     };
 
-    const queryString = queryToString(query);
-
-    router.push('/rooms', `/rooms?${queryString}`);
+    Router.push({
+      pathname: '/rooms',
+      query,
+    });
   };
 
   return (

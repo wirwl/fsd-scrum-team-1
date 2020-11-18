@@ -1,7 +1,7 @@
 interface ICheckboxProps {
   label?: string;
   description?: string;
-  name?: string;
+  name: string;
   checked?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange?: (checked: boolean, name: string) => void;
 }

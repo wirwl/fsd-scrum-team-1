@@ -1,4 +1,4 @@
-type IRoomRooles = {
+type IRoomRules = {
   petsAllowed: boolean;
   smokingAllowed: boolean;
   guestAllowed: boolean;
@@ -9,7 +9,7 @@ type IRoomAccessibility = {
   assistantForDisabled: boolean;
 };
 
-type IRoomExtraConvinience = {
+type IRoomExtraConvenience = {
   breakfast: boolean;
   desk: boolean;
   feedingChair: boolean;
@@ -31,24 +31,25 @@ type IRoomCommentAuthor = {
 };
 
 type IRoomComment = {
-  date: Date;
+  date: number;
   likes: number;
   text: string;
   author: IRoomCommentAuthor;
 };
 
-type IRoomInformation = 'comfort' | 'convinience' | 'cozy';
+type IRoomInformation = 'comfort' | 'convenience' | 'cozy';
 
 type IRoom = {
   id: string;
+  n: number;
   roomNumber: number;
   bed: number;
   childBed: number;
-  rules: IRoomRooles,
+  rules: IRoomRules,
   accessibility: IRoomAccessibility;
   bedroom: number;
   bathroom: number;
-  extranConvinience: IRoomExtraConvinience;
+  extraConvenience: IRoomExtraConvenience;
   isLux: boolean;
   picsPreview: string[];
   pics: string[];
@@ -66,10 +67,11 @@ type IRoom = {
 
 export type {
   IRoom,
-  IRoomRooles,
+  IRoomRules,
   IRoomAccessibility,
-  IRoomExtraConvinience,
+  IRoomExtraConvenience,
   IRoomImpressions,
   IRoomComment,
   IRoomCommentAuthor,
+  IRoomInformation,
 };
