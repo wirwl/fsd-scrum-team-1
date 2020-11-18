@@ -65,13 +65,7 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ id }) => {
             <section className={b('another-info')}>
               <div className={b('roles')}>
                 <h3 className={b('roles-title')}>Правила</h3>
-                <BulletsList
-                  textList={[
-                    'rhjryyejetjtjterj',
-                    'dddddryukryukryukryukryukd',
-                    'theantsyrtmjur.ilyooupliuyrjhmdjthgstryujhskjhjgyyjtkjytk',
-                  ]}
-                />
+                <BulletsList textList={room.roomRules} />
               </div>
               <div className={b('cancellation-terms')}>
                 <RoomCancel />

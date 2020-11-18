@@ -6,7 +6,7 @@
   &__container-content {
     @include inner-wrapper;
 
-    padding: 73px 0;
+    padding: 4.5625rem 0;
     display: flex;
     flex-wrap: nowrap;
   }
@@ -18,31 +18,34 @@
   }
 
   &__main-info {
-    margin-bottom: 70px;
+    margin-bottom: .8125rem;
   }
 
   &__reviews-chart {
-    margin-left: 108px;
+    margin-left: 6.625rem;
   }
 
   &__comments {
-    margin-bottom: 70px;
+    margin-bottom: 2.125rem;
   }
 
-  &__cancellation-terms,
   &__form-booking-room {
     margin-left: 4.375rem;
   }
 
   &__roles {
-    max-width: 300px;
+    min-width: 16.25rem;
   }
 
   &__roles-title {
-    margin: 0 0 20px 20px;
+    margin: 0 0 1rem 1.25rem;
+  }
+
+  &__cancellation-terms {
+    margin-left: 6.3125rem;
   }
 
   &__form-booking-room {
-    min-width: 380px;
+    min-width: 23.75rem;
   }
 }
