@@ -11,7 +11,7 @@ import createSagaMiddleware, { Task } from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootSaga from 'src/redux/rootSaga';
-import reducer, { IRootState } from './reducer';
+import reducer, { IRootState } from 'src/redux/reducer';
 
 type ISagaStore = Store & {
   sagaTask?: Task;
