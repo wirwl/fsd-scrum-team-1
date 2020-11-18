@@ -23,10 +23,14 @@ type IRoomDetailsProps = { id: string | string[] | undefined };
 const b = block('room-details');
 
 const RoomDetails: FC<IRoomDetailsProps> = () => {
-  const { item: room } = useSelector((state: IRootState) => state.roomDetails);
+  const { isFetching, item: room } = useSelector((state: IRootState) => state.roomDetails);
 
-  const pageContent = room === null
-    ? <Spinner />
+  const pageContent = isFetching || room === null
+    ? (
+      <div className={b('spinner')}>
+        <Spinner />
+      </div>
+    )
     : (
       <div className={b()}>
         <section className={b('gallery')}>
