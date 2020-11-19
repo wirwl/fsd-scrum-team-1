@@ -3,7 +3,7 @@
 .comments {
 
   &__head {
-    margin: 0 0 .5rem;
+    margin: 0 0 1.25rem;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -20,9 +20,11 @@
   }
 
   &__count {
+    margin: 0;
     font-size: .875rem;
     line-height: .875rem;
     color: $font-color-light50;
+    white-space: nowrap;
   }
 
   &__list {

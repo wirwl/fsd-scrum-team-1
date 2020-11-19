@@ -7,7 +7,7 @@ import LikeButton from '@/components/LikeButton/LikeButton';
 import './Comment.scss';
 
 interface ICommentProps extends IRoomComment {
-  likeButtonChecked: boolean;
+  likeButtonChecked?: boolean;
   onLikeClick?: (checked: boolean) => void;
 }
 
@@ -29,7 +29,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
   const {
     author,
     date,
-    likeButtonChecked,
+    likeButtonChecked = false,
     likes,
     text,
     onLikeClick = () => {},

@@ -1,8 +1,10 @@
 @import '@styles/variables.scss';
 
 .room-details-list {
+  min-width: 16.625rem;
 
   &__header {
+    margin: 0 0 1.125rem 0;
     font-family: $header-font;
     color: $font-color;
     font-size: 1.1875rem;
@@ -11,6 +13,7 @@
   &__list {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
 
   &__item {    
@@ -57,4 +60,3 @@
     -webkit-text-fill-color: transparent;
   }
 }
-

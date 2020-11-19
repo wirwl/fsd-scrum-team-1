@@ -3,6 +3,7 @@
 .bullets-list {
   list-style: none;
   margin: 0;
+  padding: 0;
 
   &__item:not(:last-child) {
     margin-bottom: .625rem;
@@ -11,6 +12,7 @@
   &__bullet {
     font-family: $main-font;
     color: $font-color-light75;
+    font-size: .875rem;
     line-height: 1.5rem;
     padding-left: 1.25rem;
     position: relative;
