@@ -1,7 +1,7 @@
 @import '@styles/variables.scss';
 
 .room-details-list {
-  min-width: 16.625rem;
+  max-width: 16.625rem;
 
   &__header {
     margin: 0 0 1.125rem 0;
