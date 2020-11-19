@@ -147,15 +147,15 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
             onChange={(items) => { setDropdownItems(items); setValidateErrorMessage(''); }}
           />
         </div>
-        <p className={b('row')}>
+        <div className={b('row')}>
           <div className={b('row-text')}>
             {`${formateString(price)}₽ x ${getDays(dateRange)} суток`}
           </div>
           <div className={b('row-value')}>
             {`${formateString(price * getDays(dateRange))}₽`}
           </div>
-        </p>
-        <p className={b('row')}>
+        </div>
+        <div className={b('row')}>
           <div className={b('row-text')}>
             {`Сбор за услуги: скидка ${formateString(discount)}₽`}
           </div>
@@ -165,8 +165,8 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
           <div className={b('row-value')}>
             {`${formateString(serviceCharge - discount)}₽`}
           </div>
-        </p>
-        <p className={b('row', { last: true })}>
+        </div>
+        <div className={b('row', { last: true })}>
           <div className={b('row-text')}>
             Сбор за дополнительные услуги
           </div>
@@ -176,7 +176,7 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
           <div className={b('row-value')}>
             {`${additionalServiceCharge}₽`}
           </div>
-        </p>
+        </div>
         <div className={b('total-price')}>
           <span className={b('total-price-text')}>Итого </span>
           <span className={b('total-price-dots')} />
