@@ -4,11 +4,12 @@
 .room-details {
 
   &__container-content {
-    margin: 0 auto;
-    max-width: 72.5rem;
-    padding: 4.5625rem 1rem;
     display: flex;
+    flex-direction: row;
     flex-wrap: nowrap;
+    margin: 0 auto;
+    max-width: $max-content-width;
+    padding: 4.5625rem 1rem;
 
     @media (max-width: 73.125rem) {
       flex-wrap: wrap;
@@ -97,10 +98,13 @@
   }
 
   &__form-booking-room {
-    margin-left: 4.375rem;
-    max-width: 23.75rem;
+    flex-shrink: 0;
+    max-width: 24.6875rem;
+    margin-left: 3.75rem;
+    padding-right: .625rem;
 
     @media (max-width: 73.125rem) {
+      flex-shrink: unset;
       margin: 4rem 0 0;
     }
   }
