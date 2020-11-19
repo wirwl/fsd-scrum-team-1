@@ -17,16 +17,16 @@ const RateButton: React.FC<IRateButton> = (props) => {
   const stars = [];
   for (let i = 1; i <= totalCount; i += 1) {
     stars.push(
-      <div className={b('star')}>
+      <li className={b('star')} key={i}>
         {i <= selectedCount ? 'star' : 'star_border'}
-      </div>,
+      </li>,
     );
   }
 
   return (
-    <div className={b()}>
+    <ul className={b()}>
       {stars}
-    </div>
+    </ul>
   );
 };
 
