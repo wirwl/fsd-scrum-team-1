@@ -17,13 +17,14 @@
   }
 
   &__spinner {
-    width: 190px;
-    height: 190px;
-    z-index: 9999;
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    right: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__spinner-container {
+    width: 11.875rem;
+    height: 11.875rem;
   }
 
   &__main-info,
@@ -97,7 +98,7 @@
 
   &__form-booking-room {
     margin-left: 4.375rem;
-    min-width: 23.75rem;
+    max-width: 23.75rem;
 
     @media (max-width: 73.125rem) {
       margin: 4rem 0 0;

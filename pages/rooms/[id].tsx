@@ -28,7 +28,9 @@ const RoomDetails: FC<IRoomDetailsProps> = () => {
   const pageContent = isFetching || room === null
     ? (
       <div className={b('spinner')}>
-        <Spinner />
+        <div className={b('spinner-container')}>
+          <Spinner />
+        </div>
       </div>
     )
     : (
