@@ -8,18 +8,29 @@ import type { IUser } from 'src/services/dto/User';
 import './HeaderAuth.scss';
 
 type IHeaderAuthProps = {
-  user: IUser | null
+  user: IUser | null;
+  onExitClick: () => void;
 };
 
 const b = block('header-auth');
 
-const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
+const HeaderAuth: FC<IHeaderAuthProps> = ({ user, onExitClick }) => {
   const content = (user !== null)
     ? (
       <span className={b('user-name')}>
         {user.name}
+
         &nbsp;
+
         {user.lastname}
+
+        &nbsp;
+        &nbsp;
+
+        <Button
+          handleClick={onExitClick}
+          caption="Выход"
+        />
       </span>
     )
     : (
