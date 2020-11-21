@@ -82,7 +82,7 @@ const FormSignIn: FC = () => {
 
   useEffect(() => {
     if (userStore.user !== null) {
-      Router.push('/rooms');
+      Router.push('/');
     }
   }, [userStore.user]);
 
