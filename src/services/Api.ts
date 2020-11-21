@@ -3,8 +3,9 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 import firebaseConfig from 'config/firebase.json';
-import type { IRoom } from 'src/services/dto/Rooms';
 import { IUser, IUserCredentials } from '@/redux/user/userReducer';
+import type { IRoom } from 'src/services/dto/Rooms';
+import type { IBooking } from 'src/services/dto/Booking';
 
 interface ISearchFilters {
   n?: number;
@@ -26,6 +27,13 @@ interface ISearchFilters {
   tv?: boolean;
   shampoo?: boolean;
 }
+
+type IBookedRoom = {
+  uid: string;
+  room: IRoom;
+  dateStart: number;
+  dateEnd: number;
+};
 
 const CODE_PASSWORD_WRONG = 'auth/wrong-password';
 const CODE_USER_NOT_FOUND = 'auth/user-not-found';
@@ -50,6 +58,8 @@ class Api {
 
   users: firebase.firestore.CollectionReference;
 
+  bookings: firebase.firestore.CollectionReference;
+
   constructor() {
     if (firebase.apps.length === 0) {
       firebase.initializeApp(firebaseConfig);
@@ -60,6 +70,7 @@ class Api {
 
     this.rooms = this.firestore.collection('rooms');
     this.users = this.firestore.collection('users');
+    this.bookings = this.firestore.collection('bookings');
   }
 
   async searchRoom(id: string): Promise<IRoom> {
@@ -181,6 +192,54 @@ class Api {
 
     return null;
   }
+
+  async booking(
+    uid: string,
+    roomId: string,
+    dateStart: number,
+    dateEnd: number,
+  ): Promise<void> {
+    try {
+      await this.bookings.add({
+        uid,
+        roomId,
+        dateStart,
+        dateEnd,
+      });
+    } catch (error) {
+      console.error(error);
+      throw new Error('booking: db error');
+    }
+  }
+
+  async getBookedRooms(uid: string): Promise<IBookedRoom[]> {
+    const bookingSnapshot = await this.bookings.where('uid', '==', uid).get();
+
+    if (bookingSnapshot.empty) {
+      return [];
+    }
+
+    const bookingDocs = bookingSnapshot.docs.map(
+      (doc) => doc.data() as IBooking,
+    );
+
+    const result = [];
+    for (let i = 0; i < bookingDocs.length; i += 1) {
+      const bookingDoc = bookingDocs[i];
+      const { roomId, dateStart, dateEnd } = bookingDoc;
+
+      // eslint-disable-next-line
+      const room = await this.searchRoom(roomId);
+      result.push({
+        uid,
+        room,
+        dateStart,
+        dateEnd,
+      });
+    }
+
+    return result;
+  }
 }
 
 export default Api;
@@ -189,4 +248,7 @@ export {
   getAuthError,
 };
 
-export type { ISearchFilters };
+export type {
+  ISearchFilters,
+  IBookedRoom,
+};
