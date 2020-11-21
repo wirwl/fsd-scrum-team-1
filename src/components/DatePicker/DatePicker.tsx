@@ -6,6 +6,17 @@ import Calendar from 'src/components/Calendar/Calendar';
 import DropdownInput from './components/DropdownInput/DropdownInput';
 import './DatePicker.scss';
 
+interface IDatePickerProps {
+  withTwoInputs?: boolean;
+  placeholder?: string;
+  title?: string;
+  startTitle?: string;
+  endTitle?: string;
+  rangeStart?: Date;
+  rangeEnd?: Date;
+  onChange?: (range: RangeDays) => void;
+}
+
 interface IState {
   expandedDatePicker: boolean;
   expandedDropdownStart: boolean;
@@ -203,3 +214,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
 };
 
 export default DatePicker;
+
+export type {
+  IDatePickerProps,
+};

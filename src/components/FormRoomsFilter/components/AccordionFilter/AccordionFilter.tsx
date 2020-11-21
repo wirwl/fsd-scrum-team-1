@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import Accordion from 'src/components/Accordion/Accordion';
 import { initCheckboxGroupState } from 'src/components/FormRoomsFilter/helpers';
+import type { ICheckboxProps } from 'src/components/Checkbox/Checkbox';
 
 type IAccordionFilterProps = {
   title: string;
