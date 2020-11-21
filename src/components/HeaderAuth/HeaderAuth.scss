@@ -1,20 +1,6 @@
 @import '@styles/variables';
 
 .header-auth {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  height: 100%;
-
-  @media (max-width: 450px) {
-    justify-content: center;
-    align-items: center;
-  }
-
-  @media (max-width: 350px) {
-    flex-direction: column;
-  }
 
   &__actions {
     display: flex;
@@ -30,8 +16,12 @@
     }
   }
 
-  &__user-name {
-    display: block;
+  &__profile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 
     font-size: .875rem;
 
@@ -43,6 +33,10 @@
       padding-left: unset;
 
       text-align: center;
+    }
+  
+    @media (max-width: 450px) {
+      flex-direction: column;
     }
   }
 
