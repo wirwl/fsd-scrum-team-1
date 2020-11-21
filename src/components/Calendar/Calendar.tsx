@@ -261,4 +261,4 @@ export default Calendar;
 export type {
   RangeDays,
   CalendarMode,
-}
+};
