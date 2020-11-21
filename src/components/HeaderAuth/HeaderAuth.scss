@@ -46,6 +46,19 @@
     }
   }
 
+  &__user-name-link {
+    outline: none;
+
+    cursor: pointer;
+
+    &:focus {
+      outline: auto;
+      outline-color: $main-color;
+      outline-width: 1px;
+    }
+  }
+
+
   &__link {
     text-decoration: none;
   }

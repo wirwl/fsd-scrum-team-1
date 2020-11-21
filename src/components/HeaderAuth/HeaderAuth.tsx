@@ -18,11 +18,14 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user, onExitClick }) => {
   const content = (user !== null)
     ? (
       <span className={b('user-name')}>
-        {user.name}
 
-        &nbsp;
-
-        {user.lastname}
+        <Link href="/auth/profile">
+          <span className={b('user-name-link')} tabIndex={0} role="link">
+            {user.name}
+            &nbsp;
+            {user.lastname}
+          </span>
+        </Link>
 
         &nbsp;
         &nbsp;
