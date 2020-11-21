@@ -1,6 +1,7 @@
 import { block } from 'bem-cn';
 import { useCallback, useEffect, useState } from 'react';
 
+import type { RangeDays } from 'src/components/Calendar/Calendar';
 import Calendar from 'src/components/Calendar/Calendar';
 import DropdownInput from './components/DropdownInput/DropdownInput';
 import './DatePicker.scss';

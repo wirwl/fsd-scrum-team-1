@@ -2,6 +2,7 @@ import {
   FC,
 } from 'react';
 
+import type { RangeDays } from 'src/components/Calendar/Calendar';
 import DatePicker from 'src/components/DatePicker/DatePicker';
 import { initDateRangeState } from 'src/components/FormRoomsFilter/helpers';
 
