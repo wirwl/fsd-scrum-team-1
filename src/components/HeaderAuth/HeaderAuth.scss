@@ -1,6 +1,20 @@
 @import '@styles/variables';
 
 .header-auth {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: 100%;
+
+  @media (max-width: 530px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 350px) {
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
   &__actions {
     display: flex;
@@ -28,11 +42,15 @@
     border-left: .0625rem solid $font-color-light10;
     padding-left: 1.25rem;
 
-    @media (max-width: 970px) {
+    @media (max-width: 1000px) {
       border: 0;
       padding-left: unset;
 
       text-align: center;
+    }
+
+    @media (max-width: 530px) {
+      justify-content: center;
     }
   
     @media (max-width: 450px) {
