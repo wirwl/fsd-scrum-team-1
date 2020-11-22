@@ -1,5 +1,8 @@
 import { FC, useState, useEffect } from 'react';
 import { block } from 'bem-cn';
+import { useRouter } from 'next/router';
+
+import { updateQuery } from 'src/components/FormRoomsFilter/helpers';
 
 import './SelectLang.scss';
 
@@ -16,6 +19,8 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
   const [langState, setLangState] = useState<string>(lang);
   const [openState, setOpenState] = useState<boolean>(false);
 
+  const router = useRouter();
+
   const handleLangLabelClick = (e: React.MouseEvent): void => {
     e.preventDefault();
 
@@ -28,6 +33,7 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
     setLangState(langLabel);
     setOpenState(false);
     onLangChange(langLabel);
+    updateQuery('lang', langLabel, router);
   };
 
   const handleMouseEnterMainDiv = (e: React.MouseEvent): void => {
