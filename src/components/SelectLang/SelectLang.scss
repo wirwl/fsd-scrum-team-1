@@ -3,6 +3,8 @@
 .select-lang {
   position: relative;
 
+  z-index: 1;
+
   $block: &;
 
   &_open {
