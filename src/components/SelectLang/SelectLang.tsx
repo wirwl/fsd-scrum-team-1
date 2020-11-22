@@ -30,21 +30,35 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
     onLangChange(langLabel);
   };
 
-  useEffect(() => {
-    setLangState(lang);
-  }, [lang]);
-
   const handleMouseEnterMainDiv = (e: React.SyntheticEvent): void => {
     e.preventDefault();
-
     setOpenState(true);
   };
 
   const handleMouseLeaveMainDiv = (e: React.SyntheticEvent): void => {
     e.preventDefault();
-
     setOpenState(false);
   };
+
+  useEffect(() => {
+    setLangState(lang);
+  }, [lang]);
+
+  const langsItems = LANGS.map((langLabel) => (
+    langLabel !== langState
+      ? (
+        <li key={langLabel} className={b('item')}>
+          <button
+            type="button"
+            onClick={handleLangLabelClick}
+            data-lang={langLabel}
+            className={b('item-button')}
+          >
+            { langLabel }
+          </button>
+        </li>
+      ) : ''
+  ));
 
   return (
     <div
@@ -57,21 +71,7 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
       </button>
 
       <ul className={b('item-list')}>
-        { LANGS.map((langLabel) => (
-          langLabel !== langState
-            ? (
-              <li key={langLabel} className={b('item')}>
-                <button
-                  type="button"
-                  onClick={handleLangLabelClick}
-                  data-lang={langLabel}
-                  className={b('item-button')}
-                >
-                  { langLabel }
-                </button>
-              </li>
-            ) : ''
-        ))}
+        { langsItems }
       </ul>
     </div>
   );
