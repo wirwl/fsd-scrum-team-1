@@ -16,7 +16,7 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
   const [langState, setLangState] = useState<string>(lang);
   const [openState, setOpenState] = useState<boolean>(false);
 
-  const handleLangLabelClick = (e: React.SyntheticEvent): void => {
+  const handleLangLabelClick = (e: React.MouseEvent): void => {
     e.preventDefault();
 
     const target = e.target as HTMLElement;
@@ -30,12 +30,12 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
     onLangChange(langLabel);
   };
 
-  const handleMouseEnterMainDiv = (e: React.SyntheticEvent): void => {
+  const handleMouseEnterMainDiv = (e: React.MouseEvent): void => {
     e.preventDefault();
     setOpenState(true);
   };
 
-  const handleMouseLeaveMainDiv = (e: React.SyntheticEvent): void => {
+  const handleMouseLeaveMainDiv = (e: React.MouseEvent): void => {
     e.preventDefault();
     setOpenState(false);
   };
