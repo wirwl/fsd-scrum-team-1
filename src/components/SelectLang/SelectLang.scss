@@ -5,9 +5,12 @@
 
   $block: &;
 
-  &:hover #{$block}__item-list {
-    visibility: visible;
-    height: auto;
+  &_open {
+    #{$block}__item-list {
+      visibility: visible;
+      height: auto;
+      opacity: 1;
+    }
   }
 
   &__item-button {
@@ -34,6 +37,7 @@
     &:focus + #{$block}__item-list {
       visibility: visible;
       height: auto;
+      opacity: 1;
     }
   }
 
@@ -49,9 +53,8 @@
     padding-left: 0;
     margin: 0;
 
-    &:hover {
-      visibility: visible;
-      height: auto;
-    }
+    opacity: 0;
+
+    transition: opacity .15s ease-in-out;
   }
 }

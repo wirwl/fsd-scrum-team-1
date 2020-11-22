@@ -14,6 +14,7 @@ type SelectLangProps = {
 
 const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
   const [langState, setLangState] = useState<string>(lang);
+  const [openState, setOpenState] = useState<boolean>(false);
 
   const handleLangLabelClick = (e: React.SyntheticEvent): void => {
     e.preventDefault();
@@ -25,6 +26,7 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
     if (langLabel === null) return;
 
     setLangState(langLabel);
+    setOpenState(false);
     onLangChange(langLabel);
   };
 
@@ -32,8 +34,24 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
     setLangState(lang);
   }, [lang]);
 
+  const handleMouseEnterMainDiv = (e: React.SyntheticEvent): void => {
+    e.preventDefault();
+
+    setOpenState(true);
+  };
+
+  const handleMouseLeaveMainDiv = (e: React.SyntheticEvent): void => {
+    e.preventDefault();
+
+    setOpenState(false);
+  };
+
   return (
-    <div className={b()}>
+    <div
+      className={b({ open: openState })}
+      onMouseEnter={handleMouseEnterMainDiv}
+      onMouseLeave={handleMouseLeaveMainDiv}
+    >
       <button type="button" className={b('item-button')}>
         { langState }
       </button>
