@@ -1,3 +1,57 @@
+@import '@styles/variables.scss';
+
 .select-lang {
-  
+  position: relative;
+
+  $block: &;
+
+  &:hover #{$block}__item-list {
+    visibility: visible;
+    height: auto;
+  }
+
+  &__item-button {
+    width: 50px;
+    height: 50px;
+    background-color: $main-color;
+    border: 1px solid white;
+
+    color: white;
+    outline: none;
+
+    text-transform: uppercase;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      outline: auto;
+      outline-width: 1px;
+      outline-color: $font-color-light50;
+    }
+
+    &:focus + #{$block}__item-list {
+      visibility: visible;
+      height: auto;
+    }
+  }
+
+  &__item-list {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    height: 0;
+    top: 100%;
+
+    list-style-type: none;
+
+    padding-left: 0;
+    margin: 0;
+
+    &:hover {
+      visibility: visible;
+      height: auto;
+    }
+  }
 }

@@ -34,16 +34,21 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
 
   return (
     <div className={b()}>
-      <button type="button" className={b('item-selected')}>
+      <button type="button" className={b('item-button')}>
         { langState }
       </button>
 
-      <ul className={b('')}>
+      <ul className={b('item-list')}>
         { LANGS.map((langLabel) => (
           langLabel !== langState
             ? (
-              <li key={langLabel}>
-                <button type="button" onClick={handleLangLabelClick} data-lang={langLabel}>
+              <li key={langLabel} className={b('item')}>
+                <button
+                  type="button"
+                  onClick={handleLangLabelClick}
+                  data-lang={langLabel}
+                  className={b('item-button')}
+                >
                   { langLabel }
                 </button>
               </li>
