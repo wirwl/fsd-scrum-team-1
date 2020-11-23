@@ -1,6 +1,6 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { block } from 'bem-cn';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 
 import { updateQuery } from 'src/components/FormRoomsFilter/helpers';
 
@@ -9,17 +9,24 @@ import './SelectLang.scss';
 const b = block('select-lang');
 
 const LANGS = ['ru', 'en', 'de', 'es'];
+const LANG_DEFAULT = 'ru';
 
-type SelectLangProps = {
-  lang: string;
-  onLangChange: (lang: string) => void;
+const getLangFromRouter = (router: NextRouter): string => {
+  const { lang: langRouterRaw } = router.query;
+
+  const langRouterString = langRouterRaw === undefined ? LANG_DEFAULT : langRouterRaw.toString();
+  const langRouter = LANGS.indexOf(langRouterString) >= 0 ? langRouterString : LANG_DEFAULT;
+
+  return langRouter;
 };
 
-const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
-  const [langState, setLangState] = useState<string>(lang);
-  const [openState, setOpenState] = useState<boolean>(false);
-
+const SelectLang: FC = () => {
   const router = useRouter();
+
+  const [langState, setLangState] = useState<string>(
+    () => getLangFromRouter(router),
+  );
+  const [openState, setOpenState] = useState<boolean>(false);
 
   const handleLangLabelClick = (e: React.MouseEvent): void => {
     e.preventDefault();
@@ -32,7 +39,6 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
 
     setLangState(langLabel);
     setOpenState(false);
-    onLangChange(langLabel);
     updateQuery('lang', langLabel, router);
   };
 
@@ -45,10 +51,6 @@ const SelectLang: FC<SelectLangProps> = ({ lang, onLangChange }) => {
     e.preventDefault();
     setOpenState(false);
   };
-
-  useEffect(() => {
-    setLangState(lang);
-  }, [lang]);
 
   const langsItems = LANGS.map((langLabel) => (
     langLabel !== langState
