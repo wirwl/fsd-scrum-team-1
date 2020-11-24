@@ -1,0 +1,15 @@
+@import '@styles/variables';
+
+.registration {
+  background-image: url('/images/auth-bg.jpg');
+  background-size: cover;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+
+  &__form {
+    max-width: 23.75rem;
+    margin: 0 auto;
+  }
+}
