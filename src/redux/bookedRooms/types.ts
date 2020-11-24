@@ -49,7 +49,7 @@ export type BookedRoomsAction = FetchBookedRoomsAction
 | BookingRoomFailAction;
 
 export interface IBookedRoomsStore {
-  rooms: IRoom[];
+  rooms: IBookedRoom[];
   isFetchingRoomsInProgress: boolean;
   fetchRoomsError: string;
   isBookingRoomInProgress: boolean;
