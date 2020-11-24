@@ -1,0 +1,31 @@
+{
+  "roomInfo": {
+    "title": "Zimmerinformationen",
+    "comfort": {
+      "title": "Komfort",
+      "description": "Geräuschabsorbierende wände"
+    },
+    "convenience": {
+      "title": "Bequemlichkeit",
+      "description": "Fenster in jedem der schlafzimmer"
+    },
+    "cozy": {
+      "title": "Gemütlich",
+      "description": "Dieses zimmer verfügt über einen kamin"
+    }
+  },
+  "roomImpressions": {
+    "title": "Eindrücke von den zimmern",
+    "wonderful": "Toll",
+    "good": "Gut",
+    "satisfactorily": "Zufriedenstellend",
+    "bad": "Enttäuscht"
+  },
+  "roomComments": {
+    "title": "Nutzerbewertungen des raumes",
+    "daysAgo": "Vor tagen",
+    "feedbackOne": "kommentar",
+    "feedbackTwo": "bemerkungen",
+    "feedbackFew": "bemerkungen"
+  }
+}

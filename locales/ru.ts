@@ -56,19 +56,19 @@ const ru = {
       pickANumber: 'подобрать номер',
     },
 
-    BookingForm: {
+    bookingForm: {
       day: 'суток',
       feeServiceDiscount: 'Сбор за услуги: скидка',
       feeAdditionalService: 'Сбор за дополнительные услуги',
       subtotal: 'Итого',
     },
 
-    Register: {
+    register: {
       title: 'Регистрация аккаунта',
       loginInformation: 'Данные для входа в сервис',
     },
 
-    Enter: {
+    enter: {
       title: 'Войти',
     },
   },

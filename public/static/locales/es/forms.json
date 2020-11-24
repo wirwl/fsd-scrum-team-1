@@ -1,0 +1,19 @@
+{
+  "landing": {
+    "title": "Encontraremos habitaciones para sus necesidades",
+    "pickANumber": "elige un número"
+  },
+  "bookingForm": {
+    "day": "dias",
+    "feeServiceDiscount": "La tarifa por el servicio: descuento",
+    "feeAdditionalService": "Tarifa por servicios adicionales",
+    "subtotal": "Total parcial"
+  },
+  "register": {
+    "title": "Registro de cuenta",
+    "loginInformation": "Información de inicio de sesión para el servicio"
+  },
+  "enter": {
+    "title": "Entrar"
+  }
+}

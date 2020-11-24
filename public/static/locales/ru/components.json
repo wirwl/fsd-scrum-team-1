@@ -1,0 +1,60 @@
+{
+  "guestInputDropdown": {
+    "title": "гости",
+    "guests": "гости",
+    "guestsOne": "гость",
+    "guestTwo": "гостя",
+    "guestsFew": "гостей",
+    "adults": "взрослые",
+    "children": "дети",
+    "babies": "младенцы",
+    "babiesOne": "младенец",
+    "babiesTwo": "младенеца",
+    "babiesFew": "младенецев"
+  },
+  "convenientInputDropdown": {
+    "title": "удобства номера",
+    "bedrooms": "спальни",
+    "bedroomOne": "спальня",
+    "bedroomsTwo": "спальни",
+    "bedroomsFew": "спален",
+    "beds": "кровати",
+    "bedOne": "кровать",
+    "bedsTwo": "квровати",
+    "bedsFew": "кроватей",
+    "bathrooms": "ванные комнаты",
+    "bathroomOne": "ванная комната",
+    "bathroomsTwo": "ванные комнаты",
+    "bathroomsFew": "ванных комнат"
+  },
+  "range": {
+    "priceRange": "диапазон цены",
+    "description": "Стоимость за сутки пребывания в номере"
+  },
+  "rules": {
+    "title": "Правила дома",
+    "petsAllowed": "Можно с питомцами",
+    "smokingAllowed": "Можно курить",
+    "guestAllowed": "Можно пригласить гостей (до 10 человек)"
+  },
+  "accessibility": {
+    "title": "Доступность",
+    "wideCorridor": {
+      "label": "Широкий коридор",
+      "description": "Ширина коридоров в номере не менее 91 см."
+    },
+    "assistantForDisabled": {
+      "label": "Помощник для инвалидов",
+      "description": "На 1 этаже вас встретит специалист  и проводит до номера."
+    }
+  },
+  "extraConvenience": {
+    "title": "Дополнительные удобства",
+    "breakfast": "Завтрак",
+    "desk": "Письменный стол",
+    "feedingChair": "Стул для кормления",
+    "smallBad": "Кроватка",
+    "tv": "Телевизор",
+    "shampoo": "Шампунь"
+  }
+}

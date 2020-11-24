@@ -1,0 +1,19 @@
+{
+  "landing": {
+    "title": "Wir finden Zimmer für Ihre Bedürfnisse",
+    "pickANumber": "Wähle eine Nummer"
+  },
+  "bookingForm": {
+    "day": "Tage",
+    "feeServiceDiscount": "Die Servicegebühr: Rabatt",
+    "feeAdditionalService": "Gebühr für zusätzliche Dienstleistungen",
+    "subtotal": "Zwischensumme"
+  },
+  "register": {
+    "title": "Kontoregistrierung",
+    "loginInformation": "Anmeldeinformationen für den Dienst"
+  },
+  "enter": {
+    "title": "Eingeben"
+  }
+}

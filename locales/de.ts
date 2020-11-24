@@ -56,19 +56,19 @@ const de = {
       pickANumber: 'Wähle eine Nummer',
     },
 
-    BookingForm: {
+    bookingForm: {
       day: 'Tage',
       feeServiceDiscount: 'Die Servicegebühr: Rabatt',
       feeAdditionalService: 'Gebühr für zusätzliche Dienstleistungen',
       subtotal: 'Zwischensumme',
     },
 
-    Register: {
+    register: {
       title: 'Kontoregistrierung',
       loginInformation: 'Anmeldeinformationen für den Dienst',
     },
 
-    Enter: {
+    enter: {
       title: 'Eingeben',
     },
   },

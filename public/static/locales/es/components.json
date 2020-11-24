@@ -1,0 +1,60 @@
+{
+  "guestInputDropdown": {
+    "title": "invitados",
+    "guests": "invitados",
+    "guestsOne": "invitado",
+    "guestTwo": "invitados",
+    "guestsFew": "invitados",
+    "adults": "adultos",
+    "children": "niños",
+    "babies": "bebés",
+    "babiesOne": "bebé",
+    "babiesTwo": "bebés",
+    "babiesFew": "bebés"
+  },
+  "convenientInputDropdown": {
+    "title": "Instalaciones de la habitación",
+    "bedrooms": "dormitorios",
+    "bedroomOne": "habitación",
+    "bedroomsTwo": "dormitorios",
+    "bedroomsFew": "dormitorios",
+    "beds": "camas",
+    "bedOne": "cama",
+    "bedsTwo": "camas",
+    "bedsFew": "camas",
+    "bathrooms": "baños",
+    "bathroomOne": "baño",
+    "bathroomsTwo": "baños",
+    "bathroomsFew": "baños"
+  },
+  "range": {
+    "priceRange": "rango de precios",
+    "description": "Precio por noche de estancia en la habitación"
+  },
+  "rules": {
+    "title": "Reglas de casa",
+    "petsAllowed": "Puede estar con mascotas",
+    "smokingAllowed": "Puedes fumar",
+    "guestAllowed": "Puedes invitar a invitados (hasta 10 personas)."
+  },
+  "accessibility": {
+    "title": "Accesibilidad",
+    "wideCorridor": {
+      "label": "Pasillo ancho",
+      "description": "El ancho de los pasillos de la habitación es de al menos 91 cm."
+    },
+    "assistantForDisabled": {
+      "label": "Asistente para discapacitados",
+      "description": "Un especialista lo recibirá en el primer piso y lo guiará a su habitación."
+    }
+  },
+  "extraConvenience": {
+    "title": "Mayor comodidad",
+    "breakfast": "Desayuno",
+    "desk": "Escritorio",
+    "feedingChair": "Silla de alimentación",
+    "smallBad": "Cuna",
+    "tv": "TV",
+    "shampoo": "Champú"
+  }
+}

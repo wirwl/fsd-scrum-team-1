@@ -56,19 +56,19 @@ const en = {
       pickANumber: 'pick a number',
     },
 
-    BookingForm: {
+    bookingForm: {
       day: 'days',
       feeServiceDiscount: 'The fee for service: discount',
       feeAdditionalService: 'Fee for additional services',
       subtotal: 'Subtotal',
     },
 
-    Register: {
+    register: {
       title: 'Account registration',
       loginInformation: 'Login information for the service',
     },
 
-    Enter: {
+    enter: {
       title: 'Enter',
     },
   },

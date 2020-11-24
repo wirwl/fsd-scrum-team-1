@@ -1,0 +1,31 @@
+{
+  "roomInfo": {
+    "title": "Сведения о номере",
+    "comfort": {
+      "title": "Комфорт",
+      "description": "Шумопоглощающие стены"
+    },
+    "convenience": {
+      "title": "Удобство",
+      "description": "Окно в каждой из спален"
+    },
+    "cozy": {
+      "title": "Уют",
+      "description": "Номер оснащён камином"
+    }
+  },
+  "roomImpressions": {
+    "title": "Впечатления от номера",
+    "wonderful": "Великолепно",
+    "good": "Хорошо",
+    "satisfactorily": "Удовлетворительно",
+    "bad": "Разочарован"
+  },
+  "roomComments": {
+    "title": "Отзывы посетителей номера",
+    "daysAgo": "дней назад",
+    "feedbackOne": "отзыв",
+    "feedbackTwo": "отзыва",
+    "feedbackFew": "отзывов"
+  }
+}

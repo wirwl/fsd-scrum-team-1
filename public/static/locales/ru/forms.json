@@ -1,0 +1,19 @@
+{
+  "landing": {
+    "title": "Найдём номера под ваши пожелания",
+    "pickANumber": "подобрать номер"
+  },
+  "bookingForm": {
+    "day": "суток",
+    "feeServiceDiscount": "Сбор за услуги: скидка",
+    "feeAdditionalService": "Сбор за дополнительные услуги",
+    "subtotal": "Итого"
+  },
+  "register": {
+    "title": "Регистрация аккаунта",
+    "loginInformation": "Данные для входа в сервис"
+  },
+  "enter": {
+    "title": "Войти"
+  }
+}

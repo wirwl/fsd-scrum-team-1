@@ -1,0 +1,19 @@
+{
+  "landing": {
+    "title": "We will find rooms for your needs",
+    "pickANumber": "pick a number"
+  },
+  "bookingForm": {
+    "day": "days",
+    "feeServiceDiscount": "The fee for service: discount",
+    "feeAdditionalService": "Fee for additional services",
+    "subtotal": "Subtotal"
+  },
+  "register": {
+    "title": "Account registration",
+    "loginInformation": "Login information for the service"
+  },
+  "enter": {
+    "title": "Enter"
+  }
+}
