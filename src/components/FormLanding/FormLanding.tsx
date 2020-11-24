@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { block } from 'bem-cn';
 
+import type { RangeDays } from 'src/components/Calendar/Calendar';
 import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
