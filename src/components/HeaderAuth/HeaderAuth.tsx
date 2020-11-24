@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 import Link from 'next/link';
 import { block } from 'bem-cn';
+import i18n from 'src/services/i18n';
+import type { TFunction } from 'next-i18next';
 
 import Button from 'src/components/Button/Button';
 import type { IUser } from 'src/services/dto/User';
@@ -8,12 +10,13 @@ import type { IUser } from 'src/services/dto/User';
 import './HeaderAuth.scss';
 
 type IHeaderAuthProps = {
-  user: IUser | null
+  user: IUser | null;
+  t: TFunction;
 };
 
 const b = block('header-auth');
 
-const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
+const HeaderAuth: FC<IHeaderAuthProps> = ({ user, t }) => {
   const content = (user !== null)
     ? (
       <span className={b('user-name')}>
@@ -29,7 +32,7 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
             <a className={b('link')} href="/auth/sign-in">
               <Button
                 theme="white"
-                caption="Вход"
+                caption={t('enter')}
               />
             </a>
           </Link>
@@ -40,7 +43,7 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
             <a className={b('link')} href="/auth/register">
               <Button
                 theme="default"
-                caption="Зарегистрироваться"
+                caption={t('register')}
               />
             </a>
           </Link>
@@ -55,4 +58,4 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user }) => {
   );
 };
 
-export default HeaderAuth;
+export default i18n.withTranslation('common')(HeaderAuth);
