@@ -1,31 +1,15 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { block } from 'bem-cn';
-import { NextRouter, useRouter } from 'next/router';
-
-import { updateQuery } from 'src/components/FormRoomsFilter/helpers';
 
 import './SelectLang.scss';
 
 const b = block('select-lang');
 
 const LANGS = ['ru', 'en', 'de', 'es'];
-const LANG_DEFAULT = 'ru';
-
-const getLangFromRouter = (router: NextRouter): string => {
-  const { lang: langRouterRaw } = router.query;
-
-  const langRouterString = langRouterRaw === undefined ? LANG_DEFAULT : langRouterRaw.toString();
-  const langRouter = LANGS.indexOf(langRouterString) >= 0 ? langRouterString : LANG_DEFAULT;
-
-  return langRouter;
-};
 
 const SelectLang: FC = () => {
-  const router = useRouter();
-
-  const [langState, setLangState] = useState<string>(
-    () => getLangFromRouter(router),
-  );
+  // TODO: initialize from i18n
+  const [langState, setLangState] = useState<string>(() => 'ru');
   const [openState, setOpenState] = useState<boolean>(false);
 
   const handleLangLabelClick = (e: React.MouseEvent): void => {
@@ -39,7 +23,6 @@ const SelectLang: FC = () => {
 
     setLangState(langLabel);
     setOpenState(false);
-    updateQuery('lang', langLabel, router);
   };
 
   const handleMouseEnterMainDiv = (e: React.MouseEvent): void => {
@@ -51,6 +34,11 @@ const SelectLang: FC = () => {
     e.preventDefault();
     setOpenState(false);
   };
+
+  useEffect(() => {
+    // TODO: remove console.log and insert update i18n
+    console.log('new lang state', langState); // eslint-disable-line
+  }, [langState]);
 
   const langsItems = LANGS.map((langLabel) => (
     langLabel !== langState
