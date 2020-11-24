@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import CheckboxGroup from 'src/components/CheckboxGroup/CheckboxGroup';
 import { initCheckboxGroupState } from 'src/components/FormRoomsFilter/helpers';
+import type { ICheckboxProps } from 'src/components/Checkbox/Checkbox';
 
 type IGroupCheckboxFilterProps = {
   title: string;

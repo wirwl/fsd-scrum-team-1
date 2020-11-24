@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { block } from 'bem-cn';
 
 import Checkbox from 'src/components/Checkbox/Checkbox';
+import type { ICheckboxProps } from 'src/components/Checkbox/Checkbox';
 
 import './CheckboxGroup.scss';
 

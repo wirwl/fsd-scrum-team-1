@@ -1,6 +1,7 @@
 import type { IDateRangeFilter } from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import type { NextRouter } from 'next/router';
+import type { ICheckboxProps } from 'src/components/Checkbox/Checkbox';
 import {
   dropdownGuestsInit,
   dropdownConvenienceInit,

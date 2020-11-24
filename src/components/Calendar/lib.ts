@@ -1,3 +1,5 @@
+import type { RangeDays, CalendarMode } from 'src/components/Calendar/Calendar';
+
 const getDaysInMonth = (date: Date): number => (
   new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
 );
