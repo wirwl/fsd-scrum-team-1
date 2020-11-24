@@ -1,4 +1,4 @@
-import { IRoom } from '@/services/dto/Rooms';
+import { IBookedRoom } from '@/services/Api';
 
 export const FETCH_BOOKED_ROOMS = '@toxin-booked-rooms/FETCH_BOOKED_ROOMS';
 export const FETCH_BOOKED_ROOMS_SUCCESS = '@toxin-booked-rooms/FETCH_BOOKED_ROOMS_SUCCESS';
@@ -14,7 +14,7 @@ export type FetchBookedRoomsAction = {
 
 export type FetchBookedRoomsSuccessAction = {
   type: typeof FETCH_BOOKED_ROOMS_SUCCESS;
-  payload: IRoom[];
+  payload: IBookedRoom[];
 };
 
 export type FetchBookedRoomsFailAction = {
@@ -25,6 +25,7 @@ export type FetchBookedRoomsFailAction = {
 export type BookingRoomAction = {
   type: typeof BOOKING_ROOM;
   payload: {
+    uid: string;
     roomId: string;
     dateStart: number;
     dateEnd: number;

@@ -1,4 +1,4 @@
-import { IRoom } from '@/services/dto/Rooms';
+import { IBookedRoom } from '@/services/Api';
 import {
   BookedRoomsAction,
   BOOKING_ROOM,
@@ -14,7 +14,7 @@ export const fetchBookedRooms = (userId: string): BookedRoomsAction => ({
   payload: userId,
 });
 
-export const fetchBookedRoomsSuccess = (rooms: IRoom[]): BookedRoomsAction => ({
+export const fetchBookedRoomsSuccess = (rooms: IBookedRoom[]): BookedRoomsAction => ({
   type: FETCH_BOOKED_ROOMS_SUCCESS,
   payload: rooms,
 });
@@ -25,6 +25,7 @@ export const fetchBookedRoomsFail = (error: string): BookedRoomsAction => ({
 });
 
 export const bookingRoom = (info: {
+  uid: string;
   roomId: string;
   dateStart: number;
   dateEnd: number;
