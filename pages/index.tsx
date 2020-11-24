@@ -6,6 +6,7 @@ import MainLayout from 'src/layouts/MainLayout/MainLayout';
 import BannerAndSignature from 'src/components/BannerAndSignature/BannerAndSignature';
 import FormLanding from 'src/components/FormLanding/FormLanding';
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
+import type { RangeDays } from 'src/components/Calendar/Calendar';
 
 import './index.scss';
 

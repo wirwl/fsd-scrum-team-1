@@ -1,5 +1,6 @@
-import './social-buttons.scss';
 import block from 'bem-cn';
+
+import './SocialButtons.scss';
 
 const b = block('social-buttons');
 

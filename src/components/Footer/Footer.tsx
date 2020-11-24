@@ -3,7 +3,7 @@ import { block } from 'bem-cn';
 
 import Logo from '@/components/Logo/Logo';
 import Input from '@/components/Input/Input';
-import SocialButtons from '@/components/social-buttons/SocialButtons';
+import SocialButtons from '@/components/SocialButtons/SocialButtons';
 
 import {
   navBlocks,
