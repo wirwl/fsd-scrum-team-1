@@ -1,6 +1,8 @@
 import React, { useState, useEffect, FC } from 'react';
 import { block } from 'bem-cn';
+
 import Checkbox from '@/components/Checkbox/Checkbox';
+import type { ICheckboxProps } from 'src/components/Checkbox/Checkbox';
 
 import './Accordion.scss';
 
