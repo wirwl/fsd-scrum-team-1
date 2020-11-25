@@ -4,6 +4,9 @@ import {
   useEffect,
   useCallback,
 } from 'react';
+import { WithTranslation } from 'next-i18next';
+
+import i18n from 'src/services/i18n';
 import Slider, { ISliderValues } from 'src/components/Slider/Slider';
 import { initPriceState } from 'src/components/FormRoomsFilter/helpers';
 
@@ -32,9 +35,9 @@ const useDebouncedEffect = (
 type ISliderFilterProps = {
   query: Record<string, string>;
   onChange: (price: ISliderValues, priceString: string) => void;
-};
+} & WithTranslation;
 
-const SliderFilter: FC<ISliderFilterProps> = ({ query, onChange }) => {
+const SliderFilter: FC<ISliderFilterProps> = ({ query, onChange, t }) => {
   const [state, setState] = useState<ISliderValues>(
     () => initPriceState(query, MIN_PRICE, MAX_PRICE),
   );
@@ -52,18 +55,18 @@ const SliderFilter: FC<ISliderFilterProps> = ({ query, onChange }) => {
 
   return (
     <Slider
-      title="диапазон цены"
+      title={t('components:priceRange.title')}
       currentValues={state}
       min={MIN_PRICE}
       max={MAX_PRICE}
       step={SLIDER_STEP}
       onChange={handleSliderSlide}
-      description="Стоимость за сутки пребывания в номере"
+      description={t('components:priceRange.description')}
     />
   );
 };
 
-export default SliderFilter;
+export default i18n.withTranslation(['common', 'components'])(SliderFilter);
 
 export {
   MAX_PRICE,

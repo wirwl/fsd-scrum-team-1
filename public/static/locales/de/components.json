@@ -1,4 +1,7 @@
 {
+  "dateRange": {
+    "title": "Aufenthaltsdaten"
+  },
   "guestInputDropdown": {
     "title": "Gäste",
     "guests": "Gäste",
@@ -27,8 +30,8 @@
     "bathroomsTwo": "Badezimmer",
     "bathroomsFew": "Badezimmer"
   },
-  "range": {
-    "priceRange": "Preisklasse",
+  "priceRange": {
+    "title": "Preisklasse",
     "description": "Preis pro Nacht im Zimmer bleiben"
   },
   "rules": {

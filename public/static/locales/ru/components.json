@@ -1,4 +1,7 @@
 {
+  "dateRange": {
+    "title": "Даты пребывания в отеле"
+  },
   "guestInputDropdown": {
     "title": "гости",
     "guests": "гости",
@@ -27,8 +30,8 @@
     "bathroomsTwo": "ванные комнаты",
     "bathroomsFew": "ванных комнат"
   },
-  "range": {
-    "priceRange": "диапазон цены",
+  "priceRange": {
+    "title": "диапазон цены",
     "description": "Стоимость за сутки пребывания в номере"
   },
   "rules": {

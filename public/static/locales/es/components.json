@@ -1,4 +1,7 @@
 {
+  "dateRange": {
+    "title": "Fechas de estadía"
+  },
   "guestInputDropdown": {
     "title": "invitados",
     "guests": "invitados",
@@ -27,8 +30,8 @@
     "bathroomsTwo": "baños",
     "bathroomsFew": "baños"
   },
-  "range": {
-    "priceRange": "rango de precios",
+  "priceRange": {
+    "title": "rango de precios",
     "description": "Precio por noche de estancia en la habitación"
   },
   "rules": {

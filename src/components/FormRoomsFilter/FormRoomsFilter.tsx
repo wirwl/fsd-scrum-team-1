@@ -7,7 +7,9 @@ import {
 import { block } from 'bem-cn';
 import isEqual from 'lodash/isEqual';
 import { useRouter } from 'next/router';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import type {
   IDateRangeFilter,
@@ -23,11 +25,11 @@ import SliderFilter, {
 } from 'src/components/FormRoomsFilter/components/SliderFilter/SliderFilter';
 import DatePickerFilter from 'src/components/FormRoomsFilter/components/DatePickerFilter/DatePickerFilter';
 import {
-  dropdownGuestsInit,
-  dropdownConvenienceInit,
-  extraConvenienceInit,
-  rulesInit,
-  accessibilityInit,
+  getDropdownGuestsInit,
+  getDropdownConvenienceInit,
+  getExtraConvenienceInit,
+  getRulesInit,
+  getAccessibilityInit,
 } from 'src/components/FormRoomsFilter/initValues';
 import {
   initState,
@@ -71,7 +73,7 @@ type IFormRoomFilterState = {
 type IFormRoomFilterProps = {
   query: Record<string, string>;
   onChange: (params: IFormRoomFilterState) => void;
-};
+} & WithTranslation;
 
 type IFilterStateRecord = Record<
 string,
@@ -97,10 +99,14 @@ const isStatesEquals = (
   prevFiltersState === undefined || isEqual(prevFiltersState, filters)
 );
 
-const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
+const FormRoomsFilter: FC<IFormRoomFilterProps> = ({
+  query,
+  onChange,
+  t,
+}) => {
   const router = useRouter();
   const [filters, setFilters] = useState<IFormRoomFilterState>(
-    initState(query, MIN_PRICE, MAX_PRICE),
+    initState(query, MIN_PRICE, MAX_PRICE, t),
   );
 
   const prevFiltersState = usePrevious(filters);
@@ -195,17 +201,26 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
     <form className={b()}>
 
       <section className={b('field', { 'with-bottom-18': true })}>
-        <DatePickerFilter query={query} onChange={handleDatePickerChange} />
+        <DatePickerFilter
+          query={query}
+          onChange={handleDatePickerChange}
+        />
       </section>
 
       <section className={b('field', { 'with-bottom-30': true })}>
-        <h3 className={b('field-title')}>гости</h3>
+        <h3 className={b('field-title')}>
+          {t('components:guestInputDropdown.guests')}
+        </h3>
         <InputDropdownFilter
           query={query}
           name="guests"
-          placeholder="Сколько гостей"
-          defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
-          initValues={dropdownGuestsInit}
+          placeholder={t('forms:landing.howManyGuests')}
+          defaultLabel={{
+            one: t('components:guestInputDropdown.guestsOne'),
+            two: t('components:guestInputDropdown.guestsTwo'),
+            few: t('components:guestInputDropdown.guestsFew'),
+          }}
+          initValues={getDropdownGuestsInit(t)}
           onChange={handleGuestsDropdownChange}
         />
       </section>
@@ -221,8 +236,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
         <GroupCheckboxFilter
           query={query}
           keyValue="rules"
-          initValues={rulesInit}
-          title="правила дома"
+          initValues={getRulesInit(t)}
+          title={t('components:rules.title')}
           onChange={handleCheckboxRulesChange}
         />
       </section>
@@ -231,20 +246,22 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
         <GroupCheckboxFilter
           query={query}
           keyValue="accessibility"
-          initValues={accessibilityInit}
-          title="доступность"
+          initValues={getAccessibilityInit(t)}
+          title={t('components:accessibility.title')}
           onChange={handleCheckboxAccessibilityChange}
         />
       </section>
 
       <section className={b('field', { 'with-bottom-24': true })}>
-        <h3 className={b('field-title')}>Удобства номера</h3>
+        <h3 className={b('field-title')}>
+          {t('components:convenientInputDropdown.title')}
+        </h3>
         <InputDropdownFilter
           query={query}
           name="convenience"
-          placeholder="Удобства номера"
+          placeholder={t('components:convenientInputDropdown.title')}
           defaultLabel={false}
-          initValues={dropdownConvenienceInit}
+          initValues={getDropdownConvenienceInit(t)}
           onChange={handleConvenienceDropdownChange}
         />
       </section>
@@ -253,8 +270,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
         <AccordionFilter
           query={query}
           keyValue="extraConvenience"
-          initValues={extraConvenienceInit}
-          title="дополнительные удобства"
+          initValues={getExtraConvenienceInit(t)}
+          title={t('components:extraConvenience.title')}
           onChange={handleAccordionExtraConvenienceChange}
         />
       </section>
@@ -263,7 +280,9 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({ query, onChange }) => {
   );
 };
 
-export default FormRoomsFilter;
+export default i18n.withTranslation(['common', 'forms', 'components'])(
+  FormRoomsFilter,
+);
 
 export {
   initState,

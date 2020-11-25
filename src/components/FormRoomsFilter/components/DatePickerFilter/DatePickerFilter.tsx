@@ -1,8 +1,10 @@
 import {
   FC,
 } from 'react';
+import { WithTranslation } from 'next-i18next';
 
 import type { RangeDays } from 'src/components/Calendar/Calendar';
+import i18n from 'src/services/i18n';
 import DatePicker from 'src/components/DatePicker/DatePicker';
 import { initDateRangeState } from 'src/components/FormRoomsFilter/helpers';
 
@@ -14,9 +16,9 @@ type IDateRangeFilter = {
 type IDatePickerFilterProps = {
   query: Record<string, string>;
   onChange: (dateRange: IDateRangeFilter, dateRangeString: string) => void;
-};
+} & WithTranslation;
 
-const DatePickerFilter: FC<IDatePickerFilterProps> = ({ query, onChange }) => {
+const DatePickerFilter: FC<IDatePickerFilterProps> = ({ t, query, onChange }) => {
   const conf = initDateRangeState(query);
 
   let rangeStart;
@@ -43,11 +45,14 @@ const DatePickerFilter: FC<IDatePickerFilterProps> = ({ query, onChange }) => {
       rangeStart={rangeStart}
       rangeEnd={rangeEnd}
       onChange={handleDatePickerChange}
+      title={t('components:dateRange.title')}
     />
   );
 };
 
-export default DatePickerFilter;
+export default i18n.withTranslation(['common', 'components'])(
+  DatePickerFilter,
+);
 
 export type {
   IDateRangeFilter,

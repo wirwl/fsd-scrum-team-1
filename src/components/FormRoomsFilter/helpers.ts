@@ -3,17 +3,18 @@ import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
 import type { NextRouter } from 'next/router';
 import type { ICheckboxProps } from 'src/components/Checkbox/Checkbox';
 import {
-  dropdownGuestsInit,
-  dropdownConvenienceInit,
-  extraConvenienceInit,
-  rulesInit,
-  accessibilityInit,
+  getDropdownGuestsInit,
+  getDropdownConvenienceInit,
+  getExtraConvenienceInit,
+  getRulesInit,
+  getAccessibilityInit,
 } from 'src/components/FormRoomsFilter/initValues';
 
 import type {
   IFormRoomFilterState,
   IFilterStateRecord,
 } from 'src/components/FormRoomsFilter/FormRoomsFilter';
+import { TFunction } from 'next-i18next';
 
 const isPriceValid = (
   price: number[],
@@ -122,6 +123,7 @@ const initState = (
   query: Record<string, string>,
   minPrice: number,
   maxPrice: number,
+  t: TFunction,
 ): IFormRoomFilterState => {
   let result: IFilterStateRecord = {};
 
@@ -130,17 +132,27 @@ const initState = (
   const dateRange = initDateRangeState(query);
   if (dateRange !== null) result.dateRange = dateRange;
 
-  const guests = initDropdownState(query, dropdownGuestsInit);
-  const convenience = initDropdownState(query, dropdownConvenienceInit);
+  const guests = initDropdownState(query, getDropdownGuestsInit(t));
+  const convenience = initDropdownState(query, getDropdownConvenienceInit(t));
   result = { ...result, ...guests, ...convenience };
 
-  const rules = initCheckboxGroupState('rules', query, rulesInit);
+  const rules = initCheckboxGroupState('rules', query, getRulesInit(t));
   Object.keys(rules).forEach((key) => { result[key] = rules[key]; });
 
-  const accessibility = initCheckboxGroupState('accessibility', query, accessibilityInit);
-  Object.keys(accessibility).forEach((key) => { result[key] = accessibility[key]; });
+  const accessibility = initCheckboxGroupState(
+    'accessibility',
+    query,
+    getAccessibilityInit(t),
+  );
+  Object.keys(accessibility).forEach(
+    (key) => { result[key] = accessibility[key]; },
+  );
 
-  const extraConvenience = initCheckboxGroupState('extraConvenience', query, extraConvenienceInit);
+  const extraConvenience = initCheckboxGroupState(
+    'extraConvenience',
+    query,
+    getExtraConvenienceInit(t),
+  );
   Object.keys(extraConvenience).forEach((key) => { result[key] = extraConvenience[key]; });
 
   return result as IFormRoomFilterState;

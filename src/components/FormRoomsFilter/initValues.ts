@@ -1,119 +1,152 @@
-import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
+import { TFunction } from 'next-i18next';
 
-const dropdownGuestsInit: IDropListItem[] = [
+import type { IDropListItem } from 'src/components/InputDropdown/InputDropdown';
+import type { ICheckboxProps } from 'src/components/Checkbox/Checkbox';
+
+const getDropdownGuestsInit = (t: TFunction): IDropListItem[] => ([
   {
     id: 'adults',
-    label: 'Взрослые',
+    label: t('components:guestInputDropdown.guests'),
     count: 0,
-    plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
   },
   {
     id: 'children',
-    label: 'Дети',
+    label: t('components:guestInputDropdown.children'),
     count: 0,
-    plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
   },
   {
     id: 'babies',
-    label: 'Младенцы',
+    label: t('components:guestInputDropdown.babies'),
     count: 0,
-    plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
+    plurals: {
+      one: t('components:guestInputDropdown.babiesOne'),
+      two: t('components:guestInputDropdown.babiesTwo'),
+      few: t('components:guestInputDropdown.babiesFew'),
+    },
     special: true,
   },
-];
+]);
 
-const dropdownConvenienceInit: IDropListItem[] = [
+const getDropdownConvenienceInit = (t: TFunction): IDropListItem[] => ([
   {
     id: 'bedroom',
-    label: 'Спальни',
+    label: t('components:convenientInputDropdown.children'),
     count: 0,
-    plurals: { one: 'спальня', two: 'спальни', few: 'спален' },
+    plurals: {
+      one: t('components:convenientInputDropdown.bedroomOne'),
+      two: t('components:convenientInputDropdown.bedroomsTwo'),
+      few: t('components:convenientInputDropdown.bedroomsFew'),
+    },
   },
   {
     id: 'bed',
-    label: 'Кровати',
+    label: t('components:convenientInputDropdown.beds'),
     count: 0,
-    plurals: { one: 'кровать', two: 'кровати', few: 'кроватей' },
+    plurals: {
+      one: t('components:convenientInputDropdown.bedOne'),
+      two: t('components:convenientInputDropdown.bedsTwo'),
+      few: t('components:convenientInputDropdown.bedsFew'),
+    },
   },
   {
     id: 'bathroom',
-    label: 'Ванные комнаты',
+    label: t('components:convenientInputDropdown.bathrooms'),
     count: 0,
-    plurals: { one: 'ванная комната', two: 'ванные комнаты', few: 'ванных комнат' },
+    plurals: {
+      one: t('components:convenientInputDropdown.bathroomOne'),
+      two: t('components:convenientInputDropdown.bathroomsTwo'),
+      few: t('components:convenientInputDropdown.bathroomsFew'),
+    },
     special: true,
   },
-];
+]);
 
-const extraConvenienceInit = [
+const getExtraConvenienceInit = (t: TFunction): ICheckboxProps[] => ([
   {
-    label: 'Завтрак',
+    label: t('components:extraConvenience.breakfast'),
     name: 'breakfast',
     checked: false,
   },
   {
-    label: 'Письменный стол',
+    label: t('components:extraConvenience.desk'),
     name: 'desk',
     checked: false,
   },
   {
-    label: 'Стул для кормления',
+    label: t('components:extraConvenience.feedingChair'),
     name: 'feedingChair',
     checked: false,
   },
   {
-    label: 'Кроватка',
+    label: t('components:extraConvenience.smallBad'),
     name: 'smallBad',
     checked: false,
   },
   {
-    label: 'Телевизор',
+    label: t('components:extraConvenience.tv'),
     name: 'tv',
     checked: false,
   },
   {
-    label: 'Шампунь',
+    label: t('components:extraConvenience.shampoo'),
     name: 'shampoo',
     checked: false,
   },
-];
+]);
 
-const rulesInit = [
+const getRulesInit = (
+  t: TFunction,
+): ICheckboxProps[] => ([
   {
-    label: 'Можно курить',
+    label: t('components:rules.smokingAllowed'),
     name: 'smokingAllowed',
     checked: false,
   },
   {
-    label: 'Можно с питомцами',
+    label: t('components:rules.petsAllowed'),
     name: 'petsAllowed',
     checked: false,
   },
   {
-    label: 'Можно пригласить гостей (до 10 человек)',
+    label: t('components:rules.guestAllowed'),
     name: 'guestsAllowed',
     checked: false,
   },
-];
+]);
 
-const accessibilityInit = [
+const getAccessibilityInit = (
+  t: TFunction,
+): ICheckboxProps[] => ([
   {
-    label: 'Широкий коридор',
+    label: t('components:accessibility.wideCorridor.label'),
     name: 'wideCorridor',
-    description: 'Ширина коридоров в номере не менее 91 см.',
+    description: t('components:accessibility.wideCorridor.description'),
     checked: false,
   },
   {
-    label: 'Помощник для инвалидов',
+    label: t('components:accessibility.assistantForDisabled.label'),
     name: 'assistantForDisabled',
-    description: 'На 1 этаже вас встретит специалист  и проводит до номера.',
+    description: t(
+      'components:accessibility.assistantForDisabled.description',
+    ),
     checked: false,
   },
-];
+]);
 
 export {
-  dropdownGuestsInit,
-  dropdownConvenienceInit,
-  extraConvenienceInit,
-  rulesInit,
-  accessibilityInit,
+  getDropdownGuestsInit,
+  getDropdownConvenienceInit,
+  getExtraConvenienceInit,
+  getRulesInit,
+  getAccessibilityInit,
 };
