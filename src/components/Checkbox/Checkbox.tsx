@@ -6,6 +6,14 @@ import SVGInline from 'react-svg-inline';
 import CheckMark from './images/check-mark.svg';
 import './Checkbox.scss';
 
+interface ICheckboxProps {
+  label?: string;
+  description?: string;
+  name: string;
+  checked?: boolean;
+  onChange?: (checked: boolean, name: string) => void;
+}
+
 const b = block('checkbox');
 
 const Checkbox: React.FC<ICheckboxProps> = (props) => {
@@ -45,3 +53,7 @@ const Checkbox: React.FC<ICheckboxProps> = (props) => {
 };
 
 export default Checkbox;
+
+export type {
+  ICheckboxProps,
+};

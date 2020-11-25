@@ -5,6 +5,13 @@ import Button from 'src/components/Button/Button';
 import createDaysList, { updateRange } from './lib';
 import './Calendar.scss';
 
+type RangeDays = {
+  start: Date | null;
+  end: Date | null;
+};
+
+type CalendarMode = 'start' | 'end' | 'auto';
+
 interface ICalendarProps {
   selectRangeDay?: CalendarMode;
   weekdayNames?: string[];
@@ -250,3 +257,8 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
 };
 
 export default Calendar;
+
+export type {
+  RangeDays,
+  CalendarMode,
+};
