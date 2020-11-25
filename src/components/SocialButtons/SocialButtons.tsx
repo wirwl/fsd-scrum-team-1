@@ -28,3 +28,6 @@ const SocialButtons: React.FC<ISocialButtons> = (props) => {
 };
 
 export default SocialButtons;
+export type {
+  ISocialButton,
+};

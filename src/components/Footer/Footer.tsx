@@ -1,24 +1,32 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
+import type { TFunction } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import Logo from '@/components/Logo/Logo';
 import Input from '@/components/Input/Input';
 import SocialButtons from '@/components/SocialButtons/SocialButtons';
 
-import {
-  navBlocks,
-  description,
-  subscription,
-  copyright,
-  socialLinks,
-} from 'config/footer.json';
 import NavigationList from './components/NavigationList/NavigationList';
+import getFooterConf from './helper';
 
 import './Footer.scss';
 
 const b = block('footer');
 
-const Footer: FC = () => {
+type FooterProps = {
+  t: TFunction;
+};
+
+const Footer: FC<FooterProps> = ({ t }) => {
+  const {
+    navBlocks,
+    description,
+    subscription,
+    copyright,
+    socialLinks,
+  } = getFooterConf(t);
+
   const navigationList = navBlocks.map(
     ({ title, links }) => <NavigationList key={title} title={title} links={links} />,
   );
@@ -79,4 +87,4 @@ const Footer: FC = () => {
   );
 };
 
-export default Footer;
+export default i18n.withTranslation(['common', 'footer'])(Footer);
