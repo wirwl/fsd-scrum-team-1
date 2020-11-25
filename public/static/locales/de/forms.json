@@ -1,7 +1,8 @@
 {
   "landing": {
     "title": "Wir finden Zimmer für Ihre Bedürfnisse",
-    "pickANumber": "Wähle eine Nummer"
+    "pickANumber": "Wähle eine Nummer",
+    "howManyGuests": "Wie viele Gäste"
   },
   "bookingForm": {
     "day": "Tage",

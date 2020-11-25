@@ -1,7 +1,8 @@
 {
   "landing": {
     "title": "Найдём номера под ваши пожелания",
-    "pickANumber": "подобрать номер"
+    "pickANumber": "подобрать номер",
+    "howManyGuests": "Сколько гостей"
   },
   "bookingForm": {
     "day": "суток",

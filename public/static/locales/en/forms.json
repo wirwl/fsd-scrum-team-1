@@ -1,7 +1,8 @@
 {
   "landing": {
     "title": "We will find rooms for your needs",
-    "pickANumber": "pick a number"
+    "pickANumber": "pick a number",
+    "howManyGuests": "How many guests"
   },
   "bookingForm": {
     "day": "days",

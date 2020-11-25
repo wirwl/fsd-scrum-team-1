@@ -1,39 +1,61 @@
 import React, { useState } from 'react';
 import { block } from 'bem-cn';
+import type { TFunction, WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import type { RangeDays } from 'src/components/Calendar/Calendar';
 import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import './FormLanding.scss';
 
-interface IFormLandingProps {
+interface IFormLandingProps extends WithTranslation {
+  t: TFunction;
   onSubmit: (range: RangeDays, dropdownItems: IDropListItem[]) => void;
 }
 
 const b = block('form-landing');
 
-const dropdownItemsGuests: IDropListItem[] = [
+const getDropdownItemsGuestsConf = (t: TFunction): IDropListItem[] => ([
   {
-    id: 'adults', label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+    id: 'adults',
+    label: t('components:guestInputDropdown.guests'),
+    count: 0,
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
   },
   {
-    id: 'children', label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
+    id: 'children',
+    label: t('components:guestInputDropdown.children'),
+    count: 0,
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
   },
   {
     id: 'babies',
-    label: 'Младенцы',
+    label: t('components:guestInputDropdown.babies'),
     count: 0,
-    plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
+    plurals: {
+      one: t('components:guestInputDropdown.babiesOne'),
+      two: t('components:guestInputDropdown.babiesTwo'),
+      few: t('components:guestInputDropdown.babiesFew'),
+    },
     special: true,
   },
-];
+]);
 
-const FormLanding: React.FC<IFormLandingProps> = (props) => {
-  const { onSubmit } = props;
-
+const FormLanding: React.FC<IFormLandingProps> = ({ onSubmit, t }) => {
+  const dropdownItemsGuests = getDropdownItemsGuestsConf(t);
   const [dateRange, setDateRange] = useState<RangeDays>({ start: null, end: null });
-  const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(dropdownItemsGuests);
+  const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(
+    () => getDropdownItemsGuestsConf(t),
+  );
   const [validateErrorMessage, setValidateErrorMessage] = useState('');
 
   const handleSubmit = (ev: React.FormEvent): boolean => {
@@ -65,7 +87,7 @@ const FormLanding: React.FC<IFormLandingProps> = (props) => {
 
   return (
     <div className={b()}>
-      <h3 className={b('title')}>Найдём номера под ваши пожелания</h3>
+      <h3 className={b('title')}>{ t('forms:landing.title') }</h3>
       <form
         className={b('form')}
         method="POST"
@@ -76,15 +98,21 @@ const FormLanding: React.FC<IFormLandingProps> = (props) => {
           <DatePicker
             onChange={(range) => { setDateRange(range); setValidateErrorMessage(''); }}
             withTwoInputs
+            startTitle={t('arrival')}
+            endTitle={t('departure')}
           />
         </div>
         <div className={b('dropdown-with-guests')}>
-          <p className={b('dropdown-title')}>Гости</p>
+          <p className={b('dropdown-title')}>{t('components:guestInputDropdown.guests')}</p>
           <InputDropdown
             name="guests"
-            placeholder="Сколько гостей"
+            placeholder={t('forms:landing.howManyGuests')}
             dropList={dropdownItemsGuests}
-            defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
+            defaultLabel={{
+              one: t('components:guestInputDropdown.guestsOne'),
+              two: t('components:guestInputDropdown.guestsTwo'),
+              few: t('components:guestInputDropdown.guestsFew'),
+            }}
             buttons
             onChange={(items) => { setDropdownItems(items); setValidateErrorMessage(''); }}
           />
@@ -93,7 +121,7 @@ const FormLanding: React.FC<IFormLandingProps> = (props) => {
         <div>
           <Button
             type="submit"
-            caption="подобрать номер"
+            caption={t('forms:landing.pickANumber')}
             theme="default"
             withArrow
             size="fluid"
@@ -104,4 +132,6 @@ const FormLanding: React.FC<IFormLandingProps> = (props) => {
   );
 };
 
-export default FormLanding;
+export default i18n.withTranslation(
+  ['common', 'components', 'forms'],
+)(FormLanding);

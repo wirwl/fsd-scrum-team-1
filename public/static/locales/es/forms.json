@@ -1,7 +1,8 @@
 {
   "landing": {
     "title": "Encontraremos habitaciones para sus necesidades",
-    "pickANumber": "elige un número"
+    "pickANumber": "elige un número",
+    "howManyGuests": "Cuantos invitados"
   },
   "bookingForm": {
     "day": "dias",
