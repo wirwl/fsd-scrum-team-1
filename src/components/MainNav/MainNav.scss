@@ -23,7 +23,7 @@ $mobile-menu-max-height: 18.75rem;
     justify-content: space-between;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 600px) {
     display: block;
     width: 100%;
 
@@ -50,7 +50,7 @@ $mobile-menu-max-height: 18.75rem;
 
     outline: none;
 
-    @media (max-width: 420px) {
+    @media (max-width: 600px) {
       display: block;
     }
   }
