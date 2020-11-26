@@ -8,7 +8,8 @@
     "day": "dias",
     "feeServiceDiscount": "La tarifa por el servicio: descuento",
     "feeAdditionalService": "Tarifa por servicios adicionales",
-    "subtotal": "Total parcial"
+    "subtotal": "Total parcial",
+    "toBook": "reservar"
   },
   "register": {
     "title": "Registro de cuenta",

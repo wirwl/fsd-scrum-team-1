@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { block } from 'bem-cn';
+import type { WithTranslation, TFunction } from 'next-i18next';
 
 import type { RangeDays } from 'src/components/Calendar/Calendar';
+import i18n from 'src/services/i18n';
 import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import './FormRoomDetails.scss';
 
-interface IFormRoomDetails {
+interface IFormRoomDetailsProps extends WithTranslation {
   onSubmit?: (range: RangeDays, dropdownItems: IDropListItem[]) => void;
   roomNumber: number,
   isLuxury: boolean,
@@ -21,21 +23,39 @@ const b = block('form-room-details');
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-const dropdownItemsGuests: IDropListItem[] = [
+const getDropdownItemsGuests = (t: TFunction): IDropListItem[] => ([
   {
-    id: 'gAdults', label: 'Взрослые', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
-  },
-  {
-    id: 'gChilds', label: 'Дети', count: 0, plurals: { one: 'гость', two: 'гостя', few: 'гостей' },
-  },
-  {
-    id: 'gToddlers',
-    label: 'Младенцы',
+    id: 'adults',
+    label: t('components:guestInputDropdown.guests'),
     count: 0,
-    plurals: { one: 'младенец', two: 'младенца', few: 'младенцев' },
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
+  },
+  {
+    id: 'children',
+    label: t('components:guestInputDropdown.children'),
+    count: 0,
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
+  },
+  {
+    id: 'babies',
+    label: t('components:guestInputDropdown.babies'),
+    count: 0,
+    plurals: {
+      one: t('components:guestInputDropdown.babiesOne'),
+      two: t('components:guestInputDropdown.babiesTwo'),
+      few: t('components:guestInputDropdown.babiesFew'),
+    },
     special: true,
   },
-];
+]);
 
 const formateString = (price: number): string => {
   const output: string[] = [];
@@ -48,7 +68,7 @@ const formateString = (price: number): string => {
   return output.reverse().join('').trim();
 };
 
-const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
+const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
   const {
     onSubmit,
     roomNumber,
@@ -57,10 +77,15 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
     serviceCharge,
     discount,
     additionalServiceCharge,
+    t,
   } = props;
 
+  const dropdownItemsGuests = getDropdownItemsGuests(t);
+
   const [dateRange, setDateRange] = useState<RangeDays>({ start: null, end: null });
-  const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(dropdownItemsGuests);
+  const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(
+    () => dropdownItemsGuests,
+  );
   const [validateErrorMessage, setValidateErrorMessage] = useState('');
 
   const handleSubmit = (ev: React.FormEvent): boolean => {
@@ -119,13 +144,19 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
               №&nbsp;
               <span className={b('room-number')}>{roomNumber}</span>
             </span>
-            {isLuxury && <span className={b('luxury')}>люкс</span>}
+            {isLuxury && (
+              <span className={b('luxury')}>
+                &nbsp;
+                {t('luxe')}
+              </span>
+            )}
           </p>
           <p className={b('price')}>
             <span className={b('price-number')}>
               {`${formateString(price)}₽`}
             </span>
-            &nbsp;в&nbsp;сутки
+            &nbsp;
+            {t('perDay')}
           </p>
         </h3>
         <div className={b('date-picker')}>
@@ -135,22 +166,28 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
               setValidateErrorMessage('');
             }}
             withTwoInputs
+            startTitle={t('arrival')}
+            endTitle={t('departure')}
           />
         </div>
         <div className={b('dropdown-with-guests')}>
-          <p className={b('dropdown-title')}>Гости</p>
+          <p className={b('dropdown-title')}>{t('components:guestInputDropdown.guests')}</p>
           <InputDropdown
             name="guests"
-            placeholder="Сколько гостей"
+            placeholder={t('forms:landing.howManyGuests')}
             dropList={dropdownItemsGuests}
-            defaultLabel={{ one: 'гость', two: 'гостя', few: 'гостей' }}
+            defaultLabel={{
+              one: t('components:guestInputDropdown.guestsOne'),
+              two: t('components:guestInputDropdown.guestsTwo'),
+              few: t('components:guestInputDropdown.guestsFew'),
+            }}
             buttons
             onChange={(items) => { setDropdownItems(items); setValidateErrorMessage(''); }}
           />
         </div>
         <div className={b('row')}>
           <div className={b('row-text')}>
-            {`${formateString(price)}₽ x ${getDays(dateRange)} суток`}
+            {`${formateString(price)}₽ x ${getDays(dateRange)} ${t('forms:bookingForm.day')}`}
           </div>
           <div className={b('row-value')}>
             {`${formateString(price * getDays(dateRange))}₽`}
@@ -158,7 +195,7 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
         </div>
         <div className={b('row')}>
           <div className={b('row-text')}>
-            {`Сбор за услуги: скидка ${formateString(discount)}₽`}
+            {`${t('forms:bookingForm.feeServiceDiscount')} ${formateString(discount)}₽`}
           </div>
           <div className={b('tooltip-wrapper')}>
             {toolTip('Скидка 20%')}
@@ -169,7 +206,7 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
         </div>
         <div className={b('row', { last: true })}>
           <div className={b('row-text')}>
-            Сбор за дополнительные услуги
+            {t('forms:bookingForm.feeAdditionalService')}
           </div>
           <div className={b('tooltip-wrapper')}>
             {toolTip('Виды дополнительных услуг: уборка, массаж пяток')}
@@ -179,7 +216,9 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
           </div>
         </div>
         <div className={b('total-price')}>
-          <span className={b('total-price-text')}>Итого </span>
+          <span className={b('total-price-text')}>
+            {t('forms:bookingForm.subtotal')}
+          </span>
           <span className={b('total-price-dots')} />
           <span className={b('total-number')}>{`${formateString(totalPrice - discount)}₽`}</span>
         </div>
@@ -187,7 +226,7 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
         <div>
           <Button
             type="submit"
-            caption="забронировать"
+            caption={t('forms:bookingForm.toBook')}
             theme="default"
             withArrow
             size="fluid"
@@ -198,4 +237,6 @@ const FormRoomDetails: React.FC<IFormRoomDetails> = (props) => {
   );
 };
 
-export default FormRoomDetails;
+export default i18n.withTranslation(['common', 'forms'])(
+  FormRoomDetails,
+);

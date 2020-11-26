@@ -8,7 +8,8 @@
     "day": "Tage",
     "feeServiceDiscount": "Die Servicegebühr: Rabatt",
     "feeAdditionalService": "Gebühr für zusätzliche Dienstleistungen",
-    "subtotal": "Zwischensumme"
+    "subtotal": "Zwischensumme",
+    "toBook": "buchen"
   },
   "register": {
     "title": "Kontoregistrierung",

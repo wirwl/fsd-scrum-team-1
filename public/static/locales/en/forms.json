@@ -8,7 +8,8 @@
     "day": "days",
     "feeServiceDiscount": "The fee for service: discount",
     "feeAdditionalService": "Fee for additional services",
-    "subtotal": "Subtotal"
+    "subtotal": "Subtotal",
+    "toBook": "to book"
   },
   "register": {
     "title": "Account registration",

@@ -8,7 +8,8 @@
     "day": "суток",
     "feeServiceDiscount": "Сбор за услуги: скидка",
     "feeAdditionalService": "Сбор за дополнительные услуги",
-    "subtotal": "Итого"
+    "subtotal": "Итого",
+    "toBook": "Забронировать"
   },
   "register": {
     "title": "Регистрация аккаунта",
