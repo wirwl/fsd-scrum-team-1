@@ -19,7 +19,8 @@
     "wonderful": "Excelente",
     "good": "Bueno",
     "satisfactorily": "Satisfactoriamente",
-    "bad": "Decepcionado"
+    "bad": "Decepcionado",
+    "votes": "votos"
   },
   "roomComments": {
     "title": "Reseñas de usuarios de la habitación",

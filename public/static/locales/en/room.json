@@ -19,7 +19,8 @@
     "wonderful": "Great",
     "good": "Good",
     "satisfactorily": "Satisfactorily",
-    "bad": "Disappointed"
+    "bad": "Disappointed",
+    "votes": "votes"
   },
   "roomComments": {
     "title": "User reviews of the room",

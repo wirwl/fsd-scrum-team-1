@@ -19,7 +19,8 @@
     "wonderful": "Toll",
     "good": "Gut",
     "satisfactorily": "Zufriedenstellend",
-    "bad": "Enttäuscht"
+    "bad": "Enttäuscht",
+    "votes": "stimmen"
   },
   "roomComments": {
     "title": "Nutzerbewertungen des raumes",

@@ -1,13 +1,15 @@
 import React from 'react';
 import { block } from 'bem-cn';
+import type { TFunction, WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import './ReviewsChart.scss';
 
 type ReviewsKeys = 'veryGood' | 'good' | 'fine' | 'bad';
 type Reviews = { [key in ReviewsKeys]: number; };
 type SvgPaths = { [key in ReviewsKeys]?: string; };
 
-interface IReviewsChartProps {
+interface IReviewsChartProps extends WithTranslation {
   title: string;
   reviews: Reviews;
 }
@@ -75,7 +77,11 @@ const getPaths = (reviews: Reviews): JSX.Element[] => {
   ));
 };
 
-const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
+const ReviewsChart: React.FC<IReviewsChartProps> = ({
+  reviews,
+  title,
+  t,
+}) => {
   const reviewsObjKeys = (Object.keys(reviews) as (ReviewsKeys)[])
     .filter((key) => reviews[key] > 0);
   const sumReviews = reviewsObjKeys.reduce<number>((acc, key) => (acc + reviews[key]), 0);
@@ -108,18 +114,28 @@ const ReviewsChart: React.FC<IReviewsChartProps> = ({ reviews, title }) => {
           {chart}
           <p className={b('all-reviews')}>
             <span className={b('reviews-number')}>{sumReviews}</span>
-            голосов
+            {t('room:roomImpressions.votes')}
           </p>
         </div>
         <ul className={b('legend')}>
-          <li className={b('legend-item', { type: 'very-good' })}>Великолепно</li>
-          <li className={b('legend-item', { type: 'good' })}>Хорошо</li>
-          <li className={b('legend-item', { type: 'fine' })}>Удовлетворительно</li>
-          <li className={b('legend-item', { type: 'bad' })}>Разочарован</li>
+          <li className={b('legend-item', { type: 'very-good' })}>
+            {t('room:roomImpressions.wonderful')}
+          </li>
+          <li className={b('legend-item', { type: 'good' })}>
+            {t('room:roomImpressions.good')}
+          </li>
+          <li className={b('legend-item', { type: 'fine' })}>
+            {t('room:roomImpressions.satisfactorily')}
+          </li>
+          <li className={b('legend-item', { type: 'bad' })}>
+            {t('room:roomImpressions.bad')}
+          </li>
         </ul>
       </div>
     </div>
   );
 };
 
-export default ReviewsChart;
+export default i18n.withTranslation(['common', 'footer'])(
+  ReviewsChart,
+);
