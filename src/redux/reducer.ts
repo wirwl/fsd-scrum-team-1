@@ -7,11 +7,13 @@ import { HYDRATE } from 'next-redux-wrapper';
 import roomsReducer from 'src/redux/rooms/roomsReducer';
 import userReducer from 'src/redux/user/userReducer';
 import roomDetailsReducer from './roomDetails/roomDetailsReducer';
+import bookedRoomsReducer from './bookedRooms/reducer';
 
 const rootReducer = combineReducers({
   rooms: roomsReducer,
   user: userReducer,
   roomDetails: roomDetailsReducer,
+  bookedRooms: bookedRoomsReducer,
 });
 
 type IRootState = ReturnType<typeof rootReducer>;

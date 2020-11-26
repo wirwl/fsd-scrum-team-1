@@ -26,10 +26,10 @@ const getState = (store: IRootState): string => (
 function* fetchBookedRoomsWorker(): SagaIterator {
   try {
     const userId = yield select(getState);
-    const rooms = yield call(api.getBookedRooms, userId);
+    const rooms = yield call(api.getBookedRooms.bind(api), userId);
     yield put(fetchBookedRoomsSuccess(rooms));
   } catch (error) {
-    yield put(fetchBookedRoomsFail(error));
+    yield put(fetchBookedRoomsFail(String(error)));
   }
 }
 
@@ -46,7 +46,7 @@ function* bookingRoomWorker(action: BookingRoomAction): SagaIterator {
   } = action.payload;
 
   try {
-    yield call(api.booking, uid, roomId, dateStart, dateEnd);
+    yield call(api.booking.bind(api), uid, roomId, dateStart, dateEnd);
     yield put(bookingRoomSuccess());
   } catch (error) {
     yield put(bookingRoomFail(error));
