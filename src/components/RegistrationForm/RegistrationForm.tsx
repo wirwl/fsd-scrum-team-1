@@ -61,7 +61,7 @@ const validateBirthday = (value: string | number): string => {
     const tmpDate = new Date(year, month - 1, day);
 
     const isValidDate = tmpDate.getDate() === day
-      && tmpDate.getMonth() + 1 && tmpDate.getFullYear() === year;
+      && tmpDate.getMonth() + 1 === month && tmpDate.getFullYear() === year;
 
     errorMessage = !isValidDate ? 'Введите существующую дату.' : '';
   }

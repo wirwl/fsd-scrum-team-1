@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { block } from 'bem-cn';
-import { useSelector } from 'react-redux';
-import { TFunction } from 'next-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { TFunction, WithTranslation } from 'next-i18next';
 
 import './Header.scss';
 
@@ -10,6 +10,7 @@ import Logo from 'src/components/Logo/Logo';
 import MainNav, { IMenuItem } from 'src/components/MainNav/MainNav';
 import HeaderAuth from 'src/components/HeaderAuth/HeaderAuth';
 import i18n from 'src/services/i18n';
+import { signOut } from 'src/redux/user/userActions';
 
 import type { IRootState } from 'src/redux/reducer';
 import type { IUserState } from 'src/redux/user/userReducer';
@@ -42,13 +43,14 @@ const b = block('header');
 
 const userSelector = (store: IRootState): IUserState => store.user;
 
-type HeaderProps = {
-  t: TFunction;
-};
-
-const Header: FC<HeaderProps> = ({ t }) => {
+const Header: FC<WithTranslation> = ({ t }) => {
   const router = useRouter();
   const { user } = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  const handleExitButtonClick = (): void => {
+    dispatch(signOut());
+  };
 
   const navItems = getNavItems(t);
 
@@ -64,7 +66,7 @@ const Header: FC<HeaderProps> = ({ t }) => {
         </div>
 
         <div className={b('auth-block')}>
-          <HeaderAuth user={user} />
+          <HeaderAuth user={user} onExitClick={handleExitButtonClick} />
         </div>
       </div>
     </header>

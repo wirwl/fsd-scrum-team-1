@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import { block } from 'bem-cn';
 import i18n from 'src/services/i18n';
-import type { TFunction } from 'next-i18next';
+import type { WithTranslation } from 'next-i18next';
 
 import Button from 'src/components/Button/Button';
 import type { IUser } from 'src/services/dto/User';
@@ -11,19 +11,34 @@ import './HeaderAuth.scss';
 
 type IHeaderAuthProps = {
   user: IUser | null;
-  t: TFunction;
-};
+  onExitClick: () => void;
+} & WithTranslation;
 
 const b = block('header-auth');
 
-const HeaderAuth: FC<IHeaderAuthProps> = ({ user, t }) => {
+const HeaderAuth: FC<IHeaderAuthProps> = ({ user, onExitClick, t }) => {
   const content = (user !== null)
     ? (
-      <span className={b('user-name')}>
-        {user.name}
+      <div className={b('profile')}>
+
+        <Link href="/auth/profile">
+          <span className={b('user-name-link')} tabIndex={0} role="link">
+            {user.name}
+            &nbsp;
+            {user.lastname}
+          </span>
+        </Link>
+
         &nbsp;
-        {user.lastname}
-      </span>
+        &nbsp;
+
+        <span className={b('profile-exit')}>
+          <Button
+            handleClick={onExitClick}
+            caption="Выход"
+          />
+        </span>
+      </div>
     )
     : (
       <>
@@ -58,4 +73,6 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user, t }) => {
   );
 };
 
-export default i18n.withTranslation('common')(HeaderAuth);
+export default i18n.withTranslation('common')(
+  HeaderAuth,
+);
