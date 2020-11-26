@@ -9,9 +9,8 @@ import {
   FETCH_BOOKED_ROOMS_SUCCESS,
 } from './types';
 
-export const fetchBookedRooms = (userId: string): BookedRoomsAction => ({
+export const fetchBookedRooms = (): BookedRoomsAction => ({
   type: FETCH_BOOKED_ROOMS,
-  payload: userId,
 });
 
 export const fetchBookedRoomsSuccess = (rooms: IBookedRoom[]): BookedRoomsAction => ({

@@ -10,7 +10,18 @@ import {
   IBookedRoomsStore,
 } from './types';
 
-const bookedRoomsReducer: Reducer<IBookedRoomsStore, BookedRoomsAction> = (store, action) => {
+const initialStore: IBookedRoomsStore = {
+  bookingRoomError: '',
+  fetchRoomsError: '',
+  isBookingRoomInProgress: false,
+  isFetchingRoomsInProgress: false,
+  rooms: [],
+};
+
+const bookedRoomsReducer: Reducer<IBookedRoomsStore, BookedRoomsAction> = (
+  store = initialStore,
+  action,
+) => {
   switch (action.type) {
     case FETCH_BOOKED_ROOMS:
       return { ...store, isFetchingRoomsInProgress: true };

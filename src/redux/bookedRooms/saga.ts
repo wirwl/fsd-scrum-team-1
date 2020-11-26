@@ -1,14 +1,15 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import {
+  call,
+  put,
+  select,
+  takeEvery,
+} from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 
 import Api from '@/services/Api';
 
-import {
-  BookingRoomAction,
-  BOOKING_ROOM,
-  FetchBookedRoomsAction,
-  FETCH_BOOKED_ROOMS,
-} from './types';
+import { IRootState } from '../reducer';
+import { BookingRoomAction, BOOKING_ROOM, FETCH_BOOKED_ROOMS } from './types';
 import {
   bookingRoomFail,
   bookingRoomSuccess,
@@ -18,9 +19,14 @@ import {
 
 const api = new Api();
 
-function* fetchBookedRoomsWorker(action: FetchBookedRoomsAction): SagaIterator {
+const getState = (store: IRootState): string => (
+  store.user.user ? store.user.user.uid : ''
+);
+
+function* fetchBookedRoomsWorker(): SagaIterator {
   try {
-    const rooms = yield call(api.getBookedRooms, action.payload);
+    const userId = yield select(getState);
+    const rooms = yield call(api.getBookedRooms, userId);
     yield put(fetchBookedRoomsSuccess(rooms));
   } catch (error) {
     yield put(fetchBookedRoomsFail(error));

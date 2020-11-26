@@ -9,7 +9,6 @@ export const BOOKING_ROOM_FAIL = '@toxin-booked-rooms/BOOKING_ROOM_FAIL';
 
 export type FetchBookedRoomsAction = {
   type: typeof FETCH_BOOKED_ROOMS;
-  payload: string;
 };
 
 export type FetchBookedRoomsSuccessAction = {
