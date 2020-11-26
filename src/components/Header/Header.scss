@@ -38,10 +38,18 @@
     margin-left: 1.25rem;
     margin-right: 1.25rem;
 
+    @media (max-width: 1000px) {
+      margin-left: auto;
+    }
+
     @media (max-width: 530px) {
       width: 100%;
       margin-bottom: .625rem;
     }
+  }
+
+  &__select-lang-block {
+    margin-right: 1.25rem;
   }
 
   &__logo {

@@ -70,7 +70,9 @@ const Header: FC<WithTranslation> = ({ t }) => {
           <HeaderAuth user={user} onExitClick={handleExitButtonClick} />
         </div>
 
-        <SelectLang />
+        <div className={b('select-lang-block')}>
+          <SelectLang />
+        </div>
       </div>
     </header>
   );
