@@ -76,3 +76,7 @@ const RadioButton: FC<IRadioButtonProps> = ({
 };
 
 export default RadioButton;
+
+export type {
+  IChoice,
+};

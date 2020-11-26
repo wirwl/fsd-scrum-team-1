@@ -1,7 +1,10 @@
 import React, { FC, FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { block } from 'bem-cn';
+import type { TFunction, WithTranslation } from 'next-i18next';
 
+import type { IChoice } from 'src/components/RadioButton/RadioButton';
+import i18n from 'src/services/i18n';
 import Input from 'src/components/Input/Input';
 import ToggleButton from 'src/components/ToggleButton/ToggleButton';
 import RadioButton from 'src/components/RadioButton/RadioButton';
@@ -9,7 +12,7 @@ import Button from 'src/components/Button/Button';
 
 import './RegistrationForm.scss';
 
-interface IRegistrationFormProps {
+interface IRegistrationFormProps extends WithTranslation {
   onSubmit: (data: IUserInfo) => void;
 }
 
@@ -34,10 +37,10 @@ type IErrorsState = Record<IInputNames, string>;
 
 const b = block('form-registration');
 
-const choices = [
-  { value: 'man', label: 'Мужчина', checked: true },
-  { value: 'woman', label: 'Женщина' },
-];
+const getChoices = (t: TFunction): IChoice[] => ([
+  { value: 'man', label: t('man'), checked: true },
+  { value: 'woman', label: t('woman') },
+]);
 
 const emptyErrorMessage = 'Это поле обязательно. Заполните его пожалуйста';
 
@@ -120,7 +123,7 @@ const isFormValid = (values: IRegistrationFormState): boolean => (
   })
 );
 
-const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
+const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t }) => {
   const [values, setValues] = useState<IRegistrationFormState>(initialState);
   const [errors, setErrors] = useState<IErrorsState>({
     name: '',
@@ -223,13 +226,17 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
     }));
   };
 
+  const choices = getChoices(t);
+
   return (
     <form className={b()} onSubmit={handleSubmit}>
-      <h1 className={b('title')}>Регистрация аккаунта</h1>
+      <h1 className={b('title')}>
+        {t('forms:register.title')}
+      </h1>
       <div className={b('name')}>
         <Input
           name="name"
-          placeholder="Имя"
+          placeholder={t('name')}
           validate={validateEmpty}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -240,7 +247,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
       <div className={b('surname')}>
         <Input
           name="surname"
-          placeholder="Фамилия"
+          placeholder={t('lastname')}
           validate={validateEmpty}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -249,14 +256,18 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
         />
       </div>
       <div className={b('radio-buttons')}>
-        <RadioButton name="gender" choices={choices} onChange={handleChangeRadioButton} />
+        <RadioButton
+          name="gender"
+          choices={choices}
+          onChange={handleChangeRadioButton}
+        />
       </div>
       <div className={b('birthday')}>
         <Input
           name="birthday"
           validate={validateBirthday}
           mask="99.99.9999"
-          label="Дата рождения"
+          label={t('birthday')}
           placeholder="ДД.ММ.ГГГГ"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -269,7 +280,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
           type="email"
           validate="email"
           name="email"
-          label="Данные для входа в сервис"
+          label={t('forms:register.loginInformation')}
           placeholder="Email"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -291,20 +302,27 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
       </div>
       <div className={b('toggle-button')}>
         <ToggleButton
-          label="Получать спецпредложения"
+          label={t('getSpecial')}
           name="specialOffers"
           checked={isGetSpecialOffers}
           onChange={handleChangeToggleButton}
         />
       </div>
       <div className={b('submit-button')}>
-        <Button type="submit" withArrow size="fluid" caption="Зарегистрироваться" />
+        <Button
+          type="submit"
+          withArrow
+          size="fluid"
+          caption={t('register')}
+        />
       </div>
       <div className={b('footer')}>
-        <p className={b('have-account')}>Уже есть аккаунт на Toxin</p>
+        <p className={b('have-account')}>
+          {t('forms:register.alreadyHaveAccountQuestion')}
+        </p>
         <Link href="/auth/sign-in">
           <div role="link" className={b('login-button')}>
-            <Button size="fluid" theme="white" caption="Войти" />
+            <Button size="fluid" theme="white" caption={t('enter')} />
           </div>
         </Link>
       </div>
@@ -312,5 +330,8 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
   );
 };
 
-export default RegistrationForm;
+export default i18n.withTranslation(['common', 'forms'])(
+  RegistrationForm,
+);
+
 export type { IUserInfo };
