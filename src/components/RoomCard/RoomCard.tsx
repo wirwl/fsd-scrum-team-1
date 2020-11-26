@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { block } from 'bem-cn';
+import { WithTranslation } from 'next-i18next';
+
+import i18n from 'src/services/i18n';
+import RateButtons from '../RateButton/RateButton';
 
 import './RoomCard.scss';
-import RateButtons from '../RateButton/RateButton';
 
 interface IImage {
   src: string;
   alt?: string;
 }
 
-interface IRoomCardProps {
+interface IRoomCardInfo {
   images: IImage[];
   roomNumber: number;
   price: number;
@@ -21,9 +24,13 @@ interface IRoomCardProps {
   isLuxury: boolean;
 }
 
+interface IRoomCardProps extends WithTranslation {
+  info: IRoomCardInfo;
+}
+
 const b = block('room-card');
 
-const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
+const RoomCard: React.FC<IRoomCardProps> = (props) => {
   const {
     info: {
       images,
@@ -35,6 +42,7 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
       hrefToReviews,
       isLuxury,
     },
+    t,
   } = props;
 
   const [imageIndex, setImageIndex] = useState(0);
@@ -95,14 +103,22 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
                 №&nbsp;
                 <span className={b('room-number')}>{roomNumber}</span>
               </h2>
-              {isLuxury && <span className={b('luxury')}>&nbsp;люкс</span>}
+              {
+                isLuxury && (
+                  <span className={b('luxury')}>
+                    &nbsp;
+                    {t('luxe')}
+                  </span>
+                )
+              }
             </a>
           </Link>
           <p className={b('price')}>
             <span className={b('price-number')}>
               {`${(price).toLocaleString()}₽`}
             </span>
-            &nbsp;в&nbsp;сутки
+            &nbsp;
+            {t('perDay')}
           </p>
         </div>
         <div className={b('row')}>
@@ -110,7 +126,8 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
           <Link href={hrefToReviews}>
             <a className={b('link-to-reviews')} href={hrefToReviews}>
               <span className={b('reviews-number')}>{numberOfReviews}</span>
-              &nbsp;Отзывов
+              &nbsp;
+              {t('room:roomComments.feedbackFew')}
             </a>
           </Link>
         </div>
@@ -119,5 +136,8 @@ const RoomCard: React.FC<{ info: IRoomCardProps }> = (props) => {
   );
 };
 
-export default RoomCard;
+export default i18n.withTranslation(['common', 'room'])(
+  RoomCard,
+);
+
 export type { IRoomCardProps };

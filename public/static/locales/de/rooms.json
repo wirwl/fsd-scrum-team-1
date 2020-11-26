@@ -1,4 +1,6 @@
 {
   "title": "Zimmer, die wir für Sie ausgewählt haben",
-  "comments": "bemerkungen"
+  "comments": "bemerkungen",
+  "showMore": "Zeig mehr",
+  "noRoomsMessage": "Leider haben wir keine Nummern, die alle Ihre Kriterien erfüllen. Versuchen Sie, die Filter zu wechseln."
 }
