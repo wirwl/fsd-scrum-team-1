@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { block } from 'bem-cn';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import wrapper, { ISagaStore } from '@/redux/store';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 import { fetchRoomDetails } from '@/redux/roomDetails/roomDetailsActions';
@@ -18,11 +20,11 @@ import FormRoomDetails from '@/components/FormRoomDetails/FormRoomDetails';
 import './roomDetails.scss';
 import { END } from 'redux-saga';
 
-type IRoomDetailsProps = { id: string | string[] | undefined };
+type IRoomDetailsProps = { id: string | string[] | undefined } & WithTranslation;
 
 const b = block('room-details');
 
-const RoomDetails: FC<IRoomDetailsProps> = () => {
+const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
   const { isFetching, item: room } = useSelector((state: IRootState) => state.roomDetails);
 
   const pageContent = isFetching || room === null
@@ -42,7 +44,10 @@ const RoomDetails: FC<IRoomDetailsProps> = () => {
           <section className={b('room-info')}>
             <section className={b('main-info')}>
               <div className={b('room-advantages')}>
-                <RoomDetailsList header="Сведения о номере" roomDetails={room.roomInformation} />
+                <RoomDetailsList
+                  header={t('room:roomInfo.title')}
+                  roomDetails={room.roomInformation}
+                />
               </div>
               <div className={b('reviews-chart')}>
                 <ReviewsChart
@@ -52,7 +57,7 @@ const RoomDetails: FC<IRoomDetailsProps> = () => {
                     good: room.impressions.good,
                     veryGood: room.impressions.perfectly,
                   }}
-                  title="Впечатления от номера"
+                  title={t('room:roomImpressions.title')}
                 />
               </div>
             </section>
@@ -60,17 +65,23 @@ const RoomDetails: FC<IRoomDetailsProps> = () => {
               room.comments.length > 0
               && (
                 <section className={b('comments')}>
-                  <Comments allComments={room.comments.length} items={room.comments.slice(-2)} />
+                  <Comments
+                    title={t('room:roomComments.title')}
+                    allComments={room.comments.length}
+                    items={room.comments.slice(-2)}
+                  />
                 </section>
               )
             }
             <section className={b('another-info')}>
               <div className={b('roles')}>
-                <h3 className={b('roles-title')}>Правила</h3>
+                <h3 className={b('roles-title')}>
+                  {t('rules')}
+                </h3>
                 <BulletsList textList={room.roomRules} />
               </div>
               <div className={b('cancellation-terms')}>
-                <RoomCancel />
+                <RoomCancel title={t('cancel')} />
               </div>
             </section>
           </section>
@@ -103,4 +114,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, que
   return {};
 });
 
-export default RoomDetails;
+export default i18n.withTranslation(['common', 'room'])(
+  RoomDetails,
+);
