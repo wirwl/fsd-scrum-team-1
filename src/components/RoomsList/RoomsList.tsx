@@ -6,7 +6,7 @@ import { WithTranslation } from 'next-i18next';
 import i18n from 'src/services/i18n';
 import { IRootState } from 'src/redux/reducer';
 import { IRoom } from 'src/services/dto/Rooms';
-import RoomCard, { IRoomCardProps } from 'src/components/RoomCard/RoomCard';
+import RoomCard, { IRoomCardInfo } from 'src/components/RoomCard/RoomCard';
 import Button from 'src/components/Button/Button';
 import Spinner from 'src/components/Spinner/Spinner';
 import './RoomsList.scss';
@@ -17,7 +17,7 @@ interface IRoomsListProps extends WithTranslation {
   onShowMoreButtonClick: (id: number) => void;
 }
 
-const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
+const convertDataForRoomCard = (inputData: IRoom): IRoomCardInfo => {
   const {
     picsPreview,
     comments,

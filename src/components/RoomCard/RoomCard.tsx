@@ -24,9 +24,11 @@ interface IRoomCardInfo {
   isLuxury: boolean;
 }
 
-interface IRoomCardProps extends WithTranslation {
+interface IRoomCard {
   info: IRoomCardInfo;
 }
+
+interface IRoomCardProps extends IRoomCard, WithTranslation {}
 
 const b = block('room-card');
 
@@ -140,4 +142,4 @@ export default i18n.withTranslation(['common', 'room'])(
   RoomCard,
 );
 
-export type { IRoomCardProps };
+export type { IRoomCard, IRoomCardInfo };
