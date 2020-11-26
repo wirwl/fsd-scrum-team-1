@@ -24,7 +24,9 @@
   },
   "roomComments": {
     "title": "User reviews of the room",
-    "daysAgo": "days ago",
+    "daysAgoOne": "day ago",
+    "daysAgoTwo": "days ago",
+    "daysAgoFew": "days ago",
     "feedbackOne": "comment",
     "feedbackTwo": "comments",
     "feedbackFew": "comments"

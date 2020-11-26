@@ -24,7 +24,9 @@
   },
   "roomComments": {
     "title": "Отзывы посетителей номера",
-    "daysAgo": "дней назад",
+    "daysAgoOne": "день назад",
+    "daysAgoTwo": "дня назад",
+    "daysAgoFew": "дней назад",
     "feedbackOne": "отзыв",
     "feedbackTwo": "отзыва",
     "feedbackFew": "отзывов"

@@ -24,7 +24,9 @@
   },
   "roomComments": {
     "title": "Nutzerbewertungen des raumes",
-    "daysAgo": "Vor tagen",
+    "daysAgoOne": "vor einem tag",
+    "daysAgoTwo": "vor tagen",
+    "daysAgoFew": "vor tagen",
     "feedbackOne": "kommentar",
     "feedbackTwo": "bemerkungen",
     "feedbackFew": "bemerkungen"

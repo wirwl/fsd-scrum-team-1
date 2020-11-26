@@ -24,7 +24,9 @@
   },
   "roomComments": {
     "title": "Reseñas de usuarios de la habitación",
-    "daysAgo": "hace días",
+    "daysAgoOne": "hace un dia",
+    "daysAgoTwo": "hace días",
+    "daysAgoFew": "hace días",
     "feedbackOne": "comentario",
     "feedbackTwo": "comentarios",
     "feedbackFew": "comentarios"
