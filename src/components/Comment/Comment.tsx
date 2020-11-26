@@ -8,10 +8,12 @@ import LikeButton from '@/components/LikeButton/LikeButton';
 
 import './Comment.scss';
 
-interface ICommentProps extends IRoomComment, WithTranslation {
+interface IComment extends IRoomComment {
   likeButtonChecked?: boolean;
   onLikeClick?: (checked: boolean) => void;
 }
+
+interface ICommentProps extends IComment, WithTranslation {}
 
 const b = block('comment');
 
@@ -82,4 +84,4 @@ export default i18n.withTranslation(['common', 'room'])(
 
 export { getWordWithEnding };
 
-export type { ICommentProps };
+export type { IComment };

@@ -4,13 +4,13 @@ import type { WithTranslation } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
 
-import Comment, { ICommentProps, getWordWithEnding } from '../Comment/Comment';
+import Comment, { IComment, getWordWithEnding } from '../Comment/Comment';
 
 import './Comments.scss';
 
 interface ICommentsProps extends WithTranslation {
   title?: string;
-  items: ICommentProps[];
+  items: IComment[];
   allComments: number;
 }
 

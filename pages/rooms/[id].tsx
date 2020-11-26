@@ -25,7 +25,9 @@ type IRoomDetailsProps = { id: string | string[] | undefined } & WithTranslation
 const b = block('room-details');
 
 const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
-  const { isFetching, item: room } = useSelector((state: IRootState) => state.roomDetails);
+  const { isFetching, item: room } = useSelector(
+    (state: IRootState) => state.roomDetails,
+  );
 
   const pageContent = isFetching || room === null
     ? (
