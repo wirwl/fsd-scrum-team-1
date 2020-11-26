@@ -6,11 +6,12 @@ import { TFunction, WithTranslation } from 'next-i18next';
 
 import './Header.scss';
 
+import i18n from 'src/services/i18n';
+import { signOut } from 'src/redux/user/userActions';
 import Logo from 'src/components/Logo/Logo';
 import MainNav, { IMenuItem } from 'src/components/MainNav/MainNav';
 import HeaderAuth from 'src/components/HeaderAuth/HeaderAuth';
-import i18n from 'src/services/i18n';
-import { signOut } from 'src/redux/user/userActions';
+import SelectLang from 'src/components/SelectLang/SelectLang';
 
 import type { IRootState } from 'src/redux/reducer';
 import type { IUserState } from 'src/redux/user/userReducer';
@@ -68,6 +69,8 @@ const Header: FC<WithTranslation> = ({ t }) => {
         <div className={b('auth-block')}>
           <HeaderAuth user={user} onExitClick={handleExitButtonClick} />
         </div>
+
+        <SelectLang />
       </div>
     </header>
   );
