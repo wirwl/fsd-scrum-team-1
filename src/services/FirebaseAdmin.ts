@@ -22,14 +22,14 @@ class FirebaseAdmin {
     this.auth = admin.auth();
   }
 
-  async getUser(email: string): Promise<IUser | null> {
-    const snapshot = await this.db.collection('users').doc(email).get();
+  async getUser(uid: string): Promise<IUser | null> {
+    const snapshot = await this.db.collection('users').doc(uid).get();
 
     if (!snapshot.exists) {
       return null;
     }
 
-    const data = <Omit<IUser, 'email'>> snapshot.data();
+    const data = <IUser> snapshot.data();
 
     if (data === undefined) {
       return null;
@@ -37,7 +37,7 @@ class FirebaseAdmin {
 
     return {
       ...data,
-      email,
+      uid,
     };
   }
 }
