@@ -1,13 +1,14 @@
 import type { FC } from 'react';
 import { useRouter } from 'next/router';
 import { block } from 'bem-cn';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './Header.scss';
 
 import Logo from 'src/components/Logo/Logo';
 import MainNav, { IMenuItem } from 'src/components/MainNav/MainNav';
 import HeaderAuth from 'src/components/HeaderAuth/HeaderAuth';
+import { signOut } from 'src/redux/user/userActions';
 
 import type { IRootState } from 'src/redux/reducer';
 import type { IUserState } from 'src/redux/user/userReducer';
@@ -43,6 +44,11 @@ const userSelector = (store: IRootState): IUserState => store.user;
 const Header: FC = () => {
   const router = useRouter();
   const { user } = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  const handleExitButtonClick = (): void => {
+    dispatch(signOut());
+  };
 
   return (
     <header className={b()}>
@@ -56,7 +62,7 @@ const Header: FC = () => {
         </div>
 
         <div className={b('auth-block')}>
-          <HeaderAuth user={user} />
+          <HeaderAuth user={user} onExitClick={handleExitButtonClick} />
         </div>
       </div>
     </header>
