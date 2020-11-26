@@ -1,7 +1,11 @@
-import './RoomDetailsList.scss';
 import block from 'bem-cn';
 import { FC } from 'react';
+import { TFunction, WithTranslation } from 'next-i18next';
+
+import i18n from 'src/services/i18n';
 import { IRoomInformation } from 'src/services/dto/Rooms';
+
+import './RoomDetailsList.scss';
 
 const b = block('room-details-list');
 
@@ -11,34 +15,40 @@ interface IRoomDetail {
   description: string;
 }
 
-interface IRoomDetailsList {
+interface IRoomDetailsListProps extends WithTranslation {
   header: string;
   roomDetails: IRoomInformation[];
 }
 
 type RoomDetailedMap = Record<IRoomInformation, IRoomDetail>;
 
-const roomDetailedMap: RoomDetailedMap = {
+const getRoomDetailedMap = (t: TFunction): RoomDetailedMap => ({
   comfort: {
     icon: 'insert_emoticon',
-    caption: 'Комфорт',
-    description: 'Шумопоглощающие стены',
+    caption: t('room:roomInfo.comfort.title'),
+    description: t('room:roomInfo.comfort.description'),
   },
   convinience: {
     icon: 'location_city',
-    caption: 'Удобство',
-    description: 'Окно в каждой из спален',
+    caption: t('room:roomInfo.convenience.title'),
+    description: t('room:roomInfo.convenience.description'),
   },
   cozy: {
     icon: 'whatshot',
-    caption: 'Уют',
-    description: 'Номер оснащён камином',
+    caption: t('room:roomInfo.cozy.title'),
+    description: t('room:roomInfo.cozy.description'),
   },
-};
+});
 
-const RoomDetailsList: FC<IRoomDetailsList> = ({ header, roomDetails }) => {
+const RoomDetailsList: FC<IRoomDetailsListProps> = ({
+  header,
+  roomDetails,
+  t,
+}) => {
+  const roomDetailMap = getRoomDetailedMap(t);
   const roomDetailsItems = roomDetails.map((roomDetail) => {
-    const { icon, caption, description } = roomDetailedMap[roomDetail];
+    const { icon, caption, description } = roomDetailMap[roomDetail];
+
     return (
       <li className={b('item')} key={icon}>
         <div className={b('icon-container')}>
@@ -60,4 +70,6 @@ const RoomDetailsList: FC<IRoomDetailsList> = ({ header, roomDetails }) => {
   );
 };
 
-export default RoomDetailsList;
+export default i18n.withTranslation(['common', 'room'])(
+  RoomDetailsList,
+);
