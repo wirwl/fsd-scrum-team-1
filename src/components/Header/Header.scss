@@ -1,6 +1,7 @@
 @import '@styles/variables';
 
 .header {
+  position: relative;
   padding-top: .625rem;
   padding-bottom: .625rem;
 
@@ -45,11 +46,20 @@
     @media (max-width: 530px) {
       width: 100%;
       margin-bottom: .625rem;
+      margin-right: auto;
     }
   }
 
   &__select-lang-block {
     margin-right: 1.25rem;
+
+    @media (max-width: 530px) {
+      position: absolute;
+      top: .625rem;
+      right: .625rem;
+
+      margin-left: 0;
+    }
   }
 
   &__logo {
