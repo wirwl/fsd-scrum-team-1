@@ -1,6 +1,6 @@
 import React from 'react';
 import { block } from 'bem-cn';
-import type { TFunction, WithTranslation } from 'next-i18next';
+import type { WithTranslation } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
 import './ReviewsChart.scss';
