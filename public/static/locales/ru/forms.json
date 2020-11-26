@@ -13,9 +13,11 @@
   },
   "register": {
     "title": "Регистрация аккаунта",
-    "loginInformation": "Данные для входа в сервис"
+    "loginInformation": "Данные для входа в сервис",
+    "alreadyHaveAccountQuestion": "Уже есть аккаунт на Toxin?"
   },
   "enter": {
-    "title": "Войти"
+    "title": "Войти",
+    "noAccountQuestion": "Нет аккаунта на Toxin?"
   }
 }

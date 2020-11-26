@@ -13,9 +13,11 @@
   },
   "register": {
     "title": "Kontoregistrierung",
-    "loginInformation": "Anmeldeinformationen für den Dienst"
+    "loginInformation": "Anmeldeinformationen für den Dienst",
+    "alreadyHaveAccountQuestion": "Haben Sie bereits einen Account bei Toxin?"
   },
   "enter": {
-    "title": "Eingeben"
+    "title": "Eingeben",
+    "noAccountQuestion": "Es gibt keinen Account für Toxin?"
   }
 }

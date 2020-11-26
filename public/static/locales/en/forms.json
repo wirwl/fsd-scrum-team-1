@@ -13,9 +13,11 @@
   },
   "register": {
     "title": "Account registration",
-    "loginInformation": "Login information for the service"
+    "loginInformation": "Login information for the service",
+    "alreadyHaveAccountQuestion": "Already have an account on Toxin?"
   },
   "enter": {
-    "title": "Enter"
+    "title": "Enter",
+    "noAccountQuestion": "There is no account on Toxin?"
   }
 }
