@@ -94,7 +94,7 @@ const getDayClasses = (params: {
     && day.getTime() < (endDate as Date).getTime();
 
     if (isDayMiddleRange && bemMods.theme !== 'today') bemMods.theme = 'mid-range';
-    if (bemMods.theme === 'today') bemMods['today-in-range'] = true;
+    if (isDayMiddleRange && bemMods.theme === 'today') bemMods['today-in-range'] = true;
   }
 
   return b('day', bemMods);
