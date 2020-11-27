@@ -19,13 +19,13 @@ import {
 
 const api = new Api();
 
-const getState = (store: IRootState): string => (
+const selectUserId = (store: IRootState): string => (
   store.user.user ? store.user.user.uid : ''
 );
 
 function* fetchBookedRoomsWorker(): SagaIterator {
   try {
-    const userId = yield select(getState);
+    const userId = yield select(selectUserId);
     const rooms = yield call(api.getBookedRooms.bind(api), userId);
     yield put(fetchBookedRoomsSuccess(rooms));
   } catch (error) {
