@@ -24,6 +24,8 @@
     "passwordIsShort": "The password is too short (less than {{min}} characters)",
     "passwordIsLong": "The password is too long (more than {{max}} characters)",
     "required": "This field is required",
-    "emailInvalid": "Invalid email address"
+    "emailInvalid": "Invalid email address",
+    "enterExitsDate": "Enter an existing date.",
+    "enterFullDate": "Enter the full date. For example, 12.11.2020"
   }
 }

@@ -24,6 +24,8 @@
     "passwordIsShort": "La contraseña es demasiado corta (menos de {{min}} caracteres)",
     "passwordIsLong": "La contraseña es demasiado larga (más de {{max}} caracteres)",
     "required": "este campo es requerido",
-    "emailInvalid": "Dirección de correo electrónico inválida"
+    "emailInvalid": "Dirección de correo electrónico inválida",
+    "enterExitsDate": "Ingrese una fecha existente.",
+    "enterFullDate": "Ingrese la fecha completa. Por ejemplo, 12.11.2020"
   }
 }

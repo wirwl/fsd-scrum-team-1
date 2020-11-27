@@ -24,6 +24,8 @@
     "passwordIsShort": "Das Passwort ist zu kurz (weniger als {{min}} Zeichen)",
     "passwordIsLong": "Das Passwort ist zu lang (mehr als {{max}} Zeichen)",
     "required": "Dieses Feld wird benötigt",
-    "emailInvalid": "Ungültige E-Mail-Adresse"
+    "emailInvalid": "Ungültige E-Mail-Adresse",
+    "enterExitsDate": "Ingrese una fecha existente.",
+    "enterFullDate": "Geben Sie das vollständige Datum ein. Zum Beispiel 12.11.2020"
   }
 }

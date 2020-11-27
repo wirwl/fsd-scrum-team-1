@@ -35,6 +35,9 @@ type IRegistrationFormState = Record<IInputNames, IInputInfo> & {
 
 type IErrorsState = Record<IInputNames, string>;
 
+const MIN_PASS_LENGTH = 6;
+const MAX_PASS_LENGTH = 20;
+
 const b = block('form-registration');
 
 const getChoices = (t: TFunction): IChoice[] => ([
@@ -42,21 +45,19 @@ const getChoices = (t: TFunction): IChoice[] => ([
   { value: 'woman', label: t('woman') },
 ]);
 
-const emptyErrorMessage = 'Это поле обязательно. Заполните его пожалуйста';
-
-const validateEmpty = (value: string | number): string => {
+const validateEmpty = (value: string | number, t: TFunction): string => {
   const val = value.toString();
 
-  return val.length === 0 ? emptyErrorMessage : '';
+  return val.length === 0 ? t('forms:errors.required') : '';
 };
 
-const validateBirthday = (value: string | number): string => {
+const validateBirthday = (value: string | number, t: TFunction): string => {
   const date = value.toString();
-  const errorEmpty = validateEmpty(date);
+  const errorEmpty = validateEmpty(date, t);
   let errorMessage = errorEmpty;
 
   if (date.length < 10 && date.length > 0) {
-    errorMessage = 'Введите полную дату. Например, 12.11.2020';
+    errorMessage = t('forms:errors.enterFullDate');
   }
 
   if (date.length === 10) {
@@ -66,23 +67,23 @@ const validateBirthday = (value: string | number): string => {
     const isValidDate = tmpDate.getDate() === day
       && tmpDate.getMonth() + 1 === month && tmpDate.getFullYear() === year;
 
-    errorMessage = !isValidDate ? 'Введите существующую дату.' : '';
+    errorMessage = !isValidDate ? t('forms:errors.enterExistDate') : '';
   }
 
   return errorMessage;
 };
 
-const validatePassword = (value: string | number): string => {
+const validatePassword = (value: string | number, t: TFunction): string => {
   const password = value.toString();
-  const errorEmpty = validateEmpty(password);
+  const errorEmpty = validateEmpty(password, t);
 
   if (errorEmpty) return errorEmpty;
 
   if (password.length > 20) {
-    return 'Пароль слишком длинный(более 20 символов)';
+    return t('forms:errors.passwordIsLong', { max: MAX_PASS_LENGTH });
   }
   if (password.length < 6 && password.length > 0) {
-    return 'Пароль слишком короткий(менее 6 символов)';
+    return t('forms:errors.passwordIsShort', { min: MIN_PASS_LENGTH });
   }
 
   return '';
@@ -158,7 +159,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t }) => {
         if (value.length === 0 && !isValid) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: emptyErrorMessage,
+            [name]: t('forms:errors.required'),
           }));
         }
       }
@@ -268,7 +269,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t }) => {
           validate={validateBirthday}
           mask="99.99.9999"
           label={t('birthday')}
-          placeholder="ДД.ММ.ГГГГ"
+          placeholder={t('dateMaskPlaceholder')}
           onChange={handleChange}
           onBlur={handleBlur}
           errorMessage={birthdayError}
@@ -292,7 +293,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t }) => {
         <Input
           type="password"
           name="password"
-          placeholder="Пароль"
+          placeholder={t('password')}
           validate={validatePassword}
           onChange={handleChange}
           onBlur={handleBlur}
