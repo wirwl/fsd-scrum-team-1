@@ -19,5 +19,11 @@
   "enter": {
     "title": "Entrar",
     "noAccountQuestion": "¿No hay una cuenta en Toxin?"
+  },
+  "errors": {
+    "passwordIsShort": "La contraseña es demasiado corta (menos de {{min}} caracteres)",
+    "passwordIsLong": "La contraseña es demasiado larga (más de {{max}} caracteres)",
+    "required": "este campo es requerido",
+    "emailInvalid": "Dirección de correo electrónico inválida"
   }
 }

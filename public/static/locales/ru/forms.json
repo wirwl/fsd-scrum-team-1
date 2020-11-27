@@ -19,5 +19,11 @@
   "enter": {
     "title": "Войти",
     "noAccountQuestion": "Нет аккаунта на Toxin?"
+  },
+  "errors": {
+    "passwordIsShort": "Пароль слишком короткий (меньше {{min}} символов)",
+    "passwordIsLong": "Пароль слишком длинный (больше {{max}} символов)",
+    "required": "Это поле обязательно для заполнения",
+    "emailInvalid": "Некорректный email"
   }
 }

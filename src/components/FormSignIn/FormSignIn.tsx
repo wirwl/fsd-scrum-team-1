@@ -8,7 +8,7 @@ import { block } from 'bem-cn';
 import Link from 'next/link';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import type { WithTranslation } from 'next-i18next';
+import type { TFunction, WithTranslation } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
 import { signIn } from 'src/redux/user/userActions';
@@ -30,14 +30,17 @@ type IValueState = {
 
 type IInputValuesState = Record<string, IValueState>;
 
-const passwordValidate: CustomValidateFunction = (pass) => {
+const MIN_PASS_LENGTH = 6;
+const MAX_PASS_LENGTH = 20;
+
+const passwordValidate: CustomValidateFunction = (pass, t: TFunction) => {
   const password = pass as string;
-  if (password.length < 6) {
-    return 'Пароль слишком короткий (меньше 6 символов)';
+  if (password.length < MIN_PASS_LENGTH) {
+    return t('forms:errors.passwordIsShort', { min: MIN_PASS_LENGTH });
   }
 
-  if (password.length > 20) {
-    return 'Пароль слишком длинный (больше 20 символов)';
+  if (password.length > MAX_PASS_LENGTH) {
+    return t('forms:errors.passwordIsLong', { max: MAX_PASS_LENGTH });
   }
 
   return null;
@@ -95,7 +98,7 @@ const FormSignIn: FC<WithTranslation> = ({ t }) => {
           ...prevValue,
           [key]: {
             ...values[key],
-            error: 'Это поле обязательно для заполнения',
+            error: t('forms:errors.required'),
           },
         }));
       }

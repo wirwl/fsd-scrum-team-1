@@ -19,5 +19,11 @@
   "enter": {
     "title": "Eingeben",
     "noAccountQuestion": "Es gibt keinen Account für Toxin?"
+  },
+  "errors": {
+    "passwordIsShort": "Das Passwort ist zu kurz (weniger als {{min}} Zeichen)",
+    "passwordIsLong": "Das Passwort ist zu lang (mehr als {{max}} Zeichen)",
+    "required": "Dieses Feld wird benötigt",
+    "emailInvalid": "Ungültige E-Mail-Adresse"
   }
 }
