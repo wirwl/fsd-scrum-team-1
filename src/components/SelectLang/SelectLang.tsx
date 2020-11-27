@@ -41,19 +41,19 @@ const SelectLang: FC = () => {
   }, [langState]);
 
   const langsItems = LANGS.map((langLabel) => (
-    langLabel !== langState
-      ? (
-        <li key={langLabel} className={b('item')}>
-          <button
-            type="button"
-            onClick={handleLangLabelClick}
-            data-lang={langLabel}
-            className={b('item-button')}
-          >
-            { langLabel }
-          </button>
-        </li>
-      ) : ''
+    <li
+      key={langLabel}
+      className={b('item', { hidden: langLabel === langState })}
+    >
+      <button
+        type="button"
+        onClick={handleLangLabelClick}
+        data-lang={langLabel}
+        className={b('item-button')}
+      >
+        { langLabel }
+      </button>
+    </li>
   ));
 
   return (
