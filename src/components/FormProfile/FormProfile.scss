@@ -1,0 +1,14 @@
+.form-profile {
+  &__name,
+  &__surname,
+  &__birthday,
+  &__email,
+  &__toggle-button {
+    margin-bottom: .625rem;
+  }
+
+  &__submit-button {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+}
