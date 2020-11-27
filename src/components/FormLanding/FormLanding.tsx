@@ -100,6 +100,7 @@ const FormLanding: React.FC<IFormLandingProps> = ({ onSubmit, t }) => {
             withTwoInputs
             startTitle={t('arrival')}
             endTitle={t('departure')}
+            placeholder={t('dateMaskPlaceholder')}
           />
         </div>
         <div className={b('dropdown-with-guests')}>

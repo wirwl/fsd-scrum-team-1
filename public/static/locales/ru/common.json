@@ -21,6 +21,7 @@
   "getSpecial": "Получать спецпредложения",
   "personalInformation": "Личные данныe",
   "bookedRooms": "Забронированные номера",
+  "dateMaskPlaceholder": "ДД.ММ.ГГГГ",
   "nav": {
     "navigation": "навигация",
     "subscription": "подписка",

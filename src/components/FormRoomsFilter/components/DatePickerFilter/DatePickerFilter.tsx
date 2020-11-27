@@ -46,6 +46,7 @@ const DatePickerFilter: FC<IDatePickerFilterProps> = ({ t, query, onChange }) =>
       rangeEnd={rangeEnd}
       onChange={handleDatePickerChange}
       title={t('components:dateRange.title')}
+      placeholder={t('dateMaskPlaceholder')}
     />
   );
 };

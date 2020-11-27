@@ -21,6 +21,7 @@
   "getSpecial": "Erhalten sie sonderangebote",
   "personalInformation": "Persönliche daten",
   "bookedRooms": "Gebuchte räume",
+  "dateMaskPlaceholder": "DD.MM.YYYY",
   "nav": {
     "navigation": "navigation",
     "subscription": "Abonnement",

@@ -21,6 +21,7 @@
   "getSpecial": "Reciba ofertas especiales",
   "personalInformation": "Información personal",
   "bookedRooms": "Cuartos reservados",
+  "dateMaskPlaceholder": "DD.MM.YYYY",
   "nav": {
     "navigation": "Navegación",
     "subscription": "Suscripción",

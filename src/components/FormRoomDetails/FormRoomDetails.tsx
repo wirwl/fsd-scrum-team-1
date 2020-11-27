@@ -168,6 +168,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
             withTwoInputs
             startTitle={t('arrival')}
             endTitle={t('departure')}
+            placeholder={t('dateMaskPlaceholder')}
           />
         </div>
         <div className={b('dropdown-with-guests')}>
