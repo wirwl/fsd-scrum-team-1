@@ -21,7 +21,7 @@ const items = [
 
 const SocialButtons: React.FC = () => {
   const list = items.map(({ svg, href }) => (
-    <li className={b('item')}>
+    <li className={b('item')} key={href}>
       <a
         className={b('button')}
         href={href}
@@ -37,9 +37,7 @@ const SocialButtons: React.FC = () => {
   ));
 
   return (
-    <ul className={b()}>
-      { list }  
-    </ul>
+    <ul className={b()}>{list}</ul>
   );
 };
 
