@@ -1,7 +1,7 @@
 import {
   FC, FormEvent, useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
+
 import block from 'bem-cn';
 
 import Button from '../Button/Button';
@@ -12,37 +12,49 @@ import './FormProfile.scss';
 
 const b = block('form-profile');
 
-type IInputNames = 'name' | 'surname' | 'birthday' | 'email';
+interface IFormProfileProps {
+  info: IInfoProps;
+  onSubmit: (data: IUserInfo) => void;
+}
 
-type IInputInfo = {
-  value: string;
-  isValid: boolean;
+type IInputNames = 'name' | 'lastname' | 'birthday' | 'email';
+
+type IInfoProps = {
+  name: string,
+  lastname: string,
+  birthday: number,
+  email: string,
+};
+
+type IUserInfo = {
+  name: string,
+  lastname: string,
+  birthday: number,
+  email: string,
+  isGetSpecialOffers: boolean;
 };
 
 type IErrorsState = Record<IInputNames, string>;
 
-type IRegistrationFormState = Record<IInputNames, IInputInfo> & {
-  isGetSpecialOffers: boolean;
-};
-
-const initialState: IRegistrationFormState = {
+type IRegistrationFormState = {
   name: {
-    value: '',
-    isValid: false,
+    value: string,
+    isValid: true,
   },
-  surname: {
-    value: '',
-    isValid: false,
+  lastname: {
+    value: string,
+    isValid: true,
   },
   birthday: {
-    value: '',
-    isValid: false,
+    value: string,
+    isValid: true,
   },
   email: {
-    value: '',
-    isValid: false,
+    value: string,
+    isValid: true,
   },
-  isGetSpecialOffers: false,
+
+  isGetSpecialOffers: boolean;
 };
 
 const emptyErrorMessage = 'Это поле обязательно. Заполните его пожалуйста';
@@ -85,19 +97,57 @@ const isFormValid = (values: IRegistrationFormState): boolean => (
   })
 );
 
-const FormProfile: FC = () => {
-  const dispatch = useDispatch();
-  const [values, setValues] = useState<IRegistrationFormState>(initialState);
+const convertDate = (date: number): string => {
+  const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  const dateString = (new Date(date)).toLocaleDateString('ru-RU', options);
+
+  return `${dateString}`;
+};
+
+const convertUTC = (date: string): number => {
+  const string = date.replace(/[\s.]/g, '');
+  const d = Number(string.slice(0, 2));
+  const m = Number(string.slice(2, 4)) - 1;
+  const y = Number(string.slice(-4));
+
+  return Date.UTC(y, m, d);
+};
+
+const FormProfile: FC<IFormProfileProps> = ({
+  info: {
+    name, lastname, birthday, email,
+  }, onSubmit,
+}) => {
+  const [values, setValues] = useState<(IRegistrationFormState)>({
+    name: {
+      value: name,
+      isValid: true,
+    },
+    lastname: {
+      value: lastname,
+      isValid: true,
+    },
+    birthday: {
+      value: convertDate(birthday),
+      isValid: true,
+    },
+    email: {
+      value: email,
+      isValid: true,
+    },
+    isGetSpecialOffers: false,
+  });
+
   const [errors, setErrors] = useState<IErrorsState>({
     name: '',
-    surname: '',
+    lastname: '',
     birthday: '',
     email: '',
   });
 
   const {
     name: { value: nameValue },
-    surname: { value: surnameValue },
+    lastname: { value: lastnameValue },
     birthday: { value: birthdayValue },
     email: { value: emailValue },
     isGetSpecialOffers,
@@ -105,19 +155,19 @@ const FormProfile: FC = () => {
 
   const {
     name: nameError,
-    surname: surnameError,
+    lastname: lastnameError,
     birthday: birthdayError,
     email: emailError,
   } = errors;
 
   const setEmptyErrors = (): void => {
-    Object.entries(values).forEach(([name, val]) => {
+    Object.entries(values).forEach(([title, val]) => {
       if (typeof val === 'object') {
         const { value, isValid } = val;
         if (value.length === 0 && !isValid) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: emptyErrorMessage,
+            [title]: emptyErrorMessage,
           }));
         }
       }
@@ -127,16 +177,15 @@ const FormProfile: FC = () => {
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
-    if (isFormValid(values)) {
-      // dispatch(ЭКШЕН({
-      //   name: nameValue,
-      //   surname: surnameValue,
-      //   birthday: birthdayValue,
-      //   email: emailValue,
-      // }));
-    } else {
-      setEmptyErrors();
-    }
+    const formValues = {
+      name: nameValue,
+      lastname: lastnameValue,
+      birthday: convertUTC(birthdayValue),
+      email: emailValue,
+      isGetSpecialOffers,
+    };
+
+    isFormValid(values) ? onSubmit(formValues) : setEmptyErrors();
   };
 
   const handleInputChange = (
@@ -191,15 +240,15 @@ const FormProfile: FC = () => {
           errorMessage={nameError}
         />
       </div>
-      <div className={b('surname')}>
+      <div className={b('lastname')}>
         <Input
-          name="surname"
+          name="lastname"
           placeholder="Фамилия"
           validate={validateEmpty}
           onChange={handleInputChange}
           onBlur={handleBlur}
-          value={surnameValue}
-          errorMessage={surnameError}
+          value={lastnameValue}
+          errorMessage={lastnameError}
         />
       </div>
       <div className={b('birthday')}>
