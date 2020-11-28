@@ -55,6 +55,10 @@
     margin: 0 0 0 1.875rem;
     padding: 0;
     list-style: none;
+
+    @media (max-width: 350px) {
+      margin: 0 0 0 1rem;
+    }
   }
 
   &__legend-item {
