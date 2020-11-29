@@ -229,7 +229,7 @@ const FormProfile: FC<IFormProfileProps> = ({
 
   return (
     <form className={b()} onSubmit={handleSubmit}>
-      <div className={b('name')}>
+      <div className={b('field')}>
         <Input
           name="name"
           placeholder="Имя"
@@ -240,7 +240,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={nameError}
         />
       </div>
-      <div className={b('lastname')}>
+      <div className={b('field')}>
         <Input
           name="lastname"
           placeholder="Фамилия"
@@ -251,7 +251,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={lastnameError}
         />
       </div>
-      <div className={b('birthday')}>
+      <div className={b('field')}>
         <Input
           name="birthday"
           validate={validateBirthday}
@@ -263,7 +263,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={birthdayError}
         />
       </div>
-      <div className={b('email')}>
+      <div className={b('field')}>
         <Input
           type="email"
           validate="email"
@@ -275,7 +275,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={emailError}
         />
       </div>
-      <div className={b('toggle-button')}>
+      <div className={b('field')}>
         <ToggleButton
           label="Получать спецпредложения"
           name="specialOffers"
