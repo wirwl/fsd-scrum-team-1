@@ -24,6 +24,7 @@ type IInfoProps = {
   lastname: string,
   birthday: number,
   email: string,
+  isGetSpecialOffers: boolean,
 };
 
 type IUserInfo = {
@@ -31,7 +32,7 @@ type IUserInfo = {
   lastname: string,
   birthday: number,
   email: string,
-  isGetSpecialOffers: boolean;
+  getSpecialOffers: boolean;
 };
 
 type IErrorsState = Record<IInputNames, string>;
@@ -54,7 +55,7 @@ type IRegistrationFormState = {
     isValid: true,
   },
 
-  isGetSpecialOffers: boolean;
+  getSpecialOffers: boolean;
 };
 
 const emptyErrorMessage = 'Это поле обязательно. Заполните его пожалуйста';
@@ -115,7 +116,7 @@ const convertUTC = (date: string): number => {
 
 const FormProfile: FC<IFormProfileProps> = ({
   info: {
-    name, lastname, birthday, email,
+    name, lastname, birthday, email, isGetSpecialOffers,
   }, onSubmit,
 }) => {
   const [values, setValues] = useState<(IRegistrationFormState)>({
@@ -135,7 +136,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       value: email,
       isValid: true,
     },
-    isGetSpecialOffers: false,
+    getSpecialOffers: isGetSpecialOffers,
   });
 
   const [errors, setErrors] = useState<IErrorsState>({
@@ -150,7 +151,7 @@ const FormProfile: FC<IFormProfileProps> = ({
     lastname: { value: lastnameValue },
     birthday: { value: birthdayValue },
     email: { value: emailValue },
-    isGetSpecialOffers,
+    getSpecialOffers: isGetSpecialOffersValue,
   } = values;
 
   const {
@@ -182,7 +183,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       lastname: lastnameValue,
       birthday: convertUTC(birthdayValue),
       email: emailValue,
-      isGetSpecialOffers,
+      getSpecialOffers: isGetSpecialOffersValue,
     };
 
     isFormValid(values) ? onSubmit(formValues) : setEmptyErrors();
@@ -215,7 +216,7 @@ const FormProfile: FC<IFormProfileProps> = ({
   const handleChangeToggleButton = (checked: boolean): void => {
     setValues((prevState) => ({
       ...prevState,
-      isGetSpecialOffers: checked,
+      getSpecialOffers: checked,
     }));
   };
 
@@ -279,7 +280,7 @@ const FormProfile: FC<IFormProfileProps> = ({
         <ToggleButton
           label="Получать спецпредложения"
           name="specialOffers"
-          checked={isGetSpecialOffers}
+          checked={isGetSpecialOffersValue}
           onChange={handleChangeToggleButton}
         />
       </div>
