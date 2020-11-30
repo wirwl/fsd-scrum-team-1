@@ -240,6 +240,19 @@ class Api {
 
     return result;
   }
+
+  async updateUser(
+    uid: string,
+    newUserData: Partial<Omit<IUser, 'uid' | 'sex'>>,
+  ): Promise<null | string> {
+    try {
+      await this.users.doc(uid).update(newUserData);
+      return null;
+    } catch (error) {
+      console.error('updateUser error: ', error.message);
+      return 'Ошибка сервера. Попробуйте перезагрузить страницу.';
+    }
+  }
 }
 
 export default Api;
