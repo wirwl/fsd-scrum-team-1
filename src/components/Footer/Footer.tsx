@@ -10,7 +10,6 @@ import {
   description,
   subscription,
   copyright,
-  socialLinks,
 } from 'config/footer.json';
 import NavigationList from './components/NavigationList/NavigationList';
 
@@ -71,7 +70,7 @@ const Footer: FC = () => {
           <p className={b('copyright')}>{copyright}</p>
 
           <div className={b('social-links')}>
-            <SocialButtons items={socialLinks} />
+            <SocialButtons />
           </div>
         </div>
       </div>

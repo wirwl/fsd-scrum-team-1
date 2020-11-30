@@ -2,8 +2,6 @@
 
 .social-buttons {
   display: flex;
-  font-family: 'Awesome 5 Brands';
-  font-size: 24px;
   padding: 0;
   margin: 0;
 
@@ -16,12 +14,6 @@
   }
 
   &__button {
-    text-decoration: none;
-    background: $main-color-gradient;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
     &:hover {
       opacity: .7;
     }
