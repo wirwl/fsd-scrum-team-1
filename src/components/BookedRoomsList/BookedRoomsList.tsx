@@ -62,7 +62,7 @@ const BookedRoomsList: FC = () => {
 
   return (
     <section className={b()}>
-      <h2 className={b('title')}>Забронированные номера</h2>
+      <h1 className={b('title')}>Забронированные номера</h1>
       {getCorrectElement()}
       {isVisibleShowMore && (
         <div className={b('show-more')}>
