@@ -6,13 +6,11 @@ import {
   FETCH_ROOMS_FAIL,
   FETCH_MORE_ROOMS,
   FETCH_MORE_ROOMS_SUCCESS,
-  FETCH_MORE_ROOMS_FAIL,
   IFetchRoomsAction,
   IFetchRoomsSuccessAction,
   IFetchRoomsFailAction,
   IFetchMoreRoomsAction,
   IFetchMoreRoomsSuccessAction,
-  IFetchMoreRoomsFailAction,
 } from './roomsTypes';
 
 export const fetchRooms = (
