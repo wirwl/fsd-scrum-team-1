@@ -1,11 +1,9 @@
 import { FC, useEffect } from 'react';
 import { block } from 'bem-cn';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Router from 'next/router';
 
-import { signOut } from 'src/redux/user/userActions';
-import MainLayout from 'src/layouts/MainLayout/MainLayout';
-import Button from 'src/components/Button/Button';
+import ProfileLayout from 'src/layouts/ProfileLayout/ProfileLayout';
 
 import type { IRootState } from 'src/redux/reducer';
 import type { IUserState } from 'src/redux/user/userReducer';
@@ -17,7 +15,6 @@ const b = block('profile');
 const userSelector = (store: IRootState): IUserState => store.user;
 
 const Profile: FC = () => {
-  const dispatch = useDispatch();
   const { user } = useSelector(userSelector);
 
   useEffect(() => {
@@ -26,21 +23,12 @@ const Profile: FC = () => {
     }
   }, [user]);
 
-  const handleSingOutButtonClick = (): void => {
-    dispatch(signOut());
-  };
-
   return (
-    <MainLayout title="Profile">
+    <ProfileLayout title="Profile Form">
       <div className={b()}>
-        <section className={b('layout')}>
-          <Button
-            caption="Выход"
-            handleClick={handleSingOutButtonClick}
-          />
-        </section>
+        <h1>profile form</h1>
       </div>
-    </MainLayout>
+    </ProfileLayout>
   );
 };
 

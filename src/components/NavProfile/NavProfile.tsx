@@ -36,7 +36,7 @@ const NavProfile: FC = () => {
         </li>
       </Link>
     </ul>
-  )
+  );
 };
 
 export default NavProfile;
