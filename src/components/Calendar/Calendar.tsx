@@ -25,6 +25,21 @@ interface ICalendarProps {
 }
 
 const b = block('calendar');
+const monthNamesDefault = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
+];
+const weekdayNamesDefault = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 const isCanSwitchBack = (drawnDate: Date, currentDate: Date): boolean => (
   drawnDate.getFullYear() > currentDate.getFullYear()
@@ -55,27 +70,31 @@ const getDayClasses = (params: {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   if (today.getTime() === day.getTime()) bemMods.theme = 'today';
-  if (day.getTime() <= today.getTime()) bemMods['not-clickable'] = true;
+  if (day.getTime() < today.getTime()) bemMods['not-clickable'] = true;
 
-  const startIsNull = start === null;
-  const endIsNull = end === null;
-  const rangeIsFull = !startIsNull && !endIsNull;
+  const startDate = start !== null ? new Date(start) : null;
+  const endDate = end !== null ? new Date(end) : null;
+  if (startDate) startDate.setHours(0, 0, 0, 0);
+  if (endDate) endDate.setHours(0, 0, 0, 0);
 
-  if (!startIsNull && (start as Date).getTime() === day.getTime()) {
+  const rangeIsFull = startDate !== null && endDate !== null;
+
+  if (startDate !== null && startDate.getTime() === day.getTime()) {
     bemMods.theme = 'part-of-range';
     if (rangeIsFull) bemMods['inrange-position'] = 'start';
   }
 
-  if (!endIsNull && (end as Date).getTime() === day.getTime()) {
+  if (endDate !== null && endDate.getTime() === day.getTime()) {
     bemMods.theme = 'part-of-range';
     if (rangeIsFull) bemMods['inrange-position'] = 'end';
   }
 
   if (rangeIsFull) {
-    const isDayMiddleRange = day.getTime() > (start as Date).getTime()
-    && day.getTime() < (end as Date).getTime();
+    const isDayMiddleRange = day.getTime() > (startDate as Date).getTime()
+    && day.getTime() < (endDate as Date).getTime();
 
-    if (isDayMiddleRange) bemMods.theme = 'mid-range';
+    if (isDayMiddleRange && bemMods.theme !== 'today') bemMods.theme = 'mid-range';
+    if (isDayMiddleRange && bemMods.theme === 'today') bemMods['today-in-range'] = true;
   }
 
   return b('day', bemMods);
@@ -83,21 +102,8 @@ const getDayClasses = (params: {
 
 const Calendar: React.FC<ICalendarProps> = (props) => {
   const {
-    weekdayNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-    monthNames = [
-      'Январь',
-      'Февраль',
-      'Март',
-      'Апрель',
-      'Май',
-      'Июнь',
-      'Июль',
-      'Август',
-      'Сентябрь',
-      'Октябрь',
-      'Ноябрь',
-      'Декабрь',
-    ],
+    weekdayNames = weekdayNamesDefault,
+    monthNames = monthNamesDefault,
     buttonClear = 'очистить',
     buttonApply = 'применить',
     selectRangeDay = 'auto',
@@ -118,34 +124,11 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
     return today;
   });
   const daysList = useMemo(() => createDaysList(drawnDate), [drawnDate]);
-  const [range, setRange] = useState<RangeDays>(() => {
-    const isValidRangeStart = initRange.start !== null
-    && initRange.start.setHours(0, 0, 0, 0)
-    && initRange.start.getTime() > currentDate.getTime();
-
-    const isValidRangeEnd = initRange.end !== null
-    && initRange.end.setHours(0, 0, 0, 0)
-    && initRange.end.getTime() > currentDate.getTime();
-
-    return {
-      start: isValidRangeStart ? initRange.start : null,
-      end: isValidRangeEnd ? initRange.end : null,
-    };
-  });
+  const [range, setRange] = useState<RangeDays>(() => (initRange));
 
   useEffect(() => {
-    let currentRange = { ...range };
-
-    if (range.start !== null) {
-      currentRange = updateRange({ ...range, day: initRange.start as Date, selectMode: 'start' });
-    }
-
-    if (range.end !== null) {
-      currentRange = updateRange({ ...range, day: initRange.end as Date, selectMode: 'end' });
-    }
-
-    setRange(currentRange);
-    onApply && onApply(currentRange);
+    setRange(initRange);
+    onApply && onApply(initRange);
   }, [
     initRange.start ? initRange.start.getTime() : null,
     initRange.end ? initRange.end.getTime() : null,
