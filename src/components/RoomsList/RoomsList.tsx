@@ -63,6 +63,8 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
 
   const isFailLoad = error && !isFetching;
   const isEmpty = rooms.length === 0;
+  const isLoadMoreShow = !isEmpty && rooms.length === 12;
+  const isShowEmptyMessage = isEmpty && !isFetching;
 
   const handleClick = (evt: MouseEvent): void => {
     evt.preventDefault();
@@ -71,9 +73,7 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
   };
 
   const getCorrectElement = (): JSX.Element => {
-    if (isFetching) return <div className={b('spinner')}><Spinner /></div>;
-
-    if (isEmpty) {
+    if (isShowEmptyMessage) {
       return (
         <div>
           К сожалению, у нас нет номеров, которые соответствовали бы всем вашим критериям.
@@ -91,7 +91,8 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
     <section className={b()}>
       <h2 className={b('title')}>Номера, которые мы для вас подобрали</h2>
       {getCorrectElement()}
-      {!isEmpty && (
+      {isFetching ? <div className={b('spinner')}><Spinner /></div> : ''}
+      {isLoadMoreShow && (
         <div className={b('show-more')}>
           <Button theme="default" caption="Показать еще" handleClick={handleClick} />
         </div>

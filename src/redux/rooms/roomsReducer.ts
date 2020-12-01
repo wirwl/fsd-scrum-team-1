@@ -4,6 +4,8 @@ import {
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAIL,
   FETCH_ROOMS_FETCHING,
+  FETCH_MORE_ROOMS_SUCCESS,
+  FETCH_ROOMS,
 } from './roomsTypes';
 
 type IRoomsState = {
@@ -23,6 +25,12 @@ const roomReducer = (
   action: IRoomsActionTypes,
 ): IRoomsState => {
   switch (action.type) {
+    case FETCH_ROOMS:
+      return {
+        ...state,
+        error: null,
+        items: [],
+      };
     case FETCH_ROOMS_SUCCESS:
       return {
         ...state,
@@ -40,6 +48,13 @@ const roomReducer = (
       return {
         ...state,
         isFetching: true,
+      };
+    case FETCH_MORE_ROOMS_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        isFetching: false,
+        items: state.items.concat(action.payload),
       };
     default:
       return state;
