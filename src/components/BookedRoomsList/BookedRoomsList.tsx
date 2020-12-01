@@ -30,7 +30,7 @@ const BookedRoomsList: FC = () => {
 
   const needCountRooms = currentPage * 12;
 
-  const roomCards = bookedRooms.slice().splice(0, needCountRooms).map((bookedRoom) => {
+  const roomCards = bookedRooms.slice(0, needCountRooms).map((bookedRoom) => {
     const { room, dateStart, dateEnd } = bookedRoom;
 
     return (
