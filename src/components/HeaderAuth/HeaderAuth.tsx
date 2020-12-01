@@ -16,7 +16,11 @@ type IHeaderAuthProps = {
 
 const b = block('header-auth');
 
-const HeaderAuth: FC<IHeaderAuthProps> = ({ user, onExitClick, t }) => {
+const HeaderAuth: FC<IHeaderAuthProps> = ({
+  user,
+  onExitClick,
+  t,
+}) => {
   const content = (user !== null)
     ? (
       <div className={b('profile')}>
@@ -35,7 +39,7 @@ const HeaderAuth: FC<IHeaderAuthProps> = ({ user, onExitClick, t }) => {
         <span className={b('profile-exit')}>
           <Button
             handleClick={onExitClick}
-            caption="Выход"
+            caption={t('exit')}
           />
         </span>
       </div>
