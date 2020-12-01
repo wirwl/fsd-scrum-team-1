@@ -1,5 +1,5 @@
 import {
-  FC, FormEvent, useState,
+  FC, FormEvent, useEffect, useState,
 } from 'react';
 
 import block from 'bem-cn';
@@ -54,7 +54,6 @@ type IRegistrationFormState = {
     value: string,
     isValid: true,
   },
-
   getSpecialOffers: boolean;
 };
 
@@ -139,6 +138,8 @@ const FormProfile: FC<IFormProfileProps> = ({
     getSpecialOffers: isGetSpecialOffers,
   });
 
+  const [isChanged, setIsChanged] = useState<boolean>(false);
+
   const [errors, setErrors] = useState<IErrorsState>({
     name: '',
     lastname: '',
@@ -160,6 +161,30 @@ const FormProfile: FC<IFormProfileProps> = ({
     birthday: birthdayError,
     email: emailError,
   } = errors;
+
+  const deepEqual = (): boolean => {
+    const initValues = {
+      name, lastname, birthday: convertDate(birthday), email, isGetSpecialOffers,
+    };
+
+    const newValues = {
+      name: values.name.value,
+      lastname: values.lastname.value,
+      birthday: values.birthday.value,
+      email: values.email.value,
+      isGetSpecialOffers: values.getSpecialOffers,
+    };
+
+    return JSON.stringify(initValues) !== JSON.stringify(newValues);
+  };
+
+  useEffect(() => {
+    if (deepEqual()) {
+      setIsChanged(true);
+    } else {
+      setIsChanged(false);
+    }
+  }, [values]);
 
   const setEmptyErrors = (): void => {
     Object.entries(values).forEach(([title, val]) => {
@@ -284,13 +309,15 @@ const FormProfile: FC<IFormProfileProps> = ({
           onChange={handleChangeToggleButton}
         />
       </div>
-      <div className={b('submit-button')}>
-        <Button
-          type="submit"
-          theme="white"
-          caption="Применить"
-        />
-      </div>
+      {isChanged && (
+        <div className={b('submit-button')}>
+          <Button
+            type="submit"
+            theme="white"
+            caption="Применить"
+          />
+        </div>
+      )}
     </form>
   );
 };
