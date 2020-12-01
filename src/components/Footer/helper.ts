@@ -1,11 +1,9 @@
 import { TFunction } from 'next-i18next';
 import type { INavigationListProps } from 'src/components/Footer/components/NavigationList/NavigationList';
-import type { ISocialButton } from 'src/components/SocialButtons/SocialButtons';
 
 type FooterConf = {
   navBlocks: INavigationListProps[];
   subscription: Record<string, string>;
-  socialLinks: ISocialButton[];
   copyright: string;
   description: string;
 };
@@ -78,21 +76,6 @@ const getFooterConf = (t: TFunction): FooterConf => ({
     description: t('footer:subscriptionMessage'),
     url: '/subscription-api',
   },
-
-  socialLinks: [
-    {
-      text: 'twitter',
-      link: 'http://twitter.com',
-    },
-    {
-      text: 'facebook-square',
-      link: 'http://facebook.com',
-    },
-    {
-      text: 'instagram',
-      link: 'http://instagram.com',
-    },
-  ],
 
   copyright: t('footer:allRight'),
 
