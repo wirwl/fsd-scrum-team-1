@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 import RegistrationForm from 'src/components/RegistrationForm/RegistrationForm';
 
@@ -8,8 +10,8 @@ import './Register.scss';
 
 const b = block('registration');
 
-const Register: FC = () => (
-  <MainLayout title="Register">
+const Register: FC<WithTranslation> = ({ t }) => (
+  <MainLayout title={t('titles.register')}>
     <section className={b()}>
       <div className={b('form')}>
         <RegistrationForm onSubmit={() => {}} />
@@ -18,4 +20,6 @@ const Register: FC = () => (
   </MainLayout>
 );
 
-export default Register;
+export default i18n.withTranslation('common')(
+  Register,
+);

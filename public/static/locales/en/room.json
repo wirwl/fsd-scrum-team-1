@@ -1,0 +1,34 @@
+{
+  "roomInfo": {
+    "title": "Room information",
+    "comfort": {
+      "title": "Comfort",
+      "description": "Noise-absorbing walls"
+    },
+    "convenience": {
+      "title": "Convenience",
+      "description": "Window in each of the bedrooms"
+    },
+    "cozy": {
+      "title": "Cozy",
+      "description": "This room has a fireplace"
+    }
+  },
+  "roomImpressions": {
+    "title": "Impressions of the rooms",
+    "wonderful": "Great",
+    "good": "Good",
+    "satisfactorily": "Satisfactorily",
+    "bad": "Disappointed",
+    "votes": "votes"
+  },
+  "roomComments": {
+    "title": "User reviews of the room",
+    "daysAgoOne": "day ago",
+    "daysAgoTwo": "days ago",
+    "daysAgoFew": "days ago",
+    "feedbackOne": "comment",
+    "feedbackTwo": "comments",
+    "feedbackFew": "comments"
+  }
+}

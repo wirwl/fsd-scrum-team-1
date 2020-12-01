@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import { block } from 'bem-cn';
 
+import i18n from 'src/services/i18n';
+
 import './SelectLang.scss';
 
 const b = block('select-lang');
@@ -8,8 +10,7 @@ const b = block('select-lang');
 const LANGS = ['ru', 'en', 'de', 'es'];
 
 const SelectLang: FC = () => {
-  // TODO: initialize from i18n
-  const [langState, setLangState] = useState<string>(() => 'ru');
+  const [langState, setLangState] = useState<string>(() => i18n.i18n.language);
   const [openState, setOpenState] = useState<boolean>(false);
 
   const handleLangLabelClick = (e: React.MouseEvent): void => {
@@ -36,24 +37,23 @@ const SelectLang: FC = () => {
   };
 
   useEffect(() => {
-    // TODO: remove console.log and insert update i18n
-    console.log('new lang state', langState); // eslint-disable-line
+    i18n.i18n.changeLanguage(langState);
   }, [langState]);
 
   const langsItems = LANGS.map((langLabel) => (
-    langLabel !== langState
-      ? (
-        <li key={langLabel} className={b('item')}>
-          <button
-            type="button"
-            onClick={handleLangLabelClick}
-            data-lang={langLabel}
-            className={b('item-button')}
-          >
-            { langLabel }
-          </button>
-        </li>
-      ) : ''
+    <li
+      key={langLabel}
+      className={b('item', { hidden: langLabel === langState })}
+    >
+      <button
+        type="button"
+        onClick={handleLangLabelClick}
+        data-lang={langLabel}
+        className={b('item-button')}
+      >
+        { langLabel }
+      </button>
+    </li>
   ));
 
   return (

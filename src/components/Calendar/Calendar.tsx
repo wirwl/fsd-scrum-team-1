@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { block } from 'bem-cn';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import Button from 'src/components/Button/Button';
 import createDaysList, { updateRange } from './lib';
 import './Calendar.scss';
@@ -12,7 +14,7 @@ type RangeDays = {
 
 type CalendarMode = 'start' | 'end' | 'auto';
 
-interface ICalendarProps {
+interface ICalendarProps extends WithTranslation {
   selectRangeDay?: CalendarMode;
   weekdayNames?: string[];
   monthNames?: string[];
@@ -25,21 +27,6 @@ interface ICalendarProps {
 }
 
 const b = block('calendar');
-const monthNamesDefault = [
-  'Январь',
-  'Февраль',
-  'Март',
-  'Апрель',
-  'Май',
-  'Июнь',
-  'Июль',
-  'Август',
-  'Сентябрь',
-  'Октябрь',
-  'Ноябрь',
-  'Декабрь',
-];
-const weekdayNamesDefault = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 const isCanSwitchBack = (drawnDate: Date, currentDate: Date): boolean => (
   drawnDate.getFullYear() > currentDate.getFullYear()
@@ -101,11 +88,33 @@ const getDayClasses = (params: {
 };
 
 const Calendar: React.FC<ICalendarProps> = (props) => {
+  const { t } = props;
   const {
-    weekdayNames = weekdayNamesDefault,
-    monthNames = monthNamesDefault,
-    buttonClear = 'очистить',
-    buttonApply = 'применить',
+    weekdayNames = [
+      t('calendar:days.mo'),
+      t('calendar:days.tu'),
+      t('calendar:days.we'),
+      t('calendar:days.th'),
+      t('calendar:days.fr'),
+      t('calendar:days.sa'),
+      t('calendar:days.su'),
+    ],
+    monthNames = [
+      t('calendar:months.january'),
+      t('calendar:months.february'),
+      t('calendar:months.march'),
+      t('calendar:months.april'),
+      t('calendar:months.may'),
+      t('calendar:months.june'),
+      t('calendar:months.july'),
+      t('calendar:months.august'),
+      t('calendar:months.september'),
+      t('calendar:months.october'),
+      t('calendar:months.november'),
+      t('calendar:months.december'),
+    ],
+    buttonClear = t('clean'),
+    buttonApply = t('apply'),
     selectRangeDay = 'auto',
     range: initRange = {
       start: null,
@@ -239,7 +248,9 @@ const Calendar: React.FC<ICalendarProps> = (props) => {
   );
 };
 
-export default Calendar;
+export default i18n.withTranslation(['common', 'calendar'])(
+  Calendar,
+);
 
 export type {
   RangeDays,

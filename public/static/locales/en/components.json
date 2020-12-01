@@ -1,0 +1,63 @@
+{
+  "dateRange": {
+    "title": "Dates of stay"
+  },
+  "guestInputDropdown": {
+    "title": "guests",
+    "guests": "guests",
+    "guestsOne": "guest",
+    "guestsTwo": "guests",
+    "guestsFew": "guests",
+    "adults": "adults",
+    "children": "children",
+    "babies": "babies",
+    "babiesOne": "baby",
+    "babiesTwo": "babies",
+    "babiesFew": "babies"
+  },
+  "convenientInputDropdown": {
+    "title": "Room facilities",
+    "bedrooms": "bedrooms",
+    "bedroomOne": "bedroom",
+    "bedroomsTwo": "bedrooms",
+    "bedroomsFew": "bedrooms",
+    "beds": "beds",
+    "bedOne": "bed",
+    "bedsTwo": "beds",
+    "bedsFew": "beds",
+    "bathrooms": "bathrooms",
+    "bathroomOne": "bathroom",
+    "bathroomsTwo": "bathrooms",
+    "bathroomsFew": "bathrooms"
+  },
+  "priceRange": {
+    "title": "price range",
+    "description": "Price per night stay in the room"
+  },
+  "rules": {
+    "title": "House rules",
+    "petsAllowed": "Can be with Pets",
+    "smokingAllowed": "You can smoke",
+    "guestAllowed": "You can invite guests (up to 10 people)"
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "wideCorridor": {
+      "label": "Wide corridor",
+      "description": "The width of the corridors in the room is at least 91 cm."
+    },
+    "assistantForDisabled": {
+      "label": "Assistant for the disabled",
+      "description": "A specialist will meet you on the 1st floor and guide you to your room."
+    }
+  },
+  "extraConvenience": {
+    "title": "Added convenience",
+    "breakfast": "Breakfast",
+    "desk": "Desk",
+    "feedingChair": "Feeding chair",
+    "smallBad": "Cot",
+    "tv": "Tv",
+    "shampoo": "Shampoo"
+  }
+}

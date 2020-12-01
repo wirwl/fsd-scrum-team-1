@@ -3,10 +3,12 @@ import { block } from 'bem-cn';
 import { END } from 'redux-saga';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { TFunction, WithTranslation, NextI18NextInternals } from 'next-i18next';
 
 import type { ISearchFilters } from 'src/services/Api';
 import type { IFilterStateRecord, IFormRoomFilterState } from 'src/components/FormRoomsFilter/FormRoomsFilter';
 
+import i18n from 'src/services/i18n';
 import wrapper, { ISagaStore } from 'src/redux/store';
 import { fetchMoreRooms, fetchRooms } from 'src/redux/rooms/roomsActions';
 import { IRoomsState } from 'src/redux/rooms/roomsReducer';
@@ -24,11 +26,12 @@ import {
 } from 'src/components/FormRoomsFilter/components/SliderFilter/SliderFilter';
 
 import './RoomsIndex.scss';
+import { IncomingMessage } from 'http';
 
 type IRoomsProps = {
   query: Record<string, string>;
   rooms: IRoomsState;
-};
+} & WithTranslation;
 
 const b = block('rooms-page');
 
@@ -55,8 +58,8 @@ const getParamsFromState = (state: IFormRoomFilterState): IFilterStateRecord => 
   };
 };
 
-const getParamsFromQuery = (query: Record<string, string>): ISearchFilters => {
-  const state = initState(query, MIN_PRICE, MAX_PRICE);
+const getParamsFromQuery = (query: Record<string, string>, t: TFunction): ISearchFilters => {
+  const state = initState(query, MIN_PRICE, MAX_PRICE, t);
 
   const n = 0;
 
@@ -65,10 +68,12 @@ const getParamsFromQuery = (query: Record<string, string>): ISearchFilters => {
   return { n, ...stateParams };
 };
 
-const Rooms: FC<IRoomsProps> = ({ query }) => {
+const Rooms: FC<IRoomsProps> = ({ query, t }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [filters, setFilters] = useState<ISearchFilters>(() => getParamsFromQuery(query));
+  const [filters, setFilters] = useState<ISearchFilters>(
+    () => getParamsFromQuery(query, t),
+  );
 
   useEffect(() => {
     const { n } = filters;
@@ -93,7 +98,7 @@ const Rooms: FC<IRoomsProps> = ({ query }) => {
   };
 
   return (
-    <MainLayout title="Rooms">
+    <MainLayout title={t('titles.rooms')}>
       <div className={b()}>
         <div className={b('container')}>
           <aside className={b('filters')}>
@@ -113,8 +118,13 @@ const Rooms: FC<IRoomsProps> = ({ query }) => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store, query }) => {
-    const queryParams: ISearchFilters = getParamsFromQuery(query as Record<string, string>);
+  async ({ store, query, req }) => {
+    const { i18n: _i18n } = req as IncomingMessage & NextI18NextInternals;
+    const t = _i18n.t.bind(_i18n);
+    const queryParams: ISearchFilters = getParamsFromQuery(
+      query as Record<string, string>,
+      t,
+    );
 
     store.dispatch(fetchRooms(queryParams));
     store.dispatch(END);
@@ -126,4 +136,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   },
 );
 
-export default Rooms;
+export default i18n.withTranslation(['common', 'forms', 'components'])(
+  Rooms,
+);

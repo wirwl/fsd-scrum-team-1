@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import type { AppProps, AppContext } from 'next/app';
 import { useDispatch } from 'react-redux';
 import cookies from 'next-cookies';
+import i18n from 'src/services/i18n';
 
 import wrapper from 'src/redux/store';
 import Api from 'src/services/Api';
@@ -76,4 +77,6 @@ MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
   };
 };
 
-export default wrapper.withRedux(MyApp);
+export default wrapper.withRedux(
+  i18n.appWithTranslation(MyApp),
+);

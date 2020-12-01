@@ -1,0 +1,34 @@
+{
+  "roomInfo": {
+    "title": "Información de la habitación",
+    "comfort": {
+      "title": "Comodidad",
+      "description": "Paredes absorbentes de ruido"
+    },
+    "convenience": {
+      "title": "Conveniencia",
+      "description": "Ventana en cada uno de los dormitorios"
+    },
+    "cozy": {
+      "title": "Acogedor",
+      "description": "Esta habitación tiene chimenea."
+    }
+  },
+  "roomImpressions": {
+    "title": "Impresiones de las habitaciones",
+    "wonderful": "Excelente",
+    "good": "Bueno",
+    "satisfactorily": "Satisfactoriamente",
+    "bad": "Decepcionado",
+    "votes": "votos"
+  },
+  "roomComments": {
+    "title": "Reseñas de usuarios de la habitación",
+    "daysAgoOne": "hace un dia",
+    "daysAgoTwo": "hace días",
+    "daysAgoFew": "hace días",
+    "feedbackOne": "comentario",
+    "feedbackTwo": "comentarios",
+    "feedbackFew": "comentarios"
+  }
+}

@@ -1,12 +1,14 @@
 import InputMask from 'react-input-mask';
 import { block } from 'bem-cn';
 import { useState } from 'react';
+import { TFunction, WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import './Input.scss';
 
-type CustomValidateFunction = (currentValue: string | number) => string | null;
+type CustomValidateFunction = (currentValue: string | number, t: TFunction) => string | null;
 
-interface IInputProps {
+interface IInputProps extends WithTranslation {
   type?: 'text' | 'number' | 'email' | 'password';
   value?: string | number;
   placeholder?: string;
@@ -28,9 +30,13 @@ const validateAsEmail = (value: string): boolean => (value.length > 0 && regexpE
 
 const b = block('input');
 
-const validateValue = (value: string, validate?: 'email' | CustomValidateFunction): string | null => {
-  if (typeof validate === 'function') return validate(value);
-  if (validate === 'email' && !validateAsEmail(value)) return 'Некорректный email';
+const validateValue = (
+  value: string,
+  t: TFunction,
+  validate?: 'email' | CustomValidateFunction,
+): string | null => {
+  if (typeof validate === 'function') return validate(value, t);
+  if (validate === 'email' && !validateAsEmail(value)) return t('forms:errors.emailInvalid');
   return null;
 };
 
@@ -48,6 +54,7 @@ const Input: React.FC<IInputProps> = (props) => {
     onChange,
     onBlur = () => {},
     onFocus = () => {},
+    t,
   } = props;
 
   const [value, setValue] = useState<string>(initValue.toString());
@@ -56,7 +63,7 @@ const Input: React.FC<IInputProps> = (props) => {
     const { value: currentValue } = ev.currentTarget;
 
     setValue(currentValue);
-    onChange(currentValue, name, validateValue(currentValue, validate));
+    onChange(currentValue, name, validateValue(currentValue, t, validate));
   };
 
   const bemMods: { [index: string]: string | boolean | undefined } = {
@@ -79,9 +86,9 @@ const Input: React.FC<IInputProps> = (props) => {
           placeholder={placeholder}
           type={type}
           value={value}
-          onBlur={(ev) => onBlur(name, validateValue(ev.target.value, validate))}
+          onBlur={(ev) => onBlur(name, validateValue(ev.target.value, t, validate))}
           onChange={handleChange}
-          onFocus={(ev) => onFocus(name, validateValue(ev.target.value, validate))}
+          onFocus={(ev) => onFocus(name, validateValue(ev.target.value, t, validate))}
           mask={mask}
           maskChar=""
           name={name}
@@ -93,7 +100,9 @@ const Input: React.FC<IInputProps> = (props) => {
   );
 };
 
-export default Input;
+export default i18n.withTranslation(['common', 'forms'])(
+  Input,
+);
 
 export type {
   CustomValidateFunction,
