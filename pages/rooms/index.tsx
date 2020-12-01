@@ -101,7 +101,7 @@ const Rooms: FC<IRoomsProps> = ({ query, t }) => {
   };
 
   return (
-    <MainLayout title="Rooms">
+    <MainLayout title={t('titles.rooms')}>
       <div className={b()}>
         <div className={b('container')}>
           <aside className={b('filters')}>

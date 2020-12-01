@@ -22,6 +22,14 @@
   "personalInformation": "Información personal",
   "bookedRooms": "Cuartos reservados",
   "dateMaskPlaceholder": "DD.MM.YYYY",
+  "titles": {
+    "rooms": "Elegir una habitación",
+    "roomDetail": "Habitación",
+    "enter": "Registrarse",
+    "register": "Registrarse",
+    "profile": "Perfil",
+    "profileBookedRooms": "Habitacion reservada"
+  },
   "nav": {
     "navigation": "Navegación",
     "subscription": "Suscripción",

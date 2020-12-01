@@ -102,7 +102,7 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
     );
 
   return (
-    <MainLayout title={`Room ${room ? room.roomNumber : 'Details'}`}>
+    <MainLayout title={t('titles.roomDetail')}>
       {pageContent}
     </MainLayout>
   );

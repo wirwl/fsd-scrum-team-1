@@ -22,6 +22,14 @@
   "personalInformation": "Persönliche daten",
   "bookedRooms": "Gebuchte räume",
   "dateMaskPlaceholder": "DD.MM.YYYY",
+  "titles": {
+    "rooms": "Ein Zimmer auswählen",
+    "roomDetail": "Zimmer",
+    "enter": "Anmelden",
+    "register": "Registrieren",
+    "profile": "Profil",
+    "profileBookedRooms": "Gebuchte Zimmer"
+  },
   "nav": {
     "navigation": "navigation",
     "subscription": "Abonnement",

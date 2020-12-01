@@ -22,6 +22,14 @@
   "personalInformation": "Personal data",
   "bookedRooms": "Booked rooms",
   "dateMaskPlaceholder": "DD.MM.YYYY",
+  "titles": {
+    "rooms": "Choosing a room",
+    "roomDetail": "Room",
+    "enter": "Sign in",
+    "register": "Register",
+    "profile": "Profile",
+    "profileBookedRooms": "Booked room"
+  },
   "nav": {
     "navigation": "Navigation",
     "subscription": "Subscription",

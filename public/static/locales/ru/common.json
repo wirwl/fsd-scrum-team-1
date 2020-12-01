@@ -22,6 +22,14 @@
   "personalInformation": "Личные данныe",
   "bookedRooms": "Забронированные номера",
   "dateMaskPlaceholder": "ДД.ММ.ГГГГ",
+  "titles": {
+    "rooms": "Выбор комнаты",
+    "roomDetail": "Комната",
+    "enter": "Вход",
+    "register": "Регистрация",
+    "profile": "Профиль",
+    "profileBookedRooms": "Забронированные номера"
+  },
   "nav": {
     "navigation": "навигация",
     "subscription": "подписка",

@@ -2,7 +2,9 @@ import { FC, useEffect } from 'react';
 import { block } from 'bem-cn';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import { signOut } from 'src/redux/user/userActions';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
 import Button from 'src/components/Button/Button';
@@ -16,7 +18,7 @@ const b = block('profile');
 
 const userSelector = (store: IRootState): IUserState => store.user;
 
-const Profile: FC = () => {
+const Profile: FC<WithTranslation> = ({ t }) => {
   const dispatch = useDispatch();
   const { user } = useSelector(userSelector);
 
@@ -31,11 +33,11 @@ const Profile: FC = () => {
   };
 
   return (
-    <MainLayout title="Profile">
+    <MainLayout title={t('titles.profile')}>
       <div className={b()}>
         <section className={b('layout')}>
           <Button
-            caption="Выход"
+            caption={t('exit')}
             handleClick={handleSingOutButtonClick}
           />
         </section>
@@ -44,4 +46,6 @@ const Profile: FC = () => {
   );
 };
 
-export default Profile;
+export default i18n.withTranslation('common')(
+  Profile,
+);
