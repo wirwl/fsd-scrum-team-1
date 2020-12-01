@@ -1,6 +1,7 @@
 import {
   FC, FormEvent, useEffect, useState,
 } from 'react';
+import { isEqual } from 'lodash';
 
 import block from 'bem-cn';
 
@@ -221,14 +222,14 @@ const FormProfile: FC<IFormProfileProps> = ({
       isGetSpecialOffers: values.getSpecialOffers,
     };
 
-    return JSON.stringify(initValues) !== JSON.stringify(newValues);
+    return isEqual(initValues, newValues);
   };
 
   useEffect(() => {
     if (deepEqual()) {
-      setIsChanged(true);
-    } else {
       setIsChanged(false);
+    } else {
+      setIsChanged(true);
     }
   }, [values]);
 
