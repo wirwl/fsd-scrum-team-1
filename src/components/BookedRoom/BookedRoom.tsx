@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 
 import { IRoom } from '@/services/dto/Rooms';
-import RoomCard, { IRoomCardProps } from '../RoomCard/RoomCard';
+import RoomCard, { IRoomCardInfo } from '../RoomCard/RoomCard';
 
 import './BookedRoom.scss';
 
@@ -14,7 +14,7 @@ interface IBookedRoomProps {
   dateEnd: number,
 }
 
-const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
+const convertDataForRoomCard = (inputData: IRoom): IRoomCardInfo => {
   const {
     picsPreview,
     comments,
