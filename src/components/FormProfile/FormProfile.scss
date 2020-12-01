@@ -1,7 +1,13 @@
+@import '@styles/variables.scss';
+
 .form-profile {
 
   &__field {
     margin-bottom: .625rem;
+
+    &_isChanged {
+      outline: .0625rem solid $second-color;
+    }
   }
 
   &__submit-button {

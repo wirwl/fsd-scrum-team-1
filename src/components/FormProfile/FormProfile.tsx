@@ -162,6 +162,52 @@ const FormProfile: FC<IFormProfileProps> = ({
     email: emailError,
   } = errors;
 
+  const [fieldsChanged, setFieldsChanged] = useState({
+    name: '',
+    lastname: '',
+    birthday: '',
+    email: '',
+    isGetSpecialOffers: false,
+  });
+
+  const changeColorField = (inputInfo: { title: string, isFieldChanged: boolean}): void => {
+    if (inputInfo.isFieldChanged) {
+      setFieldsChanged((prevState) => ({
+        ...prevState,
+        [inputInfo.title]: `${b('field_isChanged')}`,
+      }));
+    } else {
+      setFieldsChanged((prevState) => ({
+        ...prevState,
+        [inputInfo.title]: '',
+      }));
+    }
+  };
+
+  const isInputChanged = (
+    inputName: string, newValue: string | boolean,
+  ): {title: string, isFieldChanged: boolean} => {
+    const initialValues = {
+      name, lastname, birthday: convertDate(birthday), email, isGetSpecialOffers,
+    };
+    const fieldInfo = {
+      title: '',
+      isFieldChanged: false,
+    };
+
+    Object.entries(initialValues).forEach(([title, val]) => {
+      if (title === inputName) {
+        fieldInfo.title = title;
+
+        if (val !== newValue) {
+          fieldInfo.isFieldChanged = true;
+        }
+      }
+    });
+
+    return fieldInfo;
+  };
+
   const deepEqual = (): boolean => {
     const initValues = {
       name, lastname, birthday: convertDate(birthday), email, isGetSpecialOffers,
@@ -222,6 +268,9 @@ const FormProfile: FC<IFormProfileProps> = ({
     const inputName = targetName as IInputNames;
     const isValid = !error;
 
+    const changedField = isInputChanged(inputName, value);
+    changeColorField(changedField);
+
     setValues((prevState) => ({
       ...prevState,
       [inputName]: {
@@ -239,6 +288,9 @@ const FormProfile: FC<IFormProfileProps> = ({
   };
 
   const handleChangeToggleButton = (checked: boolean): void => {
+    const changedField = isInputChanged('isGetSpecialOffers', checked);
+    changeColorField(changedField);
+
     setValues((prevState) => ({
       ...prevState,
       getSpecialOffers: checked,
@@ -255,7 +307,7 @@ const FormProfile: FC<IFormProfileProps> = ({
 
   return (
     <form className={b()} onSubmit={handleSubmit}>
-      <div className={b('field')}>
+      <div className={b(`field ${fieldsChanged.name}`)}>
         <Input
           name="name"
           placeholder="Имя"
@@ -266,7 +318,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={nameError}
         />
       </div>
-      <div className={b('field')}>
+      <div className={b(`field ${fieldsChanged.lastname}`)}>
         <Input
           name="lastname"
           placeholder="Фамилия"
@@ -277,7 +329,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={lastnameError}
         />
       </div>
-      <div className={b('field')}>
+      <div className={b(`field ${fieldsChanged.birthday}`)}>
         <Input
           name="birthday"
           validate={validateBirthday}
@@ -289,7 +341,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={birthdayError}
         />
       </div>
-      <div className={b('field')}>
+      <div className={b(`field ${fieldsChanged.email}`)}>
         <Input
           type="email"
           validate="email"
@@ -301,7 +353,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={emailError}
         />
       </div>
-      <div className={b('field')}>
+      <div className={b(`field ${fieldsChanged.isGetSpecialOffers}`)}>
         <ToggleButton
           label="Получать спецпредложения"
           name="specialOffers"
