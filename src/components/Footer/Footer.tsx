@@ -24,7 +24,6 @@ const Footer: FC<FooterProps> = ({ t }) => {
     description,
     subscription,
     copyright,
-    socialLinks,
   } = getFooterConf(t);
 
   const navigationList = navBlocks.map(
@@ -79,7 +78,7 @@ const Footer: FC<FooterProps> = ({ t }) => {
           <p className={b('copyright')}>{copyright}</p>
 
           <div className={b('social-links')}>
-            <SocialButtons items={socialLinks} />
+            <SocialButtons />
           </div>
         </div>
       </div>

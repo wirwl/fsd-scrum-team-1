@@ -4,9 +4,13 @@ import {
   FETCH_ROOMS,
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAIL,
+  FETCH_MORE_ROOMS,
+  FETCH_MORE_ROOMS_SUCCESS,
   IFetchRoomsAction,
   IFetchRoomsSuccessAction,
   IFetchRoomsFailAction,
+  IFetchMoreRoomsAction,
+  IFetchMoreRoomsSuccessAction,
 } from './roomsTypes';
 
 export const fetchRooms = (
@@ -30,8 +34,23 @@ export const fetchRoomsFail = (
   payload: error,
 });
 
+export const fetchMoreRooms = (
+  params: ISearchFilters,
+): IFetchMoreRoomsAction => ({
+  type: FETCH_MORE_ROOMS,
+  payload: params,
+});
+
+export const fetchMoreRoomsSuccess = (
+  rooms: IRoom[],
+): IFetchMoreRoomsSuccessAction => ({
+  type: FETCH_MORE_ROOMS_SUCCESS,
+  payload: rooms,
+});
+
 export default {
   fetchRooms,
   fetchRoomsSuccess,
   fetchRoomsFail,
+  fetchMoreRooms,
 };

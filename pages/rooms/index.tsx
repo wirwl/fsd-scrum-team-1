@@ -10,7 +10,7 @@ import type { IFilterStateRecord, IFormRoomFilterState } from 'src/components/Fo
 
 import i18n from 'src/services/i18n';
 import wrapper, { ISagaStore } from 'src/redux/store';
-import { fetchRooms } from 'src/redux/rooms/roomsActions';
+import { fetchMoreRooms, fetchRooms } from 'src/redux/rooms/roomsActions';
 import { IRoomsState } from 'src/redux/rooms/roomsReducer';
 
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
@@ -58,17 +58,10 @@ const getParamsFromState = (state: IFormRoomFilterState): IFilterStateRecord => 
   };
 };
 
-const normalizeN = (n: string): number => {
-  const numberN = parseInt(n, 10);
-  if (Number.isNaN(numberN)) return 0;
-  if (numberN < 0) return 0;
-  return numberN;
-};
-
 const getParamsFromQuery = (query: Record<string, string>, t: TFunction): ISearchFilters => {
   const state = initState(query, MIN_PRICE, MAX_PRICE, t);
 
-  const n = query.n === undefined ? 0 : normalizeN(query.n);
+  const n = 0;
 
   const stateParams = getParamsFromState(state);
 
@@ -83,7 +76,12 @@ const Rooms: FC<IRoomsProps> = ({ query, t }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchRooms(filters));
+    const { n } = filters;
+    if (n === 0) {
+      dispatch(fetchRooms(filters));
+    } else {
+      dispatch(fetchMoreRooms(filters));
+    }
   }, [filters]);
 
   const handleFormRoomsFilterChange = (stateQuery: IFormRoomFilterState): void => {
@@ -97,7 +95,6 @@ const Rooms: FC<IRoomsProps> = ({ query, t }) => {
 
     updateQuery('n', (n).toString(), router);
     setFilters((prevState) => ({ ...prevState, n }));
-    window.scrollTo(0, 0);
   };
 
   return (

@@ -66,6 +66,8 @@ const RoomsList: FC<IRoomsListProps> = ({
 
   const isFailLoad = error && !isFetching;
   const isEmpty = rooms.length === 0;
+  const isLoadMoreShow = !isEmpty && rooms.length === 12;
+  const isShowEmptyMessage = isEmpty && !isFetching;
 
   const handleClick = (evt: MouseEvent): void => {
     evt.preventDefault();
@@ -74,9 +76,7 @@ const RoomsList: FC<IRoomsListProps> = ({
   };
 
   const getCorrectElement = (): JSX.Element => {
-    if (isFetching) return <div className={b('spinner')}><Spinner /></div>;
-
-    if (isEmpty) {
+    if (isShowEmptyMessage) {
       return (
         <div>
           {t('rooms:noRoomsMessage')}
@@ -93,7 +93,8 @@ const RoomsList: FC<IRoomsListProps> = ({
     <section className={b()}>
       <h2 className={b('title')}>{t('rooms:title')}</h2>
       {getCorrectElement()}
-      {!isEmpty && (
+      {isFetching ? <div className={b('spinner')}><Spinner /></div> : ''}
+      {isLoadMoreShow && (
         <div className={b('show-more')}>
           <Button
             theme="default"
