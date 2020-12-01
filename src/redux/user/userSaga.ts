@@ -1,9 +1,11 @@
 import { SagaIterator } from 'redux-saga';
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import cookie from 'js-cookie';
 
 import Api, { getAuthError } from 'src/services/Api';
 import {
+  REGISTRATION,
+  RegistrationAction,
   SIGN_IN, SIGN_IN_FIREBASE_SUCCESS, SIGN_OUT,
 } from 'src/redux/user/userTypes';
 import {
@@ -13,6 +15,8 @@ import {
   signInFirebaseSuccess,
   signInSuccess,
   signOutSuccess,
+  registrationFail,
+  registrationSuccess,
 } from 'src/redux/user/userActions';
 
 const TOKEN_NAME = 'firebaseToken';
@@ -69,10 +73,29 @@ function* signOutSaga(): SagaIterator | void {
   yield put(signOutSuccess());
 }
 
+function* registrationSaga(action: RegistrationAction): SagaIterator | void {
+  try {
+    const info = action.payload;
+    const newUser = yield call(api.createUser.bind(api), {
+      uid: `${Date.now()}${Math.random()}`,
+      birthday: info.birthday,
+      email: info.email,
+      getSpecialOffers: info.isGetSpecialOffers,
+      lastname: info.surname,
+      name: info.name,
+      sex: info.gender,
+    });
+    yield put(registrationSuccess(newUser));
+  } catch (error) {
+    yield put(registrationFail(String(error)));
+  }
+}
+
 function* watchUserSaga(): SagaIterator {
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
   yield takeLatest(SIGN_OUT, signOutSaga);
+  yield takeLatest(REGISTRATION, registrationSaga);
 }
 
 export default watchUserSaga;

@@ -4,6 +4,9 @@ import {
   SIGN_IN_FAIL,
   SIGN_IN_SUCCESS,
   SIGN_OUT_SUCCESS,
+  REGISTRATION,
+  REGISTRATION_SUCCESS,
+  REGISTRATION_FAIL,
 } from 'src/redux/user/userTypes';
 import type { IUser } from 'src/services/dto/User';
 
@@ -54,6 +57,12 @@ export const userReducer = (
         error: null,
       };
     }
+    case REGISTRATION:
+      return { user: null, isRequesting: true, error: null };
+    case REGISTRATION_SUCCESS:
+      return { user: action.payload, isRequesting: false, error: null };
+    case REGISTRATION_FAIL:
+      return { user: null, isRequesting: false, error: action.payload };
     default:
       return state;
   }

@@ -1,3 +1,4 @@
+import { IUserInfo } from '@/components/RegistrationForm/RegistrationForm';
 import type { User as FirebaseUser } from 'firebase';
 import type {
   IUserCredentials,
@@ -9,9 +10,27 @@ export const SIGN_IN_FIREBASE_SUCCESS = '@toxin-auth/SIGN_IN_FIREBASE_SUCCESS';
 export const SIGN_IN_SUCCESS = '@toxin-auth/SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = '@toxin-auth/SIGN_IN_FAIL';
 export const SIGN_IN_REQUESTING = '@toxin-auth/SIGN_IN_REQUESTING';
+export const REGISTRATION = '@toxin-auth/REGISTRATION';
+export const REGISTRATION_SUCCESS = '@toxin-auth/REGISTRATION_SUCCESS';
+export const REGISTRATION_FAIL = '@toxin-auth/REGISTRATION_FAIL';
 
 export const SIGN_OUT = '@toxin-auth/SIGN_OUT';
 export const SIGN_OUT_SUCCESS = '@toxin-auth/SIGN_OUT_SUCCESS';
+
+export type RegistrationAction = {
+  type: typeof REGISTRATION;
+  payload: IUserInfo;
+};
+
+export type RegistrationSuccessAction = {
+  type: typeof REGISTRATION_SUCCESS;
+  payload: IUser;
+};
+
+export type RegistrationFailAction = {
+  type: typeof REGISTRATION_FAIL;
+  payload: string;
+};
 
 export type ISignInAction = {
   type: typeof SIGN_IN;
@@ -52,4 +71,7 @@ export type IUserActionTypes =
   | ISignInRequestingAction
   | ISignOutAction
   | ISignOutSuccessAction
-  | ISignInFirebaseSuccessAction;
+  | ISignInFirebaseSuccessAction
+  | RegistrationAction
+  | RegistrationSuccessAction
+  | RegistrationFailAction;

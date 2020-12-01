@@ -5,6 +5,22 @@
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
 
+  &__spinner-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__spinner {
+    width: 150px;
+    height: 150px;
+  }
+
   &__form {
     max-width: 23.75rem;
     margin: 0 auto;
