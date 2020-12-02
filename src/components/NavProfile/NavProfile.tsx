@@ -12,10 +12,10 @@ const b = block('nav-profile');
 const NavProfile: FC = () => {
   const router = useRouter();
 
-  const routerPathname = router.pathname;
+  const routerPathName = router.pathname;
 
-  const isPathBooking = routerPathname === '/auth/profile/booked-rooms';
-  const isPathProfile = routerPathname === '/auth/profile';
+  const isPathBooking = routerPathName === '/auth/profile/booked-rooms';
+  const isPathProfile = routerPathName === '/auth/profile';
 
   return (
     <ul className={b()}>
