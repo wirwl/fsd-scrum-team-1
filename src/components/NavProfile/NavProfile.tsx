@@ -2,14 +2,16 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import Button from 'src/components/Button/Button';
 
 import './NavProfile.scss';
 
 const b = block('nav-profile');
 
-const NavProfile: FC = () => {
+const NavProfile: FC<WithTranslation> = ({ t }) => {
   const router = useRouter();
 
   const routerPathName = router.pathname;
@@ -23,7 +25,7 @@ const NavProfile: FC = () => {
         <li className={b('link-item')}>
           <Button
             theme={isPathProfile ? 'default' : 'white'}
-            caption="личные данные"
+            caption={t('personalInformation')}
           />
         </li>
       </Link>
@@ -31,7 +33,7 @@ const NavProfile: FC = () => {
         <li className={b('link-item')}>
           <Button
             theme={isPathBooking ? 'default' : 'white'}
-            caption="забронированные номера"
+            caption={t('bookedRooms')}
           />
         </li>
       </Link>
@@ -39,4 +41,6 @@ const NavProfile: FC = () => {
   );
 };
 
-export default NavProfile;
+export default i18n.withTranslation('common')(
+  NavProfile,
+);
