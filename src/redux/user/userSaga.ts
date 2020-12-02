@@ -60,9 +60,14 @@ function* signInSaga(
   }
 }
 
+const selectLoadingStatus = (store: IRootState): boolean => store.user.isRequesting;
+
 function* signInFirebaseSuccessSaga(
   { payload }: ReturnType<typeof signInFirebaseSuccess>,
 ): SagaIterator | void {
+  const isRequesting = yield select(selectLoadingStatus);
+  if (isRequesting) return;
+
   const firebaseUser = payload;
   const { uid } = firebaseUser;
 
@@ -134,10 +139,10 @@ function* updateUserSaga(
 
 function* watchUserSaga(): SagaIterator {
   yield takeLatest(REGISTRATION, registrationSaga);
+  yield takeLatest(UPDATE_USER, updateUserSaga);
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
   yield takeLatest(SIGN_OUT, signOutSaga);
-  yield takeLatest(UPDATE_USER, updateUserSaga);
 }
 
 export default watchUserSaga;
