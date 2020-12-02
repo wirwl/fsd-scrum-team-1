@@ -1,0 +1,15 @@
+@import '@styles/variables.scss';
+
+.profile-layout {
+
+  &__inner-container {
+    max-width: $max-content-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__nav {
+    margin-top: 5rem;
+    margin-bottom: 2.5rem;
+  }
+}

@@ -1,13 +1,11 @@
 import { FC, useEffect } from 'react';
 import { block } from 'bem-cn';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Router from 'next/router';
 import type { WithTranslation } from 'next-i18next';
 
+import ProfileLayout from 'src/layouts/ProfileLayout/ProfileLayout';
 import i18n from 'src/services/i18n';
-import { signOut } from 'src/redux/user/userActions';
-import MainLayout from 'src/layouts/MainLayout/MainLayout';
-import Button from 'src/components/Button/Button';
 
 import type { IRootState } from 'src/redux/reducer';
 import type { IUserState } from 'src/redux/user/userReducer';
@@ -18,8 +16,7 @@ const b = block('profile');
 
 const userSelector = (store: IRootState): IUserState => store.user;
 
-const Profile: FC<WithTranslation> = ({ t }) => {
-  const dispatch = useDispatch();
+const Profile: FC<WithTranslation> = () => {
   const { user } = useSelector(userSelector);
 
   useEffect(() => {
@@ -28,21 +25,12 @@ const Profile: FC<WithTranslation> = ({ t }) => {
     }
   }, [user]);
 
-  const handleSingOutButtonClick = (): void => {
-    dispatch(signOut());
-  };
-
   return (
-    <MainLayout title={t('titles.profile')}>
+    <ProfileLayout title="Profile Form">
       <div className={b()}>
-        <section className={b('layout')}>
-          <Button
-            caption={t('exit')}
-            handleClick={handleSingOutButtonClick}
-          />
-        </section>
+        <h1>profile form</h1>
       </div>
-    </MainLayout>
+    </ProfileLayout>
   );
 };
 
