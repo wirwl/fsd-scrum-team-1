@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { block } from 'bem-cn';
 import type { WithTranslation } from 'next-i18next';
 
@@ -19,15 +19,26 @@ import FormRoomDetails from '@/components/FormRoomDetails/FormRoomDetails';
 
 import './roomDetails.scss';
 import { END } from 'redux-saga';
+import { bookingRoom } from '@/redux/bookedRooms/actions';
+import { RangeDays } from '@/components/Calendar/Calendar';
 
 type IRoomDetailsProps = { id: string | string[] | undefined } & WithTranslation;
 
 const b = block('room-details');
 
 const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
+  const dispatch = useDispatch();
   const { isFetching, item: room } = useSelector(
     (state: IRootState) => state.roomDetails,
   );
+
+  const handleSubmit = (range: RangeDays, dropdownItems: IDropListItem[]): void => {
+    dispatch(bookingRoom({
+      dateStart: range.start,
+      dateEnd: range.end,
+      
+    }));
+  };
 
   const pageContent = isFetching || room === null
     ? (
@@ -95,6 +106,7 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
               discount={room.discount}
               serviceCharge={room.feeForService}
               additionalServiceCharge={room.feeForAdditionalService}
+              onSubmit={handleSubmit}
             />
           </div>
         </div>
