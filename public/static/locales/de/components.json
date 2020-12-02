@@ -1,0 +1,63 @@
+{
+  "dateRange": {
+    "title": "Aufenthaltsdaten"
+  },
+  "guestInputDropdown": {
+    "title": "Gäste",
+    "guests": "Gäste",
+    "guestsOne": "Gast",
+    "guestsTwo": "Gäste",
+    "guestsFew": "Gäste",
+    "adults": "Erwachsene",
+    "children": "Kinder",
+    "babies": "Babys",
+    "babiesOne": "Baby",
+    "babiesTwo": "Babys",
+    "babiesFew": "Babys"
+  },
+  "convenientInputDropdown": {
+    "title": "Zimmerausstattung",
+    "bedrooms": "Schlafzimmer",
+    "bedroomOne": "Schlafzimmer",
+    "bedroomsTwo": "Schlafzimmer",
+    "bedroomsFew": "Schlafzimmer",
+    "beds": "Betten",
+    "bedOne": "Bett",
+    "bedsTwo": "Betten",
+    "bedsFew": "Betten",
+    "bathrooms": "Badezimmer",
+    "bathroomOne": "Badezimmer",
+    "bathroomsTwo": "Badezimmer",
+    "bathroomsFew": "Badezimmer"
+  },
+  "priceRange": {
+    "title": "Preisklasse",
+    "description": "Preis pro Nacht im Zimmer bleiben"
+  },
+  "rules": {
+    "title": "Hausregeln",
+    "petsAllowed": "Kann mit Haustieren sein",
+    "smokingAllowed": "Du kannst rauchen",
+    "guestAllowed": "Sie können Gäste einladen (bis zu 10 Personen)"
+  },
+  "accessibility": {
+    "title": "Barrierefreiheit",
+    "wideCorridor": {
+      "label": "Breiter korridor",
+      "description": "Die Breite der Korridore im Raum beträgt mindestens 91 cm."
+    },
+    "assistantForDisabled": {
+      "label": "Assistent für behinderte",
+      "description": "Ein spezialist wird sie im 1. Stock treffen und sie zu ihrem zimmer führen."
+    }
+  },
+  "extraConvenience": {
+    "title": "Bequemlichkeit hinzugefügt",
+    "breakfast": "Frühstück",
+    "desk": "Schreibtisch",
+    "feedingChair": "Fütterungsstuhl",
+    "smallBad": "Kinderbett",
+    "tv": "Fernseher",
+    "shampoo": "Shampoo"
+  }
+}

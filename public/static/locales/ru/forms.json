@@ -1,0 +1,31 @@
+{
+  "landing": {
+    "title": "Найдём номера под ваши пожелания",
+    "pickANumber": "подобрать номер",
+    "howManyGuests": "Сколько гостей"
+  },
+  "bookingForm": {
+    "day": "суток",
+    "feeServiceDiscount": "Сбор за услуги: скидка",
+    "feeAdditionalService": "Сбор за дополнительные услуги",
+    "subtotal": "Итого",
+    "toBook": "Забронировать"
+  },
+  "register": {
+    "title": "Регистрация аккаунта",
+    "loginInformation": "Данные для входа в сервис",
+    "alreadyHaveAccountQuestion": "Уже есть аккаунт на Toxin?"
+  },
+  "enter": {
+    "title": "Войти",
+    "noAccountQuestion": "Нет аккаунта на Toxin?"
+  },
+  "errors": {
+    "passwordIsShort": "Пароль слишком короткий (меньше {{min}} символов)",
+    "passwordIsLong": "Пароль слишком длинный (больше {{max}} символов)",
+    "required": "Это поле обязательно для заполнения",
+    "emailInvalid": "Некорректный email",
+    "enterExitsDate": "Введите существующую дату.",
+    "enterFullDate": "Введите полную дату. Например, 12.11.2020"
+  }
+}

@@ -21,6 +21,14 @@ import {
   REGISTRATION_SUCCESS,
   RegistrationFailAction,
   REGISTRATION_FAIL,
+  UPDATE_USER,
+  UPDATE_USER_FAIL,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_REQUESTING,
+  IUpdateUserRequestingAction,
+  IUpdateUserSuccessAction,
+  IUpdateUserFailAction,
+  IUpdateUserAction,
 } from 'src/redux/user/userTypes';
 
 import type {
@@ -81,5 +89,24 @@ export const registrationSuccess = (user: IUser): RegistrationSuccessAction => (
 
 export const registrationFail = (error: string): RegistrationFailAction => ({
   type: REGISTRATION_FAIL,
+  payload: error,
+});
+
+export const updateUser = (newUserData: Partial<Omit<IUser, 'uid' | 'sex'>>): IUpdateUserAction => ({
+  type: UPDATE_USER,
+  payload: newUserData,
+});
+
+export const updateUserRequesting = (): IUpdateUserRequestingAction => ({
+  type: UPDATE_USER_REQUESTING,
+});
+
+export const updateUserSuccess = (newUserData: Partial<Omit<IUser, 'uid' | 'sex'>>): IUpdateUserSuccessAction => ({
+  type: UPDATE_USER_SUCCESS,
+  payload: newUserData,
+});
+
+export const updateUserFail = (error: string): IUpdateUserFailAction => ({
+  type: UPDATE_USER_FAIL,
   payload: error,
 });

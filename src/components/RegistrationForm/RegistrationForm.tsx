@@ -1,7 +1,10 @@
 import React, { FC, FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { block } from 'bem-cn';
+import type { TFunction, WithTranslation } from 'next-i18next';
 
+import type { IChoice } from 'src/components/RadioButton/RadioButton';
+import i18n from 'src/services/i18n';
 import Input from 'src/components/Input/Input';
 import ToggleButton from 'src/components/ToggleButton/ToggleButton';
 import RadioButton from 'src/components/RadioButton/RadioButton';
@@ -9,7 +12,7 @@ import Button from 'src/components/Button/Button';
 
 import './RegistrationForm.scss';
 
-interface IRegistrationFormProps {
+interface IRegistrationFormProps extends WithTranslation {
   onSubmit: (data: IUserInfo) => void;
 }
 
@@ -32,28 +35,29 @@ type IRegistrationFormState = Record<IInputNames, IInputInfo> & {
 
 type IErrorsState = Record<IInputNames, string>;
 
+const MIN_PASS_LENGTH = 6;
+const MAX_PASS_LENGTH = 20;
+
 const b = block('form-registration');
 
-const choices = [
-  { value: 'man', label: 'Мужчина', checked: true },
-  { value: 'woman', label: 'Женщина' },
-];
+const getChoices = (t: TFunction): IChoice[] => ([
+  { value: 'man', label: t('man'), checked: true },
+  { value: 'woman', label: t('woman') },
+]);
 
-const emptyErrorMessage = 'Это поле обязательно. Заполните его пожалуйста';
-
-const validateEmpty = (value: string | number): string => {
+const validateEmpty = (value: string | number, t: TFunction): string => {
   const val = value.toString();
 
-  return val.length === 0 ? emptyErrorMessage : '';
+  return val.length === 0 ? t('forms:errors.required') : '';
 };
 
-const validateBirthday = (value: string | number): string => {
+const validateBirthday = (value: string | number, t: TFunction): string => {
   const date = value.toString();
-  const errorEmpty = validateEmpty(date);
+  const errorEmpty = validateEmpty(date, t);
   let errorMessage = errorEmpty;
 
   if (date.length < 10 && date.length > 0) {
-    errorMessage = 'Введите полную дату. Например, 12.11.2020';
+    errorMessage = t('forms:errors.enterFullDate');
   }
 
   if (date.length === 10) {
@@ -63,23 +67,23 @@ const validateBirthday = (value: string | number): string => {
     const isValidDate = tmpDate.getDate() === day
       && tmpDate.getMonth() + 1 === month && tmpDate.getFullYear() === year;
 
-    errorMessage = !isValidDate ? 'Введите существующую дату.' : '';
+    errorMessage = !isValidDate ? t('forms:errors.enterExistDate') : '';
   }
 
   return errorMessage;
 };
 
-const validatePassword = (value: string | number): string => {
+const validatePassword = (value: string | number, t: TFunction): string => {
   const password = value.toString();
-  const errorEmpty = validateEmpty(password);
+  const errorEmpty = validateEmpty(password, t);
 
   if (errorEmpty) return errorEmpty;
 
   if (password.length > 20) {
-    return 'Пароль слишком длинный(более 20 символов)';
+    return t('forms:errors.passwordIsLong', { max: MAX_PASS_LENGTH });
   }
   if (password.length < 6 && password.length > 0) {
-    return 'Пароль слишком короткий(менее 6 символов)';
+    return t('forms:errors.passwordIsShort', { min: MIN_PASS_LENGTH });
   }
 
   return '';
@@ -120,7 +124,7 @@ const isFormValid = (values: IRegistrationFormState): boolean => (
   })
 );
 
-const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
+const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t }) => {
   const [values, setValues] = useState<IRegistrationFormState>(initialState);
   const [errors, setErrors] = useState<IErrorsState>({
     name: '',
@@ -155,7 +159,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
         if (value.length === 0 && !isValid) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: emptyErrorMessage,
+            [name]: t('forms:errors.required'),
           }));
         }
       }
@@ -223,13 +227,17 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
     }));
   };
 
+  const choices = getChoices(t);
+
   return (
     <form className={b()} onSubmit={handleSubmit}>
-      <h1 className={b('title')}>Регистрация аккаунта</h1>
+      <h1 className={b('title')}>
+        {t('forms:register.title')}
+      </h1>
       <div className={b('name')}>
         <Input
           name="name"
-          placeholder="Имя"
+          placeholder={t('name')}
           validate={validateEmpty}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -240,7 +248,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
       <div className={b('surname')}>
         <Input
           name="surname"
-          placeholder="Фамилия"
+          placeholder={t('lastname')}
           validate={validateEmpty}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -249,15 +257,19 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
         />
       </div>
       <div className={b('radio-buttons')}>
-        <RadioButton name="gender" choices={choices} onChange={handleChangeRadioButton} />
+        <RadioButton
+          name="gender"
+          choices={choices}
+          onChange={handleChangeRadioButton}
+        />
       </div>
       <div className={b('birthday')}>
         <Input
           name="birthday"
           validate={validateBirthday}
           mask="99.99.9999"
-          label="Дата рождения"
-          placeholder="ДД.ММ.ГГГГ"
+          label={t('birthday')}
+          placeholder={t('dateMaskPlaceholder')}
           onChange={handleChange}
           onBlur={handleBlur}
           errorMessage={birthdayError}
@@ -269,7 +281,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
           type="email"
           validate="email"
           name="email"
-          label="Данные для входа в сервис"
+          label={t('forms:register.loginInformation')}
           placeholder="Email"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -281,7 +293,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
         <Input
           type="password"
           name="password"
-          placeholder="Пароль"
+          placeholder={t('password')}
           validate={validatePassword}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -291,20 +303,27 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
       </div>
       <div className={b('toggle-button')}>
         <ToggleButton
-          label="Получать спецпредложения"
+          label={t('getSpecial')}
           name="specialOffers"
           checked={isGetSpecialOffers}
           onChange={handleChangeToggleButton}
         />
       </div>
       <div className={b('submit-button')}>
-        <Button type="submit" withArrow size="fluid" caption="Зарегистрироваться" />
+        <Button
+          type="submit"
+          withArrow
+          size="fluid"
+          caption={t('register')}
+        />
       </div>
       <div className={b('footer')}>
-        <p className={b('have-account')}>Уже есть аккаунт на Toxin</p>
+        <p className={b('have-account')}>
+          {t('forms:register.alreadyHaveAccountQuestion')}
+        </p>
         <Link href="/auth/sign-in">
           <div role="link" className={b('login-button')}>
-            <Button size="fluid" theme="white" caption="Войти" />
+            <Button size="fluid" theme="white" caption={t('enter')} />
           </div>
         </Link>
       </div>
@@ -312,5 +331,8 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit }) => {
   );
 };
 
-export default RegistrationForm;
+export default i18n.withTranslation(['common', 'forms'])(
+  RegistrationForm,
+);
+
 export type { IUserInfo };

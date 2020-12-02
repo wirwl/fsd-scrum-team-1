@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 
 import { IRoom } from '@/services/dto/Rooms';
-import RoomCard, { IRoomCardProps } from '../RoomCard/RoomCard';
+import RoomCard, { IRoomCardInfo } from '../RoomCard/RoomCard';
 
 import './BookedRoom.scss';
 
@@ -14,7 +14,7 @@ interface IBookedRoomProps {
   dateEnd: number,
 }
 
-const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
+const convertDataForRoomCard = (inputData: IRoom): IRoomCardInfo => {
   const {
     picsPreview,
     comments,
@@ -42,12 +42,15 @@ const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
   return roomCardData;
 };
 
-const convertDateForBookedRoom = (dateStart: number, dateEnd: number): string => {
-  const options = { day: 'numeric', month: 'short' };
-  const dateArrival = (new Date(dateStart)).toLocaleDateString('ru-RU', options);
-  const departure = (new Date(dateEnd)).toLocaleDateString('ru-RU', options);
+const formatDate = (date: number): string => {
+  const monthsInRussian = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
+  const d = new Date(date);
+  const month = d.getMonth();
+  const day = `${d.getDate()}`;
 
-  return `${dateArrival} - ${departure}`;
+  const monthString = monthsInRussian[month].slice(0, 3);
+
+  return [day, monthString].join(' ');
 };
 
 const BookedRoom: FC<IBookedRoomProps> = (props) => {
@@ -57,7 +60,9 @@ const BookedRoom: FC<IBookedRoomProps> = (props) => {
     dateEnd,
   } = props;
 
-  const bookingDate = convertDateForBookedRoom(dateStart, dateEnd);
+  const arrivalDate = formatDate(dateStart);
+  const dateOfDeparture = formatDate(dateEnd);
+  const bookingDate = `${arrivalDate} - ${dateOfDeparture}`;
   const roomData = convertDataForRoomCard(room);
 
   return (

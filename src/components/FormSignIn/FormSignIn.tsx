@@ -8,7 +8,9 @@ import { block } from 'bem-cn';
 import Link from 'next/link';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+import type { TFunction, WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import { signIn } from 'src/redux/user/userActions';
 import Input, { CustomValidateFunction } from 'src/components/Input/Input';
 import Button from 'src/components/Button/Button';
@@ -28,14 +30,17 @@ type IValueState = {
 
 type IInputValuesState = Record<string, IValueState>;
 
-const passwordValidate: CustomValidateFunction = (pass) => {
+const MIN_PASS_LENGTH = 6;
+const MAX_PASS_LENGTH = 20;
+
+const passwordValidate: CustomValidateFunction = (pass, t: TFunction) => {
   const password = pass as string;
-  if (password.length < 6) {
-    return 'Пароль слишком короткий (меньше 6 символов)';
+  if (password.length < MIN_PASS_LENGTH) {
+    return t('forms:errors.passwordIsShort', { min: MIN_PASS_LENGTH });
   }
 
-  if (password.length > 20) {
-    return 'Пароль слишком длинный (больше 20 символов)';
+  if (password.length > MAX_PASS_LENGTH) {
+    return t('forms:errors.passwordIsLong', { max: MAX_PASS_LENGTH });
   }
 
   return null;
@@ -63,7 +68,7 @@ const initValues = {
 
 const userSelector = (store: IRootState): IUserState => store.user;
 
-const FormSignIn: FC = () => {
+const FormSignIn: FC<WithTranslation> = ({ t }) => {
   const dispatch = useDispatch();
   const userStore = useSelector(userSelector);
   const { isRequesting } = userStore;
@@ -93,7 +98,7 @@ const FormSignIn: FC = () => {
           ...prevValue,
           [key]: {
             ...values[key],
-            error: 'Это поле обязательно для заполнения',
+            error: t('forms:errors.required'),
           },
         }));
       }
@@ -130,7 +135,7 @@ const FormSignIn: FC = () => {
 
   return (
     <form className={b()} onSubmit={handleFormSubmit}>
-      <h1 className={b('title')}>Войти</h1>
+      <h1 className={b('title')}>{ t('enter') }</h1>
 
       <div className={b('input')}>
         <Input
@@ -148,7 +153,7 @@ const FormSignIn: FC = () => {
           type="password"
           name="password"
           onChange={handleInputChange}
-          placeholder="Пароль"
+          placeholder={t('password')}
           validate={passwordValidate}
           errorMessage={password.error}
         />
@@ -172,7 +177,7 @@ const FormSignIn: FC = () => {
       <div className={b('submit-button')}>
         <Button
           type="submit"
-          caption="Войти"
+          caption={t('enter')}
           size="fluid"
           withArrow
         />
@@ -180,7 +185,7 @@ const FormSignIn: FC = () => {
 
       <div className={b('register-link-block')}>
         <span className={b('register-link-label')}>
-          Нет аккаунта на Toxin?
+          {t('forms:enter.noAccountQuestion')}
         </span>
         <Link href="/auth/register">
           <span
@@ -192,7 +197,7 @@ const FormSignIn: FC = () => {
               href="/auth/register"
               type="button"
               theme="white"
-              caption="создать"
+              caption={t('create')}
             />
           </span>
         </Link>
@@ -201,4 +206,6 @@ const FormSignIn: FC = () => {
   );
 };
 
-export default FormSignIn;
+export default i18n.withTranslation(['common', 'forms'])(
+  FormSignIn,
+);

@@ -1,0 +1,31 @@
+{
+  "landing": {
+    "title": "We will find rooms for your needs",
+    "pickANumber": "pick a number",
+    "howManyGuests": "How many guests"
+  },
+  "bookingForm": {
+    "day": "days",
+    "feeServiceDiscount": "The fee for service: discount",
+    "feeAdditionalService": "Fee for additional services",
+    "subtotal": "Subtotal",
+    "toBook": "to book"
+  },
+  "register": {
+    "title": "Account registration",
+    "loginInformation": "Login information for the service",
+    "alreadyHaveAccountQuestion": "Already have an account on Toxin?"
+  },
+  "enter": {
+    "title": "Enter",
+    "noAccountQuestion": "There is no account on Toxin?"
+  },
+  "errors": {
+    "passwordIsShort": "The password is too short (less than {{min}} characters)",
+    "passwordIsLong": "The password is too long (more than {{max}} characters)",
+    "required": "This field is required",
+    "emailInvalid": "Invalid email address",
+    "enterExitsDate": "Enter an existing date.",
+    "enterFullDate": "Enter the full date. For example, 12.11.2020"
+  }
+}

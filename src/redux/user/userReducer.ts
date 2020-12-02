@@ -7,6 +7,9 @@ import {
   REGISTRATION,
   REGISTRATION_SUCCESS,
   REGISTRATION_FAIL,
+  UPDATE_USER_REQUESTING,
+  UPDATE_USER_FAIL,
+  UPDATE_USER_SUCCESS,
 } from 'src/redux/user/userTypes';
 import type { IUser } from 'src/services/dto/User';
 
@@ -40,29 +43,50 @@ export const userReducer = (
       };
     case SIGN_IN_SUCCESS:
       return {
+        ...state,
         user: action.payload,
         isRequesting: false,
         error: null,
       };
     case SIGN_IN_FAIL:
       return {
+        ...state,
         user: null,
         isRequesting: false,
         error: action.payload,
       };
-    case SIGN_OUT_SUCCESS: {
+    case SIGN_OUT_SUCCESS:
       return {
+        ...state,
         user: null,
         isRequesting: false,
         error: null,
       };
-    }
     case REGISTRATION:
       return { user: null, isRequesting: true, error: null };
     case REGISTRATION_SUCCESS:
       return { user: action.payload, isRequesting: false, error: null };
     case REGISTRATION_FAIL:
       return { user: null, isRequesting: false, error: action.payload };
+    case UPDATE_USER_REQUESTING:
+      return {
+        ...state,
+        isRequesting: true,
+        error: null,
+      };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        isRequesting: false,
+        user: <IUser> { ...state.user, ...action.payload },
+        error: null,
+      };
+    case UPDATE_USER_FAIL:
+      return {
+        ...state,
+        isRequesting: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

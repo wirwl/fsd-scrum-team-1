@@ -13,6 +13,10 @@ export const SIGN_IN_REQUESTING = '@toxin-auth/SIGN_IN_REQUESTING';
 export const REGISTRATION = '@toxin-auth/REGISTRATION';
 export const REGISTRATION_SUCCESS = '@toxin-auth/REGISTRATION_SUCCESS';
 export const REGISTRATION_FAIL = '@toxin-auth/REGISTRATION_FAIL';
+export const UPDATE_USER = '@toxin-auth/UPDATE_USER';
+export const UPDATE_USER_REQUESTING = '@toxin-auth/UPDATE_USER_REQUESTING';
+export const UPDATE_USER_SUCCESS = '@toxin-auth/UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAIL = '@toxin-auth/UPDATE_USER_FAIL';
 
 export const SIGN_OUT = '@toxin-auth/SIGN_OUT';
 export const SIGN_OUT_SUCCESS = '@toxin-auth/SIGN_OUT_SUCCESS';
@@ -64,6 +68,25 @@ export type ISignOutSuccessAction = {
   type: typeof SIGN_OUT_SUCCESS;
 };
 
+export type IUpdateUserAction = {
+  type: typeof UPDATE_USER;
+  payload: Partial<Omit<IUser, 'uid' | 'sex'>>;
+};
+
+export type IUpdateUserRequestingAction = {
+  type: typeof UPDATE_USER_REQUESTING;
+};
+
+export type IUpdateUserSuccessAction = {
+  type: typeof UPDATE_USER_SUCCESS;
+  payload: Partial<Omit<IUser, 'uid' | 'sex'>>;
+};
+
+export type IUpdateUserFailAction = {
+  type: typeof UPDATE_USER_FAIL;
+  payload: string;
+};
+
 export type IUserActionTypes =
   ISignInAction
   | ISignInSuccessAction
@@ -74,4 +97,8 @@ export type IUserActionTypes =
   | ISignInFirebaseSuccessAction
   | RegistrationAction
   | RegistrationSuccessAction
-  | RegistrationFailAction;
+  | RegistrationFailAction
+  | IUpdateUserAction
+  | IUpdateUserFailAction
+  | IUpdateUserRequestingAction
+  | IUpdateUserSuccessAction;

@@ -2,7 +2,9 @@ import {
   FC, useState, useEffect, useCallback,
 } from 'react';
 import { block } from 'bem-cn';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import Button from '@/components/Button/Button';
 import './InputDropdown.scss';
 
@@ -20,7 +22,7 @@ interface IDropListItem {
   special?: true
 }
 
-interface IInputDropdownProps {
+interface IInputDropdownProps extends WithTranslation {
   name: string,
   placeholder: string,
   dropList?: IDropListItem[],
@@ -77,6 +79,7 @@ const bemClass = 'input-dropdown';
 const bem = block(bemClass);
 
 const InputDropdown: FC<IInputDropdownProps> = ({
+  t,
   name,
   placeholder,
   dropList = [
@@ -226,7 +229,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
                 { !isHiddenBtn && (
                   <Button
                     theme="textual"
-                    caption="Очистить"
+                    caption={t('clean')}
                     handleClick={clearInput}
                   />
                 )}
@@ -234,7 +237,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
               <div className={bem('apply-button')}>
                 <Button
                   theme="textual"
-                  caption="Применить"
+                  caption={t('apply')}
                   handleClick={() => setIsExpandedState((prev) => !prev)}
                 />
               </div>
@@ -246,6 +249,10 @@ const InputDropdown: FC<IInputDropdownProps> = ({
   );
 };
 
-export default InputDropdown;
+export default i18n.withTranslation('common')(InputDropdown);
 
-export type { IInputDropdownProps, IDropListItem, IPlurals };
+export type {
+  IInputDropdownProps,
+  IDropListItem,
+  IPlurals,
+};
