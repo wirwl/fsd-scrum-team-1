@@ -6,6 +6,7 @@ import type { WithTranslation } from 'next-i18next';
 
 import ProfileLayout from 'src/layouts/ProfileLayout/ProfileLayout';
 import i18n from 'src/services/i18n';
+import FormProfile from 'src/components/FormProfile/FormProfile';
 
 import type { IRootState } from 'src/redux/reducer';
 import type { IUserState } from 'src/redux/user/userReducer';
@@ -28,7 +29,11 @@ const Profile: FC<WithTranslation> = () => {
   return (
     <ProfileLayout title="Profile Form">
       <div className={b()}>
-        <h1>profile form</h1>
+        {
+          user !== null
+            ? <FormProfile onSubmit={() => {}} user={user} />
+            : ''
+        }
       </div>
     </ProfileLayout>
   );
