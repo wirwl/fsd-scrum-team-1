@@ -164,6 +164,10 @@ class Api {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
+  registration({ email, password }: IUserCredentials): Promise<firebase.auth.UserCredential> {
+    return this.auth.createUserWithEmailAndPassword(email, password);
+  }
+
   async createUser(user: Omit<IUser, 'emailVerified'>): Promise<IUser> {
     const { uid } = user;
     // TODO: catch errors;

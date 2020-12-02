@@ -1,5 +1,5 @@
 import { SagaIterator } from 'redux-saga';
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import cookie from 'js-cookie';
 
 import Api, { getAuthError } from 'src/services/Api';
@@ -76,16 +76,22 @@ function* signOutSaga(): SagaIterator | void {
 function* registrationSaga(action: RegistrationAction): SagaIterator | void {
   try {
     const info = action.payload;
-    const newUser = yield call(api.createUser.bind(api), {
-      uid: `${Date.now()}${Math.random()}`,
-      birthday: info.birthday,
-      email: info.email,
+    const { user } = yield api.registration({ ...info });
+
+    const [day, month, year] = action.payload.birthday.split('.').map((el) => parseInt(el, 10));
+    const birthday = new Date(year, month - 1, day).getTime();
+
+    const userInfo = yield api.createUser({
+      birthday,
+      uid: user.uid,
       getSpecialOffers: info.isGetSpecialOffers,
+      email: info.email,
       lastname: info.surname,
       name: info.name,
-      sex: info.gender,
+      sex: info.gender as 'man' | 'woman',
     });
-    yield put(registrationSuccess(newUser));
+
+    yield put(registrationSuccess(userInfo));
   } catch (error) {
     yield put(registrationFail(String(error)));
   }
