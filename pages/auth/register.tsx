@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
-import type { WithTranslation } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
