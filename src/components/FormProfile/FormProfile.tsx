@@ -5,6 +5,7 @@ import { isEqual } from 'lodash';
 
 import block from 'bem-cn';
 
+import type { IUser } from 'src/services/dto/User';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import ToggleButton from '../ToggleButton/ToggleButton';
@@ -14,19 +15,11 @@ import './FormProfile.scss';
 const b = block('form-profile');
 
 interface IFormProfileProps {
-  info: IInfoProps;
+  user: IUser;
   onSubmit: (data: IUserInfo) => void;
 }
 
 type IInputNames = 'name' | 'lastname' | 'birthday' | 'email';
-
-type IInfoProps = {
-  name: string,
-  lastname: string,
-  birthday: number,
-  email: string,
-  isGetSpecialOffers: boolean,
-};
 
 type IUserInfo = {
   name: string,
@@ -115,8 +108,8 @@ const convertUTC = (date: string): number => {
 };
 
 const FormProfile: FC<IFormProfileProps> = ({
-  info: {
-    name, lastname, birthday, email, isGetSpecialOffers,
+  user: {
+    name, lastname, birthday, email, getSpecialOffers,
   }, onSubmit,
 }) => {
   const [values, setValues] = useState<(IRegistrationFormState)>({
@@ -136,7 +129,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       value: email,
       isValid: true,
     },
-    getSpecialOffers: isGetSpecialOffers,
+    getSpecialOffers,
   });
 
   const [isChanged, setIsChanged] = useState<boolean>(false);
@@ -189,7 +182,7 @@ const FormProfile: FC<IFormProfileProps> = ({
     inputName: string, newValue: string | boolean,
   ): {title: string, isFieldChanged: boolean} => {
     const initialValues = {
-      name, lastname, birthday: convertDate(birthday), email, isGetSpecialOffers,
+      name, lastname, birthday: convertDate(birthday), email, getSpecialOffers,
     };
     const fieldInfo = {
       title: '',
@@ -211,7 +204,7 @@ const FormProfile: FC<IFormProfileProps> = ({
 
   const deepEqual = (): boolean => {
     const initValues = {
-      name, lastname, birthday: convertDate(birthday), email, isGetSpecialOffers,
+      name, lastname, birthday: convertDate(birthday), email, getSpecialOffers,
     };
 
     const newValues = {
