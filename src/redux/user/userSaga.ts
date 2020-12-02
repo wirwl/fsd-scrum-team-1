@@ -60,13 +60,13 @@ function* signInSaga(
   }
 }
 
-const selectLoadingStatus = (store: IRootState): boolean => store.user.isRequesting;
+const selectLoadingStatus = (store: IRootState): boolean => store.user.isRegistration;
 
 function* signInFirebaseSuccessSaga(
   { payload }: ReturnType<typeof signInFirebaseSuccess>,
 ): SagaIterator | void {
-  const isRequesting = yield select(selectLoadingStatus);
-  if (isRequesting) return;
+  const isRegistration = yield select(selectLoadingStatus);
+  if (isRegistration) return;
 
   const firebaseUser = payload;
   const { uid } = firebaseUser;

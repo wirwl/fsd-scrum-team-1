@@ -17,6 +17,7 @@ type IUserState = {
   user: IUser | null;
   isRequesting: boolean;
   error: string | null;
+  isRegistration: boolean;
 };
 
 type IUserCredentials = {
@@ -27,6 +28,7 @@ type IUserCredentials = {
 const initialState = {
   user: null,
   isRequesting: false,
+  isRegistration: false,
   error: null,
 };
 
@@ -63,11 +65,26 @@ export const userReducer = (
         error: null,
       };
     case REGISTRATION:
-      return { user: null, isRequesting: true, error: null };
+      return {
+        user: null,
+        isRequesting: false,
+        error: null,
+        isRegistration: true,
+      };
     case REGISTRATION_SUCCESS:
-      return { user: action.payload, isRequesting: false, error: null };
+      return {
+        user: action.payload,
+        isRequesting: false,
+        error: null,
+        isRegistration: false,
+      };
     case REGISTRATION_FAIL:
-      return { user: null, isRequesting: false, error: action.payload };
+      return {
+        user: null,
+        isRequesting: false,
+        error: action.payload,
+        isRegistration: false,
+      };
     case UPDATE_USER_REQUESTING:
       return {
         ...state,
