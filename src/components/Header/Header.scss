@@ -1,6 +1,7 @@
 @import '@styles/variables';
 
 .header {
+  position: relative;
   padding-top: .625rem;
   padding-bottom: .625rem;
 
@@ -17,7 +18,7 @@
     margin-left: auto;
     margin-right: auto;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
       flex-wrap: wrap;
     }
   }
@@ -25,7 +26,7 @@
   &__nav {
     margin-left: auto;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
       order: 3;
       width: 100%;
       margin-right: 1.25rem;
@@ -38,9 +39,26 @@
     margin-left: 1.25rem;
     margin-right: 1.25rem;
 
+    @media (max-width: 1100px) {
+      margin-left: auto;
+    }
+
     @media (max-width: 530px) {
       width: 100%;
       margin-bottom: .625rem;
+      margin-right: auto;
+    }
+  }
+
+  &__select-lang-block {
+    margin-right: 1.25rem;
+
+    @media (max-width: 530px) {
+      position: absolute;
+      top: .625rem;
+      right: .625rem;
+
+      margin-left: 0;
     }
   }
 

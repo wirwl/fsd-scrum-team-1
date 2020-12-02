@@ -1,0 +1,25 @@
+{
+  "days": {
+    "mo": "Ma",
+    "tu": "Di",
+    "we": "Mi",
+    "th": "Do",
+    "fr": "Fr",
+    "sa": "Sa",
+    "su": "So"
+  },
+  "months": {
+    "january": "Januar",
+    "february": "Februar",
+    "march": "März",
+    "april": "April",
+    "may": "Mai",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "August",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Dezember"
+  }
+}

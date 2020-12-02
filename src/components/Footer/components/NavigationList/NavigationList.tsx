@@ -39,4 +39,5 @@ const NavigationList: FC<INavigationListProps> = ({ title, links }) => (
 export default NavigationList;
 export type {
   ILink,
+  INavigationListProps,
 };

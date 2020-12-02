@@ -73,7 +73,7 @@ const updateRange = (params: {
   const startIsNull = start === null;
   const endIsNull = end === null;
 
-  if (targetDateInMilliseconds <= currentDate.getTime()) return newRange;
+  if (targetDateInMilliseconds < currentDate.getTime()) return newRange;
 
   if (selectMode === 'start' || selectMode === 'end') {
     if (selectMode === 'start') {

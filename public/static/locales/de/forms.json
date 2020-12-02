@@ -1,0 +1,31 @@
+{
+  "landing": {
+    "title": "Wir finden Zimmer für Ihre Bedürfnisse",
+    "pickANumber": "Wähle eine Nummer",
+    "howManyGuests": "Wie viele Gäste"
+  },
+  "bookingForm": {
+    "day": "Tage",
+    "feeServiceDiscount": "Die Servicegebühr: Rabatt",
+    "feeAdditionalService": "Gebühr für zusätzliche Dienstleistungen",
+    "subtotal": "Zwischensumme",
+    "toBook": "buchen"
+  },
+  "register": {
+    "title": "Kontoregistrierung",
+    "loginInformation": "Anmeldeinformationen für den Dienst",
+    "alreadyHaveAccountQuestion": "Haben Sie bereits einen Account bei Toxin?"
+  },
+  "enter": {
+    "title": "Eingeben",
+    "noAccountQuestion": "Es gibt keinen Account für Toxin?"
+  },
+  "errors": {
+    "passwordIsShort": "Das Passwort ist zu kurz (weniger als {{min}} Zeichen)",
+    "passwordIsLong": "Das Passwort ist zu lang (mehr als {{max}} Zeichen)",
+    "required": "Dieses Feld wird benötigt",
+    "emailInvalid": "Ungültige E-Mail-Adresse",
+    "enterExitsDate": "Ingrese una fecha existente.",
+    "enterFullDate": "Geben Sie das vollständige Datum ein. Zum Beispiel 12.11.2020"
+  }
+}

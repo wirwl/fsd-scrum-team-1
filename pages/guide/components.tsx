@@ -44,7 +44,7 @@ const range = {
   end: new Date(),
 };
 
-range.start.setDate(range.start.getDate() + 1);
+range.start.setDate(range.start.getDate() - 5);
 range.end.setDate(range.end.getDate() + 4);
 
 const Components: FC = () => (

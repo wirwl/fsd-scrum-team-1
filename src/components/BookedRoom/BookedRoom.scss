@@ -1,0 +1,23 @@
+@import './src/styles/variables';
+
+.booked-room {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  &__date {
+    position: absolute;
+    width: fit-content;
+    border: .0625rem solid $font-color-light25;
+    border-radius: 5rem;
+    line-height: 2rem;
+    padding: 0 1.5rem;
+    background-color: $bg-color;
+    z-index: 10;
+    top: -1.0625rem;
+  }
+
+  &__room-card {
+    width: 100%;
+  }
+}

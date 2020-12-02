@@ -1,4 +1,3 @@
-import { Reducer } from 'react';
 import {
   BookedRoomsAction,
   BOOKING_ROOM,
@@ -18,10 +17,10 @@ const initialStore: IBookedRoomsStore = {
   rooms: [],
 };
 
-const bookedRoomsReducer: Reducer<IBookedRoomsStore, BookedRoomsAction> = (
+const bookedRoomsReducer = (
   store = initialStore,
-  action,
-) => {
+  action: BookedRoomsAction,
+): IBookedRoomsStore => {
   switch (action.type) {
     case FETCH_BOOKED_ROOMS:
       return { ...store, isFetchingRoomsInProgress: true };

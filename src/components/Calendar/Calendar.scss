@@ -74,6 +74,33 @@
       cursor: default;
     }
 
+    &_today-in-range {
+      position: relative;
+      z-index: 2;
+      color: $bg-color;
+
+      &::after,
+      &::before {
+        content: '';
+        top: 0;
+        z-index: -1;
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        display: block;
+        background: $main-color-gradient;
+        opacity: .25;
+      }
+
+      &::after {
+        right: 0;
+      }
+
+      &::before {
+        left: 0;
+      }
+    }
+
     &_theme_weekday-name .calendar__day-label {
       color: $main-color;
       font-weight: bold;
@@ -89,7 +116,7 @@
 
       .calendar__day-label {
         font-weight: bold;
-        color: #fff;
+        color: $bg-color;
       }
     }
 

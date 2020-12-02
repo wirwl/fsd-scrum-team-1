@@ -1,15 +1,19 @@
 import React from 'react';
 import { block } from 'bem-cn';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import { IRoomComment } from '@/services/dto/Rooms';
 import LikeButton from '@/components/LikeButton/LikeButton';
 
 import './Comment.scss';
 
-interface ICommentProps extends IRoomComment {
+interface IComment extends IRoomComment {
   likeButtonChecked?: boolean;
   onLikeClick?: (checked: boolean) => void;
 }
+
+interface ICommentProps extends IComment, WithTranslation {}
 
 const b = block('comment');
 
@@ -25,6 +29,12 @@ const getWordWithEnding = (value: number, words: [string, string, string]): stri
   return words[2];
 };
 
+const ruToKeyTranslateMap: Record<string, string> = {
+  день: 'daysAgoOne',
+  дня: 'daysAgoTwo',
+  дней: 'daysAgoFew',
+};
+
 const Comment: React.FC<ICommentProps> = (props) => {
   const {
     author,
@@ -33,10 +43,17 @@ const Comment: React.FC<ICommentProps> = (props) => {
     likes,
     text,
     onLikeClick = () => {},
+    t,
   } = props;
 
   const differenceOfDays = Math.ceil((Date.now() - date) / (24 * 60 * 60 * 1000));
-  const publicationDate = `${differenceOfDays} ${getWordWithEnding(differenceOfDays, ['день', 'дня', 'дней'])} назад`;
+  const dateEnding = getWordWithEnding(differenceOfDays, ['день', 'дня', 'дней']);
+
+  const dateEndingT = t(
+    `room:roomComments.${ruToKeyTranslateMap[dateEnding]}`,
+  );
+
+  const publicationDateT = `${differenceOfDays} ${dateEndingT}`;
 
   return (
     <div className={b()}>
@@ -53,7 +70,7 @@ const Comment: React.FC<ICommentProps> = (props) => {
       <div className={b('main')}>
         <div className={b('head')}>
           <p className={b('user-name')}>{author.name}</p>
-          <p className={b('publication-date')}>{publicationDate}</p>
+          <p className={b('publication-date')}>{publicationDateT}</p>
         </div>
         <p className={b('body')}>{text}</p>
       </div>
@@ -61,6 +78,10 @@ const Comment: React.FC<ICommentProps> = (props) => {
   );
 };
 
-export default Comment;
+export default i18n.withTranslation(['common', 'room'])(
+  Comment,
+);
+
 export { getWordWithEnding };
-export type { ICommentProps };
+
+export type { IComment };

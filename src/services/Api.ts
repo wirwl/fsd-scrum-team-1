@@ -76,7 +76,13 @@ class Api {
   async searchRoom(id: string): Promise<IRoom> {
     const roomDoc = await this.rooms.doc(id).get();
 
-    if (roomDoc.exists) return roomDoc.data() as IRoom;
+    if (roomDoc.exists) {
+      return {
+        id,
+        ...roomDoc.data(),
+      } as IRoom;
+    }
+
     throw (new Error("Couldn't find room."));
   }
 

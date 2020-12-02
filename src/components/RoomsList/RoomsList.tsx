@@ -1,21 +1,23 @@
 import React, { FC, MouseEvent } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { block } from 'bem-cn';
+import { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import { IRootState } from 'src/redux/reducer';
 import { IRoom } from 'src/services/dto/Rooms';
-import RoomCard, { IRoomCardProps } from 'src/components/RoomCard/RoomCard';
+import RoomCard, { IRoomCardInfo } from 'src/components/RoomCard/RoomCard';
 import Button from 'src/components/Button/Button';
 import Spinner from 'src/components/Spinner/Spinner';
 import './RoomsList.scss';
 
 const b = block('rooms');
 
-interface IRoomsListProps {
+interface IRoomsListProps extends WithTranslation {
   onShowMoreButtonClick: (id: number) => void;
 }
 
-const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
+const convertDataForRoomCard = (inputData: IRoom): IRoomCardInfo => {
   const {
     picsPreview,
     comments,
@@ -43,9 +45,10 @@ const convertDataForRoomCard = (inputData: IRoom): IRoomCardProps => {
   return roomCardData;
 };
 
-const RoomsList: FC<IRoomsListProps> = (props) => {
-  const { onShowMoreButtonClick } = props;
-
+const RoomsList: FC<IRoomsListProps> = ({
+  onShowMoreButtonClick,
+  t,
+}) => {
   const { isFetching, items: rooms, error } = useSelector(
     (state: IRootState) => state.rooms,
     shallowEqual,
@@ -63,6 +66,8 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
 
   const isFailLoad = error && !isFetching;
   const isEmpty = rooms.length === 0;
+  const isLoadMoreShow = !isEmpty && rooms.length === 12;
+  const isShowEmptyMessage = isEmpty && !isFetching;
 
   const handleClick = (evt: MouseEvent): void => {
     evt.preventDefault();
@@ -71,13 +76,10 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
   };
 
   const getCorrectElement = (): JSX.Element => {
-    if (isFetching) return <div className={b('spinner')}><Spinner /></div>;
-
-    if (isEmpty) {
+    if (isShowEmptyMessage) {
       return (
         <div>
-          К сожалению, у нас нет номеров, которые соответствовали бы всем вашим критериям.
-          Постарайтесь изменить фильтры.
+          {t('rooms:noRoomsMessage')}
         </div>
       );
     }
@@ -89,15 +91,20 @@ const RoomsList: FC<IRoomsListProps> = (props) => {
 
   return (
     <section className={b()}>
-      <h2 className={b('title')}>Номера, которые мы для вас подобрали</h2>
+      <h2 className={b('title')}>{t('rooms:title')}</h2>
       {getCorrectElement()}
-      {!isEmpty && (
+      {isFetching ? <div className={b('spinner')}><Spinner /></div> : ''}
+      {isLoadMoreShow && (
         <div className={b('show-more')}>
-          <Button theme="default" caption="Показать еще" handleClick={handleClick} />
+          <Button
+            theme="default"
+            caption={t('rooms:showMore')}
+            handleClick={handleClick}
+          />
         </div>
       )}
     </section>
   );
 };
 
-export default RoomsList;
+export default i18n.withTranslation(['common', 'rooms'])(RoomsList);
