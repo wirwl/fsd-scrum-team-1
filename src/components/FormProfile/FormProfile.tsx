@@ -212,7 +212,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       lastname: values.lastname.value,
       birthday: values.birthday.value,
       email: values.email.value,
-      isGetSpecialOffers: values.getSpecialOffers,
+      getSpecialOffers: values.getSpecialOffers,
     };
 
     return isEqual(initValues, newValues);
