@@ -1,11 +1,8 @@
 import { FC } from 'react';
 import { block } from 'bem-cn';
-<<<<<<< HEAD
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
-=======
 import type { WithTranslation } from 'next-i18next';
->>>>>>> master
 
 import i18n from 'src/services/i18n';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
@@ -18,7 +15,6 @@ import './Register.scss';
 
 const b = block('registration');
 
-<<<<<<< HEAD
 const Register: FC = () => {
   const dispatch = useDispatch();
   const { isRequesting, error, user } = useSelector((state: IRootState) => state.user);
@@ -52,17 +48,6 @@ const Register: FC = () => {
     </MainLayout>
   );
 };
-=======
-const Register: FC<WithTranslation> = ({ t }) => (
-  <MainLayout title={t('titles.register')}>
-    <section className={b()}>
-      <div className={b('form')}>
-        <RegistrationForm onSubmit={() => {}} />
-      </div>
-    </section>
-  </MainLayout>
-);
->>>>>>> master
 
 export default i18n.withTranslation('common')(
   Register,
