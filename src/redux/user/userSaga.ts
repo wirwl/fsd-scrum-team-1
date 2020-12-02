@@ -1,10 +1,17 @@
 import { SagaIterator } from 'redux-saga';
-import { takeLatest, put } from 'redux-saga/effects';
+import {
+  takeLatest,
+  put,
+  select,
+} from 'redux-saga/effects';
 import cookie from 'js-cookie';
 
 import Api, { getAuthError } from 'src/services/Api';
 import {
-  SIGN_IN, SIGN_IN_FIREBASE_SUCCESS, SIGN_OUT,
+  SIGN_IN,
+  SIGN_IN_FIREBASE_SUCCESS,
+  SIGN_OUT,
+  UPDATE_USER,
 } from 'src/redux/user/userTypes';
 import {
   signIn,
@@ -13,7 +20,12 @@ import {
   signInFirebaseSuccess,
   signInSuccess,
   signOutSuccess,
+  updateUser,
+  updateUserFail,
+  updateUserRequesting,
+  updateUserSuccess,
 } from 'src/redux/user/userActions';
+import { IRootState } from '../reducer';
 
 const TOKEN_NAME = 'firebaseToken';
 const TOKEN_EXPIRES = 14;
@@ -69,10 +81,35 @@ function* signOutSaga(): SagaIterator | void {
   yield put(signOutSuccess());
 }
 
+const uidSelector = (store: IRootState): string | undefined => store.user.user?.uid;
+
+function* updateUserSaga(
+  { payload }: ReturnType<typeof updateUser>,
+): SagaIterator | void {
+  const uid = yield select(uidSelector);
+
+  yield put(updateUserRequesting());
+
+  if (uid === undefined) {
+    yield put(updateUserFail('Вы не авторизованы'));
+    return;
+  }
+
+  const updateResult = yield api.updateUser(uid, payload);
+
+  if (updateResult === null) {
+    yield put(updateUserSuccess(payload));
+    return;
+  }
+
+  yield put(updateUserFail(updateResult));
+}
+
 function* watchUserSaga(): SagaIterator {
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
   yield takeLatest(SIGN_OUT, signOutSaga);
+  yield takeLatest(UPDATE_USER, updateUserSaga);
 }
 
 export default watchUserSaga;
