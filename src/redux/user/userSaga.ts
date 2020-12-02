@@ -98,10 +98,10 @@ function* registrationSaga(action: RegistrationAction): SagaIterator | void {
 }
 
 function* watchUserSaga(): SagaIterator {
+  yield takeLatest(REGISTRATION, registrationSaga);
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
   yield takeLatest(SIGN_OUT, signOutSaga);
-  yield takeLatest(REGISTRATION, registrationSaga);
 }
 
 export default watchUserSaga;
