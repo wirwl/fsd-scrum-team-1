@@ -2,9 +2,10 @@ import {
   FC, FormEvent, useEffect, useState,
 } from 'react';
 import { isEqual } from 'lodash';
-
 import block from 'bem-cn';
+import type { WithTranslation, TFunction } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import type { IUser } from 'src/services/dto/User';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
@@ -14,20 +15,14 @@ import './FormProfile.scss';
 
 const b = block('form-profile');
 
-interface IFormProfileProps {
+interface IFormProfileProps extends WithTranslation {
   user: IUser;
   onSubmit: (data: IUserInfo) => void;
 }
 
 type IInputNames = 'name' | 'lastname' | 'birthday' | 'email';
 
-type IUserInfo = {
-  name: string,
-  lastname: string,
-  birthday: number,
-  email: string,
-  getSpecialOffers: boolean;
-};
+type IUserInfo = Partial<Omit<IUser, 'uid' | 'sex'>>;
 
 type IErrorsState = Record<IInputNames, string>;
 
@@ -51,21 +46,19 @@ type IRegistrationFormState = {
   getSpecialOffers: boolean;
 };
 
-const emptyErrorMessage = 'Это поле обязательно. Заполните его пожалуйста';
-
-const validateEmpty = (value: string | number): string => {
+const validateEmpty = (value: string | number, t: TFunction): string => {
   const val = value.toString();
 
-  return val.length === 0 ? emptyErrorMessage : '';
+  return val.length === 0 ? t('forms:errors.required') : '';
 };
 
-const validateBirthday = (value: string | number): string => {
+const validateBirthday = (value: string | number, t: TFunction): string => {
   const date = value.toString();
-  const errorEmpty = validateEmpty(date);
+  const errorEmpty = validateEmpty(date, t);
   let errorMessage = errorEmpty;
 
   if (date.length < 10 && date.length > 0) {
-    errorMessage = 'Введите полную дату. Например, 12.11.2020';
+    errorMessage = t('forms:errors.enterFullDate');
   }
 
   if (date.length === 10) {
@@ -75,7 +68,7 @@ const validateBirthday = (value: string | number): string => {
     const isValidDate = tmpDate.getDate() === day
       && tmpDate.getMonth() + 1 === month && tmpDate.getFullYear() === year;
 
-    errorMessage = !isValidDate ? 'Введите существующую дату.' : '';
+    errorMessage = !isValidDate ? t('forms:errors.enterExistDate') : '';
   }
 
   return errorMessage;
@@ -107,30 +100,41 @@ const convertUTC = (date: string): number => {
   return Date.UTC(y, m, d);
 };
 
+const initUser = ({
+  name,
+  lastname,
+  birthday,
+  email,
+  getSpecialOffers,
+}: IUser): IRegistrationFormState => ({
+  name: {
+    value: name,
+    isValid: true,
+  },
+  lastname: {
+    value: lastname,
+    isValid: true,
+  },
+  birthday: {
+    value: convertDate(birthday),
+    isValid: true,
+  },
+  email: {
+    value: email,
+    isValid: true,
+  },
+  getSpecialOffers,
+});
+
 const FormProfile: FC<IFormProfileProps> = ({
-  user: {
-    name, lastname, birthday, email, getSpecialOffers,
-  }, onSubmit,
+  user,
+  onSubmit,
+  t,
 }) => {
-  const [values, setValues] = useState<(IRegistrationFormState)>({
-    name: {
-      value: name,
-      isValid: true,
-    },
-    lastname: {
-      value: lastname,
-      isValid: true,
-    },
-    birthday: {
-      value: convertDate(birthday),
-      isValid: true,
-    },
-    email: {
-      value: email,
-      isValid: true,
-    },
-    getSpecialOffers,
-  });
+  const {
+    name, lastname, birthday, email, getSpecialOffers,
+  } = user;
+  const [values, setValues] = useState<IRegistrationFormState>(() => initUser(user));
 
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
@@ -163,6 +167,17 @@ const FormProfile: FC<IFormProfileProps> = ({
     email: '',
     isGetSpecialOffers: false,
   });
+
+  useEffect(() => {
+    setValues(initUser(user));
+    setFieldsChanged({
+      name: '',
+      lastname: '',
+      birthday: '',
+      email: '',
+      isGetSpecialOffers: false,
+    });
+  }, [user]);
 
   const changeColorField = (inputInfo: { title: string, isFieldChanged: boolean}): void => {
     if (inputInfo.isFieldChanged) {
@@ -233,7 +248,7 @@ const FormProfile: FC<IFormProfileProps> = ({
         if (value.length === 0 && !isValid) {
           setErrors((prevState) => ({
             ...prevState,
-            [title]: emptyErrorMessage,
+            [title]: t('forms:errors.required'),
           }));
         }
       }
@@ -304,7 +319,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       <div className={b(`field ${fieldsChanged.name}`)}>
         <Input
           name="name"
-          placeholder="Имя"
+          placeholder={t('name')}
           validate={validateEmpty}
           onChange={handleInputChange}
           onBlur={handleBlur}
@@ -315,7 +330,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       <div className={b(`field ${fieldsChanged.lastname}`)}>
         <Input
           name="lastname"
-          placeholder="Фамилия"
+          placeholder={t('lastname')}
           validate={validateEmpty}
           onChange={handleInputChange}
           onBlur={handleBlur}
@@ -327,7 +342,7 @@ const FormProfile: FC<IFormProfileProps> = ({
         <Input
           name="birthday"
           validate={validateBirthday}
-          placeholder="ДД.ММ.ГГГГ"
+          placeholder={t('dateMaskPlaceholder')}
           mask="99.99.9999"
           onChange={handleInputChange}
           onBlur={handleBlur}
@@ -349,7 +364,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       </div>
       <div className={b(`field ${fieldsChanged.isGetSpecialOffers}`)}>
         <ToggleButton
-          label="Получать спецпредложения"
+          label={t('getSpecial')}
           name="specialOffers"
           checked={isGetSpecialOffersValue}
           onChange={handleChangeToggleButton}
@@ -360,7 +375,7 @@ const FormProfile: FC<IFormProfileProps> = ({
           <Button
             type="submit"
             theme="white"
-            caption="Применить"
+            caption={t('apply')}
           />
         </div>
       )}
@@ -368,4 +383,10 @@ const FormProfile: FC<IFormProfileProps> = ({
   );
 };
 
-export default FormProfile;
+export default i18n.withTranslation(['common', 'forms'])(
+  FormProfile,
+);
+
+export type {
+  IUserInfo,
+};
