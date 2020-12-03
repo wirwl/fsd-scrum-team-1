@@ -31,13 +31,19 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
   const { isFetching, item: room } = useSelector(
     (state: IRootState) => state.roomDetails,
   );
+  const { user } = useSelector(
+    (state: IRootState) => state.user,
+  );
 
-  const handleSubmit = (range: RangeDays, dropdownItems: IDropListItem[]): void => {
-    dispatch(bookingRoom({
-      dateStart: range.start,
-      dateEnd: range.end,
-      
-    }));
+  const handleSubmit = (range: RangeDays): void => {
+    if (user && room) {
+      dispatch(bookingRoom({
+        dateStart: range.start ? range.start.getTime() : 0,
+        dateEnd: range.end ? range.end.getTime() : 0,
+        roomId: room.id,
+        uid: user.uid,
+      }));
+    }
   };
 
   const pageContent = isFetching || room === null
