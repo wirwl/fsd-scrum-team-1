@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { block } from 'bem-cn';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
@@ -23,15 +23,18 @@ const Register: FC = () => {
   };
 
   if (!isRequesting) {
-    if (user !== null) Router.push('/');
     if (error) console.error(error);
   }
+
+  useEffect(() => {
+    if (!isRequesting && user !== null) Router.push('/');
+  }, [isRequesting, user]);
 
   return (
     <MainLayout title="Register">
       <section className={b()}>
         <div className={b('form')}>
-          <RegistrationForm onSubmit={handleSubmit} />
+          <RegistrationForm onSubmit={handleSubmit} registrationError={error || ''} />
         </div>
       </section>
       {

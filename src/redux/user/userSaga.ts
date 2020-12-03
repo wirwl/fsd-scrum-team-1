@@ -92,23 +92,23 @@ function* signOutSaga(): SagaIterator | void {
 
 function* registrationSaga(action: RegistrationAction): SagaIterator | void {
   try {
-    const info = action.payload;
-    const { user } = yield api.registration({ ...info });
+    const userInfo = action.payload;
+    const { user } = yield api.registration({ ...userInfo });
 
     const [day, month, year] = action.payload.birthday.split('.').map((el) => parseInt(el, 10));
     const birthday = new Date(year, month - 1, day).getTime();
 
-    const userInfo = yield api.createUser({
+    const newUser = yield api.createUser({
       birthday,
       uid: user.uid,
-      getSpecialOffers: info.isGetSpecialOffers,
-      email: info.email,
-      lastname: info.surname,
-      name: info.name,
-      sex: info.gender as 'man' | 'woman',
+      getSpecialOffers: userInfo.isGetSpecialOffers,
+      email: userInfo.email,
+      lastname: userInfo.surname,
+      name: userInfo.name,
+      sex: userInfo.gender as 'man' | 'woman',
     });
 
-    yield put(registrationSuccess(userInfo));
+    yield put(registrationSuccess(newUser));
   } catch (error) {
     yield put(registrationFail(String(error)));
   }

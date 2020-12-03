@@ -14,6 +14,7 @@ import './RegistrationForm.scss';
 
 interface IRegistrationFormProps extends WithTranslation {
   onSubmit: (data: IUserInfo) => void;
+  registrationError?: string;
 }
 
 type IInputNames = 'name' | 'surname' | 'birthday' | 'email' | 'password';
@@ -124,7 +125,7 @@ const isFormValid = (values: IRegistrationFormState): boolean => (
   })
 );
 
-const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t }) => {
+const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t, registrationError }) => {
   const [values, setValues] = useState<IRegistrationFormState>(initialState);
   const [errors, setErrors] = useState<IErrorsState>({
     name: '',
@@ -317,6 +318,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({ onSubmit, t }) => {
           caption={t('register')}
         />
       </div>
+      { registrationError && <p className={b('registration-error')}>{registrationError}</p> }
       <div className={b('footer')}>
         <p className={b('have-account')}>
           {t('forms:register.alreadyHaveAccountQuestion')}
