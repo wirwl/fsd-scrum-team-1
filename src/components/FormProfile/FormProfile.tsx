@@ -150,7 +150,7 @@ const FormProfile: FC<IFormProfileProps> = ({
     lastname: { value: lastnameValue },
     birthday: { value: birthdayValue },
     email: { value: emailValue },
-    getSpecialOffers: isGetSpecialOffersValue,
+    getSpecialOffers: getSpecialOffersValue,
   } = values;
 
   const {
@@ -165,7 +165,7 @@ const FormProfile: FC<IFormProfileProps> = ({
     lastname: '',
     birthday: '',
     email: '',
-    isGetSpecialOffers: false,
+    getSpecialOffers: '',
   });
 
   useEffect(() => {
@@ -175,7 +175,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       lastname: '',
       birthday: '',
       email: '',
-      isGetSpecialOffers: false,
+      getSpecialOffers: '',
     });
   }, [user]);
 
@@ -263,7 +263,7 @@ const FormProfile: FC<IFormProfileProps> = ({
       lastname: lastnameValue,
       birthday: convertUTC(birthdayValue),
       email: emailValue,
-      getSpecialOffers: isGetSpecialOffersValue,
+      getSpecialOffers: getSpecialOffersValue,
     };
 
     isFormValid(values) ? onSubmit(formValues) : setEmptyErrors();
@@ -297,7 +297,7 @@ const FormProfile: FC<IFormProfileProps> = ({
   };
 
   const handleChangeToggleButton = (checked: boolean): void => {
-    const changedField = isInputChanged('isGetSpecialOffers', checked);
+    const changedField = isInputChanged('getSpecialOffers', checked);
     changeColorField(changedField);
 
     setValues((prevState) => ({
@@ -362,11 +362,11 @@ const FormProfile: FC<IFormProfileProps> = ({
           errorMessage={emailError}
         />
       </div>
-      <div className={b(`field ${fieldsChanged.isGetSpecialOffers}`)}>
+      <div className={b(`field ${fieldsChanged.getSpecialOffers}`)}>
         <ToggleButton
           label={t('getSpecial')}
           name="specialOffers"
-          checked={isGetSpecialOffersValue}
+          checked={getSpecialOffersValue}
           onChange={handleChangeToggleButton}
         />
       </div>
