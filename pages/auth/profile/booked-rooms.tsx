@@ -3,7 +3,9 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import { block } from 'bem-cn';
+import type { WithTranslation } from 'next-i18next';
 
+import i18n from 'src/services/i18n';
 import wrapper, { ISagaStore } from 'src/redux/store';
 import { fetchBookedRooms } from 'src/redux/bookedRooms/actions';
 import { IRootState } from 'src/redux/reducer';
@@ -15,7 +17,7 @@ import './BookedRooms.scss';
 
 const b = block('booked-rooms');
 
-const BookedRooms: FC = () => {
+const BookedRooms: FC<WithTranslation> = ({ t }) => {
   const dispatch = useDispatch();
   const { user, isRequesting } = useSelector((store: IRootState) => store.user);
   const router = useRouter();
@@ -31,7 +33,7 @@ const BookedRooms: FC = () => {
   }, []);
 
   return (
-    <ProfileLayout title="Забронированные номера">
+    <ProfileLayout title={t('bookedRooms')}>
       <div className={b()}>
         <BookedRoomsList />
       </div>
@@ -47,4 +49,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   },
 );
 
-export default BookedRooms;
+export default i18n.withTranslation('common')(
+  BookedRooms,
+);
