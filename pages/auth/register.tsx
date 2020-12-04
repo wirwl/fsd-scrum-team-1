@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { block } from 'bem-cn';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
+import type { WithTranslation } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
 import MainLayout from 'src/layouts/MainLayout/MainLayout';
@@ -14,7 +15,7 @@ import './Register.scss';
 
 const b = block('registration');
 
-const Register: FC = () => {
+const Register: FC<WithTranslation> = ({ t }) => {
   const dispatch = useDispatch();
   const { isRequesting, error, user } = useSelector((state: IRootState) => state.user);
 
@@ -31,7 +32,7 @@ const Register: FC = () => {
   }, [isRequesting, user]);
 
   return (
-    <MainLayout title="Register">
+    <MainLayout title={t('titles.register')}>
       <section className={b()}>
         <div className={b('form')}>
           <RegistrationForm onSubmit={handleSubmit} registrationError={error || ''} />

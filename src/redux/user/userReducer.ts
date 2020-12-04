@@ -66,6 +66,7 @@ export const userReducer = (
       };
     case REGISTRATION:
       return {
+        ...state,
         user: null,
         isRequesting: false,
         error: null,
@@ -73,6 +74,7 @@ export const userReducer = (
       };
     case REGISTRATION_SUCCESS:
       return {
+        ...state,
         user: action.payload,
         isRequesting: false,
         error: null,
@@ -80,6 +82,7 @@ export const userReducer = (
       };
     case REGISTRATION_FAIL:
       return {
+        ...state,
         user: null,
         isRequesting: false,
         error: action.payload,
