@@ -15,6 +15,12 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_OUT,
   SIGN_OUT_SUCCESS,
+  REGISTRATION,
+  RegistrationAction,
+  RegistrationSuccessAction,
+  REGISTRATION_SUCCESS,
+  RegistrationFailAction,
+  REGISTRATION_FAIL,
   UPDATE_USER,
   UPDATE_USER_FAIL,
   UPDATE_USER_SUCCESS,
@@ -29,6 +35,7 @@ import type {
   IUserCredentials,
   IUser,
 } from 'src/redux/user/userReducer';
+import { IUserInfo } from '@/components/RegistrationForm/RegistrationForm';
 
 export const signIn = (
   params: IUserCredentials,
@@ -68,6 +75,21 @@ export const signOut = (): ISignOutAction => ({
 
 export const signOutSuccess = (): ISignOutSuccessAction => ({
   type: SIGN_OUT_SUCCESS,
+});
+
+export const registration = (info: IUserInfo): RegistrationAction => ({
+  type: REGISTRATION,
+  payload: info,
+});
+
+export const registrationSuccess = (user: IUser): RegistrationSuccessAction => ({
+  type: REGISTRATION_SUCCESS,
+  payload: user,
+});
+
+export const registrationFail = (error: string): RegistrationFailAction => ({
+  type: REGISTRATION_FAIL,
+  payload: error,
 });
 
 export const updateUser = (newUserData: Partial<Omit<IUser, 'uid' | 'sex'>>): IUpdateUserAction => ({

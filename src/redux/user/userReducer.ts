@@ -4,6 +4,9 @@ import {
   SIGN_IN_FAIL,
   SIGN_IN_SUCCESS,
   SIGN_OUT_SUCCESS,
+  REGISTRATION,
+  REGISTRATION_SUCCESS,
+  REGISTRATION_FAIL,
   UPDATE_USER_REQUESTING,
   UPDATE_USER_FAIL,
   UPDATE_USER_SUCCESS,
@@ -14,6 +17,7 @@ type IUserState = {
   user: IUser | null;
   isRequesting: boolean;
   error: string | null;
+  isRegistration: boolean;
 };
 
 type IUserCredentials = {
@@ -24,6 +28,7 @@ type IUserCredentials = {
 const initialState = {
   user: null,
   isRequesting: false,
+  isRegistration: false,
   error: null,
 };
 
@@ -58,6 +63,30 @@ export const userReducer = (
         user: null,
         isRequesting: false,
         error: null,
+      };
+    case REGISTRATION:
+      return {
+        ...state,
+        user: null,
+        isRequesting: false,
+        error: null,
+        isRegistration: true,
+      };
+    case REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        isRequesting: false,
+        error: null,
+        isRegistration: false,
+      };
+    case REGISTRATION_FAIL:
+      return {
+        ...state,
+        user: null,
+        isRequesting: false,
+        error: action.payload,
+        isRegistration: false,
       };
     case UPDATE_USER_REQUESTING:
       return {

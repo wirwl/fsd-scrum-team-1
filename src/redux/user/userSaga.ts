@@ -8,9 +8,11 @@ import cookie from 'js-cookie';
 
 import Api, { getAuthError } from 'src/services/Api';
 import {
+  REGISTRATION,
+  RegistrationAction,
   SIGN_IN,
-  SIGN_IN_FIREBASE_SUCCESS,
   SIGN_OUT,
+  SIGN_IN_FIREBASE_SUCCESS,
   UPDATE_USER,
 } from 'src/redux/user/userTypes';
 import {
@@ -20,6 +22,8 @@ import {
   signInFirebaseSuccess,
   signInSuccess,
   signOutSuccess,
+  registrationFail,
+  registrationSuccess,
   updateUser,
   updateUserFail,
   updateUserRequesting,
@@ -56,9 +60,14 @@ function* signInSaga(
   }
 }
 
+const selectLoadingStatus = (store: IRootState): boolean => store.user.isRegistration;
+
 function* signInFirebaseSuccessSaga(
   { payload }: ReturnType<typeof signInFirebaseSuccess>,
 ): SagaIterator | void {
+  const isRegistration = yield select(selectLoadingStatus);
+  if (isRegistration) return;
+
   const firebaseUser = payload;
   const { uid } = firebaseUser;
 
@@ -81,11 +90,34 @@ function* signOutSaga(): SagaIterator | void {
   yield put(signOutSuccess());
 }
 
-const uidSelector = (store: IRootState): string | undefined => store.user.user?.uid;
+function* registrationSaga(action: RegistrationAction): SagaIterator | void {
+  try {
+    const userInfo = action.payload;
+    const { user } = yield api.registration({ ...userInfo });
+
+    const [day, month, year] = action.payload.birthday.split('.').map((el) => parseInt(el, 10));
+    const birthday = new Date(year, month - 1, day).getTime();
+
+    const newUser = yield api.createUser({
+      birthday,
+      uid: user.uid,
+      getSpecialOffers: userInfo.isGetSpecialOffers,
+      email: userInfo.email,
+      lastname: userInfo.surname,
+      name: userInfo.name,
+      sex: userInfo.gender as 'man' | 'woman',
+    });
+
+    yield put(registrationSuccess(newUser));
+  } catch (error) {
+    yield put(registrationFail(String(error)));
+  }
+}
 
 function* updateUserSaga(
   { payload }: ReturnType<typeof updateUser>,
 ): SagaIterator | void {
+  const uidSelector = (store: IRootState): string | undefined => store.user.user?.uid;
   const uid = yield select(uidSelector);
 
   yield put(updateUserRequesting());
@@ -106,10 +138,11 @@ function* updateUserSaga(
 }
 
 function* watchUserSaga(): SagaIterator {
+  yield takeLatest(REGISTRATION, registrationSaga);
+  yield takeLatest(UPDATE_USER, updateUserSaga);
   yield takeLatest(SIGN_IN, signInSaga);
   yield takeLatest(SIGN_IN_FIREBASE_SUCCESS, signInFirebaseSuccessSaga);
   yield takeLatest(SIGN_OUT, signOutSaga);
-  yield takeLatest(UPDATE_USER, updateUserSaga);
 }
 
 export default watchUserSaga;
