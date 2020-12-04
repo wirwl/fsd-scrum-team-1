@@ -68,7 +68,7 @@ const validateBirthday = (value: string | number, t: TFunction): string => {
     const isValidDate = tmpDate.getDate() === day
       && tmpDate.getMonth() + 1 === month && tmpDate.getFullYear() === year;
 
-    errorMessage = !isValidDate ? t('forms:errors.enterExistDate') : '';
+    errorMessage = !isValidDate ? t('forms:errors.enterExitsDate') : '';
   }
 
   return errorMessage;
