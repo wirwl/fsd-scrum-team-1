@@ -17,6 +17,7 @@ interface IFormRoomDetailsProps extends WithTranslation {
   serviceCharge: number,
   discount: number,
   additionalServiceCharge: number,
+  errorBooking?: string,
 }
 
 const b = block('form-room-details');
@@ -77,6 +78,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
     serviceCharge,
     discount,
     additionalServiceCharge,
+    errorBooking,
     t,
   } = props;
 
@@ -224,6 +226,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
           <span className={b('total-number')}>{`${formateString(totalPrice - discount)}₽`}</span>
         </div>
         { validateErrorMessage && <p className={b('row-with-error')}>{validateErrorMessage}</p> }
+        { errorBooking && <p className={b('row-with-error')}>{errorBooking}</p> }
         <div>
           <Button
             type="submit"

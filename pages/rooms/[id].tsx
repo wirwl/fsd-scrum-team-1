@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { block } from 'bem-cn';
 import type { WithTranslation } from 'next-i18next';
 
@@ -19,24 +19,54 @@ import FormRoomDetails from '@/components/FormRoomDetails/FormRoomDetails';
 
 import './roomDetails.scss';
 import { END } from 'redux-saga';
+import { bookingRoom } from '@/redux/bookedRooms/actions';
+import { RangeDays } from '@/components/Calendar/Calendar';
+import Router from 'next/router';
 
 type IRoomDetailsProps = { id: string | string[] | undefined } & WithTranslation;
 
 const b = block('room-details');
 
+const spinner = (
+  <div className={b('spinner-container')}>
+    <div className={b('spinner')}>
+      <Spinner />
+    </div>
+  </div>
+);
+
 const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
+  const dispatch = useDispatch();
   const { isFetching, item: room } = useSelector(
     (state: IRootState) => state.roomDetails,
   );
+  const { user } = useSelector(
+    (state: IRootState) => state.user,
+  );
+  const { isBookingRoomInProgress, bookingRoomError } = useSelector(
+    (state: IRootState) => state.bookedRooms,
+  );
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (isBookingRoomInProgress) {
+      return ((): void => { if (!bookingRoomError) Router.push('/auth/profile/booked-rooms'); });
+    }
+  }, [isBookingRoomInProgress]);
+
+  const handleSubmit = (range: RangeDays): void => {
+    if (user && room) {
+      dispatch(bookingRoom({
+        dateStart: range.start ? range.start.getTime() : 0,
+        dateEnd: range.end ? range.end.getTime() : 0,
+        roomId: room.id,
+        uid: user.uid,
+      }));
+    }
+  };
 
   const pageContent = isFetching || room === null
-    ? (
-      <div className={b('spinner')}>
-        <div className={b('spinner-container')}>
-          <Spinner />
-        </div>
-      </div>
-    )
+    ? spinner
     : (
       <div className={b()}>
         <section className={b('gallery')}>
@@ -95,9 +125,12 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
               discount={room.discount}
               serviceCharge={room.feeForService}
               additionalServiceCharge={room.feeForAdditionalService}
+              onSubmit={handleSubmit}
+              errorBooking={bookingRoomError}
             />
           </div>
         </div>
+        { isBookingRoomInProgress && spinner }
       </div>
     );
 
