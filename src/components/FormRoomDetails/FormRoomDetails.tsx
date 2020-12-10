@@ -8,6 +8,7 @@ import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import './FormRoomDetails.scss';
+import applyActualCurrencyToValue from '@/services/currencies';
 
 interface IFormRoomDetailsProps extends WithTranslation {
   onSubmit?: (range: RangeDays, dropdownItems: IDropListItem[]) => void;
@@ -80,6 +81,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
     additionalServiceCharge,
     errorBooking,
     t,
+    i18n: langs,
   } = props;
 
   const dropdownItemsGuests = getDropdownItemsGuests(t);
@@ -155,7 +157,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
           </p>
           <p className={b('price')}>
             <span className={b('price-number')}>
-              {`${formateString(price)}₽`}
+              {`${formateString(applyActualCurrencyToValue(price, langs.language))}${t('currencySign')}`}
             </span>
             &nbsp;
             {t('perDay')}
@@ -190,21 +192,21 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
         </div>
         <div className={b('row')}>
           <div className={b('row-text')}>
-            {`${formateString(price)}₽ x ${getDays(dateRange)} ${t('forms:bookingForm.day')}`}
+            {`${formateString(applyActualCurrencyToValue(price, langs.language))}${t('currencySign')} x ${getDays(dateRange)} ${t('forms:bookingForm.day')}`}
           </div>
           <div className={b('row-value')}>
-            {`${formateString(price * getDays(dateRange))}₽`}
+            {`${formateString(applyActualCurrencyToValue(price, langs.language) * getDays(dateRange))}${t('currencySign')}`}
           </div>
         </div>
         <div className={b('row')}>
           <div className={b('row-text')}>
-            {`${t('forms:bookingForm.feeServiceDiscount')} ${formateString(discount)}₽`}
+            {`${t('forms:bookingForm.feeServiceDiscount')} ${formateString(applyActualCurrencyToValue(discount, langs.language))}${t('currencySign')}`}
           </div>
           <div className={b('tooltip-wrapper')}>
             {toolTip('Скидка 20%')}
           </div>
           <div className={b('row-value')}>
-            {`${formateString(serviceCharge - discount)}₽`}
+            {`${formateString(applyActualCurrencyToValue(serviceCharge - discount, langs.language))}${t('currencySign')}`}
           </div>
         </div>
         <div className={b('row', { last: true })}>
@@ -215,7 +217,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
             {toolTip('Виды дополнительных услуг: уборка, массаж пяток')}
           </div>
           <div className={b('row-value')}>
-            {`${additionalServiceCharge}₽`}
+            {`${applyActualCurrencyToValue(additionalServiceCharge, langs.language)}${t('currencySign')}`}
           </div>
         </div>
         <div className={b('total-price')}>
@@ -223,7 +225,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
             {t('forms:bookingForm.subtotal')}
           </span>
           <span className={b('total-price-dots')} />
-          <span className={b('total-number')}>{`${formateString(totalPrice - discount)}₽`}</span>
+          <span className={b('total-number')}>{`${formateString(applyActualCurrencyToValue(totalPrice - discount, langs.language))}${t('currencySign')}`}</span>
         </div>
         { validateErrorMessage && <p className={b('row-with-error')}>{validateErrorMessage}</p> }
         { errorBooking && <p className={b('row-with-error')}>{errorBooking}</p> }

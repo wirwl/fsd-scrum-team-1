@@ -4,6 +4,7 @@ import { block } from 'bem-cn';
 import { WithTranslation } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
+import applyActualCurrencyToValue from '../../services/currencies';
 import RateButtons from '../RateButton/RateButton';
 
 import './RoomCard.scss';
@@ -45,6 +46,7 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
       isLuxury,
     },
     t,
+    i18n: langs,
   } = props;
 
   const [imageIndex, setImageIndex] = useState(0);
@@ -117,7 +119,7 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
           </Link>
           <p className={b('price')}>
             <span className={b('price-number')}>
-              {`${(price).toLocaleString()}₽`}
+              {`${(applyActualCurrencyToValue(price, langs.language)).toLocaleString()}${t('currencySign')}`}
             </span>
             &nbsp;
             {t('perDay')}

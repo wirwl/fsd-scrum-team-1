@@ -3,12 +3,15 @@ import { block } from 'bem-cn';
 import ReactSlider from 'react-slider';
 
 import './Slider.scss';
+import { WithTranslation } from 'next-i18next';
+import i18n from '@/services/i18n';
+import applyActualCurrencyToValue from '@/services/currencies';
 
 type ISliderValues = [number, number] | [number];
 type IReactSliderValues = number[] | number | null | undefined;
 type IMinMax = { min: number; max: number };
 
-interface ISliderProps {
+interface ISliderProps extends WithTranslation {
   title?: string;
   description?: string;
   currentValues?: ISliderValues;
@@ -52,6 +55,8 @@ const Slider: FC<ISliderProps> = (props) => {
     max: initialMax = 16000,
     step: initialStep = 1,
     onChange,
+    t,
+    i18n: langs,
   } = props;
 
   const step = Math.abs(initialStep);
@@ -83,11 +88,11 @@ const Slider: FC<ISliderProps> = (props) => {
       <div className={b('header')}>
         <h3 className={b('label')}>{title}</h3>
         <p className={b('price-range')}>
-          <span className={b('min')}>{`${normalizeLocalString(minValue)}₽`}</span>
+          <span className={b('min')}>{`${normalizeLocalString(applyActualCurrencyToValue(minValue, langs.language))}${t('currencySign')}`}</span>
           {typeof maxValue === 'number' && (
             <span className={b('max')}>
               -&nbsp;
-              {`${normalizeLocalString(maxValue)}₽`}
+              {`${normalizeLocalString(applyActualCurrencyToValue(maxValue, langs.language))}${t('currencySign')}`}
             </span>
           )}
         </p>
@@ -107,5 +112,5 @@ const Slider: FC<ISliderProps> = (props) => {
   );
 };
 
-export default Slider;
+export default i18n.withTranslation('common')(Slider);
 export type { ISliderValues };
