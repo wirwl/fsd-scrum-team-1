@@ -22,7 +22,7 @@
   "getSpecial": "Receive special offers",
   "personalInformation": "Personal data",
   "bookedRooms": "Booked rooms",
-  "dateMaskPlaceholder": "DD.MM.YYYY",
+  "dateMaskPlaceholder": "MM/DD/YYYY",
   "titles": {
     "rooms": "Choosing a room",
     "roomDetail": "Room",

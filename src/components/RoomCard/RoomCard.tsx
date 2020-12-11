@@ -4,7 +4,7 @@ import { block } from 'bem-cn';
 import { WithTranslation } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
-import applyActualCurrencyToValue from '../../services/currencies';
+import applyActualCurrencyToValue from '@/services/Currencies';
 import RateButtons from '../RateButton/RateButton';
 
 import './RoomCard.scss';

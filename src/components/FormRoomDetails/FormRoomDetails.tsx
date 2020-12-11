@@ -8,7 +8,7 @@ import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import './FormRoomDetails.scss';
-import applyActualCurrencyToValue from '@/services/currencies';
+import applyActualCurrencyToValue from '@/services/Currencies';
 
 interface IFormRoomDetailsProps extends WithTranslation {
   onSubmit?: (range: RangeDays, dropdownItems: IDropListItem[]) => void;

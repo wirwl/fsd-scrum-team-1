@@ -5,7 +5,7 @@ import ReactSlider from 'react-slider';
 import './Slider.scss';
 import { WithTranslation } from 'next-i18next';
 import i18n from '@/services/i18n';
-import applyActualCurrencyToValue from '@/services/currencies';
+import applyActualCurrencyToValue from '@/services/Currencies';
 
 type ISliderValues = [number, number] | [number];
 type IReactSliderValues = number[] | number | null | undefined;
