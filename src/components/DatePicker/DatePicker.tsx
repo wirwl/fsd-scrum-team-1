@@ -1,12 +1,14 @@
 import { block } from 'bem-cn';
 import { useCallback, useEffect, useState } from 'react';
 
+import { WithTranslation } from 'next-i18next';
+import i18n from '@/services/i18n';
 import type { RangeDays } from 'src/components/Calendar/Calendar';
 import Calendar from 'src/components/Calendar/Calendar';
 import DropdownInput from './components/DropdownInput/DropdownInput';
 import './DatePicker.scss';
 
-interface IDatePickerProps {
+interface IDatePickerProps extends WithTranslation {
   withTwoInputs?: boolean;
   placeholder?: string;
   title?: string;
@@ -34,11 +36,11 @@ enum DROPDOWNS_NAMES {
 
 const b = block('data-picker');
 
-const dateToString = (date: Date): string => ([
-  date.getDate().toString().padStart(2, '0'),
-  (date.getMonth() + 1).toString().padStart(2, '0'),
-  date.getFullYear(),
-].join('.'));
+const dateToString = (date: Date, lang: string): string => (
+  lang === 'en'
+    ? [(date.getMonth() + 1).toString().padStart(2, '0'), date.getDate().toString().padStart(2, '0'), date.getFullYear()].join('/')
+    : [date.getDate().toString().padStart(2, '0'), (date.getMonth() + 1).toString().padStart(2, '0'), date.getFullYear()].join('.')
+);
 
 const DatePicker: React.FC<IDatePickerProps> = (props) => {
   const {
@@ -50,6 +52,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     rangeEnd = null,
     rangeStart = null,
     onChange,
+    i18n: langs,
   } = props;
 
   const [state, setState] = useState<IState>({
@@ -153,12 +156,14 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
   };
 
   const dropdownValue = [
-    state.rangeStart ? dateToString(state.rangeStart) : placeholder,
-    state.rangeEnd ? dateToString(state.rangeEnd) : placeholder,
+    state.rangeStart ? dateToString(state.rangeStart, langs.language) : placeholder,
+    state.rangeEnd ? dateToString(state.rangeEnd, langs.language) : placeholder,
   ].join(' - ');
 
-  const dropdownStartValue = state.rangeStart ? dateToString(state.rangeStart) : placeholder;
-  const dropdownEndValue = state.rangeEnd ? dateToString(state.rangeEnd) : placeholder;
+  const dropdownStartValue = state.rangeStart
+    ? dateToString(state.rangeStart, langs.language) : placeholder;
+  const dropdownEndValue = state.rangeEnd
+    ? dateToString(state.rangeEnd, langs.language) : placeholder;
 
   const dropdowns = withTwoInputs
     ? (
@@ -213,7 +218,7 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
   );
 };
 
-export default DatePicker;
+export default i18n.withTranslation()(DatePicker);
 
 export type {
   IDatePickerProps,
