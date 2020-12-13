@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { block } from 'bem-cn';
-import type { WithTranslation } from 'next-i18next';
+import type { WithTranslation, TFunction } from 'next-i18next';
 
 import i18n from 'src/services/i18n';
 import wrapper, { ISagaStore } from '@/redux/store';
@@ -22,6 +22,7 @@ import { END } from 'redux-saga';
 import { bookingRoom } from '@/redux/bookedRooms/actions';
 import { RangeDays } from '@/components/Calendar/Calendar';
 import Router from 'next/router';
+import { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 
 type IRoomDetailsProps = { id: string | string[] | undefined } & WithTranslation;
 
@@ -34,6 +35,40 @@ const spinner = (
     </div>
   </div>
 );
+
+const getDropdownItemsGuests = (t: TFunction): IDropListItem[] => ([
+  {
+    id: 'adults',
+    label: t('components:guestInputDropdown.guests'),
+    count: 1,
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
+  },
+  {
+    id: 'children',
+    label: t('components:guestInputDropdown.children'),
+    count: 0,
+    plurals: {
+      one: t('components:guestInputDropdown.guestOne'),
+      two: t('components:guestInputDropdown.guestTwo'),
+      few: t('components:guestInputDropdown.guestFew'),
+    },
+  },
+  {
+    id: 'babies',
+    label: t('components:guestInputDropdown.babies'),
+    count: 0,
+    plurals: {
+      one: t('components:guestInputDropdown.babiesOne'),
+      two: t('components:guestInputDropdown.babiesTwo'),
+      few: t('components:guestInputDropdown.babiesFew'),
+    },
+    special: true,
+  },
+]);
 
 const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
   const dispatch = useDispatch();
@@ -127,6 +162,8 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
               additionalServiceCharge={room.feeForAdditionalService}
               onSubmit={handleSubmit}
               errorBooking={bookingRoomError}
+              dates={{ start: new Date('December 13, 2020'), end: new Date('December 15, 2020') }}
+              guests={getDropdownItemsGuests(t)}
             />
           </div>
         </div>

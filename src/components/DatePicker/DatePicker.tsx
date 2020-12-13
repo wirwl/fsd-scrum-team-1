@@ -59,8 +59,8 @@ const DatePicker: React.FC<IDatePickerProps> = (props) => {
     expandedDatePicker: false,
     expandedDropdownStart: false,
     expandedDropdownEnd: false,
-    rangeStart: null,
-    rangeEnd: null,
+    rangeStart,
+    rangeEnd,
     calendarSelectMode: 'auto',
   });
 
