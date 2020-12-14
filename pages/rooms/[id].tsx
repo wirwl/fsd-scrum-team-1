@@ -82,6 +82,12 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
     (state: IRootState) => state.bookedRooms,
   );
 
+  const { residenceTime, guests } = useSelector(
+    (state: IRootState) => state.booking,
+  );
+
+  console.log(residenceTime);
+  console.log(guests);
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (isBookingRoomInProgress) {
@@ -167,7 +173,7 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
             />
           </div>
         </div>
-        { isBookingRoomInProgress && spinner }
+        { isBookingRoomInProgress && spinner}
       </div>
     );
 

@@ -8,6 +8,8 @@ import Button from '@/components/Button/Button';
 import DatePicker from '@/components/DatePicker/DatePicker';
 import InputDropdown, { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import './FormLanding.scss';
+import { useDispatch } from 'react-redux';
+import { setBookingAction } from '@/redux/booking/types';
 
 interface IFormLandingProps extends WithTranslation {
   t: TFunction;
@@ -57,6 +59,17 @@ const FormLanding: React.FC<IFormLandingProps> = ({ onSubmit, t }) => {
     () => getDropdownItemsGuestsConf(t),
   );
   const [validateErrorMessage, setValidateErrorMessage] = useState('');
+
+  const dispatch = useDispatch();
+
+  // console.log(dropdownItemsGuests);
+  // console.log(dateRange);
+  // console.log(dropdownItems);
+
+  dispatch(setBookingAction({
+    residenceTime: dateRange,
+    guests: dropdownItems,
+  }));
 
   const handleSubmit = (ev: React.FormEvent): boolean => {
     ev.preventDefault();
