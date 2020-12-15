@@ -34,6 +34,12 @@ const Index: FC<WithTranslation> = ({ t }) => {
     const tStart = (new Date(_start)).getTime();
     const tEnd = (new Date(_end)).getTime();
 
+    if (typeof window !== 'undefined') {
+      const residenceTime = { start, end };
+      const booking = { residenceTime, guests: persons };
+      localStorage.setItem('reduxState', JSON.stringify(booking));
+    }
+
     const query = {
       dateRange: `${tStart}-${tEnd}`,
       ...convertPersons(persons),

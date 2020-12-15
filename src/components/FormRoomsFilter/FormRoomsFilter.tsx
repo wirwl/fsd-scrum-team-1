@@ -37,6 +37,7 @@ import {
 } from 'src/components/FormRoomsFilter/helpers';
 
 import './FormRoomsFilter.scss';
+import { IBookingStore } from '@/redux/bookedRooms/types';
 
 const b = block('form-rooms-filter');
 
@@ -135,6 +136,20 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({
       ...prevFilters,
       dateRange,
     }));
+
+    if (typeof window !== 'undefined') {
+      const bookingState: IBookingStore = localStorage.getItem('reduxState')
+        ? JSON.parse(localStorage.getItem('reduxState')!)
+        : {};
+      const booking = {
+        residenceTime: {
+          start: new Date(dateRange.start),
+          end: new Date(dateRange.end),
+        },
+        guests: bookingState.guests,
+      };
+      localStorage.setItem('reduxState', JSON.stringify(booking));
+    }
   };
 
   const handleCheckboxRulesChange = (
@@ -182,6 +197,14 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({
       ...prevFilters,
       ...newState,
     }));
+
+    if (typeof window !== 'undefined') {
+      const bookingState: IBookingStore = localStorage.getItem('reduxState')
+        ? JSON.parse(localStorage.getItem('reduxState')!)
+        : {};
+      const newBookingState = { residenceTime: bookingState.residenceTime, guests: values };
+      localStorage.setItem('reduxState', JSON.stringify(newBookingState));
+    }
   };
 
   const handleConvenienceDropdownChange = (values: IDropListItem[]): void => {

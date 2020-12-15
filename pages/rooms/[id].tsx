@@ -23,6 +23,7 @@ import { bookingRoom } from '@/redux/bookedRooms/actions';
 import { RangeDays } from '@/components/Calendar/Calendar';
 import Router from 'next/router';
 import { IDropListItem } from '@/components/InputDropdown/InputDropdown';
+import { IBookingStore } from '@/redux/bookedRooms/types';
 
 type IRoomDetailsProps = { id: string | string[] | undefined } & WithTranslation;
 
@@ -82,12 +83,27 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
     (state: IRootState) => state.bookedRooms,
   );
 
-  const { residenceTime, guests } = useSelector(
-    (state: IRootState) => state.booking,
-  );
+  let bookingState: IBookingStore = {
+    residenceTime: { start: null, end: null },
+    guests: getDropdownItemsGuests(t),
+  };
 
-  console.log(residenceTime);
-  console.log(guests);
+  if (typeof window !== 'undefined') {
+    bookingState = localStorage.getItem('reduxState')
+      ? JSON.parse(localStorage.getItem('reduxState')!)
+      : {};
+  }
+
+  let residenceTime:RangeDays = { start: null, end: null };
+  let guests: IDropListItem[] = getDropdownItemsGuests(t);
+  if (bookingState) {
+    residenceTime = {
+      start: new Date(bookingState.residenceTime.start!),
+      end: new Date(bookingState.residenceTime.end!),
+    };
+    guests = bookingState.guests!;
+  }
+
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (isBookingRoomInProgress) {
@@ -168,8 +184,8 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
               additionalServiceCharge={room.feeForAdditionalService}
               onSubmit={handleSubmit}
               errorBooking={bookingRoomError}
-              dates={{ start: new Date('December 13, 2020'), end: new Date('December 15, 2020') }}
-              guests={getDropdownItemsGuests(t)}
+              dates={residenceTime}
+              guests={guests}
             />
           </div>
         </div>

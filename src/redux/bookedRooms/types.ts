@@ -1,3 +1,5 @@
+import { RangeDays } from '@/components/Calendar/Calendar';
+import { IDropListItem } from '@/components/InputDropdown/InputDropdown';
 import { IBookedRoom } from '@/services/Api';
 
 export const FETCH_BOOKED_ROOMS = '@toxin-booked-rooms/FETCH_BOOKED_ROOMS';
@@ -53,4 +55,9 @@ export interface IBookedRoomsStore {
   fetchRoomsError: string;
   isBookingRoomInProgress: boolean;
   bookingRoomError: string;
+}
+
+export interface IBookingStore {
+  residenceTime: RangeDays,
+  guests: IDropListItem[] | null
 }
