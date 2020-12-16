@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 
 import { IRoom } from '@/services/dto/Rooms';
+import { IBookingStore } from '@/redux/bookedRooms/types';
 import RoomCard, { IRoomCardInfo } from '../RoomCard/RoomCard';
 
 import './BookedRoom.scss';
@@ -65,13 +66,29 @@ const BookedRoom: FC<IBookedRoomProps> = (props) => {
   const bookingDate = `${arrivalDate} - ${dateOfDeparture}`;
   const roomData = convertDataForRoomCard(room);
 
+  const saveResidenceTimeToLocaleStorage = ():void => {
+    if (typeof window !== 'undefined') {
+      const bookingState: IBookingStore = localStorage.getItem('reduxState')
+        ? JSON.parse(localStorage.getItem('reduxState')!)
+        : {};
+      const booking = {
+        residenceTime: {
+          start: new Date(dateStart),
+          end: new Date(dateEnd),
+        },
+        guests: bookingState.guests,
+      };
+      localStorage.setItem('reduxState', JSON.stringify(booking));
+    }
+  };
+
   return (
     <div className={b()}>
       <div className={b('date')}>
         {bookingDate}
       </div>
       <div className={b('room-card')}>
-        <RoomCard info={roomData} />
+        <RoomCard info={roomData} handleOnLinkClick={saveResidenceTimeToLocaleStorage} />
       </div>
     </div>
   );
