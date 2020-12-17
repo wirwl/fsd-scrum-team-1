@@ -27,40 +27,6 @@ const b = block('form-room-details');
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-// const getDropdownItemsGuests = (t: TFunction): IDropListItem[] => ([
-//   {
-//     id: 'adults',
-//     label: t('components:guestInputDropdown.guests'),
-//     count: 0,
-//     plurals: {
-//       one: t('components:guestInputDropdown.guestOne'),
-//       two: t('components:guestInputDropdown.guestTwo'),
-//       few: t('components:guestInputDropdown.guestFew'),
-//     },
-//   },
-//   {
-//     id: 'children',
-//     label: t('components:guestInputDropdown.children'),
-//     count: 0,
-//     plurals: {
-//       one: t('components:guestInputDropdown.guestOne'),
-//       two: t('components:guestInputDropdown.guestTwo'),
-//       few: t('components:guestInputDropdown.guestFew'),
-//     },
-//   },
-//   {
-//     id: 'babies',
-//     label: t('components:guestInputDropdown.babies'),
-//     count: 0,
-//     plurals: {
-//       one: t('components:guestInputDropdown.babiesOne'),
-//       two: t('components:guestInputDropdown.babiesTwo'),
-//       few: t('components:guestInputDropdown.babiesFew'),
-//     },
-//     special: true,
-//   },
-// ]);
-
 const formateString = (price: number): string => {
   const output: string[] = [];
 
@@ -87,8 +53,6 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
     dates,
     guests,
   } = props;
-
-  // const dropdownItemsGuests = getDropdownItemsGuests(t);
 
   const [dateRange, setDateRange] = useState<RangeDays>(dates);
   const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(
@@ -177,8 +141,8 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
             startTitle={t('arrival')}
             endTitle={t('departure')}
             placeholder={t('dateMaskPlaceholder')}
-            rangeStart={dateRange.start!}
-            rangeEnd={dateRange.end!}
+            rangeStart={dateRange.start ? dateRange.start : undefined}
+            rangeEnd={dateRange.end ? dateRange.end : undefined}
           />
         </div>
         <div className={b('dropdown-with-guests')}>

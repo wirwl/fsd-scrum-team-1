@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 
 import { IRoom } from '@/services/dto/Rooms';
-import { IBookingStore } from '@/redux/bookedRooms/types';
+import { saveResidenceTimeAsSharedData } from '@/services/SharedData';
 import RoomCard, { IRoomCardInfo } from '../RoomCard/RoomCard';
 
 import './BookedRoom.scss';
@@ -67,19 +67,10 @@ const BookedRoom: FC<IBookedRoomProps> = (props) => {
   const roomData = convertDataForRoomCard(room);
 
   const saveResidenceTimeToLocaleStorage = ():void => {
-    if (typeof window !== 'undefined') {
-      const bookingState: IBookingStore = localStorage.getItem('reduxState')
-        ? JSON.parse(localStorage.getItem('reduxState')!)
-        : {};
-      const booking = {
-        residenceTime: {
-          start: new Date(dateStart),
-          end: new Date(dateEnd),
-        },
-        guests: bookingState.guests,
-      };
-      localStorage.setItem('reduxState', JSON.stringify(booking));
-    }
+    saveResidenceTimeAsSharedData({
+      start: new Date(dateStart),
+      end: new Date(dateEnd),
+    });
   };
 
   return (

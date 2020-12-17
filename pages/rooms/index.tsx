@@ -87,16 +87,6 @@ const Rooms: FC<IRoomsProps> = ({ query, t }) => {
   const handleFormRoomsFilterChange = (stateQuery: IFormRoomFilterState): void => {
     const params = getParamsFromState(stateQuery);
 
-    // if (typeof window !== 'undefined') {
-    //   const residenceTime = {
-    //     start: stateQuery.dateRange?.start ? new Date(stateQuery.dateRange?.start) : null,
-    //     end: stateQuery.dateRange?.end ? new Date(stateQuery.dateRange?.end) : null,
-    //   };
-
-    //   const booking = { residenceTime, guests:  };
-    //   localStorage.setItem('reduxState', JSON.stringify(booking));
-    // }
-
     updateQuery('n', '0', router);
     setFilters({ n: 0, ...params });
   };
