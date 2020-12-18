@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { block } from 'bem-cn';
 
 import { IRoom } from '@/services/dto/Rooms';
+import { saveResidenceTimeAsSharedData } from '@/services/SharedData';
 import RoomCard, { IRoomCardInfo } from '../RoomCard/RoomCard';
 
 import './BookedRoom.scss';
@@ -65,13 +66,20 @@ const BookedRoom: FC<IBookedRoomProps> = (props) => {
   const bookingDate = `${arrivalDate} - ${dateOfDeparture}`;
   const roomData = convertDataForRoomCard(room);
 
+  const saveResidenceTimeToLocaleStorage = ():void => {
+    saveResidenceTimeAsSharedData({
+      start: new Date(dateStart),
+      end: new Date(dateEnd),
+    });
+  };
+
   return (
     <div className={b()}>
       <div className={b('date')}>
         {bookingDate}
       </div>
       <div className={b('room-card')}>
-        <RoomCard info={roomData} />
+        <RoomCard info={roomData} handleOnLinkClick={saveResidenceTimeToLocaleStorage} />
       </div>
     </div>
   );

@@ -12,6 +12,10 @@ import type { RangeDays } from 'src/components/Calendar/Calendar';
 import i18n from 'src/services/i18n';
 
 import './index.scss';
+import {
+  saveGuestsCountAsSharedData,
+  saveResidenceTimeAsSharedData,
+} from '@/services/SharedData';
 
 const TITLE = 'Toxin';
 
@@ -33,6 +37,15 @@ const Index: FC<WithTranslation> = ({ t }) => {
     const _end = end === null ? '' : end;
     const tStart = (new Date(_start)).getTime();
     const tEnd = (new Date(_end)).getTime();
+
+    // if (typeof window !== 'undefined') {
+    //   const residenceTime = { start, end };
+    //   const booking = { residenceTime, guests: persons };
+    //   localStorage.setItem('reduxState', JSON.stringify(booking));
+    // }
+
+    saveResidenceTimeAsSharedData({ start, end });
+    saveGuestsCountAsSharedData(persons);
 
     const query = {
       dateRange: `${tStart}-${tEnd}`,

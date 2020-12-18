@@ -171,7 +171,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
     expanded: isExpandedState,
   };
 
-  const dropElements = dropListState.map((item, index) => (
+  const dropElements = dropListState ? dropListState.map((item, index) => (
     <div key={item.label} className={bem('list-item')}>
       <div className={bem('item-name')}>{item.label}</div>
       <div className={bem('counter-buttons')}>
@@ -195,7 +195,7 @@ const InputDropdown: FC<IInputDropdownProps> = ({
         </button>
       </div>
     </div>
-  ));
+  )) : null;
 
   return (
     <div className={bem(modifiers)}>

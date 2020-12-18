@@ -22,6 +22,7 @@ import { END } from 'redux-saga';
 import { bookingRoom } from '@/redux/bookedRooms/actions';
 import { RangeDays } from '@/components/Calendar/Calendar';
 import Router from 'next/router';
+import { getGuestsCountFromSharedData, getResidenceTimeFromSharedData } from '@/services/SharedData';
 
 type IRoomDetailsProps = { id: string | string[] | undefined } & WithTranslation;
 
@@ -46,6 +47,9 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
   const { isBookingRoomInProgress, bookingRoomError } = useSelector(
     (state: IRootState) => state.bookedRooms,
   );
+
+  const residenceTime = getResidenceTimeFromSharedData();
+  const guests = getGuestsCountFromSharedData();
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -127,10 +131,12 @@ const RoomDetails: FC<IRoomDetailsProps> = ({ t }) => {
               additionalServiceCharge={room.feeForAdditionalService}
               onSubmit={handleSubmit}
               errorBooking={bookingRoomError}
+              dates={residenceTime}
+              guests={guests}
             />
           </div>
         </div>
-        { isBookingRoomInProgress && spinner }
+        { isBookingRoomInProgress && spinner}
       </div>
     );
 

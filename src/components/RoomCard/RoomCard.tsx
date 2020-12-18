@@ -27,6 +27,7 @@ interface IRoomCardInfo {
 
 interface IRoomCard {
   info: IRoomCardInfo;
+  handleOnLinkClick?: () => void;
 }
 
 interface IRoomCardProps extends IRoomCard, WithTranslation {}
@@ -47,6 +48,7 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
     },
     t,
     i18n: langs,
+    handleOnLinkClick,
   } = props;
 
   const [imageIndex, setImageIndex] = useState(0);
@@ -102,7 +104,7 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
       <div className={b('body')}>
         <div className={b('row')}>
           <Link href={hrefToRoomInfo}>
-            <a className={b('link-to-room-info')} href={hrefToRoomInfo}>
+            <a className={b('link-to-room-info')} href={hrefToRoomInfo} onClick={handleOnLinkClick}>
               <h2 className={b('room-number-wrapper')}>
                 №&nbsp;
                 <span className={b('room-number')}>{roomNumber}</span>
@@ -128,7 +130,7 @@ const RoomCard: React.FC<IRoomCardProps> = (props) => {
         <div className={b('row')}>
           <RateButtons rate={stars} />
           <Link href={hrefToReviews}>
-            <a className={b('link-to-reviews')} href={hrefToReviews}>
+            <a className={b('link-to-reviews')} href={hrefToReviews} onClick={handleOnLinkClick && handleOnLinkClick}>
               <span className={b('reviews-number')}>{numberOfReviews}</span>
               &nbsp;
               {t('room:roomComments.feedbackFew')}

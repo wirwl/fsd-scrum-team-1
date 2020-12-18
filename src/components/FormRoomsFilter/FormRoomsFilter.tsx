@@ -37,6 +37,7 @@ import {
 } from 'src/components/FormRoomsFilter/helpers';
 
 import './FormRoomsFilter.scss';
+import { saveGuestsCountAsSharedData, saveResidenceTimeAsSharedData } from '@/services/SharedData';
 
 const b = block('form-rooms-filter');
 
@@ -135,6 +136,13 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({
       ...prevFilters,
       dateRange,
     }));
+
+    saveResidenceTimeAsSharedData(
+      {
+        start: new Date(dateRange.start),
+        end: new Date(dateRange.end),
+      },
+    );
   };
 
   const handleCheckboxRulesChange = (
@@ -182,6 +190,8 @@ const FormRoomsFilter: FC<IFormRoomFilterProps> = ({
       ...prevFilters,
       ...newState,
     }));
+
+    saveGuestsCountAsSharedData(values);
   };
 
   const handleConvenienceDropdownChange = (values: IDropListItem[]): void => {
