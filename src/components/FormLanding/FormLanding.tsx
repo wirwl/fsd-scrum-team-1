@@ -50,7 +50,7 @@ const getDropdownItemsGuestsConf = (t: TFunction): IDropListItem[] => ([
   },
 ]);
 
-const FormLanding: React.FC<IFormLandingProps> = ({ onSubmit, t }) => {
+const FormLanding: React.FC<IFormLandingProps> = ({ onSubmit, t, i18n: langs }) => {
   const dropdownItemsGuests = getDropdownItemsGuestsConf(t);
   const [dateRange, setDateRange] = useState<RangeDays>({ start: null, end: null });
   const [dropdownItems, setDropdownItems] = useState<IDropListItem[]>(
@@ -58,16 +58,18 @@ const FormLanding: React.FC<IFormLandingProps> = ({ onSubmit, t }) => {
   );
   const [validateErrorMessage, setValidateErrorMessage] = useState('');
 
+  langs.on('languageChanged', () => setValidateErrorMessage(''));
+
   const handleSubmit = (ev: React.FormEvent): boolean => {
     ev.preventDefault();
 
     if (dateRange.start === null) {
-      setValidateErrorMessage('Необходимо указать дату прибытия!');
+      setValidateErrorMessage(t('forms:errors.arrivalDateRequired'));
       return false;
     }
 
     if (dateRange.end === null) {
-      setValidateErrorMessage('Необходимо указать дату отъезда!');
+      setValidateErrorMessage(t('forms:errors.checkoutDateRequired'));
       return false;
     }
 
@@ -76,7 +78,7 @@ const FormLanding: React.FC<IFormLandingProps> = ({ onSubmit, t }) => {
     ), 0);
 
     if (guests === 0) {
-      setValidateErrorMessage('Необходимо указать количество гостей!');
+      setValidateErrorMessage(t('forms:errors.guestsNumberRequired'));
       return false;
     }
 

@@ -26,6 +26,9 @@
     "required": "Dieses Feld wird benötigt",
     "emailInvalid": "Ungültige E-Mail-Adresse",
     "enterExitsDate": "Ingrese una fecha existente.",
-    "enterFullDate": "Geben Sie das vollständige Datum ein. Zum Beispiel 12.11.2020"
+    "enterFullDate": "Geben Sie das vollständige Datum ein. Zum Beispiel 12.11.2020",
+    "arrivalDateRequired": "Ankunftstermin ist erforderlich!",
+    "checkoutDateRequired": "Check out Datum erforderlich!",
+    "guestsNumberRequired": "Sie müssen die Anzahl der Gäste angeben!"
   }
 }

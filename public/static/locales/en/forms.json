@@ -26,6 +26,9 @@
     "required": "This field is required",
     "emailInvalid": "Invalid email address",
     "enterExitsDate": "Enter an existing date.",
-    "enterFullDate": "Enter the full date. For example, 12.11.2020"
+    "enterFullDate": "Enter the full date. For example, 12.11.2020",
+    "arrivalDateRequired": "Arrival date is required!",
+    "checkoutDateRequired": "Check out date required!",
+    "guestsNumberRequired": "You must specify the number of guests!"
   }
 }
