@@ -60,16 +60,18 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
   );
   const [validateErrorMessage, setValidateErrorMessage] = useState('');
 
+  langs.on('languageChanged', () => setValidateErrorMessage(''));
+
   const handleSubmit = (ev: React.FormEvent): boolean => {
     ev.preventDefault();
 
     if (dateRange.start === null) {
-      setValidateErrorMessage('Необходимо указать дату прибытия!');
+      setValidateErrorMessage(t('forms:errors.arrivalDateRequired'));
       return false;
     }
 
     if (dateRange.end === null) {
-      setValidateErrorMessage('Необходимо указать дату отъезда!');
+      setValidateErrorMessage(t('forms:errors.checkoutDateRequired'));
       return false;
     }
 
@@ -78,7 +80,7 @@ const FormRoomDetails: React.FC<IFormRoomDetailsProps> = (props) => {
     ), 0);
 
     if (guestsCount === 0) {
-      setValidateErrorMessage('Необходимо указать количество гостей!');
+      setValidateErrorMessage(t('forms:errors.guestsNumberRequired'));
       return false;
     }
 
