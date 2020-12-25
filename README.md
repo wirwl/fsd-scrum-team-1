@@ -4,13 +4,14 @@
 
 Данный репозиторий скопирован с gitlab. Над проектом работали не только я, но ещё около 10ти человек. Это "пэт проект", являющийся частью обучающей программы компании [FSD](https://www.fullstack-development.com).
 
-> Про программу обучения: www.fullstack-development.com/#system
+> Про программу обучения: https://www.fullstack-development.com/front-end-education
 
 > Подробно про программу обучения на позицию "фронтендщика": [rizzoma.com](https://rizzoma.com/topic/d5c429337bcaa70548fb5aeedee6d92b)
 
-Цель данного проекта: Изучать коммандную работу, а также React, Redux, Typescript, Next.js, next-i18next и.т.д.
+Цель данного проекта: Приобретение опыта работы в команде над проектов по SCRUM, а также изучение React, Redux, Typescript, Next.js, next-i18next и др.
 
-Описание проекта Toxin: сайт отеля с возможностью выбора и бронирования определенного номера. Макеты можно посмотреть вот тут https://www.figma.com/file/MumYcKVk9RkKZEG6dR5E3A/FSD-frontend-education-program.-The-2nd-task?node-id=0%3A1
+Описание проекта Toxin: сайт отеля с возможностью выбора и бронирования определенного номера.
+Макеты можно посмотреть вот тут https://www.figma.com/file/MumYcKVk9RkKZEG6dR5E3A/FSD-frontend-education-program.-The-2nd-task?node-id=0%3A1
 
 Проект будет состоять из 3 модулей(страниц):
 1. Модуль Guide. Состоит из страницы с ui элементами и с ui компонентами. Должны быть доступны по адресам /guide/elements и /guide/components соответственно
